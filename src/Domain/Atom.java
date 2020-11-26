@@ -22,5 +22,9 @@ public abstract class Atom {
 	public void bounceFromWall() {
 		
 	}
-	
+	@Override
+	public String toString() {
+		return "Atom [atomType=" + atomType + ", movementAngle=" + movementAngle + ", x=" + x + ", y=" + y + ", speed="
+				+ speed + ", diameter=" + diameter + "]";
+	}
 }
