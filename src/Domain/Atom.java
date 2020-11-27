@@ -3,7 +3,6 @@ package Domain;
 public abstract class Atom {
 	String atomType;
 	double movementAngle;
-	int x,y;
 	double speed;
 	double diameter;
 	
@@ -13,18 +12,13 @@ public abstract class Atom {
 		this.diameter= diameter;
 		this.atomType= atomType;
 	}
-	public void move() {
-		
-	}
-	public void shoot(double angle) {
-		
-	}
-	public void bounceFromWall() {
-		
-	}
+	public abstract void move();
+	public abstract void shoot(double angle); //
+	public abstract void bounceFromWall(double angle); //Change the direction 90 degrees.
+	public abstract void destroy(); //Delete the atom's instance.
 	@Override
 	public String toString() {
-		return "Atom [atomType=" + atomType + ", movementAngle=" + movementAngle + ", x=" + x + ", y=" + y + ", speed="
+		return "Atom [atomType=" + atomType + ", movementAngle=" + movementAngle + "speed="
 				+ speed + ", diameter=" + diameter + "]";
 	}
 }

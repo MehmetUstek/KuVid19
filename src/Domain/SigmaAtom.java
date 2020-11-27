@@ -7,4 +7,28 @@ public class SigmaAtom extends Atom {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public void move() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void shoot(double angle) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void bounceFromWall(double angle) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
