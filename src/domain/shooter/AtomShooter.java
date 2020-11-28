@@ -1,4 +1,4 @@
-package shooter;
+package domain.shooter;
 
 import domain.atom.Atom;
 import domain.powerup.Powerup;
