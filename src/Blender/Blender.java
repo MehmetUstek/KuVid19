@@ -1,4 +1,4 @@
-package Blender;
+package blender;
 
 public abstract class Blender {
 	

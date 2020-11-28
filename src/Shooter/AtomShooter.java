@@ -1,7 +1,7 @@
-package Shooter;
+package shooter;
 
-import Domain.Atom;
-import Domain.Powerup;
+import domain.atom.Atom;
+import domain.powerup.Powerup;
 
 public class AtomShooter {
 
