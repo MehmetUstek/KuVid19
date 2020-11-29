@@ -1,7 +1,7 @@
-package main;
+package ui;
 import java.util.ArrayList;
 
-import domain.Player;
+import domain.Saver;
 import domain.atom.AlphaAtom;
 import domain.atom.Atom;
 import domain.atom.BetaAtom;
@@ -13,7 +13,7 @@ public class KuVid {
 	final static int atomNumber= 100;
 	final static int L=2;
 	final static double diameter= L/10;
-	Player player;
+	Saver player;
 	Statistics statistics;
 	static Atom alpha;
 	static Atom beta;

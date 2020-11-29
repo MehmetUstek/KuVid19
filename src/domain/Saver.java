@@ -1,8 +1,8 @@
 package domain;
 
-public class Player {
+public class Saver {
 
-	public Player() {
+	public Saver() {
 		// TODO Auto-generated constructor stub
 	}
 
