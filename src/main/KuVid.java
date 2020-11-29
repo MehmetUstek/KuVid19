@@ -1,17 +1,20 @@
 package main;
 import java.util.ArrayList;
 
+import domain.Player;
 import domain.atom.AlphaAtom;
 import domain.atom.Atom;
 import domain.atom.BetaAtom;
 import domain.atom.GammaAtom;
 import domain.atom.SigmaAtom;
+import domain.gameState.Statistics;
 
 public class KuVid {
 	final static int atomNumber= 100;
 	final static int L=2;
 	final static double diameter= L/10;
-	
+	Player player;
+	Statistics statistics;
 	static Atom alpha;
 	static Atom beta;
 	static Atom sigma;
