@@ -1,5 +1,9 @@
 package ui;
+import java.awt.BorderLayout;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.swing.JFrame;
 
 import domain.Saver;
 import domain.atom.AlphaAtom;
@@ -8,11 +12,13 @@ import domain.atom.BetaAtom;
 import domain.atom.GammaAtom;
 import domain.atom.SigmaAtom;
 import domain.gameState.Statistics;
+import domain.utility.Point;
 
 public class KuVid {
+	private static final int FRAME_WIDTH = 600;
 	final static int atomNumber= 100;
-	final static int L=2;
-	final static double diameter= L/10;
+	final static int L=200;
+	final static int diameter= L/10;
 	Saver player;
 	Statistics statistics;
 	static Atom alpha;
@@ -23,8 +29,21 @@ public class KuVid {
 	static ArrayList<Atom> betaList= new ArrayList<Atom>();
 	static ArrayList<Atom> sigmaList= new ArrayList<Atom>();
 	static ArrayList<Atom> gammaList= new ArrayList<Atom>();
+	static JFrame frame;
 	
-	public static void main(String []args ) {
+	
+	
+	public static void main(String []args ) throws IOException {
+		MainMenu menu= new MainMenu();
+		frame= new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLayout(null);
+		frame.setSize(FRAME_WIDTH, 820);
+		frame.setResizable(false);
+		frame.setLayeredPane(menu);
+		frame.setVisible(true);
+		
+		
 		for(int i=0;i<atomNumber;i++) {
 			alphaList.add(new AlphaAtom( 15.02, L, diameter,"alpha"));
 		}
@@ -45,4 +64,11 @@ public class KuVid {
 		System.out.println("100 Gamma is created"+gammaList.get(0).toString());
 		
 	}
+	
+	
+	public boolean isIn(Point p) {
+		return (p.x <= frame.getWidth() && p.x >= 0 && p.y <= frame.getHeight() && p.y >= 0);
+}
+	
+	
 }

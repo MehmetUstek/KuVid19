@@ -1,10 +1,21 @@
 package domain.atom;
 
-public class AlphaAtom extends Atom {
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
-	public AlphaAtom(double movementAngle, double speed, double diameter,String atomType) {
+import javax.imageio.ImageIO;
+
+public class AlphaAtom extends Atom {
+	BufferedImage bimage;
+	Image image;
+	public AlphaAtom(double movementAngle, double speed, int diameter,String atomType) throws FileNotFoundException, IOException {
 		super(movementAngle, speed, diameter,atomType);
-		
+		bimage = ImageIO.read(new FileInputStream("src/assets/atoms/alpha.png"));
+		image = bimage.getScaledInstance(diameter, diameter, Image.SCALE_DEFAULT);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -21,7 +32,7 @@ public class AlphaAtom extends Atom {
 	}
 
 	@Override
-	public void bounceFromWall(double angle) {
+	public void bounceBack(double angle) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -31,6 +42,9 @@ public class AlphaAtom extends Atom {
 		// TODO Auto-generated method stub
 		
 	}
-	
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(image,0,0, this);
+	}
 
 }

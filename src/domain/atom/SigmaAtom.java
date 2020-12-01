@@ -1,9 +1,22 @@
 package domain.atom;
 
-public class SigmaAtom extends Atom {
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.IOException;
 
-	public SigmaAtom(double movementAngle, double speed, double diameter,String atomType) {
+import javax.imageio.ImageIO;
+
+public class SigmaAtom extends Atom {
+	BufferedImage bImage;
+	Image image;
+	int L=600;
+	
+	public SigmaAtom(double movementAngle, double speed, int diameter,String atomType) throws IOException{
 		super(movementAngle, speed, diameter,atomType);
+		bImage = ImageIO.read(new FileInputStream("src/assets/atoms/sigma.png"));
+		image = bImage.getScaledInstance(diameter, diameter, Image.SCALE_DEFAULT);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -20,7 +33,7 @@ public class SigmaAtom extends Atom {
 	}
 
 	@Override
-	public void bounceFromWall(double angle) {
+	public void bounceBack(double angle) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -30,5 +43,10 @@ public class SigmaAtom extends Atom {
 		// TODO Auto-generated method stub
 		
 	}
+	
 
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(image,0,0, this);
+	}
 }
