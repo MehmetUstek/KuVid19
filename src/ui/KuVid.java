@@ -34,13 +34,13 @@ public class KuVid {
 	
 	
 	public static void main(String []args ) throws IOException {
-		MainMenu menu= new MainMenu();
-		frame= new JFrame();
+		KuVidGameplay gameplay= new KuVidGameplay();
+		frame= new JFrame("KuVid");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(null);
-		frame.setSize(FRAME_WIDTH, 820);
+		frame.setSize(FRAME_WIDTH, 800);
 		frame.setResizable(false);
-		frame.setLayeredPane(menu);
+		frame.setLayeredPane(gameplay);
 		frame.setVisible(true);
 		
 		

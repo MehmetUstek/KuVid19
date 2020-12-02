@@ -16,7 +16,7 @@ public abstract class Atom extends JPanel {
 		this.diameter= diameter;
 		this.atomType= atomType;
 	}
-	public abstract void move();
+	public abstract void move(); // Move the atom in its class given x,y locations and speed and diameter, such that it will return new values of x,y.
 	public abstract void shoot(double angle); //
 	public abstract void bounceBack(double angle); //Change the direction 90 degrees.
 	public abstract void destroy(); //Delete the atom's instance.

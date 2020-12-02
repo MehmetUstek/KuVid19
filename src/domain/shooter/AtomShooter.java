@@ -1,27 +1,44 @@
 package domain.shooter;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.JPanel;
+
 import domain.atom.Atom;
 import domain.powerup.Powerup;
 
-public class AtomShooter {
+public class AtomShooter extends JPanel{
+	
+	BufferedImage bimage;
+	Image image;
 
 	Object shootingObjectType;
 
 	int health;
-	double width;
-	double height;
+	int width;
+	int height;
 	double angle;
 	double speed;
 	Atom currentAtom;
 	Powerup currentPU;
 	
-	public AtomShooter(int health, double speed, double rotationAngle,double width,double height, Object shootingObjectType) {
+	public AtomShooter(int health, double speed, double rotationAngle,int width,int height, Object shootingObjectType) throws FileNotFoundException, IOException {
 		this.angle=rotationAngle;
 		this.speed= speed;
 		this.health= health;
 		this.width=width;
 		this.height=height;
 		this.shootingObjectType= shootingObjectType;
+		bimage = ImageIO.read(new File("./src/assets/shooter.png"));
+		image = bimage.getScaledInstance(width, height, Image.SCALE_DEFAULT);
 	}
 
 	public Object getShootingObjectType() {
@@ -54,6 +71,33 @@ public class AtomShooter {
 
 	public void setSpeed(double speed) {
 		this.speed = speed;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+	public void draw(Graphics g) {
+		Graphics2D g2 = (Graphics2D) g;
+		g2.drawImage(image, 0, 0, null);
+		
+		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+	}
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		draw(g);
+		
 	}
 	
 }

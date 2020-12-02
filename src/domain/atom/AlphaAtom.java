@@ -3,7 +3,7 @@ package domain.atom;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -14,7 +14,7 @@ public class AlphaAtom extends Atom {
 	Image image;
 	public AlphaAtom(double movementAngle, double speed, int diameter,String atomType) throws FileNotFoundException, IOException {
 		super(movementAngle, speed, diameter,atomType);
-		bimage = ImageIO.read(new FileInputStream("src/assets/atoms/alpha.png"));
+		bimage = ImageIO.read(new File("src/assets/atoms/alpha.png"));
 		image = bimage.getScaledInstance(diameter, diameter, Image.SCALE_DEFAULT);
 		// TODO Auto-generated constructor stub
 	}
