@@ -30,7 +30,7 @@ public class AtomShooter extends JPanel{
 	Atom currentAtom;
 	Powerup currentPU;
 	
-	public AtomShooter(int health, double speed, double rotationAngle,int width,int height, Object shootingObjectType) throws FileNotFoundException, IOException {
+	public AtomShooter(int x,int y,int health, double speed, double rotationAngle,int width,int height, Object shootingObjectType) throws FileNotFoundException, IOException {
 		this.angle=rotationAngle;
 		this.speed= speed;
 		this.health= health;
@@ -88,15 +88,10 @@ public class AtomShooter extends JPanel{
 	public void setHeight(int height) {
 		this.height = height;
 	}
-	public void draw(Graphics g) {
-		Graphics2D g2 = (Graphics2D) g;
-		g2.drawImage(image, 0, 0, null);
-		
-		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
-	}
+	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		draw(g);
+		g.drawImage(image,0,0, this);
 		
 	}
 	

@@ -5,12 +5,15 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 public abstract class Atom extends JPanel {
+	int x,y;
 	String atomType;
 	double movementAngle;
 	double speed;
 	int diameter;
 	
-	public Atom(double movementAngle, double speed, int diameter,String atomType) {
+	public Atom(int x,int y,double movementAngle, double speed, int diameter,String atomType) {
+		this.x= x;
+		this.y=y;
 		this.movementAngle= movementAngle;
 		this.speed= speed;
 		this.diameter= diameter;

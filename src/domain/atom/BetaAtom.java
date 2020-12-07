@@ -13,8 +13,8 @@ public class BetaAtom extends Atom {
 	BufferedImage bimage;
 	Image image;
 	
-	public BetaAtom(double movementAngle, double speed, int diameter,String atomType) throws FileNotFoundException, IOException {
-		super(movementAngle, speed, diameter,atomType);
+	public BetaAtom(int x,int y,double movementAngle, double speed, int diameter,String atomType) throws FileNotFoundException, IOException {
+		super(x,y,movementAngle, speed, diameter,atomType);
 		
 		bimage = ImageIO.read(new FileInputStream("src/assets/atoms/beta.png"));
 		image = bimage.getScaledInstance(diameter, diameter, Image.SCALE_DEFAULT);

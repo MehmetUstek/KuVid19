@@ -16,8 +16,9 @@ import domain.utility.Point;
 
 public class KuVid {
 	private static final int FRAME_WIDTH = 600;
+	private static final int FRAME_HEIGHT = 800;
 	final static int atomNumber= 100;
-	final static int L=200;
+	final static int L=FRAME_HEIGHT/10;
 	final static int diameter= L/10;
 	Saver player;
 	Statistics statistics;
@@ -38,23 +39,23 @@ public class KuVid {
 		frame= new JFrame("KuVid");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(null);
-		frame.setSize(FRAME_WIDTH, 800);
+		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		frame.setResizable(false);
 		frame.setLayeredPane(gameplay);
 		frame.setVisible(true);
 		
 		
 		for(int i=0;i<atomNumber;i++) {
-			alphaList.add(new AlphaAtom( 15.02, L, diameter,"alpha"));
+			alphaList.add(new AlphaAtom( 0,0,15.02, L, diameter,"alpha"));
 		}
 		for(int i=0;i<atomNumber;i++) {
-			betaList.add(new BetaAtom( 15.02, L, diameter,"beta"));
+			betaList.add(new BetaAtom(0,0, 15.02, L, diameter,"beta"));
 		}
 		for(int i=0;i<atomNumber;i++) {
-			sigmaList.add(new SigmaAtom( 15.02, L, diameter,"sigma"));
+			sigmaList.add(new SigmaAtom(0,0, 15.02, L, diameter,"sigma"));
 		}
 		for(int i=0;i<atomNumber;i++) {
-			gammaList.add(new GammaAtom( 15.02, L, diameter,"gamma"));
+			gammaList.add(new GammaAtom(0,0, 15.02, L, diameter,"gamma"));
 		}
 		System.out.println("The game has started");
 		
