@@ -4,13 +4,13 @@ public class Vector {
 
     int dx;
     int dy;
-    double m;
+    double slope;
     public Vector() {}
     
     public Vector(int x, int y) {
     	this.dx = x;
     	this.dy = y;
-    	this.m = (double) this.dy/this.dx;
+    	this.slope = (double) this.dy/this.dx;
     }
     
     public Vector(String str) {
@@ -25,7 +25,7 @@ public class Vector {
     public void set(Vector v) {
     	this.setDx(v.getDx());
     	this.setDy(v.getDy());
-    	this.m = (double) this.dy/this.dx;
+    	this.slope = (double) this.dy/this.dx;
     }
     
     public Vector add(Vector v) {
@@ -48,16 +48,16 @@ public class Vector {
 		this.dy = dy;
 	}
 	
-	public double getM() {
-		return this.m;
+	public double getSlope() {
+		return this.slope;
 	}
 	
 	public double getUnitX() {
-		return 1/(Math.pow(this.getM(),2) + 1);
+		return 1/(Math.pow(this.getSlope(),2) + 1);
 	}
 	
 	public double getUnitY() {
-		return (double) this.getM()*this.getUnitX();
+		return (double) this.getSlope()*this.getUnitX();
 	}
 
 	@Override

@@ -4,16 +4,18 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+import domain.utility.Point;
+import domain.utility.Vector;
+
 public abstract class Atom extends JPanel {
-	int x,y;
+	Point p;
 	String atomType;
 	double movementAngle;
 	double speed;
 	int diameter;
 	
-	public Atom(int x,int y,double movementAngle, double speed, int diameter,String atomType) {
-		this.x= x;
-		this.y=y;
+	public Atom(Point p,double movementAngle, int speed, int diameter,String atomType) {
+		this.p=p;
 		this.movementAngle= movementAngle;
 		this.speed= speed;
 		this.diameter= diameter;
@@ -37,6 +39,42 @@ public abstract class Atom extends JPanel {
 	}
 	public void setDiameter(int diameter) {
 		this.diameter = diameter;
+	}
+	
+	public Point nextPosition(Point p,double d, double movementangle) {
+		double radian = Math.toRadians(movementangle);
+		int newX= (int) (p.getX()+   Math.ceil(d * Math.sin(radian)));
+		int newY= (int) (p.getY() + Math.ceil(d * Math.cos(radian)));
+		p.setX(newX);
+		p.setY(newY);
+		return p;
+	}
+	public Point bounceBack(Point p, int speed, double movementAngle) {
+		return nextPosition(p,speed,-movementAngle);
+	}
+	public Point getP() {
+		return p;
+	}
+	public void setP(Point p) {
+		this.p = p;
+	}
+	public String getAtomType() {
+		return atomType;
+	}
+	public void setAtomType(String atomType) {
+		this.atomType = atomType;
+	}
+	public double getMovementAngle() {
+		return movementAngle;
+	}
+	public void setMovementAngle(double movementAngle) {
+		this.movementAngle = movementAngle;
+	}
+	public double getSpeed() {
+		return speed;
+	}
+	public void setSpeed(double speed) {
+		this.speed = speed;
 	}
 	
 }

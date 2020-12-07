@@ -2,52 +2,76 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.swing.JLayeredPane;
 
+import domain.Controller;
 import domain.atom.*;
 import domain.shooter.AtomShooter;
+import domain.utility.Point;
 
 public class KuVidGameplay extends JLayeredPane {
 	// This class will handle creating the all the frame instances including background, atoms, molecules etc.
 	// This class will be a persistent storage.
-	
-	final int health=100;
-	final int speed=20;
-	private static final int FRAME_WIDTH = 600;
-	private static final int FRAME_HEIGHT = 800;
-	final static int L=FRAME_HEIGHT/10;
-	final static int diameter= L;
-	Background background= new Background(FRAME_WIDTH,FRAME_HEIGHT);
-	SigmaAtom sigma=new SigmaAtom(0,0,100, 100, diameter, "name");
-	AlphaAtom alpha = new AlphaAtom(0,0,100,100,diameter,"name");
-	BetaAtom beta = new BetaAtom(0,0,100,100,diameter,"name");
-	GammaAtom gamma = new GammaAtom(0,0,100,100,diameter,"name");
-	AtomShooter shooter= new AtomShooter(0,0,health,speed,0.0,L/2,L*2,new Object());
-	public KuVidGameplay() throws FileNotFoundException, IOException {
-		
+	int width;
+	int height;
+	int health;
+	int speed;
+	int L;
+	int diameter;
+	Background background;
+	SigmaAtom sigma;
+	AlphaAtom alpha;
+	BetaAtom beta;
+	GammaAtom gamma;
+	AtomShooter shooter;
+	Controller controller= new Controller();
+	AlphaAtom alphatest;
+	KeyListener listener;
+	public KuVidGameplay(int width,int height) throws FileNotFoundException, IOException {
+		this.width= width;
+		this.height= height;
 		createObjects();
 		// TODO Auto-generated constructor stub
 	}
 	public void createObjects() throws FileNotFoundException, IOException {
+		health=100;
+		speed=L;
+		L= width/10;
+		diameter=L;
+		background= new Background(width,height);
+		
+		Point p = new Point(100,150);
+		sigma =new SigmaAtom(p,100, speed, diameter, "name");
+		alpha = new AlphaAtom(p,100,speed,diameter,"name");
+		beta = new BetaAtom(p,100,speed,diameter,"name");
+		gamma = new GammaAtom(p,100,speed,diameter,"name");
+		
+		shooter= new AtomShooter(p,health,speed,0.0,L/2,L*2,new Object());
+		
+		
 		
 		background.setBounds(0, 0, background.getWidth(), background.getHeight());
-		//sigma.setBounds(0,0,60,60); // has to change
 		sigma.setSize(diameter,diameter);
 		alpha.setSize(diameter,diameter);
 		gamma.setSize(diameter,diameter);
 		beta.setSize(diameter,diameter);
+		System.out.println(shooter.getHeight());
 		shooter.setSize(shooter.getWidth(),shooter.getHeight());
 		sigma.setLocation(0,0);
 		beta.setLocation(100,0);
-		alpha.setLocation(200,0);
+		
 		gamma.setLocation(300,0);
-		shooter.setLocation(background.getWidth()/2-shooter.getWidth()/2, background.getHeight()-shooter.getHeight());
-		System.out.println(shooter.getLocation());
-		System.out.println(shooter.getHeight());
-		System.out.println(shooter.getWidth());
+		shooter.setLocation(background.getWidth()/2-shooter.getWidth()/2, background.getHeight()- shooter.getHeight());
+		Point shooterPosition = new Point(background.getWidth()/2-shooter.getWidth()/2, background.getHeight()- shooter.getHeight());
+		shooter.setP(shooterPosition);
+		alpha.setP( new Point(shooter.getP().getX(), shooter.getP().getY()-alpha.getHeight()));
+		alpha.setLocation(alpha.getP().getX(),alpha.getP().getY());
 		add(background, new Integer(0));
 		add(sigma, new Integer(1));
 		add(beta, new Integer(1));
@@ -55,6 +79,37 @@ public class KuVidGameplay extends JLayeredPane {
 		add(alpha, new Integer(1));
 		add(shooter,new Integer(1));
 		
+		//System.out.println(alpha.getLocation());
+		AlphaAtom alpha2 = new AlphaAtom(p,45.0,20,diameter,"name");
+		System.out.println(p.getX());
+		System.out.println(p.getY());
+		System.out.println(alpha2.nextPosition(p,20,45));
+		alphatest = new AlphaAtom(p,100,speed,diameter,"name");
+		add(alphatest, new Integer(1));
+		listener= new KeyListener() {
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_KP_UP || e.getKeyCode()==KeyEvent.VK_UP) {
+					System.out.println(controller.shootAtom(alphatest));
+					
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
 		
+		};
+		addKeyListener(listener);
 	}
+	
 }

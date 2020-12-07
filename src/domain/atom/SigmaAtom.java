@@ -8,13 +8,15 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import domain.utility.Point;
+
 public class SigmaAtom extends Atom {
 	BufferedImage bImage;
 	Image image;
 	int L=600;
 	
-	public SigmaAtom(int x,int y,double movementAngle, double speed, int diameter,String atomType) throws IOException{
-		super(x,y,movementAngle, speed, diameter,atomType);
+	public SigmaAtom(Point p,double movementAngle, int speed, int diameter,String atomType) throws IOException{
+		super(p,movementAngle, speed, diameter,atomType);
 		bImage = ImageIO.read(new FileInputStream("src/assets/atoms/sigma.png"));
 		image = bImage.getScaledInstance(diameter, diameter, Image.SCALE_DEFAULT);
 		// TODO Auto-generated constructor stub

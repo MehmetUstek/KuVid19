@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import domain.atom.Atom;
 import domain.powerup.Powerup;
+import domain.utility.Point;
 
 public class AtomShooter extends JPanel{
 	
@@ -21,7 +22,7 @@ public class AtomShooter extends JPanel{
 	Image image;
 
 	Object shootingObjectType;
-
+	Point p;
 	int health;
 	int width;
 	int height;
@@ -30,7 +31,8 @@ public class AtomShooter extends JPanel{
 	Atom currentAtom;
 	Powerup currentPU;
 	
-	public AtomShooter(int x,int y,int health, double speed, double rotationAngle,int width,int height, Object shootingObjectType) throws FileNotFoundException, IOException {
+	public AtomShooter(Point p,int health, double speed, double rotationAngle,int width,int height, Object shootingObjectType) throws FileNotFoundException, IOException {
+		this.p=p;
 		this.angle=rotationAngle;
 		this.speed= speed;
 		this.health= health;
@@ -39,6 +41,14 @@ public class AtomShooter extends JPanel{
 		this.shootingObjectType= shootingObjectType;
 		bimage = ImageIO.read(new File("./src/assets/shooter.png"));
 		image = bimage.getScaledInstance(width, height, Image.SCALE_DEFAULT);
+	}
+
+	public Point getP() {
+		return p;
+	}
+
+	public void setP(Point p) {
+		this.p = p;
 	}
 
 	public Object getShootingObjectType() {

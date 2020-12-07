@@ -9,11 +9,14 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import domain.utility.Point;
+
 public class AlphaAtom extends Atom {
+	Point p;
 	BufferedImage bimage;
 	Image image;
-	public AlphaAtom(int x,int y,double movementAngle, double speed, int diameter,String atomType) throws FileNotFoundException, IOException {
-		super(x,y,movementAngle, speed, diameter,atomType);
+	public AlphaAtom(Point p,double movementAngle, int speed, int diameter,String atomType) throws FileNotFoundException, IOException {
+		super(p,movementAngle, speed, diameter,atomType);
 		bimage = ImageIO.read(new File("src/assets/atoms/alpha.png"));
 		image = bimage.getScaledInstance(diameter, diameter, Image.SCALE_DEFAULT);
 		// TODO Auto-generated constructor stub

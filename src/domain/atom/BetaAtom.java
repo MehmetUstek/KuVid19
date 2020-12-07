@@ -9,12 +9,14 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import domain.utility.Point;
+
 public class BetaAtom extends Atom {
 	BufferedImage bimage;
 	Image image;
 	
-	public BetaAtom(int x,int y,double movementAngle, double speed, int diameter,String atomType) throws FileNotFoundException, IOException {
-		super(x,y,movementAngle, speed, diameter,atomType);
+	public BetaAtom(Point p,double movementAngle, int speed, int diameter,String atomType) throws FileNotFoundException, IOException {
+		super(p,movementAngle, speed, diameter,atomType);
 		
 		bimage = ImageIO.read(new FileInputStream("src/assets/atoms/beta.png"));
 		image = bimage.getScaledInstance(diameter, diameter, Image.SCALE_DEFAULT);
