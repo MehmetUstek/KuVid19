@@ -30,5 +30,21 @@ public class Controller {
 	public Point shootAtom(Atom object) {
 		return object.move(object.getP(), object.getSpeed(), object.getMovementAngle());
 	}
+	public void update() {
+		// TODO Auto-generated method stub
+		uicontroller.setScore(score);
+		uicontroller.setLives(lives);
+
+		for (int i = 0; i < objects.size(); i++) {
+			GameObject tempobject = (GameObject) objects.get(i);
+			uicontroller.objects.get(i).setX((int) tempobject.getX());
+			uicontroller.objects.get(i).setY((int) tempobject.getY());
+			
+			if (tempobject.getId() == ID.AlphaAtom) {
+				AlphaAtom ball = (AlphaAtom) tempobject;
+				
+			}
+		}
+	}
 	
 }

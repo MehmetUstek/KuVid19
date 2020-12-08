@@ -13,6 +13,7 @@ import javax.swing.JLayeredPane;
 
 import domain.Controller;
 import domain.atom.*;
+import ui.molecule.Molecule;
 import domain.shooter.AtomShooter;
 import domain.utility.Point;
 
@@ -38,6 +39,12 @@ public class KuVidGameplay extends Canvas {
 		this.width= width;
 		this.height= height;
 		createObjects();
+		
+//		moveMol(betaMol);
+//		moveMol(alphaMol);
+//		moveMol(sigmaMol);
+//		moveMol(gammaMol);
+		
 		// TODO Auto-generated constructor stub
 	}
 	public void createObjects() throws FileNotFoundException, IOException {
@@ -90,6 +97,22 @@ public class KuVidGameplay extends Canvas {
 //		alphatest = new AlphaAtom(p,100,speed,diameter,"name");
 //		add(alphatest, new Integer(1));
 
+	}
+	public void moveMol(Molecule mol) {
+		Thread t1 = new Thread() {
+			public void run() {
+				while (mol.getLocation().y < 700) {
+					mol.move();
+					try {
+						sleep(500);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				mol.setVisible(false);
+			}
+		};
+		t1.start();
 	}
 	
 }

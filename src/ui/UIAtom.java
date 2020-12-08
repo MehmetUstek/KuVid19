@@ -8,8 +8,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import domain.utility.PropertyEvent;
-import domain.utility.PropertyListener;
 
 public class UIAtom extends UIGameObject{
 	
@@ -46,6 +44,8 @@ public class UIAtom extends UIGameObject{
 	public void setAtomType(String atomType) {
 		this.atomType = atomType;
 	}
-	
+	public void repaint(Graphics g) {
+		render(g);
+	}
 
 }

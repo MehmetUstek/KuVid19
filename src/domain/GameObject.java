@@ -7,6 +7,7 @@ import java.io.Serializable;
 public abstract class GameObject implements Serializable {
 
 	protected double x, y, x1, y1, x2, y2, x3, y3, velX, velY;
+	protected ID id;
 
 	public GameObject() {
 		
@@ -30,6 +31,13 @@ public abstract class GameObject implements Serializable {
 		this.y = y;
 	}
 
+	public ID getId() {
+		return id;
+	}
+
+	public void setId(ID id) {
+		this.id = id;
+	}
 
 	public double getVelX() {
 		return velX;

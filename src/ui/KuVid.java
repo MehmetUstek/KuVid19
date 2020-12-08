@@ -1,12 +1,16 @@
 package ui;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.awt.image.BufferStrategy;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
+import domain.Controller;
 import domain.Saver;
 import domain.atom.AlphaAtom;
 import domain.atom.Atom;
@@ -33,9 +37,10 @@ public class KuVid extends Canvas implements Runnable {
 	static ArrayList<Atom> sigmaList= new ArrayList<Atom>();
 	static ArrayList<Atom> gammaList= new ArrayList<Atom>();
 	static JFrame frame;
-	static UIController controller;
+	static UIController uicontroller;
 	private boolean running = false;
 	Thread thread;
+	static Controller controller;
 	
 //	public static void main(String []args ) throws IOException {
 //		
@@ -54,10 +59,10 @@ public class KuVid extends Canvas implements Runnable {
 //	
 //	}
 	public KuVid() {
-		controller= new UIController();
+		uicontroller= new UIController();
 		UIAtom atom = new UIAtom("sigma", diameter);
 		
-		controller.addObject(atom);
+		uicontroller.addObject(atom);
 		
 	}
 	
@@ -102,12 +107,22 @@ public class KuVid extends Canvas implements Runnable {
 	
 	private void render() {
 		// TODO Auto-generated method stub
-		
+		BufferStrategy bs = this.getBufferStrategy();
+		if (bs == null) {
+			this.createBufferStrategy(3);
+			return;
+		}
+		Graphics g = bs.getDrawGraphics();
+		g.setColor(Color.cyan);
+		g.fillRect(0, 0, WIDTH, HEIGHT);
+		uicontroller.render(g);
+		g.dispose();
+		bs.show();
 	}
 
 
 	public void update() {     
-		
+		controller.update();
 	}
 	
 	public synchronized void stop() {

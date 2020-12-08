@@ -1,6 +1,8 @@
 package domain.atom;
 
 
+import java.awt.Shape;
+
 import domain.utility.Point;
 
 public class BetaAtom extends Atom {
@@ -33,5 +35,17 @@ public class BetaAtom extends Atom {
 	public void destroy() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Shape getBounds() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

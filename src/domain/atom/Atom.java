@@ -2,9 +2,10 @@ package domain.atom;
 
 import java.awt.Graphics;
 
+import domain.GameObject;
 import domain.utility.Point;
 
-public abstract class Atom {
+public abstract class Atom extends GameObject{
 	Point p;
 	String atomType;
 	double movementAngle;

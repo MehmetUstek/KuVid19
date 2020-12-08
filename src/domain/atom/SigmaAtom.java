@@ -3,6 +3,8 @@ package domain.atom;
 
 
 
+import java.awt.Shape;
+
 import domain.utility.Point;
 
 public class SigmaAtom extends Atom {
@@ -35,6 +37,18 @@ public class SigmaAtom extends Atom {
 	public void destroy() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Shape getBounds() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

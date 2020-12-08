@@ -4,9 +4,12 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.io.Serializable;
 
+import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 
-public abstract class UIGameObject extends Component implements Serializable {
+
+public abstract class UIGameObject extends JPanel implements Serializable {
 
 	protected int x, y;
 

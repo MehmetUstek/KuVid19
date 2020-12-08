@@ -1,6 +1,7 @@
 package domain.atom;
 
 
+import java.awt.Shape;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -35,5 +36,17 @@ public class AlphaAtom extends Atom {
 	public void destroy() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Shape getBounds() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -29,14 +29,7 @@ public class Frame extends Canvas {
 	private JButton quitButton = new JButton("Quit");
 	private JButton loginButton = new JButton("Login");
 	private JButton logoutButton = new JButton("Logout");
-	private JTextField brickType1 = new JTextField();
-	private JTextField brickCount1 = new JTextField(10); 
-	private JTextField brickType2 = new JTextField(); 
-	private JTextField brickCount2 = new JTextField(10); 
-	private JTextField brickType3 = new JTextField(); 
-	private JTextField brickCount3 = new JTextField(10);
-	private JTextField brickType4 = new JTextField();
-	private JTextField brickCount4 = new JTextField(10);
+	
 	private JCheckBox deleteBox = new JCheckBox("delete?", false);
 	private boolean canAddBricks = false;
 	private JFrame frame;
@@ -55,6 +48,7 @@ public class Frame extends Canvas {
 		frame.setSize(frame.getMaximumSize());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
+		frame.setBackground(Color.BLACK);
 		frame.setLocationRelativeTo(null);
 		
 		sidebar.add(saveButton);
@@ -70,9 +64,9 @@ public class Frame extends Canvas {
 		frame.add(sidebar);
 		
 		////
-		UIAtom atom = new UIAtom("alpha",60 );
+
+		UIAtom atom = new UIAtom("alpha",60);
 		frame.add(atom);
-		
 		////
 		
 		frame.add(game);
@@ -128,48 +122,29 @@ public class Frame extends Canvas {
 		frame = new JFrame(title);
 		frame.setVisible(true);
 		frame.setSize(900, 900);
+		frame.setBackground(Color.BLACK);
 		frame.setLocationRelativeTo(null);
-		UIAtom atom = new UIAtom("alpha",600 );
+		UIAtom atom = new UIAtom("alpha",60);
+		JButton asdsa = new JButton ("Play asdsa");
+		gamePanel.add(asdsa);
 		controller.addObject(atom);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gamePanel.add(atom);
+		atom.setBounds(0,0,60,60);
+		Background bg= new Background(WIDTH,HEIGHT);
+		bg.setBounds(0,0,WIDTH,HEIGHT);
+		bg.add(atom);
+		gamePanel.add(bg,0,0);
+
+		frame.add(atom);
+		gamePanel.setBackground(Color.BLACK);
 		gamePanel.add(Game);
 		gamePanel.add(buildMode);
+		gamePanel.add(atom);
 		frame.add(gamePanel);
 		
 	}
 
-	public JTextField getBrickCount1() {
-		return brickCount1;
-	}
-
-	public void setBrickCount1(JTextField brickCount1) {
-		this.brickCount1 = brickCount1;
-	}
-
-	public JTextField getBrickCount2() {
-		return brickCount2;
-	}
-
-	public void setBrickCount2(JTextField brickCount2) {
-		this.brickCount2 = brickCount2;
-	}
-
-	public JTextField getBrickCount3() {
-		return brickCount3;
-	}
-
-	public void setBrickCount3(JTextField brickCount3) {
-		this.brickCount3 = brickCount3;
-	}
-
-	public JTextField getBrickCount4() {
-		return brickCount4;
-	}
-
-	public void setBrickCount4(JTextField brickCount4) {
-		this.brickCount4 = brickCount4;
-	}
+	
 
 	public JFrame getFrame() {
 		return frame;
