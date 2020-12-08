@@ -1,5 +1,7 @@
 package ui;
 import java.awt.BorderLayout;
+import java.awt.Canvas;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -14,12 +16,12 @@ import domain.atom.SigmaAtom;
 import domain.gameState.Statistics;
 import domain.utility.Point;
 
-public class KuVid {
-	private static final int FRAME_WIDTH = 800;
-	private static final int FRAME_HEIGHT = 800;
-	final static int atomNumber= 100;
-	final static int L=FRAME_HEIGHT/10;
-	final static int diameter= L/10;
+public class KuVid extends Canvas implements Runnable {
+	public static final int FRAME_WIDTH = 800;
+	public static final int FRAME_HEIGHT = 800;
+	public final static int atomNumber= 100;
+	public final static int L=FRAME_HEIGHT/10;
+	public final static int diameter= L/10;
 	Saver player;
 	Statistics statistics;
 	static Atom alpha;
@@ -31,30 +33,91 @@ public class KuVid {
 	static ArrayList<Atom> sigmaList= new ArrayList<Atom>();
 	static ArrayList<Atom> gammaList= new ArrayList<Atom>();
 	static JFrame frame;
+	static UIController controller;
+	private boolean running = false;
+	Thread thread;
 	
-	
-	
-	public static void main(String []args ) throws IOException {
+//	public static void main(String []args ) throws IOException {
+//		
+////		frame= new JFrame("KuVid");
+////		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT+L);
+////		System.out.println(frame.getSize());
+////		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+////		frame.setLayout(null);
+////		frame.setResizable(true);
+////		KuVidGameplay gameplay= new KuVidGameplay(FRAME_WIDTH,FRAME_HEIGHT);
+////		frame.setLayeredPane(gameplay);
+////		frame.setVisible(true);
+//		
+//		
+//		System.out.println("The game has started");
+//	
+//	}
+	public KuVid() {
+		controller= new UIController();
+		UIAtom atom = new UIAtom("sigma", diameter);
 		
-		frame= new JFrame("KuVid");
-		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT+L);
-		System.out.println(frame.getSize());
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(null);
-		frame.setResizable(true);
-		KuVidGameplay gameplay= new KuVidGameplay(FRAME_WIDTH,FRAME_HEIGHT);
-		frame.setLayeredPane(gameplay);
-		frame.setVisible(true);
+		controller.addObject(atom);
 		
-		
-		System.out.println("The game has started");
-	
 	}
-	
 	
 	public boolean isIn(Point p) {
 		return (p.x <= frame.getWidth() && p.x >= 0 && p.y <= frame.getHeight() && p.y >= 0);
 }
+
+	public synchronized void start() {
+		thread = new Thread(this);
+		thread.start();
+		running = true;
+	}
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		long lastTime = System.nanoTime();
+		double amountOfTicks = 60.0;
+		double ns = 1000000000 / amountOfTicks;
+		double delta = 0;
+		long timer = System.currentTimeMillis();
+		int frames = 0;
+		while (running) {
+			long now = System.nanoTime();
+			delta += (now - lastTime) / ns;
+			lastTime = now;
+			while (delta >= 1) {
+				update();
+				delta--;
+			}
+			if (running)
+				render();
+			frames++;
+
+			if (System.currentTimeMillis() - timer > 1000) {
+				timer += 1000;
+				System.out.println("FPS: " + frames);
+				frames = 0;
+			}
+		}
+		stop();
+	}
+	
+	private void render() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void update() {     
+		
+	}
+	
+	public synchronized void stop() {
+		try {
+			thread.join();
+			running = false;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	
 }

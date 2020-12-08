@@ -2,12 +2,9 @@ package domain.atom;
 
 import java.awt.Graphics;
 
-import javax.swing.JPanel;
-
 import domain.utility.Point;
-import domain.utility.Vector;
 
-public abstract class Atom extends JPanel {
+public abstract class Atom {
 	Point p;
 	String atomType;
 	double movementAngle;
@@ -41,7 +38,7 @@ public abstract class Atom extends JPanel {
 		this.diameter = diameter;
 	}
 	
-	public Point nextPosition(Point p,double d, double movementangle) {
+	public Point move(Point p,double d, double movementangle) {
 		double radian = Math.toRadians(movementangle);
 		int newX= (int) (p.getX()+   Math.ceil(d * Math.sin(radian)));
 		int newY= (int) (p.getY() + Math.ceil(d * Math.cos(radian)));
@@ -50,7 +47,7 @@ public abstract class Atom extends JPanel {
 		return p;
 	}
 	public Point bounceBack(Point p, int speed, double movementAngle) {
-		return nextPosition(p,speed,-movementAngle);
+		return move(p,speed,-movementAngle);
 	}
 	public Point getP() {
 		return p;
