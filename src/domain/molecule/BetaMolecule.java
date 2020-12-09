@@ -1,6 +1,7 @@
 package domain.molecule;
 
 import java.awt.Point;
+import java.awt.Shape;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import domain.atom.Atom;
@@ -37,5 +38,17 @@ public class BetaMolecule extends Molecule{
 	public String toString() {
 		return "BetaMolecule [movementType=" + movementType + ", width=" + width + ", height=" + height + ", location="
 				+ location + "]";
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Shape getBounds() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -1,19 +1,21 @@
 package domain.atom;
 
 import java.awt.Graphics;
+import java.awt.Point;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import domain.GameObject;
-import domain.utility.Point;
 
 public abstract class Atom extends GameObject{
-	Point p;
 	String atomType;
 	double movementAngle;
 	double speed;
 	int diameter;
-	
-	public Atom(Point p,double movementAngle, int speed, int diameter,String atomType) {
-		this.p=p;
+	public Atom(int x,int y,double movementAngle, int speed, int diameter,String atomType){
+		super();
+		this.x=x;
+		this.y=y;
 		this.movementAngle= movementAngle;
 		this.speed= speed;
 		this.diameter= diameter;
@@ -39,23 +41,17 @@ public abstract class Atom extends GameObject{
 		this.diameter = diameter;
 	}
 	
-	public Point move(Point p,double d, double movementangle) {
+	public void move(int x,int y,double d, double movementangle) {
 		double radian = Math.toRadians(movementangle);
-		int newX= (int) (p.getX()+   Math.ceil(d * Math.sin(radian)));
-		int newY= (int) (p.getY() + Math.ceil(d * Math.cos(radian)));
-		p.setX(newX);
-		p.setY(newY);
-		return p;
+		int newX= (int) (x+   Math.ceil(d * Math.sin(radian)));
+		int newY= (int) (y + Math.ceil(d * Math.cos(radian)));
+		this.x=newX;
+		this.y= newY;
 	}
-	public Point bounceBack(Point p, int speed, double movementAngle) {
-		return move(p,speed,-movementAngle);
+	public void bounceBack(int x,int y, int speed, double movementAngle) {
+		move(x,y,speed,-movementAngle);
 	}
-	public Point getP() {
-		return p;
-	}
-	public void setP(Point p) {
-		this.p = p;
-	}
+	
 	public String getAtomType() {
 		return atomType;
 	}

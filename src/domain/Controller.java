@@ -7,9 +7,10 @@ import java.util.LinkedList;
 
 import domain.atom.AlphaAtom;
 import domain.atom.Atom;
+import domain.molecule.Molecule;
 import domain.powerup.Powerup;
-import domain.utility.Point;
 import ui.Frame;
+import ui.UIAtom;
 import ui.UIController;
 
 public class Controller {
@@ -20,16 +21,16 @@ public class Controller {
 	KeyEvent event;
 	private UIController uicontroller;
 	private ArrayList<Powerup> collectedPowerups = new ArrayList<Powerup>();
-	private int score = 0, time = 0, counter = 0, lives = 3;
+	private int score = 0, time = 0, counter = 0, lives = 3, initialMoleculeCount;
+	
 	public LinkedList<GameObject> objects = new LinkedList<GameObject>();
 	Frame frame;
+	
 	public Controller(UIController UI, Frame frame) {
 		this.uicontroller = UI;
 		this.frame = frame;
 	}
-	public Point shootAtom(Atom object) {
-		return object.move(object.getP(), object.getSpeed(), object.getMovementAngle());
-	}
+	
 	public void update() {
 		// TODO Auto-generated method stub
 		uicontroller.setScore(score);
@@ -41,10 +42,56 @@ public class Controller {
 			uicontroller.objects.get(i).setY((int) tempobject.getY());
 			
 			if (tempobject.getId() == ID.AlphaAtom) {
-				AlphaAtom ball = (AlphaAtom) tempobject;
+				UIAtom ball = (UIAtom) uicontroller.objects.get(i);
+				int xs1 = (int) tempobject.getX();
+				int ys1 = (int) tempobject.getY();
+				ball.setLocation(xs1,ys1);
+				AlphaAtom alphaAtom = (AlphaAtom) tempobject;
+				uicontroller.addObject(ball);
 				
-			}
+				
+				}
+		
+			tempobject.update();
 		}
 	}
+	public Frame getFrame() {
+		return frame;
+	}
+	public void setFrame(Frame frame) {
+		this.frame = frame;
+	}
+	public LinkedList<Molecule> getMolecules() {
+		LinkedList<Molecule> allBricks = new LinkedList<Molecule>();
+		for (int i = 0; i < objects.size(); i++) {
+			GameObject tempobject = (GameObject) objects.get(i);
+			if (tempobject.getId() == ID.AlphaMolecule || tempobject.getId() == ID.BetaMolecule
+					|| tempobject.getId() == ID.SigmaMolecule || tempobject.getId() == ID.GammaMolecule) {
+
+				allBricks.add((Molecule) tempobject);
+			}
+		}
+		return allBricks;
+	}
+	public int getInitialMoleculeCount() {
+		return initialMoleculeCount;
+	}
+	public void setInitialMoleculeCount(int initialMoleculeCount) {
+		this.initialMoleculeCount = initialMoleculeCount;
+	}
+	public void addObject(GameObject obj) {
+		this.objects.add(obj);
+	}
+
+	/**
+	 * REQUIRES: obj != null, obj should exist in the list. MODIFIES: objects
+	 * EFFECTS: Removes a game object from the objects field list.
+	 * 
+	 * @param obj Game Object (Paddle, Brick, Powerups, etc.)
+	 */
+	public void removeObject(GameObject obj) {
+		this.objects.remove(obj);
+	}
+	
 	
 }

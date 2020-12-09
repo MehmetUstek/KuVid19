@@ -32,5 +32,12 @@ public class AlphaMoleculeUI extends Molecule{
 	@Override
 	public void move() {
 		this.setLocation(this.getLocation().x, this.getLocation().y += 20);
+		
+	}
+
+	@Override
+	public void render(Graphics g) {
+		// TODO Auto-generated method stub
+		
 	}
 }

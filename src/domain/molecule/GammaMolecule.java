@@ -1,6 +1,7 @@
 package domain.molecule;
 
 import java.awt.Point;
+import java.awt.Shape;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -32,6 +33,18 @@ public class GammaMolecule extends Molecule{
 	public boolean isIntersecting(Atom bullet) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Shape getBounds() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

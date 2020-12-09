@@ -3,12 +3,11 @@ package domain.atom;
 
 import java.awt.Shape;
 
-import domain.utility.Point;
 
 public class GammaAtom extends Atom {
 	
-	public GammaAtom(Point p,double movementAngle, int speed, int diameter,String atomType){
-		super(p,movementAngle, speed, diameter,atomType);
+	public GammaAtom(int x, int y,double movementAngle, int speed, int diameter,String atomType) {
+		super(x,y ,movementAngle, speed, diameter,atomType);
 		// TODO Auto-generated constructor stub
 	}
 

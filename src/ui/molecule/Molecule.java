@@ -11,8 +11,9 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import domain.molecule.EnumMovement;
+import ui.UIGameObject;
 
-public abstract class Molecule extends JPanel{
+public abstract class Molecule extends UIGameObject{
 	BufferedImage bimage;
 	Image image;
 	public double L; 
@@ -29,9 +30,21 @@ public abstract class Molecule extends JPanel{
 	}
 	
 	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
+		render(g);
 	}
-	
+	public void render(Graphics g) {
+		String file= "src/assets/molecules/alpha-1.png";
+		try {
+			bimage = ImageIO.read(new File(file));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		image = bimage.getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		g.drawImage(image,0,0, this);
+		
+	}
 	public abstract void move();
 	
 	

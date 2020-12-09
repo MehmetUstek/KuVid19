@@ -35,5 +35,7 @@ public abstract class UIGameObject extends JPanel implements Serializable {
 	public int getY() {
 		return y;
 	}
-
+	public void paintComponent(Graphics g) {
+		render(g);
+	}
 }

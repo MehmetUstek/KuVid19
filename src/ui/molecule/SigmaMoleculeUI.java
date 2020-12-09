@@ -32,6 +32,12 @@ public class SigmaMoleculeUI extends Molecule{
 	public void move() {
 		this.setLocation(this.getLocation().x, this.getLocation().y += 20);
 	}
+
+	@Override
+	public void render(Graphics g) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
 

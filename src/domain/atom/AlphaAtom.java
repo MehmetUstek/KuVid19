@@ -5,12 +5,10 @@ import java.awt.Shape;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import domain.utility.Point;
 
 public class AlphaAtom extends Atom {
-	Point p;
-	public AlphaAtom(Point p,double movementAngle, int speed, int diameter,String atomType) throws FileNotFoundException, IOException {
-		super(p,movementAngle, speed, diameter,atomType);
+	public AlphaAtom(int x,int y,double movementAngle, int speed, int diameter,String atomType) {
+		super(x,y,movementAngle, speed, diameter,atomType);
 		// TODO Auto-generated constructor stub
 	}
 

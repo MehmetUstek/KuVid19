@@ -33,4 +33,10 @@ public class BetaMoleculeUI extends Molecule{
 		this.setLocation(this.getLocation().x, this.getLocation().y += 20);
 	}
 
+	@Override
+	public void render(Graphics g) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

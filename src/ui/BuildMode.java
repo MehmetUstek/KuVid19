@@ -3,13 +3,22 @@ package ui;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferStrategy;
+import java.io.IOException;
 import java.util.Random;
 
 import domain.Controller;
+import domain.DatabaseController;
+import domain.atom.AlphaAtom;
+import domain.atom.Atom;
+import domain.molecule.EnumMovement;
+import domain.molecule.Molecule;
+import domain.molecule.MoleculeFactory;
+import ui.molecule.AlphaMoleculeUI;
 
 
 
@@ -20,9 +29,11 @@ public class BuildMode extends Canvas implements Runnable {
 			HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private Thread thread;
 	private boolean running = false;
-	private Frame a = new Frame(Toolkit.getDefaultToolkit().getScreenSize(), "Breaking Bad", this);
+	private Frame a = new Frame(Toolkit.getDefaultToolkit().getScreenSize(), "KuVid Build Mode", this);
 	private UIController UIC = new UIController();
 	private Controller GC = new Controller(UIC, a);
+	private DatabaseController DC = new DatabaseController(GC, UIC);
+	private BuildModeKeys bmKeys = new BuildModeKeys(GC, UIC);
 
 	public synchronized void start() {
 		thread = new Thread(this);
@@ -54,7 +65,17 @@ public class BuildMode extends Canvas implements Runnable {
 	}
 
 	public void update() {
-//		
+		GC.update();
+		
+			try {
+				addMolecules(GC, UIC);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+//			bmKeys.setBuild(false);
+		
+
 
 	}
 
@@ -87,11 +108,93 @@ public class BuildMode extends Canvas implements Runnable {
 	}
 
 	public BuildMode() {
-//		
+		this.addKeyListener(bmKeys);
+		this.addMouseListener(bmKeys);
+		this.addMouseMotionListener(bmKeys);
+
+		a.getSaveButton().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("SAVED");
+				DC.saveGame("saves.ser");
+			}
+		});
+		a.getLoadButton().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("LOADED");
+				DC.loadGame("saves.ser");
+
+			}
+		});
+		a.getQuitButton().addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// are you sure to go back sorucak
+				a.dispose();
+				thread.stop();
+				running = false;
+				new Main();
+			}
+		});
+
+		a.getPauseButton().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
+
 
 	}
 
-	
+	public void addMolecules(Controller GC, UIController UIC) throws IOException {
+		String s1 = a.getMoleculeCount().getText();
+		System.out.println(s1);
+		String s2 = a.getBetaCount().getText();
+		System.out.println(s2);
+		if (!s1.equals(null)) {
+
+			int simpleCount = Integer.parseInt(s1);
+			
+
+			for (int i = 0; i < simpleCount; i++) {
+				
+				int x = new Random().nextInt(WIDTH - WIDTH / 50);
+				int y = new Random().nextInt(HEIGHT / 2 + 80);
+				Atom a = new AlphaAtom(x,y,0.5, 2, 50,"alpha");
+				
+
+				UIAtom a1 = new UIAtom("alpha",50,x,y);
+
+				GC.addObject(a);
+				UIC.addObject(a1);
+
+			}
+			
+		}
+		if (!s2.equals(null)) {
+
+			int simpleCount = Integer.parseInt(s2);
+			
+
+			for (int i = 0; i < simpleCount; i++) {
+				
+				int x = new Random().nextInt(WIDTH - WIDTH / 50);
+				int y = new Random().nextInt(HEIGHT / 2 + 80);
+				Atom a = new AlphaAtom(x,y,0.5, 2, 50,"beta");
+				
+
+				UIAtom a1 = new UIAtom("beta",50,100,100);
+
+				GC.addObject(a);
+				UIC.addObject(a1);
+
+			}
+			
+		}
+	}
 
 	public static void main(String[] args) {
 		new BuildMode();
