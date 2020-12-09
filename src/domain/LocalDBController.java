@@ -3,6 +3,7 @@ package domain;
 
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import ui.UIController;
@@ -24,10 +25,20 @@ public class LocalDBController implements SaveLoad{
         try {
             FileOutputStream fileOut = new FileOutputStream(fileName);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            LinkedList<LinkedList> objectLists = new LinkedList<>();
-            objectLists.add(GC.objects);
-            objectLists.add((LinkedList) UIC.objects);
-            out.writeObject(objectLists);
+            ArrayList<GameObject> gameObjectList = new ArrayList<>();
+            ArrayList<UIGameObject> uiObjectList= new ArrayList<>();
+            gameObjectList.addAll(GC.objects);
+            uiObjectList.addAll( UIC.objects);
+            for(GameObject object: GC.objects) {
+            	gameObjectList.add(object);
+            	out.writeObject(object);
+            }
+            for(UIGameObject object: UIC.objects) {
+            	uiObjectList.add(object);
+            	out.writeObject(object);
+            }
+//            out.writeObject(gameObjectList);
+//            out.writeObject(uiObjectList);
             out.close();
             fileOut.close();
         } catch (IOException i) {

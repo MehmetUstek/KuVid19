@@ -69,7 +69,7 @@ public class BuildModeKeys implements KeyListener, MouseListener, MouseMotionLis
 	public void mouseDragged(MouseEvent event) {
 		deleteMode =  GC.getFrame().getDeleteBox().isSelected();
 		if (isMove && !deleteMode) {
-			if (event.getY() < KuVid2.HEIGHT / 2 + 80 && event.getX() < KuVid2.WIDTH - 20 && event.getY() > 0) {
+			if (event.getY() < KuVid.HEIGHT / 2 + 80 && event.getX() < KuVid.WIDTH - 20 && event.getY() > 0) {
 				int x = event.getX();
 				int y = event.getY();
 				a.setLocation(new Point(x,y));

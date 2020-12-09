@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -46,17 +48,17 @@ public class Frame extends Canvas {
 	private boolean canAddBricks = false;
 	private JFrame frame;
 	private JPanel gui = new JPanel(new GridLayout(0,1));
-	private JPanel maingui = new JPanel(new GridLayout(0,1));
+	private JLayeredPane maingui = new JLayeredPane();
 	private JPanel simpleGui = new JPanel(new FlowLayout());  
 	private JPanel gamePanel = new JPanel(new FlowLayout());
 	private JButton Game = new JButton ("Play Game");
 	private JButton buildMode = new JButton("Build Mode");
 	private JButton restartButton = new JButton("Restart");
 	
-	UIController controller= new UIController();
-	Controller GC= new Controller(controller, this);
+	public UIController controller= new UIController();
+	public Controller GC= new Controller(controller, this);
 	//TODO: Change game type in here.
-	public Frame(Dimension d, String title, KuVid2 game) {
+	public Frame(Dimension d, String title, KuVid game) {
 		frame = new JFrame(title);
 		frame.setMaximumSize(d);
 		frame.setMinimumSize(new Dimension(1, 1));
@@ -120,8 +122,7 @@ public class Frame extends Canvas {
 		moleculeCount.setText("6");
 		betaCount.setEditable(true);
 		betaCount.setText("6");
-		UIAtom atom = new UIAtom("alpha",60,100,60);
-		gui.add(atom);
+		
 		simpleGui.add( moleculeType );
 		simpleGui.add( moleculeCount );
 		simpleGui.add( betaType );
@@ -175,12 +176,10 @@ public class Frame extends Canvas {
 	public Frame(Dimension screenSize, String title, Main mainGame) {
 		frame = new JFrame(title);
 		frame.setVisible(true);
-		frame.setSize(900, 900);
+		frame.setSize(WIDTH, HEIGHT);
 		frame.setBackground(Color.WHITE);
 		frame.setLocationRelativeTo(null);
 //		UIAtom atom = new UIAtom("alpha",60);
-		JButton asdsa = new JButton ("Play asdsa");
-		gamePanel.add(asdsa);
 //		controller.addObject(atom);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //		atom.setBounds(0,0,60,60);
@@ -190,20 +189,46 @@ public class Frame extends Canvas {
 		gamePanel.add(Game);
 		gamePanel.add(buildMode);
 //		gamePanel.add(atom);
-		UIAtom atom = new UIAtom("alpha",60,50,60);
-		AlphaMoleculeUI molecule;
-//		try {
-//			molecule = new AlphaMoleculeUI(EnumMovement.Alpha, 60, 60, new Point(50,50));
-//			maingui.add(molecule);
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		
+		// UIAtom(String atomType, int diameter, int x, int y) 
+		int diameter= 40;
+		int speed= diameter;
+		int x= frame.getWidth()/2+diameter;
+		int y = frame.getHeight() - 3*diameter;
+		UIAtom atom = new UIAtom("alpha",diameter,x,y);
+		UIAtom beta = new UIAtom("beta",diameter,x+40,y);
+		UIAtom gamma = new UIAtom("gamma",diameter,x-50,y);
+		
+		
+		controller.addObject(beta);
 		controller.addObject(atom);
-		maingui.setBounds(100 , 100  , WIDTH, HEIGHT);
-		maingui.add(atom);
+		controller.addObject(gamma);
+		for(UIGameObject object:controller.objects) {
+			object.setBounds(object.getX(),object.getY(),object.getX()+object.getLength(),getY()+object.getLength());
+			maingui.add(object,new Integer(1));
+			System.out.println("refresh");
+		}
+		maingui.setBounds(0 , 0  , frame.getWidth(), frame.getHeight());
 		frame.add(maingui);
+		Thread t1 = new Thread() {
+			public void run() {
+				for(UIGameObject object: controller.objects) {
+					while ( object.getX()< WIDTH && object.getY() <HEIGHT && object.getX()>0 && object.getY()>0) {
+						object.move(object.getX(),object.getY(),speed, 180);
+						try {
+							sleep(500);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+					
+					
+					object.setVisible(true);
+				}
+			}
+		};
+		t1.start();
+		
 		frame.add(gamePanel);
 		
 	}

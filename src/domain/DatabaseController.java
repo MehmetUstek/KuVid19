@@ -34,7 +34,7 @@ public class DatabaseController {
 
     public static void serialize(GameObject obj) {
         try {
-            FileOutputStream fileOut = new FileOutputStream("saves.ser");
+            FileOutputStream fileOut = new FileOutputStream("saves.txt");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(obj);
             out.close();

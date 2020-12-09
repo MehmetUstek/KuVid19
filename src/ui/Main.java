@@ -17,6 +17,13 @@ public class Main {
 				new BuildMode();
 			}
 		});
+		frame.getGame().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				KuVid.setGame(new KuVid());
+			}
+		});
 	}
 	public static void main(String[] args) {
 		

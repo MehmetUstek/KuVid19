@@ -9,16 +9,18 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 
 
 public class UIAtom extends UIGameObject{
 	
+	
 	public String atomType;
 	public int diameter;
 	BufferedImage bimage;
 	Image image;
-	int x,y;
+	int x,y,length;
 	
 	public UIAtom(String atomType, int diameter, int x, int y) {
 		// TODO Auto-generated constructor stub
@@ -27,40 +29,58 @@ public class UIAtom extends UIGameObject{
 		this.diameter= diameter;
 		this.x=x;
 		this.y=y;
-		String file= "src/assets/atoms/"+ getAtomType() +".png";
-		try {
-			bimage = ImageIO.read(new File(file));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		image = bimage.getScaledInstance(diameter, diameter, Image.SCALE_DEFAULT);
+		this.length=diameter;
 		
 	}
 
 	
+	public int getX() {
+		return x;
+	}
+
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+
+	public int getY() {
+		return y;
+	}
+
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+
+	public int getLength() {
+		return length;
+	}
+
+
+
+	public void setLength(int length) {
+		this.length = length;
+	}
 
 	@Override
 	public void render(Graphics g) {
 		String file= "src/assets/atoms/"+ getAtomType() +".png";
-		try {
-			bimage = ImageIO.read(new File(file));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
-		image = bimage.getScaledInstance(diameter, diameter, Image.SCALE_DEFAULT);
+		ImageIcon icon = new ImageIcon(file);
+		image = icon.getImage();
 		g.drawImage(image,0,0, this);
 		
 	}
-	public void move(Point p,double speed, double movementangle) {
+	public void move(int x, int y,double speed, double movementangle) {
 		double radian = Math.toRadians(movementangle);
-		int newX= (int) (p.getX()+   Math.ceil(speed * Math.sin(radian)));
-		int newY= (int) (p.getY() + Math.ceil(speed * Math.cos(radian)));
-		p.setLocation(newX,newY);
-		this.setLocation(p);
+		int newX= (int) (x+   Math.ceil(speed * Math.sin(radian)));
+		int newY= (int) (y + Math.ceil(speed * Math.cos(radian)));
+
+		setX(newX);
+		setY(newY);
+		setLocation(x,y);
 		 
 	}
 
@@ -71,9 +91,6 @@ public class UIAtom extends UIGameObject{
 	public void setAtomType(String atomType) {
 		this.atomType = atomType;
 	}
-//	public void repaint(Graphics g) {
-//		render(g);
-//	}
 	
 	public void paintComponent(Graphics g) {
 		render(g);

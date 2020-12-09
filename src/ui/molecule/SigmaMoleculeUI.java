@@ -14,18 +14,12 @@ import domain.molecule.EnumMovement;
 
 public class SigmaMoleculeUI extends Molecule{
 	
-	BufferedImage bImage;
-	Image img;
-	
-	public SigmaMoleculeUI(EnumMovement movementType, int width, int height, Point location) throws IOException{
+	public SigmaMoleculeUI(EnumMovement movementType, int width, int height, Point location) {
 		super(movementType, width, height, location);
-		bimage = ImageIO.read(new File("src/assets/molecules/sigma-.png"));
-		img = bimage.getScaledInstance(width, height, Image.SCALE_DEFAULT);
 	}
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(img, 0, 0, (ImageObserver) this);
 	}
 
 	@Override
