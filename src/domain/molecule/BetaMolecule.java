@@ -9,7 +9,7 @@ import domain.atom.Atom;
 
 public class BetaMolecule extends Molecule{
 
-	public BetaMolecule(EnumMovement movementType, int width, int height, Point point) throws IOException, FileNotFoundException {
+	public BetaMolecule(String movementType, int width, int height, Point point) throws IOException, FileNotFoundException {
 		super(movementType, width, height, point);
 
 	}

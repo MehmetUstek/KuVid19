@@ -15,10 +15,8 @@ import domain.Controller;
 import domain.DatabaseController;
 import domain.atom.AlphaAtom;
 import domain.atom.Atom;
-import domain.molecule.EnumMovement;
 import domain.molecule.Molecule;
 import domain.molecule.MoleculeFactory;
-import ui.molecule.AlphaMoleculeUI;
 
 
 

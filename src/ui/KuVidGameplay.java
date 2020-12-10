@@ -13,7 +13,6 @@ import javax.swing.JLayeredPane;
 
 import domain.Controller;
 import domain.atom.*;
-import ui.molecule.Molecule;
 import domain.shooter.AtomShooter;
 
 public class KuVidGameplay extends Canvas {
@@ -91,21 +90,6 @@ public class KuVidGameplay extends Canvas {
 //		add(alphatest, new Integer(1));
 
 	}
-	public void moveMol(Molecule mol) {
-		Thread t1 = new Thread() {
-			public void run() {
-				while (mol.getLocation().y < 700) {
-					mol.move();
-					try {
-						sleep(500);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-				mol.setVisible(false);
-			}
-		};
-		t1.start();
-	}
+	
 	
 }

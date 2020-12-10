@@ -11,7 +11,7 @@ import domain.atom.Atom;
 
 public class GammaMolecule extends Molecule{
 	
-	public GammaMolecule(EnumMovement movementType, int width, int height, Point point) throws IOException, FileNotFoundException {
+	public GammaMolecule(String movementType, int width, int height, Point point) throws IOException, FileNotFoundException {
 		super(movementType, width, height, point);
 	}
 

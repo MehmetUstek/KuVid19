@@ -11,21 +11,40 @@ import javax.swing.JPanel;
 
 public abstract class UIGameObject extends JComponent implements Serializable {
 
-	protected int x, y, length;
+	protected int x, y, width,height;
 
 	public UIGameObject() {
 		this.x = getX();
 		this.y = getY();
-		this.length= getLength();
+		this.width= getWidth();
+		this.height= getHeight();
 	}
 
-	public int getLength() {
-		return length;
+
+
+	public int getWidth() {
+		return width;
 	}
 
-	public void setSize(int length) {
-		this.length = length;
+
+
+	public void setWidth(int width) {
+		this.width = width;
 	}
+
+
+
+	public int getHeight() {
+		return height;
+	}
+
+
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+
 
 	public abstract void render(Graphics g);
 

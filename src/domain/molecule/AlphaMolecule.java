@@ -6,7 +6,7 @@ import domain.atom.Atom;
 
 public class AlphaMolecule extends Molecule{
 	
-	public AlphaMolecule(EnumMovement movementType, int width, int height, Point location){
+	public AlphaMolecule(String movementType, int width, int height, Point location){
 		super(movementType, width, height, location);
 	}
 

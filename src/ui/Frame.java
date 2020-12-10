@@ -23,8 +23,6 @@ import javax.swing.SwingConstants;
 import domain.Controller;
 import domain.atom.AlphaAtom;
 import domain.atom.Atom;
-import domain.molecule.EnumMovement;
-import ui.molecule.AlphaMoleculeUI;
 
 
 
@@ -198,13 +196,14 @@ public class Frame extends Canvas {
 		UIAtom atom = new UIAtom("alpha",diameter,x,y);
 		UIAtom beta = new UIAtom("beta",diameter,x+40,y);
 		UIAtom gamma = new UIAtom("gamma",diameter,x-50,y);
+		UIMolecule molecule = new UIMolecule("alpha-1",diameter*2,diameter*2,x-100,y-300);
 		
-		
-		controller.addObject(beta);
+//		controller.addObject(beta);
 		controller.addObject(atom);
-		controller.addObject(gamma);
+//		controller.addObject(gamma);
+		controller.addObject(molecule);
 		for(UIGameObject object:controller.objects) {
-			object.setBounds(object.getX(),object.getY(),object.getX()+object.getLength(),getY()+object.getLength());
+			object.setBounds(object.getX(),object.getY(),object.getX()+object.getWidth(),object.getY()+object.getHeight());
 			maingui.add(object,new Integer(1));
 			System.out.println("refresh");
 		}
@@ -212,15 +211,17 @@ public class Frame extends Canvas {
 		frame.add(maingui);
 		Thread t1 = new Thread() {
 			public void run() {
-				for(UIGameObject object: controller.objects) {
-					while ( object.getX()< WIDTH && object.getY() <HEIGHT && object.getX()>0 && object.getY()>0) {
+				UIGameObject object= controller.objects.get(0);
+				while ( object.getX()< WIDTH && object.getY() <HEIGHT && object.getX()>0 && object.getY()>0) {
+				for(int i=0;i<controller.objects.size();i++) {
+						object= controller.objects.get(i);
 						object.move(object.getX(),object.getY(),speed, 180);
 						try {
 							sleep(500);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
-					}
+				}
 					
 					
 					object.setVisible(true);

@@ -11,26 +11,27 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+import domain.molecule.MoleculeType;
 
 
-public class UIAtom extends UIGameObject{
+
+public class UIMolecule extends UIGameObject{
 	
 	
-	public String atomType;
-	public int diameter;
-	BufferedImage bimage;
 	Image image;
-	int x,y,width,height;
+	int x,y;
+	String moleculeType;
+	int width,height;
 	
-	public UIAtom(String atomType, int diameter, int x, int y) {
+	public UIMolecule(String moleculeType, int width, int height, int x, int y) {
 		// TODO Auto-generated constructor stub
 		super();
-		this.atomType=atomType;
-		this.diameter= diameter;
+		this.moleculeType = moleculeType;
+		this.width = width;
+		this.height = height;
 		this.x=x;
 		this.y=y;
-		this.width=diameter;
-		this.height=diameter;
+		
 	}
 
 	
@@ -77,7 +78,7 @@ public class UIAtom extends UIGameObject{
 
 	@Override
 	public void render(Graphics g) {
-		String file= "src/assets/atoms/"+ getAtomType() +".png";
+		String file= "src/assets/molecules/"+getMoleculeType()+".png";
 		
 		ImageIcon icon = new ImageIcon(file);
 		image = icon.getImage();
@@ -85,22 +86,27 @@ public class UIAtom extends UIGameObject{
 		
 	}
 	public void move(int x, int y,double speed, double movementangle) {
-		double radian = Math.toRadians(movementangle);
-		int newX= (int) (x+   Math.ceil(speed * Math.sin(radian)));
-		int newY= (int) (y + Math.ceil(speed * Math.cos(radian)));
+		 movementangle=0;
+		if(getMoleculeType() == "alpha-1") {
+			movementangle=0;
+			double radian = Math.toRadians(movementangle);
+			int newX= (int) (x+   Math.ceil(speed * Math.sin(radian)));
+			int newY= (int) (y + Math.ceil(speed * Math.cos(radian)));
 
-		setX(newX);
-		setY(newY);
-		setLocation(x,y);
+			setX(newX);
+			setY(newY);
+			setLocation(x,y);
+		}
+		
 		 
 	}
 
-	public String getAtomType() {
-		return atomType;
+	public String getMoleculeType() {
+		return moleculeType;
 	}
 
-	public void setAtomType(String atomType) {
-		this.atomType = atomType;
+	public void setMoleculeType(String moleculeType) {
+		this.moleculeType = moleculeType;
 	}
 	
 	public void paintComponent(Graphics g) {
