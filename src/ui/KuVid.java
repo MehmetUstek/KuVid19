@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 
 
@@ -29,6 +31,7 @@ public class KuVid extends Canvas implements Runnable {
 	int speed= diameter;
 	int x= 500;
 	int y =100;
+	private boolean pause = false;
 	
 	Atom atom = new AlphaAtom("alpha",diameter,x,y,20,215);
 	UIAtom atomui = new UIAtom("alpha",diameter);
@@ -55,15 +58,58 @@ public class KuVid extends Canvas implements Runnable {
 //				System.out.println("refresh");
 //			}
 //			maingui.setBounds(0 , 0  , WIDTH, HEIGHT);
+			this.addKeyListener(new KeyListener() {
+				public void keyPressed(KeyEvent e) {
+					// TODO Auto-generated method stub
+					if(e.getKeyCode() == KeyEvent.VK_L) {
+						System.out.println("LOADED");
+					}
+					if(e.getKeyCode() == KeyEvent.VK_S) {
+						System.out.println("SAVED");
+					}
+					if(e.getKeyCode() == KeyEvent.VK_UP) {
+						System.out.println("Shoot Atom");
+					}
+					if(e.getKeyCode() == KeyEvent.VK_LEFT) {
+						System.out.println("Move Shooter left");
+					}
+					if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+						System.out.println("Move Shooter right");
+					}
+					if(e.getKeyCode() == KeyEvent.VK_P) {
+						System.out.println("PAUSED");
+							thread.stop();
+							running = false;
+							pause = true;
+					}
+					if(e.getKeyCode() == KeyEvent.VK_R) {
+						System.out.println("RESUME");
+						start();
+						pause= false;
+					}
+					if(e.getKeyCode() == KeyEvent.VK_C) {
+						System.out.println("Switch Atom");
+					}
+					
+				}
+
+				@Override
+				public void keyReleased(KeyEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void keyTyped(KeyEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+			});
 			window.getLoadButton().addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					System.out.println("LOADED");
-//					for (UIGameObject object : uicontroller.objects) {
-//						object.setBounds(object.getX(),object.getY(),object.getX()+object.getLength(),getY()+object.getLength());
-//						
-//						
-//					}
 
 
 				}
@@ -80,6 +126,32 @@ public class KuVid extends Canvas implements Runnable {
 				}
 			});
 			
+			window.getQuitButton().addActionListener(new ActionListener() {
+				@SuppressWarnings("deprecation")
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// are you sure to go back sorucak
+					window.dispose();
+					thread.stop();
+					running=false;
+					new Main();
+				}
+			});
+			window.getPauseButton().addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if(pause == false) {
+					thread.stop();
+					running = false;
+					pause = true;
+					window.getPauseButton().setText("Resume");
+					} else {
+						start();
+						pause= false;
+						window.getPauseButton().setText("Pause");
+					}
+				}
+			});
 		
 	}
 	

@@ -9,6 +9,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -71,6 +73,29 @@ public class Frame extends Canvas {
 		frame.setLocationRelativeTo(null);
 //		UIAtom atom = new UIAtom("alpha",60,100,60);
 //		maingui.add(atom);
+		frame.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if(e.getKeyCode() == KeyEvent.VK_A) {
+					System.out.println("LOADED");
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 		sidebar.add(saveButton);
 		sidebar.add(loadButton);
 		sidebar.add(pauseButton);

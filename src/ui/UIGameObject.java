@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 public abstract class UIGameObject implements Serializable {
 
 	protected double x, y;
-	int width,height;
+	double width,height;
 
 	public UIGameObject() {
 		this.x = getX();
@@ -23,25 +23,25 @@ public abstract class UIGameObject implements Serializable {
 
 
 
-	public int getWidth() {
+	public double getWidth() {
 		return width;
 	}
 
 
 
-	public void setWidth(int width) {
+	public void setWidth(double width) {
 		this.width = width;
 	}
 
 
 
-	public int getHeight() {
+	public double getHeight() {
 		return height;
 	}
 
 
 
-	public void setHeight(int height) {
+	public void setHeight(double height) {
 		this.height = height;
 	}
 
