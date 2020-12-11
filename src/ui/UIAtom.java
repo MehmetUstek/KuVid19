@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
@@ -10,6 +11,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 
 
@@ -20,41 +22,18 @@ public class UIAtom extends UIGameObject{
 	public int diameter;
 	BufferedImage bimage;
 	Image image;
-	int x,y,width,height;
+	int width,height;
 	
-	public UIAtom(String atomType, int diameter, int x, int y) {
+	public UIAtom(String atomType, int diameter) {
 		// TODO Auto-generated constructor stub
 		super();
 		this.atomType=atomType;
 		this.diameter= diameter;
-		this.x=x;
-		this.y=y;
 		this.width=diameter;
 		this.height=diameter;
 	}
 
 	
-	public int getX() {
-		return x;
-	}
-
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-
-	public int getY() {
-		return y;
-	}
-
-
-	public void setY(int y) {
-		this.y = y;
-	}
-
-
-
 	public int getWidth() {
 		return width;
 	}
@@ -78,10 +57,16 @@ public class UIAtom extends UIGameObject{
 	@Override
 	public void render(Graphics g) {
 		String file= "src/assets/atoms/"+ getAtomType() +".png";
-		
-		ImageIcon icon = new ImageIcon(file);
-		image = icon.getImage();
-		g.drawImage(image,0,0, this);
+//		ImageIcon icon = new ImageIcon(file);
+//		image = icon.getImage();
+		try {
+			bimage = ImageIO.read(new File(file));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		image = bimage.getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		g.drawImage(image,(int) getX(),(int) getY(), new Canvas());
 		
 	}
 	public void move(int x, int y,double speed, double movementangle) {
@@ -91,8 +76,11 @@ public class UIAtom extends UIGameObject{
 
 		setX(newX);
 		setY(newY);
-		setLocation(x,y);
+//		setLocation(x,y);
 		 
+	}
+	public void bounceBack(int x, int y,double speed, double movementangle) {
+		move(x,y,speed,-movementangle);
 	}
 
 	public String getAtomType() {

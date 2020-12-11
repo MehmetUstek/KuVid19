@@ -53,9 +53,9 @@ public class KuVidGameplay extends Canvas {
 		background= new Background(width,height);
 		controller = new UIController();
 		
-		UIAtom atom = new UIAtom("sigma", diameter, 50,60);
+//		UIAtom atom = new UIAtom("sigma", diameter, 50,60);
 		
-		controller.addObject(atom);
+//		controller.addObject(atom);
 		
 //		
 //		background.setBounds(0, 0, background.getWidth(), background.getHeight());

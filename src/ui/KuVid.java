@@ -7,58 +7,54 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferStrategy;
-import java.io.IOException;
-import java.util.ArrayList;
 
-import javax.swing.JFrame;
-import javax.swing.JLayeredPane;
 
 import domain.Controller;
-import domain.DatabaseController;
+import domain.atom.AlphaAtom;
 import domain.atom.Atom;
 
 import domain.gameState.Statistics;
 
 public class KuVid extends Canvas implements Runnable {
 	private boolean running = false;
-	public static final int FRAME_WIDTH = 800;
-	public static final int FRAME_HEIGHT = 800;
-	public final static int atomNumber= 100;
-	public final static int L=FRAME_HEIGHT/10;
-	public final static int diameter= L/10;
-	Statistics statistics;
-	static Atom alpha;
-	static Atom beta;
-	static Atom sigma;
-	static Atom gamma;
-	private static KuVid game;
-	static ArrayList<Atom> alphaList= new ArrayList<Atom>();
-	static ArrayList<Atom> betaList= new ArrayList<Atom>();
-	static ArrayList<Atom> sigmaList= new ArrayList<Atom>();
-	private JLayeredPane maingui = new JLayeredPane();
-	static ArrayList<Atom> gammaList= new ArrayList<Atom>();
-	static JFrame frame;
-	private Frame window = new Frame(Toolkit.getDefaultToolkit().getScreenSize(), "KuVid", this);
-	static UIController uicontroller;
-	
+	public static int WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth(),
+			HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private Thread thread;
 	Controller controller;
+	UIController uicontroller;
+	Statistics statistics;
+	private Frame window = new Frame(Toolkit.getDefaultToolkit().getScreenSize(), "KuVid", this);
+	private static KuVid game;
+	int diameter= 40;
+	int speed= diameter;
+	int x= 500;
+	int y =100;
+	
+	Atom atom = new AlphaAtom("alpha",diameter,x,y,20,215);
+	UIAtom atomui = new UIAtom("alpha",diameter);
+	
+	
+	
+	
+	
+	
 
 	public KuVid() {
 			
-			uicontroller = window.controller;
-			controller = window.GC;
-			
-			int diameter= 40;
-			int x= WIDTH/2+diameter;
-			int y = HEIGHT - 2*diameter;
+			uicontroller =new UIController();
+			controller = new Controller(uicontroller, window);
+			this.requestFocus();
+			System.out.println(atom.getX());
+			uicontroller.addObject(atomui);
+			controller.addObject(atom);
+			System.out.println(atom.getX());
 			
 //			for(UIGameObject object:uicontroller.objects) {
 //				object.setBounds(object.getX(),object.getY(),object.getX()+object.getLength(),getY()+object.getLength());
 //				maingui.add(object,new Integer(1));
 //				System.out.println("refresh");
 //			}
-			maingui.setBounds(0 , 0  , WIDTH, HEIGHT);
+//			maingui.setBounds(0 , 0  , WIDTH, HEIGHT);
 			window.getLoadButton().addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -73,11 +69,22 @@ public class KuVid extends Canvas implements Runnable {
 				}
 			});
 			
+			window.getRestartButton().addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					window.dispose();
+					thread.stop();
+					running=false;
+					game = new KuVid();
+
+				}
+			});
+			
 		
 	}
 	
 	public boolean isIn(int x, int y) {
-		return (x <= frame.getWidth() && x >= 0 && y <= frame.getHeight() && y >= 0);
+		return (x <= WIDTH && x >= 0 && y <= HEIGHT && y >= 0);
 }
 
 	public synchronized void start() {
@@ -90,7 +97,7 @@ public class KuVid extends Canvas implements Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		
+		System.out.println("lolzie");
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
 		double ns = 1000000000 / amountOfTicks;

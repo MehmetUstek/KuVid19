@@ -9,8 +9,8 @@ import java.awt.Shape;
 public class SigmaAtom extends Atom {
 	int L=600;
 	
-	public SigmaAtom(int x, int y,double movementAngle, int speed, int diameter,String atomType) {
-		super(x,y ,movementAngle, speed, diameter,atomType);
+	public SigmaAtom(String atomType, int diameter, int x, int y,double speed,double movementAngle) {
+		super( atomType,  diameter,  x,  y, speed, movementAngle);
 		// TODO Auto-generated constructor stub
 	}
 

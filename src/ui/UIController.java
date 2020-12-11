@@ -12,8 +12,8 @@ public class UIController {
 	public List<UIGameObject> objects = new LinkedList<UIGameObject>();
 	int lives,score;
 	boolean gameOver;
-	public static int WIDTH= KuVid.FRAME_WIDTH;
-	public static int HEIGHT= KuVid.FRAME_HEIGHT;
+	public static int WIDTH= KuVid.WIDTH;
+	public static int HEIGHT= KuVid.HEIGHT;
 	
 	public void render(Graphics g) {
 		for (int i = 0; i < objects.size(); i++) {

@@ -1,9 +1,8 @@
 package domain.atom;
 
 import java.awt.Graphics;
-import java.awt.Point;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.awt.Rectangle;
+import java.awt.Shape;
 
 import domain.GameObject;
 
@@ -12,7 +11,8 @@ public abstract class Atom extends GameObject{
 	double movementAngle;
 	double speed;
 	int diameter;
-	public Atom(int x,int y,double movementAngle, int speed, int diameter,String atomType){
+	double x,y;
+	public Atom(String atomType, int diameter, double x, double y,double speed,double movementAngle){
 		super();
 		this.x=x;
 		this.y=y;
@@ -41,21 +41,11 @@ public abstract class Atom extends GameObject{
 		this.diameter = diameter;
 	}
 	
-	public void move(int x,int y,double d, double movementangle) {
-		double radian = Math.toRadians(movementangle);
-		int newX= (int) (x+   Math.ceil(d * Math.sin(radian)));
-		int newY= (int) (y + Math.ceil(d * Math.cos(radian)));
-		this.x=newX;
-		this.y= newY;
-	}
-	public void bounceBack(int x,int y, int speed, double movementAngle) {
-		move(x,y,speed,-movementAngle);
-	}
 	
-	public String getAtomType() {
+	public String getType() {
 		return atomType;
 	}
-	public void setAtomType(String atomType) {
+	public void setType(String atomType) {
 		this.atomType = atomType;
 	}
 	public double getMovementAngle() {
@@ -70,5 +60,36 @@ public abstract class Atom extends GameObject{
 	public void setSpeed(double speed) {
 		this.speed = speed;
 	}
+	public void move(double x, double y,double speed, double movementangle) {
+		double radian = Math.toRadians(movementangle);
+		double newX= (double) (x+   Math.ceil(speed * Math.sin(radian)));
+		double newY= (double) (y + Math.ceil(speed * Math.cos(radian)));
+
+		setX(newX);
+		setY(newY);
+		
+		 
+	}
+	public double getX() {
+		return x;
+	}
+	public void setX(double x) {
+		this.x = x;
+	}
+	public double getY() {
+		return y;
+	}
+	public void setY(double y) {
+		this.y = y;
+	}
+	public void bounceBack(int x, int y,double speed, double movementangle) {
+		move(x,y,speed,-movementangle);
+	}
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	
 }

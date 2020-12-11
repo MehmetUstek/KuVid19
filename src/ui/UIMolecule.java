@@ -98,6 +98,7 @@ public class UIMolecule extends UIGameObject{
 			setLocation(x,y);
 		}
 		
+		
 		 
 	}
 
@@ -112,5 +113,7 @@ public class UIMolecule extends UIGameObject{
 	public void paintComponent(Graphics g) {
 		render(g);
 	}
+
+
 
 }

@@ -2,13 +2,10 @@ package domain.atom;
 
 
 import java.awt.Shape;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 
 public class AlphaAtom extends Atom {
-	public AlphaAtom(int x,int y,double movementAngle, int speed, int diameter,String atomType) {
-		super(x,y,movementAngle, speed, diameter,atomType);
+	public AlphaAtom(String atomType, int diameter, double x, double y,double speed,double movementAngle) {
+		super( atomType,  diameter,  x,  y, speed, movementAngle);
 		// TODO Auto-generated constructor stub
 	}
 

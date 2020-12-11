@@ -6,11 +6,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -49,6 +52,7 @@ public class Frame extends Canvas {
 	private JLayeredPane maingui = new JLayeredPane();
 	private JPanel simpleGui = new JPanel(new FlowLayout());  
 	private JPanel gamePanel = new JPanel(new FlowLayout());
+	private JPanel background = new JPanel();
 	private JButton Game = new JButton ("Play Game");
 	private JButton buildMode = new JButton("Build Mode");
 	private JButton restartButton = new JButton("Restart");
@@ -112,7 +116,7 @@ public class Frame extends Canvas {
 		sidebar.setBounds(10, HEIGHT - 90, 500, 40);
 		
 		frame.add(sidebar);
-		moleculeType.setText("Simple Bricks");
+		moleculeType.setText("Alpha Molecules");
 		moleculeType.setEditable(false);
 		betaType.setText("Beta Molecules");
 		betaType.setEditable(false);
@@ -175,7 +179,7 @@ public class Frame extends Canvas {
 		frame = new JFrame(title);
 		frame.setVisible(true);
 		frame.setSize(WIDTH, HEIGHT);
-		frame.setBackground(Color.WHITE);
+		frame.setBackground(Color.BLACK);
 		frame.setLocationRelativeTo(null);
 //		UIAtom atom = new UIAtom("alpha",60);
 //		controller.addObject(atom);
@@ -187,45 +191,88 @@ public class Frame extends Canvas {
 		gamePanel.add(Game);
 		gamePanel.add(buildMode);
 //		gamePanel.add(atom);
-		
+//		String file = "/src/assets/kuvid_bc.png";
+//		ImageIcon icon= new ImageIcon(file);
+//		Image image= icon.getImage();
+//		background.add(image);
 		// UIAtom(String atomType, int diameter, int x, int y) 
 		int diameter= 40;
 		int speed= diameter;
 		int x= frame.getWidth()/2+diameter;
 		int y = frame.getHeight() - 3*diameter;
-		UIAtom atom = new UIAtom("alpha",diameter,x,y);
-		UIAtom beta = new UIAtom("beta",diameter,x+40,y);
-		UIAtom gamma = new UIAtom("gamma",diameter,x-50,y);
-		UIMolecule molecule = new UIMolecule("alpha-1",diameter*2,diameter*2,x-100,y-300);
+//		UIAtom atomui = new UIAtom("alpha",diameter,x,y);
+//		UIAtom beta = new UIAtom("beta",diameter,x+40,y);
+//		UIAtom gamma = new UIAtom("gamma",diameter,x-50,y);
+		UIMolecule molecule = new UIMolecule("alpha-1",diameter*2,diameter*2,x-100,10);
+		Atom atom = new AlphaAtom("alpha",diameter,x,y,speed,135);
+		
+		GC.addObject(atom);
 		
 //		controller.addObject(beta);
-		controller.addObject(atom);
+//		controller.addObject(atomui);
 //		controller.addObject(gamma);
 		controller.addObject(molecule);
+		
+		
 		for(UIGameObject object:controller.objects) {
-			object.setBounds(object.getX(),object.getY(),object.getX()+object.getWidth(),object.getY()+object.getHeight());
-			maingui.add(object,new Integer(1));
+//			object.setBounds(object.getX(),object.getY(),object.getX()+object.getWidth(),object.getY()+object.getHeight());
+//			maingui.add(object,new Integer(1));
 			System.out.println("refresh");
 		}
 		maingui.setBounds(0 , 0  , frame.getWidth(), frame.getHeight());
+		
 		frame.add(maingui);
+		
+		
+//		TimerTask timertask= new TimerTask() {
+//
+//			@Override
+//			public void run() {
+//				// TODO Auto-generated method stub
+//				for(UIGameObject object: controller.objects ) {
+//					System.out.println("task Running");
+//				while ( object.getX()< WIDTH && object.getY() <HEIGHT && object.getX()>0 && object.getY()>0) {
+//						object.move(object.getX(),object.getY(),speed, 180);
+//			}
+//			}
+//			}
+//		};
+//		Timer timer = new Timer(true);
+//        timer.scheduleAtFixedRate(timertask, 0, 10000);
+//        try {
+//            Thread.sleep(100000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        timer.cancel();
+    
 		Thread t1 = new Thread() {
 			public void run() {
 				UIGameObject object= controller.objects.get(0);
-				while ( object.getX()< WIDTH && object.getY() <HEIGHT && object.getX()>0 && object.getY()>0) {
+				while (true) {
 				for(int i=0;i<controller.objects.size();i++) {
+					 	if(object.getX()< WIDTH && object.getY() <HEIGHT && object.getX()>0 && object.getY()>0) {
 						object= controller.objects.get(i);
-						object.move(object.getX(),object.getY(),speed, 180);
+//						object.move(object.getX(),object.getY(),speed, 135);
 						try {
-							sleep(500);
+							sleep(200);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
+					 	}
+					 	else{
+//					 		object.bounceBack(object.getX(),object.getY(),speed, 180);
+						 	try {
+								sleep(100);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+					 	}
 				}
 					
 					
-					object.setVisible(true);
 				}
+				
 			}
 		};
 		t1.start();

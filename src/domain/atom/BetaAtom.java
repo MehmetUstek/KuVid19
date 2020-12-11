@@ -5,8 +5,8 @@ import java.awt.Shape;
 
 public class BetaAtom extends Atom {
 	
-	public BetaAtom(int x, int y,double movementAngle, int speed, int diameter,String atomType) {
-		super(x,y ,movementAngle, speed, diameter,atomType);
+	public BetaAtom(String atomType, int diameter, int x, int y,double speed,double movementAngle) {
+		super( atomType,  diameter,  x,  y, speed, movementAngle);
 		
 		// TODO Auto-generated constructor stub
 	}

@@ -90,19 +90,19 @@ public class BuildModeKeys implements KeyListener, MouseListener, MouseMotionLis
 		int x = e.getX();
 		int y = e.getY();
 
-		LinkedList<Molecule> simpleBricks = GC.getMolecules();
-		int maxX = x + KuVid.FRAME_WIDTH / 50;
-		int minX = x - KuVid.FRAME_WIDTH / 50;
+		LinkedList<Molecule> molecules = GC.getMolecules();
+		int maxX = x + KuVid.WIDTH / 50;
+		int minX = x - KuVid.WIDTH / 50;
 		int minY = y - 20;
 		int maxY = y + 20;
 		
 		deleteMode =  GC.getFrame().getDeleteBox().isSelected();
 
-		for (int i = 0; i < simpleBricks.size(); i++) {
-			if (minX < simpleBricks.get(i).getX() && simpleBricks.get(i).getX() < maxX
-					&& minY < simpleBricks.get(i).getY() && maxY > simpleBricks.get(i).getY()) {
+		for (int i = 0; i < molecules.size(); i++) {
+			if (minX < molecules.get(i).getX() && molecules.get(i).getX() < maxX
+					&& minY < molecules.get(i).getY() && maxY > molecules.get(i).getY()) {
 				if(!deleteMode) {
-					a = simpleBricks.get(i);
+					a = molecules.get(i);
 					isMove = true;
 				} else {
 					GC.objects.remove(i);
@@ -117,7 +117,7 @@ public class BuildModeKeys implements KeyListener, MouseListener, MouseMotionLis
 	public void mouseReleased(MouseEvent e) {
 		deleteMode =  GC.getFrame().getDeleteBox().isSelected();
 		if (isMove && !deleteMode) {
-			if (e.getY() < KuVid.HEIGHT / 2 + 80 && e.getX() < KuVid.FRAME_WIDTH - 20 && e.getY() > 0) {
+			if (e.getY() < KuVid.HEIGHT / 2 + 80 && e.getX() < KuVid.WIDTH - 20 && e.getY() > 0) {
 				int x = e.getX();
 				int y = e.getY();
 				a.setX(x);

@@ -114,14 +114,14 @@ public class BuildMode extends Canvas implements Runnable {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("SAVED");
-				DC.saveGame("saves.ser");
+				DC.saveGame("saves.txt");
 			}
 		});
 		a.getLoadButton().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("LOADED");
-				DC.loadGame("saves.ser");
+				DC.loadGame("saves.txt");
 
 			}
 		});
@@ -129,7 +129,6 @@ public class BuildMode extends Canvas implements Runnable {
 			@SuppressWarnings("deprecation")
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// are you sure to go back sorucak
 				a.dispose();
 				thread.stop();
 				running = false;
@@ -159,15 +158,10 @@ public class BuildMode extends Canvas implements Runnable {
 
 			for (int i = 0; i < simpleCount; i++) {
 				
-				int x = new Random().nextInt(WIDTH - WIDTH / 50);
-				int y = new Random().nextInt(HEIGHT / 2 + 80);
-				Atom a = new AlphaAtom(x,y,0.5, 2, 50,"alpha");
 				
 
-				UIAtom a1 = new UIAtom("alpha",50,x,y);
-
-				GC.addObject(a);
-				UIC.addObject(a1);
+//				GC.addObject(a);
+//				UIC.addObject(a1);
 
 			}
 			
@@ -181,13 +175,13 @@ public class BuildMode extends Canvas implements Runnable {
 				
 				int x = new Random().nextInt(WIDTH - WIDTH / 50);
 				int y = new Random().nextInt(HEIGHT / 2 + 80);
-				Atom a = new AlphaAtom(x,y,0.5, 2, 50,"beta");
+//				Atom a = new AlphaAtom(x,y,0.5, 2, 50,"beta");
 				
 
-				UIAtom a1 = new UIAtom("beta",50,100,100);
+//				UIAtom a1 = new UIAtom("beta",50,100,100);
 
-				GC.addObject(a);
-				UIC.addObject(a1);
+//				GC.addObject(a);
+//				UIC.addObject(a1);
 
 			}
 			
