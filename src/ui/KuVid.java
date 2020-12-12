@@ -9,7 +9,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
-
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import domain.Controller;
 import domain.atom.AlphaAtom;
@@ -29,13 +31,14 @@ public class KuVid extends Canvas implements Runnable {
 	private static KuVid game;
 	int diameter= 40;
 	int speed= diameter;
-	int x= 500;
-	int y =100;
+	int x= WIDTH/2;
+	int y =HEIGHT - 90;
 	private boolean pause = false;
-	
-	Atom atom = new AlphaAtom("alpha",diameter,x,y,20,215);
-	UIAtom atomui = new UIAtom("alpha",diameter);
-	
+	private boolean atomShooted=false;
+	String asd= "alpha";
+	Atom atom = new Atom("alpha",diameter,x,y,20,215);
+	UIAtom atomui = new UIAtom(atom.getType(),diameter);
+	Random random = new Random();
 	
 	
 	
@@ -61,35 +64,107 @@ public class KuVid extends Canvas implements Runnable {
 			this.addKeyListener(new KeyListener() {
 				public void keyPressed(KeyEvent e) {
 					// TODO Auto-generated method stub
-					if(e.getKeyCode() == KeyEvent.VK_L) {
+					
+					
+					switch (e.getKeyCode()) {
+					case KeyEvent.VK_UP:
+						if(atomShooted == false) {
+							System.out.println("Shoot Atom");
+							atomShooted=true;
+							
+							Atom atom = (Atom) controller.getObject("alpha");
+							TimerTask timerTask = new UpdateBallTask(atom,Toolkit.getDefaultToolkit().getScreenSize());
+							Timer timer = new Timer(true);
+					        timer.scheduleAtFixedRate(timerTask, 0, 100);
+					        System.out.println(Thread.currentThread().getName()+" TimerTask started");
+							
+						}
+						break;
+					case  KeyEvent.VK_L:
 						System.out.println("LOADED");
-					}
-					if(e.getKeyCode() == KeyEvent.VK_S) {
+						break;
+					case  KeyEvent.VK_S:
 						System.out.println("SAVED");
-					}
-					if(e.getKeyCode() == KeyEvent.VK_UP) {
-						System.out.println("Shoot Atom");
-					}
-					if(e.getKeyCode() == KeyEvent.VK_LEFT) {
+						break;
+					case  KeyEvent.VK_LEFT:
 						System.out.println("Move Shooter left");
-					}
-					if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+						break;
+					case  KeyEvent.VK_RIGHT:
 						System.out.println("Move Shooter right");
-					}
-					if(e.getKeyCode() == KeyEvent.VK_P) {
+						break;
+					case  KeyEvent.VK_P:
 						System.out.println("PAUSED");
-							thread.stop();
-							running = false;
-							pause = true;
-					}
-					if(e.getKeyCode() == KeyEvent.VK_R) {
+						thread.stop();
+						running = false;
+						pause = true;
+						break;
+					case  KeyEvent.VK_R:
 						System.out.println("RESUME");
 						start();
 						pause= false;
-					}
-					if(e.getKeyCode() == KeyEvent.VK_C) {
+						break;
+					case  KeyEvent.VK_C:
 						System.out.println("Switch Atom");
+						int nextInt = random.nextInt(3);
+//						Atom atom = (Atom) controller.getObject(getAtom().getType());
+						Atom atom = getAtom();
+						switch(nextInt) {
+						case 0:
+							atom.setType("alpha");
+							atomui.setAtomType("alpha");
+//							update();
+							break;
+						case 1:
+							atom.setType("beta");
+							atomui.setAtomType("beta");
+//							update();
+							break;
+						case 2:
+							atom.setType("sigma");
+							atomui.setAtomType("sigma");
+//							update();
+							break;
+						case 3:
+							atom.setType("gamma");
+							atomui.setAtomType("gamma");
+//							update();
+							break;
+						}
+						
+						break;
+						
+					default:
+						break;
 					}
+//					if(e.getKeyCode() == KeyEvent.VK_L) {
+//						System.out.println("LOADED");
+//					}
+//					if(e.getKeyCode() == KeyEvent.VK_S) {
+//						System.out.println("SAVED");
+//					}
+//					if(e.getKeyCode() == KeyEvent.VK_UP) {
+//						System.out.println("Shoot Atom");
+//					}
+//					if(e.getKeyCode() == KeyEvent.VK_LEFT) {
+//						System.out.println("Move Shooter left");
+//					}
+//					if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+//						System.out.println("Move Shooter right");
+//					}
+//					if(e.getKeyCode() == KeyEvent.VK_P) {
+//						System.out.println("PAUSED");
+//							thread.stop();
+//							running = false;
+//							pause = true;
+//					}
+//					if(e.getKeyCode() == KeyEvent.VK_R) {
+//						System.out.println("RESUME");
+//						start();
+//						pause= false;
+//					}
+//					if(e.getKeyCode() == KeyEvent.VK_C) {
+//						System.out.println("Switch Atom");
+//					}
 					
 				}
 
@@ -106,52 +181,19 @@ public class KuVid extends Canvas implements Runnable {
 				}
 				
 			});
-			window.getLoadButton().addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					System.out.println("LOADED");
-
-
-				}
-			});
-			
-			window.getRestartButton().addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					window.dispose();
-					thread.stop();
-					running=false;
-					game = new KuVid();
-
-				}
-			});
+		
 			
 			window.getQuitButton().addActionListener(new ActionListener() {
 				@SuppressWarnings("deprecation")
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// are you sure to go back sorucak
 					window.dispose();
 					thread.stop();
 					running=false;
 					new Main();
 				}
 			});
-			window.getPauseButton().addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					if(pause == false) {
-					thread.stop();
-					running = false;
-					pause = true;
-					window.getPauseButton().setText("Resume");
-					} else {
-						start();
-						pause= false;
-						window.getPauseButton().setText("Pause");
-					}
-				}
-			});
+			
 		
 	}
 	
@@ -234,6 +276,10 @@ public class KuVid extends Canvas implements Runnable {
 	}
 	public static void main(String[] args) {
 		game = new KuVid();
+	}
+	
+	public Atom getAtom() {
+		return atom;
 	}
 	
 }

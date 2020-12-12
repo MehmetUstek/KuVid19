@@ -6,7 +6,7 @@ import java.awt.Shape;
 
 import domain.GameObject;
 
-public abstract class Atom extends GameObject{
+public class Atom extends GameObject{
 	String atomType;
 	double movementAngle;
 	double speed;
@@ -21,10 +21,13 @@ public abstract class Atom extends GameObject{
 		this.diameter= diameter;
 		this.atomType= atomType;
 	}
-	public abstract void move(); // Move the atom in its class given x,y locations and speed and diameter, such that it will return new values of x,y.
-	public abstract void shoot(double angle); //
-	public abstract void bounceBack(double angle); //Change the direction 90 degrees.
-	public abstract void destroy(); //Delete the atom's instance.
+	public void move() {
+		move(getX(),getY(),40,90);
+	}
+ // Move the atom in its class given x,y locations and speed and diameter, such that it will return new values of x,y.
+	public void bounceBack(double angle) {
+		
+	}
 	@Override
 	public String toString() {
 		return "Atom [atomType=" + atomType + ", movementAngle=" + movementAngle + "speed="
@@ -62,8 +65,8 @@ public abstract class Atom extends GameObject{
 	}
 	public void move(double x, double y,double speed, double movementangle) {
 		double radian = Math.toRadians(movementangle);
-		double newX= (double) (x+   Math.ceil(speed * Math.sin(radian)));
-		double newY= (double) (y + Math.ceil(speed * Math.cos(radian)));
+		double newX=  (x+   Math.ceil(speed * Math.sin(radian)));
+		double newY=  (y + Math.ceil(speed * Math.cos(radian)));
 
 		setX(newX);
 		setY(newY);
@@ -89,6 +92,11 @@ public abstract class Atom extends GameObject{
 	public void update() {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public Shape getBounds() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

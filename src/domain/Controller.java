@@ -53,7 +53,7 @@ public class Controller {
 //				System.out.println("Y:");
 //				System.out.println(ball.getY());
 				
-				Atom atom = (AlphaAtom) tempobject;
+				Atom atom =  (Atom) tempobject;
 				}
 		
 			tempobject.update();
@@ -95,6 +95,17 @@ public class Controller {
 	 */
 	public void removeObject(GameObject obj) {
 		this.objects.remove(obj);
+	}
+	
+	public GameObject getObject(String obj) {
+		int i=0;
+		for(GameObject tempObject: this.objects) {
+			i++;
+			if(tempObject.getType()== obj) {
+				return tempObject;
+			}
+		}
+		return null;
 	}
 	
 	

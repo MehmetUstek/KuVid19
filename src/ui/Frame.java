@@ -6,16 +6,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -47,14 +42,12 @@ public class Frame extends Canvas {
 	private JTextField moleculeCount = new JTextField(10);
 	private JTextField betaType = new JTextField();
 	private JTextField betaCount = new JTextField(10);
-	private JCheckBox deleteBox = new JCheckBox("delete?", false);
 	private boolean canAddBricks = false;
 	private JFrame frame;
 	private JPanel gui = new JPanel(new GridLayout(0,1));
 	private JLayeredPane maingui = new JLayeredPane();
 	private JPanel simpleGui = new JPanel(new FlowLayout());  
 	private JPanel gamePanel = new JPanel(new FlowLayout());
-	private JPanel background = new JPanel();
 	private JButton Game = new JButton ("Play Game");
 	private JButton buildMode = new JButton("Build Mode");
 	private JButton restartButton = new JButton("Restart");
@@ -96,25 +89,15 @@ public class Frame extends Canvas {
 			}
 			
 		});
-		sidebar.add(saveButton);
-		sidebar.add(loadButton);
-		sidebar.add(pauseButton);
 		sidebar.add(quitButton);
 		sidebar.add(restartButton);
-		sidebar.add(loginButton);
-		sidebar.add(logoutButton);
 		sidebar.setBackground(Color.white);
-		sidebar.setBounds(10, 10, 550, 40);
+		sidebar.setBounds(10, 10, 200, 40);
 		
 		
 		frame.add(sidebar);
 		
-		////
-
-		////
-//		maingui.setBounds(100 , 100  , WIDTH, HEIGHT);
 		frame.add(game);
-//		frame.add(maingui);
 		frame.setVisible(true);
 		game.start();
 	}
@@ -130,13 +113,7 @@ public class Frame extends Canvas {
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		
-		sidebar.add(saveButton);
-		sidebar.add(loadButton);
-		sidebar.add(pauseButton);
 		sidebar.add(quitButton);
-		sidebar.add(loginButton);
-		sidebar.add(logoutButton);
-		sidebar.add(deleteBox);
 		sidebar.setBackground(Color.white);
 		sidebar.setBounds(10, HEIGHT - 90, 500, 40);
 		
@@ -325,21 +302,6 @@ public class Frame extends Canvas {
 		this.canAddBricks = canAddBricks;
 	}
 
-	public JButton getSaveButton() {
-		return saveButton;
-	}
-
-	public void setSaveButton(JButton saveButton) {
-		this.saveButton = saveButton;
-	}
-
-	public JButton getLoadButton() {
-		return loadButton;
-	}
-
-	public void setLoadButton(JButton loadButton) {
-		this.loadButton = loadButton;
-	}
 
 	public JButton getQuitButton() {
 		return quitButton;
@@ -349,13 +311,6 @@ public class Frame extends Canvas {
 		this.quitButton = quitButton;
 	}
 
-	public JButton getPauseButton() {
-		return pauseButton;
-	}
-
-	public void setPauseButton(JButton pauseButton) {
-		this.pauseButton = pauseButton;
-	}
 	
 	public JButton getGame() {
 		return Game;
@@ -377,21 +332,6 @@ public class Frame extends Canvas {
 		frame.dispose();
 	}
 	
-	public JCheckBox getDeleteBox() {
-		return this.deleteBox;
-	}
-	
-	public JButton getRestartButton() {
-		return this.restartButton;
-	}
-	
-	public JButton getLoginButton(){
-		return loginButton;
-	}
-
-	public JButton getLogoutButton() {
-		return logoutButton;
-	}
 	
 	
 }

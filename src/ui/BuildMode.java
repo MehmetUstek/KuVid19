@@ -27,9 +27,9 @@ public class BuildMode extends Canvas implements Runnable {
 			HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private Thread thread;
 	private boolean running = false;
-	private Frame a = new Frame(Toolkit.getDefaultToolkit().getScreenSize(), "KuVid Build Mode", this);
+	private Frame window = new Frame(Toolkit.getDefaultToolkit().getScreenSize(), "KuVid Build Mode", this);
 	private UIController UIC = new UIController();
-	private Controller GC = new Controller(UIC, a);
+	private Controller GC = new Controller(UIC, window);
 	private DatabaseController DC = new DatabaseController(GC, UIC);
 	private BuildModeKeys bmKeys = new BuildModeKeys(GC, UIC);
 
@@ -110,46 +110,46 @@ public class BuildMode extends Canvas implements Runnable {
 		this.addMouseListener(bmKeys);
 		this.addMouseMotionListener(bmKeys);
 
-		a.getSaveButton().addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("SAVED");
-				DC.saveGame("saves.txt");
-			}
-		});
-		a.getLoadButton().addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("LOADED");
-				DC.loadGame("saves.txt");
-
-			}
-		});
-		a.getQuitButton().addActionListener(new ActionListener() {
+//		window.getSaveButton().addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				System.out.println("SAVED");
+//				DC.saveGame("saves.txt");
+//			}
+//		});
+//		window.getLoadButton().addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				System.out.println("LOADED");
+//				DC.loadGame("saves.txt");
+//
+//			}
+//		});
+		window.getQuitButton().addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				a.dispose();
+				window.dispose();
 				thread.stop();
 				running = false;
 				new Main();
 			}
 		});
 
-		a.getPauseButton().addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
+//		window.getPauseButton().addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//
+//			}
+//		});
 
 
 	}
 
 	public void addMolecules(Controller GC, UIController UIC) throws IOException {
-		String s1 = a.getMoleculeCount().getText();
+		String s1 = window.getMoleculeCount().getText();
 		System.out.println(s1);
-		String s2 = a.getBetaCount().getText();
+		String s2 = window.getBetaCount().getText();
 		System.out.println(s2);
 		if (!s1.equals(null)) {
 

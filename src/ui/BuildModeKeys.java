@@ -66,17 +66,17 @@ public class BuildModeKeys implements KeyListener, MouseListener, MouseMotionLis
 		this.isBuild = isBuild;
 	}
 
-	public void mouseDragged(MouseEvent event) {
-		deleteMode =  GC.getFrame().getDeleteBox().isSelected();
-		if (isMove && !deleteMode) {
-			if (event.getY() < KuVid.HEIGHT / 2 + 80 && event.getX() < KuVid.WIDTH - 20 && event.getY() > 0) {
-				int x = event.getX();
-				int y = event.getY();
-				a.setLocation(new Point(x,y));
-			}
-		}
-
-	}
+//	public void mouseDragged(MouseEvent event) {
+//		deleteMode =  GC.getFrame().getDeleteBox().isSelected();
+//		if (isMove && !deleteMode) {
+//			if (event.getY() < KuVid.HEIGHT / 2 + 80 && event.getX() < KuVid.WIDTH - 20 && event.getY() > 0) {
+//				int x = event.getX();
+//				int y = event.getY();
+//				a.setLocation(new Point(x,y));
+//			}
+//		}
+//
+//	}
 
 
 	@Override
@@ -96,7 +96,7 @@ public class BuildModeKeys implements KeyListener, MouseListener, MouseMotionLis
 		int minY = y - 20;
 		int maxY = y + 20;
 		
-		deleteMode =  GC.getFrame().getDeleteBox().isSelected();
+//		deleteMode =  GC.getFrame().getDeleteBox().isSelected();
 
 		for (int i = 0; i < molecules.size(); i++) {
 			if (minX < molecules.get(i).getX() && molecules.get(i).getX() < maxX
@@ -115,16 +115,16 @@ public class BuildModeKeys implements KeyListener, MouseListener, MouseMotionLis
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		deleteMode =  GC.getFrame().getDeleteBox().isSelected();
-		if (isMove && !deleteMode) {
-			if (e.getY() < KuVid.HEIGHT / 2 + 80 && e.getX() < KuVid.WIDTH - 20 && e.getY() > 0) {
-				int x = e.getX();
-				int y = e.getY();
-				a.setX(x);
-				a.setY(y);
-				isMove = false;
-			}
-		}
+//		deleteMode =  GC.getFrame().getDeleteBox().isSelected();
+//		if (isMove && !deleteMode) {
+//			if (e.getY() < KuVid.HEIGHT / 2 + 80 && e.getX() < KuVid.WIDTH - 20 && e.getY() > 0) {
+//				int x = e.getX();
+//				int y = e.getY();
+//				a.setX(x);
+//				a.setY(y);
+//				isMove = false;
+//			}
+//		}
 	}
 
 	@Override
@@ -143,6 +143,12 @@ public class BuildModeKeys implements KeyListener, MouseListener, MouseMotionLis
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 
