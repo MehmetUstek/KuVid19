@@ -10,6 +10,8 @@ import domain.atom.Atom;
 public class UpdateBallTask extends TimerTask {
     Atom atom;
     Dimension d;
+    
+    
     public UpdateBallTask(Atom atom,Dimension d) {
     	 this.atom= atom;
     	 this.d = d;
@@ -17,10 +19,15 @@ public class UpdateBallTask extends TimerTask {
     @Override
     public void run() {
         // update ball position
-    	if(atom.getX()> d.getWidth()-atom.getDiameter()*2 && atom.getY()> d.getHeight()-atom.getDiameter()*2) {
+    	double x= d.getWidth()/2;
+    	double y =d.getHeight() - 160;
+    	
+    	if(atom.getY()> d.getHeight()+atom.getDiameter()/2) {
     		this.cancel();
+    		atom.setX(x);
+    		atom.setY(y);
     	}
-    	if(atom.getX() > 0 && atom.getY() > 0) {
+    	if(atom.getX() > 0 && atom.getY() > 0 && atom.getX()< d.getWidth() ) {
     	atom.move(atom.getX(),atom.getY(),atom.getSpeed(),atom.getMovementAngle());
 //    	System.out.println(atom.getMovementAngle());
     	}

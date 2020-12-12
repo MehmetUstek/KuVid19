@@ -12,8 +12,8 @@ public class UIController {
 	public List<UIGameObject> objects = new LinkedList<UIGameObject>();
 	int lives,score;
 	boolean gameOver;
-	public static int WIDTH= KuVid.WIDTH;
-	public static int HEIGHT= KuVid.HEIGHT;
+	public static double WIDTH= KuVid.WIDTH;
+	public static double HEIGHT= KuVid.HEIGHT;
 	
 	public void render(Graphics g) {
 		for (int i = 0; i < objects.size(); i++) {
@@ -22,11 +22,11 @@ public class UIController {
 		}
 		g.setColor(Color.black);
 		g.setFont(new Font("TimesRoman",Font.PLAIN,22));
-		g.drawString("Score: " + score, WIDTH-270, HEIGHT-80);
-		g.drawString("Lives: " + lives, WIDTH-90, HEIGHT-80);
+		g.drawString("Score: " + score, (int) WIDTH-270, (int) HEIGHT-80);
+		g.drawString("Lives: " + lives, (int) WIDTH-90, (int) HEIGHT-80);
 		if(gameOver) {
 			g.setFont(new Font("TimesRoman",Font.PLAIN,48));
-			g.drawString("GAME OVER", WIDTH/2 - 160, HEIGHT/2 - 24);
+			g.drawString("GAME OVER", (int) WIDTH/2 - 160,(int)  HEIGHT/2 - 24);
 		}
 	}
 

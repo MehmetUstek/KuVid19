@@ -77,20 +77,6 @@ public class UIAtom extends UIGameObject implements ImageObserver{
 		g.drawImage(image,(int) getX(),(int) getY(), this);
 		
 	}
-//	public void move(int x, int y,double speed, double movementangle) {
-//		double radian = Math.toRadians(movementangle);
-//		int newX= (int) (x+   Math.ceil(speed * Math.sin(radian)));
-//		int newY= (int) (y + Math.ceil(speed * Math.cos(radian)));
-//
-//		setX(newX);
-//		setY(newY);
-////		setLocation(x,y);
-//		 
-//	}
-//	public void bounceBack(int x, int y,double speed, double movementangle) {
-//		move(x,y,speed,-movementangle);
-//	}
-
 	public String getAtomType() {
 		return atomType;
 	}

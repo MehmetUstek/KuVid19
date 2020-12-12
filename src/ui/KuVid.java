@@ -21,8 +21,8 @@ import domain.gameState.Statistics;
 
 public class KuVid extends Canvas implements Runnable {
 	private boolean running = false;
-	public static int WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth(),
-			HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	public static double WIDTH =  Toolkit.getDefaultToolkit().getScreenSize().getWidth(),
+			HEIGHT =  Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private Thread thread;
 	Controller controller;
 	UIController uicontroller;
@@ -31,22 +31,28 @@ public class KuVid extends Canvas implements Runnable {
 	private static KuVid game;
 	int diameter= 40;
 	int speed= diameter;
-	int x= WIDTH/2;
-	int y =HEIGHT - 90;
+	double shooterHeight = 60;
+	double x= WIDTH/2;
+	double y =HEIGHT - 90;
+	double atomX = x;
+	double atomY = y-shooterHeight/2 -diameter;
 	private boolean pause = false;
-	private boolean atomShooted=false;
-	String asd= "alpha";
-	Atom atom = new Atom("alpha",diameter,x,y,20,215);
-	UIAtom atomui = new UIAtom(atom.getType(),diameter);
+//	private boolean atomShooted=false;
 	Random random = new Random();
+	Timer timer;
+	TimerTask timerTask;
+	double shooterRotationAngle=135;
 	
+	//These instances are only for the KUVID Game class atom. When these instances is used in this class they will be called with their get methods.
+	// The atom class will be added to the collisions no matter what.
+	Atom atom = new Atom("alpha",diameter,atomX,atomY,20,shooterRotationAngle);
+	UIAtom atomui = new UIAtom(atom.getType(),diameter);
 	
 	
 	
 	
 
 	public KuVid() {
-			
 			uicontroller =new UIController();
 			controller = new Controller(uicontroller, window);
 			this.requestFocus();
@@ -64,18 +70,18 @@ public class KuVid extends Canvas implements Runnable {
 			this.addKeyListener(new KeyListener() {
 				public void keyPressed(KeyEvent e) {
 					// TODO Auto-generated method stub
-					
-					
 					switch (e.getKeyCode()) {
 					case KeyEvent.VK_UP:
-						if(atomShooted == false) {
+						if(true) {
 							System.out.println("Shoot Atom");
-							atomShooted=true;
-							
-							Atom atom = (Atom) controller.getObject("alpha");
-							TimerTask timerTask = new UpdateBallTask(atom,Toolkit.getDefaultToolkit().getScreenSize());
-							Timer timer = new Timer(true);
-					        timer.scheduleAtFixedRate(timerTask, 0, 100);
+							atom.setMovementAngle(shooterRotationAngle);
+//							Atom atom = (Atom) controller.getObject("alpha");
+							timerTask = new UpdateBallTask(getAtom(),Toolkit.getDefaultToolkit().getScreenSize());
+							timer = new Timer(true);
+					        timer.scheduleAtFixedRate(timerTask, 0, 10);
+//					        if(atom.getX()> WIDTH-atom.getDiameter()*2 && atom.getY()> HEIGHT-atom.getDiameter()*2) {
+//					    		timer.cancel();
+//					    	}
 					        System.out.println(Thread.currentThread().getName()+" TimerTask started");
 							
 						}
@@ -95,12 +101,17 @@ public class KuVid extends Canvas implements Runnable {
 					case  KeyEvent.VK_P:
 						System.out.println("PAUSED");
 						thread.stop();
+						timer.cancel();
 						running = false;
 						pause = true;
 						break;
 					case  KeyEvent.VK_R:
 						System.out.println("RESUME");
 						start();
+						timerTask = new UpdateBallTask(atom,Toolkit.getDefaultToolkit().getScreenSize());
+						setTimer(new Timer(true));
+						timer.scheduleAtFixedRate(timerTask, 0, 100);
+						
 						pause= false;
 						break;
 					case  KeyEvent.VK_C:
@@ -136,36 +147,7 @@ public class KuVid extends Canvas implements Runnable {
 					default:
 						break;
 					}
-//					if(e.getKeyCode() == KeyEvent.VK_L) {
-//						System.out.println("LOADED");
-//					}
-//					if(e.getKeyCode() == KeyEvent.VK_S) {
-//						System.out.println("SAVED");
-//					}
-//					if(e.getKeyCode() == KeyEvent.VK_UP) {
-//						System.out.println("Shoot Atom");
-//					}
-//					if(e.getKeyCode() == KeyEvent.VK_LEFT) {
-//						System.out.println("Move Shooter left");
-//					}
-//					if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
-//						System.out.println("Move Shooter right");
-//					}
-//					if(e.getKeyCode() == KeyEvent.VK_P) {
-//						System.out.println("PAUSED");
-//							thread.stop();
-//							running = false;
-//							pause = true;
-//					}
-//					if(e.getKeyCode() == KeyEvent.VK_R) {
-//						System.out.println("RESUME");
-//						start();
-//						pause= false;
-//					}
-//					if(e.getKeyCode() == KeyEvent.VK_C) {
-//						System.out.println("Switch Atom");
-//					}
-					
+//					
 				}
 
 				@Override
@@ -248,8 +230,8 @@ public class KuVid extends Canvas implements Runnable {
 			return;
 		}
 		Graphics g = bs.getDrawGraphics();
-		g.setColor(Color.cyan);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
+		g.setColor(Color.DARK_GRAY);
+		g.fillRect(0, 0, (int)WIDTH, (int) HEIGHT);
 		uicontroller.render(g);
 		g.dispose();
 		bs.show();
@@ -274,12 +256,21 @@ public class KuVid extends Canvas implements Runnable {
 	public static void setGame(KuVid game) {
 		KuVid.game = game;
 	}
-	public static void main(String[] args) {
-		game = new KuVid();
-	}
+//	public static void main(String[] args) {
+//		game = new KuVid();
+//	}
 	
 	public Atom getAtom() {
 		return atom;
 	}
+
+	public Timer getTimer() {
+		return timer;
+	}
+
+	public void setTimer(Timer timer) {
+		this.timer = timer;
+	}
+	
 	
 }

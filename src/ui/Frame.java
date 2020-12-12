@@ -60,35 +60,11 @@ public class Frame extends Canvas {
 		frame.setMaximumSize(d);
 		frame.setMinimumSize(new Dimension(1, 1));
 		frame.setSize(frame.getMaximumSize());
+		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setBackground(Color.WHITE);
 		frame.setLocationRelativeTo(null);
-//		UIAtom atom = new UIAtom("alpha",60,100,60);
-//		maingui.add(atom);
-		frame.addKeyListener(new KeyListener() {
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
-				if(e.getKeyCode() == KeyEvent.VK_A) {
-					System.out.println("LOADED");
-				}
-			}
-
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void keyTyped(KeyEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
 		sidebar.add(quitButton);
 		sidebar.add(restartButton);
 		sidebar.setBackground(Color.white);
@@ -198,86 +174,86 @@ public class Frame extends Canvas {
 //		Image image= icon.getImage();
 //		background.add(image);
 		// UIAtom(String atomType, int diameter, int x, int y) 
-		int diameter= 40;
-		int speed= diameter;
-		int x= frame.getWidth()/2+diameter;
-		int y = frame.getHeight() - 3*diameter;
-//		UIAtom atomui = new UIAtom("alpha",diameter,x,y);
-//		UIAtom beta = new UIAtom("beta",diameter,x+40,y);
-//		UIAtom gamma = new UIAtom("gamma",diameter,x-50,y);
-		UIMolecule molecule = new UIMolecule("alpha-1",diameter*2,diameter*2,x-100,10);
-		Atom atom = new AlphaAtom("alpha",diameter,x,y,speed,135);
+//		int diameter= 40;
+//		int speed= diameter;
+//		int x= frame.getWidth()/2+diameter;
+//		int y = frame.getHeight() - 3*diameter;
+////		UIAtom atomui = new UIAtom("alpha",diameter,x,y);
+////		UIAtom beta = new UIAtom("beta",diameter,x+40,y);
+////		UIAtom gamma = new UIAtom("gamma",diameter,x-50,y);
+//		UIMolecule molecule = new UIMolecule("alpha-1",diameter*2,diameter*2,x-100,10);
+//		Atom atom = new AlphaAtom("alpha",diameter,x,y,speed,135);
+//		
+//		GC.addObject(atom);
+//		
+////		controller.addObject(beta);
+////		controller.addObject(atomui);
+////		controller.addObject(gamma);
+//		controller.addObject(molecule);
+//		
+////		
+////		for(UIGameObject object:controller.objects) {
+//////			object.setBounds(object.getX(),object.getY(),object.getX()+object.getWidth(),object.getY()+object.getHeight());
+//////			maingui.add(object,new Integer(1));
+////			System.out.println("refresh");
+////		}
+////		maingui.setBounds(0 , 0  , frame.getWidth(), frame.getHeight());
+////		
+////		frame.add(maingui);
 		
-		GC.addObject(atom);
 		
-//		controller.addObject(beta);
-//		controller.addObject(atomui);
-//		controller.addObject(gamma);
-		controller.addObject(molecule);
-		
-		
-		for(UIGameObject object:controller.objects) {
-//			object.setBounds(object.getX(),object.getY(),object.getX()+object.getWidth(),object.getY()+object.getHeight());
-//			maingui.add(object,new Integer(1));
-			System.out.println("refresh");
-		}
-		maingui.setBounds(0 , 0  , frame.getWidth(), frame.getHeight());
-		
-		frame.add(maingui);
-		
-		
-//		TimerTask timertask= new TimerTask() {
-//
-//			@Override
+////		TimerTask timertask= new TimerTask() {
+////
+////			@Override
+////			public void run() {
+////				// TODO Auto-generated method stub
+////				for(UIGameObject object: controller.objects ) {
+////					System.out.println("task Running");
+////				while ( object.getX()< WIDTH && object.getY() <HEIGHT && object.getX()>0 && object.getY()>0) {
+////						object.move(object.getX(),object.getY(),speed, 180);
+////			}
+////			}
+////			}
+////		};
+////		Timer timer = new Timer(true);
+////        timer.scheduleAtFixedRate(timertask, 0, 10000);
+////        try {
+////            Thread.sleep(100000);
+////        } catch (InterruptedException e) {
+////            e.printStackTrace();
+////        }
+////        timer.cancel();
+//    
+//		Thread t1 = new Thread() {
 //			public void run() {
-//				// TODO Auto-generated method stub
-//				for(UIGameObject object: controller.objects ) {
-//					System.out.println("task Running");
-//				while ( object.getX()< WIDTH && object.getY() <HEIGHT && object.getX()>0 && object.getY()>0) {
-//						object.move(object.getX(),object.getY(),speed, 180);
-//			}
-//			}
+//				UIGameObject object= controller.objects.get(0);
+//				while (true) {
+//				for(int i=0;i<controller.objects.size();i++) {
+//					 	if(object.getX()< WIDTH && object.getY() <HEIGHT && object.getX()>0 && object.getY()>0) {
+//						object= controller.objects.get(i);
+////						object.move(object.getX(),object.getY(),speed, 135);
+//						try {
+//							sleep(200);
+//						} catch (InterruptedException e) {
+//							e.printStackTrace();
+//						}
+//					 	}
+//					 	else{
+////					 		object.bounceBack(object.getX(),object.getY(),speed, 180);
+//						 	try {
+//								sleep(100);
+//							} catch (InterruptedException e) {
+//								e.printStackTrace();
+//							}
+//					 	}
+//				}
+//					
+//					
+//				}
+//				
 //			}
 //		};
-//		Timer timer = new Timer(true);
-//        timer.scheduleAtFixedRate(timertask, 0, 10000);
-//        try {
-//            Thread.sleep(100000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        timer.cancel();
-    
-		Thread t1 = new Thread() {
-			public void run() {
-				UIGameObject object= controller.objects.get(0);
-				while (true) {
-				for(int i=0;i<controller.objects.size();i++) {
-					 	if(object.getX()< WIDTH && object.getY() <HEIGHT && object.getX()>0 && object.getY()>0) {
-						object= controller.objects.get(i);
-//						object.move(object.getX(),object.getY(),speed, 135);
-						try {
-							sleep(200);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-					 	}
-					 	else{
-//					 		object.bounceBack(object.getX(),object.getY(),speed, 180);
-						 	try {
-								sleep(100);
-							} catch (InterruptedException e) {
-								e.printStackTrace();
-							}
-					 	}
-				}
-					
-					
-				}
-				
-			}
-		};
-		t1.start();
+//		t1.start();
 		
 		frame.add(gamePanel);
 		

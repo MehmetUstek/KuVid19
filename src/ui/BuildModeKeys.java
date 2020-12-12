@@ -91,8 +91,8 @@ public class BuildModeKeys implements KeyListener, MouseListener, MouseMotionLis
 		int y = e.getY();
 
 		LinkedList<Molecule> molecules = GC.getMolecules();
-		int maxX = x + KuVid.WIDTH / 50;
-		int minX = x - KuVid.WIDTH / 50;
+		double maxX = x + KuVid.WIDTH / 50;
+		double minX = x - KuVid.WIDTH / 50;
 		int minY = y - 20;
 		int maxY = y + 20;
 		
