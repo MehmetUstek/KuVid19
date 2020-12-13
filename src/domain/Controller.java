@@ -5,7 +5,6 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import domain.atom.AlphaAtom;
 import domain.atom.Atom;
 import domain.molecule.Molecule;
 import domain.powerup.Powerup;

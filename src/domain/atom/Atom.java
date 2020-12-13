@@ -8,6 +8,8 @@ public class Atom extends GameObject{
 	double speed;
 	double diameter;
 	double x,y;
+	boolean isShooted;
+	
 	public Atom(String atomType){
 		super();
 		this.x=getX();
@@ -17,12 +19,12 @@ public class Atom extends GameObject{
 		this.diameter= getDiameter();
 		this.atomType= atomType;
 	}
-//	public void move() {
-//		move(getX(),getY(),40);
-//	}
- // Move the atom in its class given x,y locations and speed and diameter, such that it will return new values of x,y.
-	public void bounceBack(double angle) {
-		
+
+	public boolean isShooted() {
+		return isShooted;
+	}
+	public void setShooted(boolean isShooted) {
+		this.isShooted = isShooted;
 	}
 	@Override
 	public String toString() {

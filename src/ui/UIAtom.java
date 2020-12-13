@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
@@ -26,7 +27,7 @@ public class UIAtom extends UIGameObject implements ImageObserver{
 	BufferedImage bimage;
 	Image image;
 	double width,height;
-	
+	AffineTransform at = new AffineTransform();
 	public UIAtom(String atomType, double diameter) {
 		// TODO Auto-generated constructor stub
 		super();
@@ -62,6 +63,7 @@ public class UIAtom extends UIGameObject implements ImageObserver{
 		String file= "src/assets/atoms/"+ getAtomType() +".png";
 		ImageIcon icon = new ImageIcon(file);
 		image = icon.getImage();
+		
 //		try {
 //			bimage = ImageIO.read(new File(file));
 //		} catch (IOException e) {
@@ -75,7 +77,9 @@ public class UIAtom extends UIGameObject implements ImageObserver{
 //		canvas.setVisible(true);
 //		canvas.prepareImage(image, canvas);
 		// IF THIS DOES NOT WORK, USE CANVAS.
-		g.drawImage(image,(int) getX(),(int) getY(), this);
+		at.setToIdentity();
+		at.translate(x, y);
+		g.drawImage(image,at, this);
 		
 	}
 	public String getAtomType() {
