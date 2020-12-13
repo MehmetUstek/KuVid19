@@ -3,6 +3,7 @@ package ui;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -13,7 +14,6 @@ import java.util.Random;
 
 import domain.Controller;
 import domain.DatabaseController;
-import domain.atom.AlphaAtom;
 import domain.atom.Atom;
 import domain.molecule.Molecule;
 import domain.molecule.MoleculeFactory;
@@ -54,7 +54,7 @@ public class BuildMode extends Canvas implements Runnable {
 			this.createBufferStrategy(3);
 			return;
 		}
-		Graphics g = bs.getDrawGraphics();
+		Graphics2D g = (Graphics2D) bs.getDrawGraphics();
 		g.setColor(new Color(238, 238, 238));
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		UIC.render(g);
@@ -189,7 +189,7 @@ public class BuildMode extends Canvas implements Runnable {
 	}
 
 	public static void main(String[] args) {
-		new BuildMode();
+//		new BuildMode();
 	}
 
 }

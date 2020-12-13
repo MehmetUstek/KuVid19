@@ -6,25 +6,31 @@ public class AtomShooter extends GameObject{
 	String type;
 	double rotationAngle;
 	double speed;
-	int width,height;
+	double width,height;
 	double x,y;
-	public AtomShooter(String type,int width, int height){
+	public AtomShooter(String type){
 		super();
 		this.type=type;
-		this.width=width;
-		this.height=height;
+		this.width=getWidth();
+		this.height=getHeight();
 	}
+	
 	public void move() {
 		move(getX(),getY(),40,90);
 	}
 	
 	
+	public void setWidth(double width) {
+		this.width = width;
+	}
+	public void setHeight(double height) {
+		this.height = height;
+	}
 	
-	
-	public int getWidth() {
+	public double getWidth() {
 		return width;
 	}
-	public int getHeight() {
+	public double getHeight() {
 		return height;
 	}
 	public String getType() {

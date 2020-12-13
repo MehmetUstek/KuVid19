@@ -21,7 +21,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import domain.Controller;
-import domain.atom.AlphaAtom;
 import domain.atom.Atom;
 
 

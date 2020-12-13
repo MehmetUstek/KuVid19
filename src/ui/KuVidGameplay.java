@@ -1,18 +1,10 @@
 package ui;
 
 import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import javax.swing.JLayeredPane;
-
-import domain.Controller;
-import domain.atom.*;
 import domain.shooter.AtomShooter;
 
 public class KuVidGameplay extends Canvas {
@@ -25,13 +17,8 @@ public class KuVidGameplay extends Canvas {
 	int L;
 	int diameter;
 	Background background;
-	SigmaAtom sigma;
-	AlphaAtom alpha;
-	BetaAtom beta;
-	GammaAtom gamma;
 	AtomShooter shooter;
 	UIController controller;
-	AlphaAtom alphatest;
 	
 	public KuVidGameplay(int width,int height) throws FileNotFoundException, IOException {
 		this.width= width;

@@ -6,15 +6,15 @@ public class Atom extends GameObject{
 	String atomType;
 	double rotationAngle;
 	double speed;
-	int diameter;
+	double diameter;
 	double x,y;
-	public Atom(String atomType, int diameter, double x, double y,double speed,double rotationAngle){
+	public Atom(String atomType){
 		super();
-		this.x=x;
-		this.y=y;
-		this.rotationAngle= rotationAngle;
-		this.speed= speed;
-		this.diameter= diameter;
+		this.x=getX();
+		this.y=getY();
+		this.rotationAngle= getRotationAngle();
+		this.speed= getSpeed();
+		this.diameter= getDiameter();
 		this.atomType= atomType;
 	}
 //	public void move() {
@@ -30,10 +30,10 @@ public class Atom extends GameObject{
 				+ speed + ", diameter=" + diameter + "]";
 	}
 
-	public int getDiameter() {
+	public double getDiameter() {
 		return diameter;
 	}
-	public void setDiameter(int diameter) {
+	public void setDiameter(double diameter) {
 		this.diameter = diameter;
 	}
 	

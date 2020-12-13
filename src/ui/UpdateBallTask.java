@@ -47,7 +47,7 @@ public class UpdateBallTask extends TimerTask {
     		}
         	System.out.println(atom.getRotationAngle());
     	}
-    	else if(atom.getX() > 0 && atom.getY() > 0 && atom.getX()< d.getWidth() ) {
+    	else if(atom.getX() > 0 && atom.getY() > 0 && atom.getX()< d.getWidth() - atom.getDiameter() ) {
     		
     		atom.move(atom.getX(),atom.getY(),velX,velY);
 //    	System.out.println(atom.getMovementAngle());
@@ -58,7 +58,7 @@ public class UpdateBallTask extends TimerTask {
     		atom.move(atom.getX(),atom.getY(),velX,velY);
     		System.out.println(velX);
     	}
-    	else if( atom.getX() > d.getWidth()) {
+    	else if( atom.getX() >= d.getWidth() - atom.getDiameter()) {
     		velX = -velX;
     		atom.move(atom.getX(),atom.getY(),velX,velY);
     		System.out.println(velX);

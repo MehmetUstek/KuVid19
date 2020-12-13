@@ -15,7 +15,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import domain.Controller;
-import domain.atom.AlphaAtom;
 import domain.atom.Atom;
 
 import domain.gameState.Statistics;
@@ -31,13 +30,15 @@ public class KuVid extends Canvas implements Runnable {
 	Statistics statistics;
 	private Frame window = new Frame(Toolkit.getDefaultToolkit().getScreenSize(), "KuVid", this);
 	private static KuVid game;
-	int diameter= 40;
-	int speed= diameter;
-	int shooterHeight = 200;
+	private static final double L= HEIGHT/10;
+	
+	double shooterHeight = L;
+	double diameter= L/10;
+	double speed= L;
 	double shooterX= WIDTH/2;
-	double shooterY =HEIGHT - shooterHeight;
+	double shooterY =HEIGHT - shooterHeight*2;
 	double atomX = shooterX;
-	double atomY = shooterY -diameter;
+	double atomY = shooterY -diameter*2;
 	private boolean pause = false;
 //	private boolean atomShooted=false;
 	Random random = new Random();
@@ -45,16 +46,16 @@ public class KuVid extends Canvas implements Runnable {
 	TimerTask timerTask;
 	double shooterRotationAngle=0;
 	double rotationConstant = 10;
-	int atomSpeed=20;
-	double velX,velY;
+	double atomSpeed=L/5;
+	
 	//These instances are only for the KUVID Game class atom. When these instances is used in this class they will be called with their get methods.
 	// The atom class will be added to the collisions no matter what.
-	Atom atom = new Atom("alpha",diameter,atomX,atomY,atomSpeed,shooterRotationAngle);
+	Atom atom = new Atom("alpha");
 	UIAtom atomui = new UIAtom(atom.getType(),diameter);
 	//TODO Get rid of atom x,y,diameter variables. All variables.
 	
 	//Shooter
-	AtomShooter shooter = new AtomShooter("shooter",shooterHeight*2,shooterHeight/2);
+	AtomShooter shooter = new AtomShooter("shooter");
 	UIShooter shoterui = new UIShooter("shooter",diameter*2,diameter/2);
 	
 	
@@ -64,12 +65,24 @@ public class KuVid extends Canvas implements Runnable {
 			uicontroller =new UIController();
 			controller = new Controller(uicontroller, window);
 			this.requestFocus();
-			System.out.println(atom.getX());
+			
+			// Atom settings.
+			atom.setDiameter(diameter);
+			atom.setX(atomX);
+			atom.setY(atomY);
+			atom.setSpeed(atomSpeed);
+			atom.setRotationAngle(shooterRotationAngle);
+			
+			// Shooter Settings.
+			shooter.setWidth(shooterHeight /4 );
+			shooter.setHeight(shooterHeight);
+			shooter.setX(shooterX);
+			shooter.setY(shooterY);
+			
 			uicontroller.addObject(atomui);
 			controller.addObject(atom);
 			System.out.println(atom.getX());
-			shooter.setX(shooterX);
-			shooter.setY(shooterY);
+			
 			shooter.setRotationAngle(shooterRotationAngle);
 			atom.setX(atomX);
 			atom.setY(atomY);
@@ -89,8 +102,7 @@ public class KuVid extends Canvas implements Runnable {
 					switch (e.getKeyCode()) {
 					case KeyEvent.VK_UP:
 						if(true) {
-							velX= atom.getSpeed() * Math.sin(Math.toRadians(shooterRotationAngle));
-							velY= atom.getSpeed() * Math.cos(Math.toRadians(shooterRotationAngle));
+							
 							System.out.println("Shoot Atom");
 							shooterRotationAngle = shooter.getRotationAngle();
 							atom.setRotationAngle(shooterRotationAngle);

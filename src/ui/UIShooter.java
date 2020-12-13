@@ -32,7 +32,7 @@ public class UIShooter extends UIGameObject implements ImageObserver{
 
 
 
-	public UIShooter(String type,int width, int height) {
+	public UIShooter(String type,double width, double height) {
 		// TODO Auto-generated constructor stub
 		super();
 		this.type=type;

@@ -22,12 +22,12 @@ public class UIAtom extends UIGameObject implements ImageObserver{
 	
 	
 	public String atomType;
-	public int diameter;
+	public double diameter;
 	BufferedImage bimage;
 	Image image;
-	int width,height;
+	double width,height;
 	
-	public UIAtom(String atomType, int diameter) {
+	public UIAtom(String atomType, double diameter) {
 		// TODO Auto-generated constructor stub
 		super();
 		this.atomType=atomType;
