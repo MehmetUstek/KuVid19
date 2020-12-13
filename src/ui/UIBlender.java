@@ -10,6 +10,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -19,69 +20,42 @@ import javax.swing.JPanel;
 
 
 
-public class UIAtom extends UIGameObject implements ImageObserver{
+public class UIBlender extends UIGameObject implements ImageObserver{
 	
 	
 	public String atomType;
 	public double diameter;
 	BufferedImage bimage;
 	Image image;
-	double width,height;
+	int width,height;
+	double x,y;
 	AffineTransform at = new AffineTransform();
-	public UIAtom(String atomType, double diameter) {
+	public UIBlender(int w, int h) {
 		// TODO Auto-generated constructor stub
 		super();
-		this.atomType=atomType;
-		this.diameter= diameter;
-		this.width=diameter;
-		this.height=diameter;
-	}
-
-	
-	public double getWidth() {
-		return width;
-	}
-
-
-	public void setWidth(double width) {
-		this.width = width;
-	}
-
-
-	public double getHeight() {
-		return height;
-	}
-
-
-	public void setHeight(double height) {
-		this.height = height;
+		this.width=w;
+		this.height=h;
 	}
 
 
 	@Override
 	public void render(Graphics2D g) {
-		String file= "src/assets/atoms/"+ getAtomType() +".png";
+		String file= "src/assets/mixer.png";
 		ImageIcon icon = new ImageIcon(file);
 		image = icon.getImage();
-//		try {
-//			bimage = ImageIO.read(new File(file));
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		image = bimage.getScaledInstance((int) width, (int) height, Image.SCALE_DEFAULT);
+		BufferedImage i = new BufferedImage(width, height, Image.SCALE_DEFAULT);
 		at.setToIdentity();
 		at.translate(x, y);
-		
-		g.drawImage(image,at, this);
+		g.drawImage(image, (int) x, (int) y , width, height, this);
 		
 	}
-	public String getAtomType() {
-		return atomType;
+	@Override
+	public void setX(double x) {
+		this.x = x;
 	}
-
-	public void setAtomType(String atomType) {
-		this.atomType = atomType;
+	@Override
+	public void setY(double y) {
+		this.y = y;
 	}
 	
 	public void paintComponent(Graphics2D g) {

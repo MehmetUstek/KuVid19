@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -20,7 +21,7 @@ import javax.swing.JTextField;
 
 import domain.Controller;
 import domain.atom.Atom;
-
+import domain.blender.Blender;
 import domain.gameState.Statistics;
 import domain.shooter.AtomShooter;
 
@@ -64,7 +65,21 @@ public class KuVid extends Canvas implements Runnable {
 	AtomShooter shooter = new AtomShooter("shooter");
 	UIShooter shoterui = new UIShooter("shooter",diameter*2,diameter/2);
 	
+	//Blender
+	Blender blender = new Blender();
+	UIBlender blenderui = new UIBlender(150, 150);
+
+	boolean keyB;
+	int atomRank;
+	int targetAtomRank;
+	double blenderX = WIDTH - shooterHeight*2;
+	double blenderY = HEIGHT - 4* shooterHeight;
 	
+	public static ArrayList<Atom> alphaList= new ArrayList<Atom>();
+	public static ArrayList<Atom> betaList= new ArrayList<Atom>();
+	public static ArrayList<Atom> sigmaList= new ArrayList<Atom>();
+	public static ArrayList<Atom> gammaList= new ArrayList<Atom>();
+
 	
 
 	public KuVid() {
@@ -79,31 +94,53 @@ public class KuVid extends Canvas implements Runnable {
 			atom.setSpeed(atomSpeed);
 			atom.setRotationAngle(shooterRotationAngle);
 			
+			
+			uicontroller.addObject(atomui);
+			controller.addObject(atom);
+			
+			
 			// Shooter Settings.
 			shooter.setWidth(shooterHeight /2 );
 			shooter.setHeight(shooterHeight);
 			shooter.setX(shooterX);
 			shooter.setY(shooterY);
-			
-			uicontroller.addObject(atomui);
-			controller.addObject(atom);
-			System.out.println(atom.getX());
-			
 			shooter.setRotationAngle(shooterRotationAngle);
-
+			
 			uicontroller.addObject(shoterui);
 			controller.addObject(shooter);
 			
 			
-//			for(UIGameObject object:uicontroller.objects) {
-//				object.setBounds(object.getX(),object.getY(),object.getX()+object.getLength(),getY()+object.getLength());
-//				maingui.add(object,new Integer(1));
-//				System.out.println("refresh");
-//			}
-//			maingui.setBounds(0 , 0  , WIDTH, HEIGHT);
+			// Blender Settings. Blender is just shown in this demo. It is not fully integrated with controller.
+			alphaList.add(atom);
+			alphaList.add(atom);
+			alphaList.add(atom);
+
+			System.out.print("Printed " + alphaList.size() + diameter); 
+
+			blender.setX(blenderX);
+			blender.setY(blenderY);
+			
+			uicontroller.addObject(blenderui);
+			controller.addObject(blender);
+			
+			System.out.println("Number of Alpha atoms: " + alphaList.size());
+			System.out.println("Number of Beta atoms: " + betaList.size());
+			System.out.println("Number of Sigma atoms: " + sigmaList.size());
+			System.out.println("Number of Gamma atoms: " + gammaList.size());
+
 			this.addKeyListener(new KeyListener() {
 				public void keyPressed(KeyEvent e) {
 					
+					if(e.getKeyCode() != KeyEvent.VK_B 
+							&& e.getKeyCode() != KeyEvent.VK_1 
+							&& e.getKeyCode() != KeyEvent.VK_2 
+							&& e.getKeyCode() != KeyEvent.VK_3 
+							&& e.getKeyCode() != KeyEvent.VK_4) {
+						keyB = false;
+						atomRank = 0;
+						targetAtomRank = 0;
+					}
+
 					switch (e.getKeyCode()) {
 					case KeyEvent.VK_UP:
 						if(!atom.isShooted()) {
@@ -229,29 +266,73 @@ public class KuVid extends Canvas implements Runnable {
 						
 						break;
 					case  KeyEvent.VK_B:
-						System.out.println("Blender");
-						if(!isPaused) {
-							thread.stop();
-							isPaused = true;
-						}
-						nextInt = 0;
-						Atom atom1 = getAtom();
-						switch(nextInt) {
-						case 0:
-							
-							break;
-						case 1:
-							
-							break;
-						case 2:
-							
-							break;
-						case 3:
-							
-							break;
-						}
-						
+						System.out.println("BLEND");
+						keyB = true;
+						atomRank = 0;
+						targetAtomRank = 0;
 						break;
+					case  KeyEvent.VK_1:
+						if(atomRank == 0 && keyB == true) {
+							atomRank = 1;
+						} else if(atomRank != 0 && keyB == true) {
+							targetAtomRank = 1;
+							blender.BlendAtom(atomRank, targetAtomRank);
+							keyB = false;
+							atomRank = 0;
+							targetAtomRank = 0;
+						}
+						System.out.println("BLENDED");
+
+						System.out.println("Number of Alpha atoms: " + alphaList.size());
+						System.out.println("Number of Beta atoms: " + betaList.size());
+						System.out.println("Number of Sigma atoms: " + sigmaList.size());
+						System.out.println("Number of Gamma atoms: " + gammaList.size());
+
+						break;
+					case  KeyEvent.VK_2:
+						if(atomRank == 0 && keyB == true) {
+							atomRank = 2;
+						} else if(atomRank != 0 && keyB == true) {
+							targetAtomRank = 2;
+							blender.BlendAtom(atomRank, targetAtomRank);
+							keyB = false;
+							atomRank = 0;
+							targetAtomRank = 0;
+						}
+						System.out.println("BLENDED");
+
+						System.out.println("Number of Alpha atoms: " + alphaList.size());
+						System.out.println("Number of Beta atoms: " + betaList.size());
+						System.out.println("Number of Sigma atoms: " + sigmaList.size());
+						System.out.println("Number of Gamma atoms: " + gammaList.size());
+						break;
+					case  KeyEvent.VK_3:
+						if(atomRank == 0 && keyB == true) {
+							atomRank = 3;
+						} else if(atomRank != 0 && keyB == true) {
+							targetAtomRank = 3;
+							blender.BlendAtom(atomRank, targetAtomRank);
+							keyB = false;
+							atomRank = 0;
+							targetAtomRank = 0;
+						}
+						System.out.println("BLENDED");
+
+						break;
+					case  KeyEvent.VK_4:
+						if(atomRank == 0 && keyB == true) {
+							atomRank = 4;
+						} else if(atomRank != 0 && keyB == true) {
+							targetAtomRank = 4;
+							blender.BlendAtom(atomRank, targetAtomRank);
+							keyB = false;
+							atomRank = 0;
+							targetAtomRank = 0;
+						}
+						System.out.println("BLENDED");
+
+						break;
+
 						
 					default:
 						break;
