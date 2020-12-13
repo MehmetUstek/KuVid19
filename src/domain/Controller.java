@@ -96,8 +96,18 @@ public class Controller {
 				shooter.setRotationAngle(rotation);
 				
 				}
+//			if (tempobject.getType() == "alphaMol") {
+//				UIShooter shooter = (UIShooter) uicontroller.objects.get(i);
+//				int x = (int) tempobject.getX();
+//				int y = (int) tempobject.getY();
+//				double rotation = tempobject.getRotationAngle();
+//				shooter.setX(x);
+//				shooter.setY(y);
+//				shooter.setRotationAngle(rotation);
+//				
+//				}
 		
-//			tempobject.update();
+			tempobject.update();
 		}
 		
 	}
