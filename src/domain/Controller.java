@@ -55,6 +55,27 @@ public class Controller {
 				
 //				Atom atom =  (Atom) tempobject;
 				}
+			if (tempobject.getType() == "beta") {
+				UIAtom ball = (UIAtom) uicontroller.objects.get(i);
+				int x = (int) tempobject.getX();
+				int y = (int) tempobject.getY();
+				ball.setX(x);
+				ball.setY(y);
+				}
+			if (tempobject.getType() == "sigma") {
+				UIAtom ball = (UIAtom) uicontroller.objects.get(i);
+				int x = (int) tempobject.getX();
+				int y = (int) tempobject.getY();
+				ball.setX(x);
+				ball.setY(y);
+				}
+			if (tempobject.getType() == "gamma") {
+				UIAtom ball = (UIAtom) uicontroller.objects.get(i);
+				int x = (int) tempobject.getX();
+				int y = (int) tempobject.getY();
+				ball.setX(x);
+				ball.setY(y);
+				}
 			if (tempobject.getType() == "shooter") {
 				UIShooter shooter = (UIShooter) uicontroller.objects.get(i);
 				int x = (int) tempobject.getX();
@@ -63,11 +84,6 @@ public class Controller {
 				shooter.setX(x);
 				shooter.setY(y);
 				shooter.setRotationAngle(rotation);
-//				ball.setBounds(ball.getX(),ball.getY(),ball.getX()+ball.getWidth(),ball.getY()+ball.getHeight());
-//				ball.setLocation(x, y);
-//				System.out.println(ball.getX());
-//				System.out.println("Y:");
-//				System.out.println(ball.getY());
 				
 				}
 		

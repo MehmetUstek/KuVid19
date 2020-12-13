@@ -31,12 +31,7 @@ public class Frame extends Canvas {
 	public static int WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth(),
 			HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private JPanel sidebar = new JPanel();
-	private JButton saveButton = new JButton("Save");
-	private JButton loadButton = new JButton("Load");
-	private JButton pauseButton = new JButton("Pause");
 	private JButton quitButton = new JButton("Quit");
-	private JButton loginButton = new JButton("Login");
-	private JButton logoutButton = new JButton("Logout");
 	private JTextField moleculeType = new JTextField();
 	private JTextField moleculeCount = new JTextField(10);
 	private JTextField betaType = new JTextField();
@@ -44,12 +39,10 @@ public class Frame extends Canvas {
 	private boolean canAddBricks = false;
 	private JFrame frame;
 	private JPanel gui = new JPanel(new GridLayout(0,1));
-	private JLayeredPane maingui = new JLayeredPane();
 	private JPanel simpleGui = new JPanel(new FlowLayout());  
 	private JPanel gamePanel = new JPanel(new FlowLayout());
 	private JButton Game = new JButton ("Play Game");
 	private JButton buildMode = new JButton("Build Mode");
-	private JButton restartButton = new JButton("Restart");
 	
 	public UIController controller= new UIController();
 	public Controller GC= new Controller(controller, this);
@@ -65,9 +58,8 @@ public class Frame extends Canvas {
 		frame.setBackground(Color.WHITE);
 		frame.setLocationRelativeTo(null);
 		sidebar.add(quitButton);
-		sidebar.add(restartButton);
 		sidebar.setBackground(Color.white);
-		sidebar.setBounds(10, 10, 200, 40);
+		sidebar.setBounds(10, 10, 100, 40);
 		
 		
 		frame.add(sidebar);
@@ -266,15 +258,6 @@ public class Frame extends Canvas {
 
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
-	}
-
-
-	public boolean isCanAddBricks() {
-		return canAddBricks;
-	}
-
-	public void setCanAddBricks(boolean canAddBricks) {
-		this.canAddBricks = canAddBricks;
 	}
 
 

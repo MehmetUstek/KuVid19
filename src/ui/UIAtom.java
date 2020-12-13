@@ -37,25 +37,25 @@ public class UIAtom extends UIGameObject implements ImageObserver{
 		this.height=diameter;
 	}
 
-//	
-//	public int getWidth() {
-//		return width;
-//	}
-//
-//
-//	public void setWidth(int width) {
-//		this.width = width;
-//	}
-//
-//
-//	public int getHeight() {
-//		return height;
-//	}
-//
-//
-//	public void setHeight(int height) {
-//		this.height = height;
-//	}
+	
+	public double getWidth() {
+		return width;
+	}
+
+
+	public void setWidth(double width) {
+		this.width = width;
+	}
+
+
+	public double getHeight() {
+		return height;
+	}
+
+
+	public void setHeight(double height) {
+		this.height = height;
+	}
 
 
 	@Override
@@ -63,14 +63,14 @@ public class UIAtom extends UIGameObject implements ImageObserver{
 		String file= "src/assets/atoms/"+ getAtomType() +".png";
 		ImageIcon icon = new ImageIcon(file);
 		image = icon.getImage();
-		
+//		
 //		try {
 //			bimage = ImageIO.read(new File(file));
 //		} catch (IOException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-//		image = bimage.getScaledInstance(width, height, Image.SCALE_DEFAULT);
+//		image = bimage.getScaledInstance((int) width, (int) height, Image.SCALE_DEFAULT);
 		Canvas canvas= new Canvas();
 //		canvas.setBackground(Color.BLACK);
 		JLabel label = new JLabel();
@@ -79,6 +79,7 @@ public class UIAtom extends UIGameObject implements ImageObserver{
 		// IF THIS DOES NOT WORK, USE CANVAS.
 		at.setToIdentity();
 		at.translate(x, y);
+		
 		g.drawImage(image,at, this);
 		
 	}

@@ -2,6 +2,7 @@ package ui;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
@@ -13,6 +14,9 @@ import java.awt.image.BufferStrategy;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import domain.Controller;
 import domain.atom.Atom;
@@ -31,7 +35,9 @@ public class KuVid extends Canvas implements Runnable {
 	private Frame window = new Frame(Toolkit.getDefaultToolkit().getScreenSize(), "KuVid", this);
 	private static KuVid game;
 	private static final double L= HEIGHT/10;
+	private JTextField blenderGivenAtom = new JTextField(10);
 	
+	private JPanel simpleGui = new JPanel(new FlowLayout());  
 	double shooterHeight = L;
 	double diameter= L/10;
 	double speed= L;
@@ -41,6 +47,7 @@ public class KuVid extends Canvas implements Runnable {
 	double atomY = shooterY -diameter*2;
 	private boolean isPaused = false;
 	private boolean atomShooted=false;
+	
 //	private boolean atomShooted=false;
 	Random random = new Random();
 	Timer timer;
@@ -98,8 +105,6 @@ public class KuVid extends Canvas implements Runnable {
 			this.addKeyListener(new KeyListener() {
 				public void keyPressed(KeyEvent e) {
 					
-					
-					// TODO Auto-generated method stub
 					switch (e.getKeyCode()) {
 					case KeyEvent.VK_UP:
 						if(!atom.isShooted()) {
@@ -177,9 +182,10 @@ public class KuVid extends Canvas implements Runnable {
 						if(!isPaused) {
 							System.out.println("PAUSED");
 							thread.stop();
-//							timer.cancel();
 							timerTask.cancel();
 							isPaused = true;
+
+//							timer.cancel();
 						}
 						break;
 					case  KeyEvent.VK_R:
@@ -220,6 +226,32 @@ public class KuVid extends Canvas implements Runnable {
 							atom.setType("gamma");
 							atomui.setAtomType("gamma");
 //							update();
+							break;
+						}
+						
+						break;
+					case  KeyEvent.VK_B:
+						System.out.println("Blender");
+						if(!isPaused) {
+							thread.stop();
+							isPaused = true;
+						}
+						nextInt = 0;
+						Atom atom1 = getAtom();
+						switch(nextInt) {
+						case 0:
+							blenderGivenAtom.setVisible(true);
+							simpleGui.setBounds(400,400,800,800);
+							simpleGui.setVisible(true);
+							break;
+						case 1:
+							
+							break;
+						case 2:
+							
+							break;
+						case 3:
+							
 							break;
 						}
 						
