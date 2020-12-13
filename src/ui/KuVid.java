@@ -46,6 +46,7 @@ public class KuVid extends Canvas implements Runnable {
 	double shooterRotationAngle=0;
 	double rotationConstant = 10;
 	int atomSpeed=20;
+	double velX,velY;
 	//These instances are only for the KUVID Game class atom. When these instances is used in this class they will be called with their get methods.
 	// The atom class will be added to the collisions no matter what.
 	Atom atom = new Atom("alpha",diameter,atomX,atomY,atomSpeed,shooterRotationAngle);
@@ -88,6 +89,8 @@ public class KuVid extends Canvas implements Runnable {
 					switch (e.getKeyCode()) {
 					case KeyEvent.VK_UP:
 						if(true) {
+							velX= atom.getSpeed() * Math.sin(Math.toRadians(shooterRotationAngle));
+							velY= atom.getSpeed() * Math.cos(Math.toRadians(shooterRotationAngle));
 							System.out.println("Shoot Atom");
 							shooterRotationAngle = shooter.getRotationAngle();
 							atom.setRotationAngle(shooterRotationAngle);
@@ -95,7 +98,7 @@ public class KuVid extends Canvas implements Runnable {
 //							Atom atom = (Atom) controller.getObject("alpha");
 							timerTask = new UpdateBallTask(getAtom(),Toolkit.getDefaultToolkit().getScreenSize(),shooter);
 							timer = new Timer(true);
-					        timer.scheduleAtFixedRate(timerTask, 0, 10);
+					        timer.scheduleAtFixedRate(timerTask, 0, 40);
 //					        if(atom.getX()> WIDTH-atom.getDiameter()*2 && atom.getY()> HEIGHT-atom.getDiameter()*2) {
 //					    		timer.cancel();
 //					    	}
@@ -134,19 +137,20 @@ public class KuVid extends Canvas implements Runnable {
 						
 					case  KeyEvent.VK_A:
 						System.out.println("Rotate shooter left");
-						if(shooterRotationAngle < 180) {
-							shooterRotationAngle += rotationConstant;
-							shooter.setRotationAngle(shooterRotationAngle);
-							atom.setRotationAngle(shooterRotationAngle);
-						}
-						break;
-					case  KeyEvent.VK_D:
-						System.out.println("Rotate shooter right");
-						if(shooterRotationAngle > -180 ) {
+						if(shooterRotationAngle > -90 ) {
 							shooterRotationAngle -= rotationConstant;
 							shooter.setRotationAngle(shooterRotationAngle);
 							atom.setRotationAngle(shooterRotationAngle);
 							System.out.println(atom.getRotationAngle());
+						}
+						
+						break;
+					case  KeyEvent.VK_D:
+						System.out.println("Rotate shooter right");
+						if(shooterRotationAngle < 90) {
+							shooterRotationAngle += rotationConstant;
+							shooter.setRotationAngle(shooterRotationAngle);
+							atom.setRotationAngle(shooterRotationAngle);
 						}
 						break;
 					case  KeyEvent.VK_P:
