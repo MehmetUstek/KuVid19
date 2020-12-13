@@ -11,6 +11,7 @@ import domain.shooter.AtomShooter;
 public class UpdateBallTask extends TimerTask {
     Atom atom;
     Dimension d;
+    double width;
     AtomShooter shooter;
     double velX;
 	double velY;
@@ -20,6 +21,7 @@ public class UpdateBallTask extends TimerTask {
     	 this.atom= atom;
     	 this.d = d;
     	 this.shooter= shooter;
+    	 width= d.getWidth()-200;
     	 velX= atom.getSpeed() * Math.sin(Math.toRadians(atom.getRotationAngle()));
     	 velY= atom.getSpeed() * Math.cos(Math.toRadians(180-atom.getRotationAngle()));
     	 x = shooter.getX();
@@ -54,7 +56,7 @@ public class UpdateBallTask extends TimerTask {
         		atom.move(atom.getX(),atom.getY(),velX,velY);
     		}
     	}
-    	else if(atom.getX() > 0 && atom.getY() > 0 && atom.getX()< d.getWidth() - atom.getDiameter() ) {
+    	else if(atom.getX() > 0 && atom.getY() > 0 && atom.getX()< width - atom.getDiameter()*4) {
     		
     		atom.move(atom.getX(),atom.getY(),velX,velY);
     	}
@@ -65,7 +67,7 @@ public class UpdateBallTask extends TimerTask {
     		atom.move(atom.getX(),atom.getY(),velX,velY);
     		System.out.println(velX);
     	}
-    	else if( atom.getX() >= d.getWidth() - atom.getDiameter()) {
+    	else if( atom.getX() >= width - atom.getDiameter()*4) {
     		velX = -velX;
     		atom.setRotationAngle(-atom.getRotationAngle());
     		atom.move(atom.getX(),atom.getY(),velX,velY);

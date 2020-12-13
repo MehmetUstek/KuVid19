@@ -1,47 +1,40 @@
 package domain.molecule;
 
-import java.awt.Graphics;
-import java.awt.Point;
-import java.io.IOException;
-
-import javax.swing.JPanel;
-
 import domain.GameObject;
 import domain.atom.Atom;
 
 
-public abstract class Molecule extends GameObject{
-	public double L; 
-	public EnumMovement movementType;
-	public int width;
-	public int height;
-	Point location;
+public abstract class Molecule extends GameObject implements MovementStrategy{
 	
-	public Molecule(EnumMovement movementType, int width, int height, Point location) {
-		this.movementType = movementType;
+	public static double L;
+
+	public double width;
+	public double height;
+	
+	public Molecule() {
+	}
+	
+	public double getWidth() {
+		return width;
+	}
+
+
+	public void setWidth(double width) {
 		this.width = width;
+	}
+
+
+	public double getHeight() {
+		return height;
+	}
+
+
+	public void setHeight(double height) {
 		this.height = height;
-		this.location = location;
-	}
-	
-
-	public Point getLocation() {
-		return location;
-	}
-
-
-	public void setLocation(Point location) {
-		this.location = location;
 	}
 
 
 	public abstract void collectMolecule();
 	public abstract boolean isInDanger();
 	public abstract boolean isIntersecting(Atom bullet);
-	
-	public EnumMovement getMovementType() {
-		return movementType;
-	}
-	
-	
 }

@@ -23,11 +23,14 @@ import domain.Controller;
 import domain.atom.Atom;
 import domain.blender.Blender;
 import domain.gameState.Statistics;
+import domain.molecule.*;
 import domain.shooter.AtomShooter;
+import ui.molecule.AlphaMoleculeUI;
+import ui.molecule.*;
 
 public class KuVid extends Canvas implements Runnable {
 	private boolean running = false;
-	public static double WIDTH =  Toolkit.getDefaultToolkit().getScreenSize().getWidth(),
+	public static double WIDTH =  Toolkit.getDefaultToolkit().getScreenSize().getWidth()-200,
 			HEIGHT =  Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private Thread thread;
 	Controller controller;
@@ -35,7 +38,7 @@ public class KuVid extends Canvas implements Runnable {
 	Statistics statistics;
 	private Frame window = new Frame(Toolkit.getDefaultToolkit().getScreenSize(), "KuVid", this);
 	private static KuVid game;
-	private static final double L= HEIGHT/10;
+	public static final double L= HEIGHT/10;
 	private JTextField blenderGivenAtom = new JTextField(10);
 	
 	double shooterHeight = L;
@@ -70,11 +73,17 @@ public class KuVid extends Canvas implements Runnable {
 	UIBlender blenderui = new UIBlender(150, 150);
 	
 	
-	//Statistics
-	UIAtom statisticAlpha = new UIAtom("alpha");
-	UIAtom statisticBeta = new UIAtom("beta");
-	UIAtom statisticSigma = new UIAtom("sigma");
-	UIAtom statisticGamma = new UIAtom("gamma");
+	
+	//Molecule prototype
+		Molecule alphaMol = new AlphaMolecule();
+		Molecule betaMol = new BetaMolecule();
+		Molecule sigmaMol = new SigmaMolecule();
+		Molecule gammaMol = new GammaMolecule();
+		
+		UIMolecule alphaUI = new AlphaMoleculeUI();
+		UIMolecule betaUI = new BetaMoleculeUI();
+		UIMolecule sigmaUI = new SigmaMoleculeUI();
+		UIMolecule gammaUI = new GammaMoleculeUI();
 	
 	boolean keyB;
 	int atomRank;
@@ -135,14 +144,31 @@ public class KuVid extends Canvas implements Runnable {
 			System.out.println("Number of Sigma atoms: " + sigmaList.size());
 			System.out.println("Number of Gamma atoms: " + gammaList.size());
 			
+			// Molecule settings
+			alphaMol.setX(200);
+			alphaMol.setY(0);
+			betaMol.setX(300);
+			betaMol.setY(0);
+			sigmaMol.setX(400);
+			sigmaMol.setY(0);
+			gammaMol.setX(500);
+			gammaMol.setY(0);
 			
+			uicontroller.addObject(alphaUI);
+			controller.addObject(alphaMol);
+			uicontroller.addObject(betaUI);
+			controller.addObject(betaMol);
+			uicontroller.addObject(sigmaUI);
+			controller.addObject(sigmaMol);
+			uicontroller.addObject(gammaUI);
+			controller.addObject(gammaMol);
 			
-			//Statistics Window (implemented in this class for now.)
-//			statisticAlpha.setDiameter(diameter/2);
-//			statisticAlpha.setDiameter(diameter/2);
-//			statisticAlpha.setDiameter(diameter/2);
-//			statisticAlpha.setDiameter(diameter/2);
+			alphaMol.move(atomSpeed);
+			betaMol.move(atomSpeed);
+			sigmaMol.move(atomSpeed);
+			gammaMol.move(atomSpeed);
 			
+		
 			this.addKeyListener(new KeyListener() {
 				public void keyPressed(KeyEvent e) {
 					
