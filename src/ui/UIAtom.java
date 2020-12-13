@@ -1,21 +1,11 @@
 package ui;
 
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 
 
@@ -24,20 +14,31 @@ public class UIAtom extends UIGameObject implements ImageObserver{
 	
 	public String atomType;
 	public double diameter;
-	BufferedImage bimage;
+	ImageIcon icon;
+//	BufferedImage bimage;
 	Image image;
 	double width,height;
 	AffineTransform at = new AffineTransform();
-	public UIAtom(String atomType, double diameter) {
+	public UIAtom(String atomType) {
 		// TODO Auto-generated constructor stub
 		super();
 		this.atomType=atomType;
-		this.diameter= diameter;
+		this.diameter= getDiameter();
 		this.width=diameter;
 		this.height=diameter;
 	}
 
 	
+	public double getDiameter() {
+		return diameter;
+	}
+
+
+	public void setDiameter(double diameter) {
+		this.diameter = diameter;
+	}
+
+
 	public double getWidth() {
 		return width;
 	}
@@ -61,7 +62,7 @@ public class UIAtom extends UIGameObject implements ImageObserver{
 	@Override
 	public void render(Graphics2D g) {
 		String file= "src/assets/atoms/"+ getAtomType() +".png";
-		ImageIcon icon = new ImageIcon(file);
+		icon = new ImageIcon(file);
 		image = icon.getImage();
 //		try {
 //			bimage = ImageIO.read(new File(file));

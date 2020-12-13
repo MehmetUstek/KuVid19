@@ -58,7 +58,7 @@ public class KuVid extends Canvas implements Runnable {
 	//These instances are only for the KUVID Game class atom. When these instances is used in this class they will be called with their get methods.
 	// The atom class will be added to the collisions no matter what.
 	Atom atom = new Atom("alpha");
-	UIAtom atomui = new UIAtom(atom.getType(),diameter);
+	UIAtom atomui = new UIAtom(atom.getType());
 	//TODO Get rid of atom x,y,diameter variables. All variables.
 	
 	//Shooter
@@ -68,11 +68,18 @@ public class KuVid extends Canvas implements Runnable {
 	//Blender
 	Blender blender = new Blender();
 	UIBlender blenderui = new UIBlender(150, 150);
-
+	
+	
+	//Statistics
+	UIAtom statisticAlpha = new UIAtom("alpha");
+	UIAtom statisticBeta = new UIAtom("beta");
+	UIAtom statisticSigma = new UIAtom("sigma");
+	UIAtom statisticGamma = new UIAtom("gamma");
+	
 	boolean keyB;
 	int atomRank;
 	int targetAtomRank;
-	double blenderX = WIDTH - shooterHeight*2;
+	double blenderX = WIDTH - shooterHeight*2+50;
 	double blenderY = HEIGHT - 4* shooterHeight;
 	
 	public static ArrayList<Atom> alphaList= new ArrayList<Atom>();
@@ -93,7 +100,7 @@ public class KuVid extends Canvas implements Runnable {
 			atom.setY(atomY);
 			atom.setSpeed(atomSpeed);
 			atom.setRotationAngle(shooterRotationAngle);
-			
+			atomui.setDiameter(diameter);
 			
 			uicontroller.addObject(atomui);
 			controller.addObject(atom);
@@ -114,7 +121,7 @@ public class KuVid extends Canvas implements Runnable {
 			alphaList.add(atom);
 			alphaList.add(atom);
 			alphaList.add(atom);
-
+			
 			System.out.print("Printed " + alphaList.size() + diameter); 
 
 			blender.setX(blenderX);
@@ -127,7 +134,15 @@ public class KuVid extends Canvas implements Runnable {
 			System.out.println("Number of Beta atoms: " + betaList.size());
 			System.out.println("Number of Sigma atoms: " + sigmaList.size());
 			System.out.println("Number of Gamma atoms: " + gammaList.size());
-
+			
+			
+			
+			//Statistics Window (implemented in this class for now.)
+//			statisticAlpha.setDiameter(diameter/2);
+//			statisticAlpha.setDiameter(diameter/2);
+//			statisticAlpha.setDiameter(diameter/2);
+//			statisticAlpha.setDiameter(diameter/2);
+			
 			this.addKeyListener(new KeyListener() {
 				public void keyPressed(KeyEvent e) {
 					

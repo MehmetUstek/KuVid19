@@ -6,12 +6,16 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import domain.gameState.Statistics;
 
 
 
@@ -32,7 +36,7 @@ public class Frame extends Canvas {
 	private JPanel gamePanel = new JPanel(new FlowLayout());
 	private JButton Game = new JButton ("Play Game");
 	private JButton buildMode = new JButton("Build Mode");
-	
+	StatisticsWindow statsWindow= new StatisticsWindow();
 	public Frame(Dimension d, String title, KuVid game) {
 		frame = new JFrame(title);
 		frame.setMaximumSize(d);
@@ -46,10 +50,10 @@ public class Frame extends Canvas {
 		sidebar.add(quitButton);
 		sidebar.setBackground(Color.white);
 		sidebar.setBounds(10, 10, 100, 40);
-		
-		
+		statsWindow.setBounds(1800,10,90, 630);
+		statsWindow.setLayout(new BoxLayout(statsWindow, BoxLayout.Y_AXIS));
 		frame.add(sidebar);
-		
+		frame.add(statsWindow);
 		frame.add(game);
 		frame.setVisible(true);
 		game.start();
