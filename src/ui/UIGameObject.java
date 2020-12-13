@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.Component;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.io.Serializable;
 
 import javax.swing.JComponent;
@@ -47,7 +48,7 @@ public abstract class UIGameObject implements Serializable {
 
 
 
-	public abstract void render(Graphics g);
+	public abstract void render(Graphics2D g);
 
 	public void setX(double x) {
 		this.x = x;
@@ -63,7 +64,7 @@ public abstract class UIGameObject implements Serializable {
 	public double getY() {
 		return y;
 	}
-	public void paintComponent(Graphics g) {
+	public void paintComponent(Graphics2D g) {
 		render(g);
 	}
 

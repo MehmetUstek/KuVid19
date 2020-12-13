@@ -1,98 +1,78 @@
 package domain.shooter;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import domain.GameObject;
 
-import javax.imageio.ImageIO;
-import javax.swing.JPanel;
-
-import domain.atom.Atom;
-import domain.powerup.Powerup;
-
-public class AtomShooter extends JPanel{
-	
-	BufferedImage bimage;
-	Image image;
-
-	Object shootingObjectType;
-	int health;
-	int width;
-	int height;
-	double angle;
+public class AtomShooter extends GameObject{
+	String type;
+	double rotationAngle;
 	double speed;
-	Atom currentAtom;
-	Powerup currentPU;
-	int x,y;
-	public AtomShooter(int x, int y,int health, double speed, double rotationAngle,int width,int height, Object shootingObjectType) throws FileNotFoundException, IOException {
-		this.x=x;
-		this.y=y;
-		this.angle=rotationAngle;
-		this.speed= speed;
-		this.health= health;
+	int width,height;
+	double x,y;
+	public AtomShooter(String type,int width, int height){
+		super();
+		this.type=type;
 		this.width=width;
 		this.height=height;
-		this.shootingObjectType= shootingObjectType;
-		bimage = ImageIO.read(new File("./src/assets/shooter.png"));
-		image = bimage.getScaledInstance(width, height, Image.SCALE_DEFAULT);
 	}
-
-	public Object getShootingObjectType() {
-		return shootingObjectType;
+	public void move() {
+		move(getX(),getY(),40,90);
 	}
-
-	public void setShootingObjectType(Object shootingObjectType) {
-		this.shootingObjectType = shootingObjectType;
-	}
-
-	public int getHealth() {
-		return health;
-	}
-
-	public void setHealth(int health) {
-		this.health = health;
-	}
-
-	public double getAngle() {
-		return angle;
-	}
-
-	public void setAngle(double angle) {
-		this.angle = angle;
-	}
-
-	public double getSpeed() {
-		return speed;
-	}
-
-	public void setSpeed(double speed) {
-		this.speed = speed;
-	}
-
+	
+	
+	
+	
 	public int getWidth() {
 		return width;
 	}
-
-	public void setWidth(int width) {
-		this.width = width;
-	}
-
 	public int getHeight() {
 		return height;
 	}
-
-	public void setHeight(int height) {
-		this.height = height;
+	public String getType() {
+		return type;
 	}
-	
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		g.drawImage(image,0,0, this);
+	public void setType(String atomType) {
+		this.type = atomType;
+	}
+	public double getRotationAngle() {
+		return rotationAngle;
+	}
+	public void setRotationAngle(double rotationAngle) {
+		this.rotationAngle = rotationAngle;
+	}
+	public double getSpeed() {
+		return speed;
+	}
+	public void setSpeed(double speed) {
+		this.speed = speed;
+	}
+	public void move(double x, double y,double speed, double movementangle) {
+		double radian = Math.toRadians(movementangle);
+		double newX=  (x+   Math.ceil(speed * Math.sin(radian)));
+		double newY=  (y + Math.ceil(speed * Math.cos(radian)));
+
+		setX(newX);
+		setY(newY);
+		
+		 
+	}
+	public double getX() {
+		return x;
+	}
+	public void setX(double x) {
+		this.x = x;
+	}
+	public double getY() {
+		return y;
+	}
+	public void setY(double y) {
+		this.y = y;
+	}
+	public void bounceBack(int x, int y,double speed, double movementangle) {
+		move(x,y,speed,-movementangle);
+	}
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
 		
 	}
 	

@@ -12,6 +12,7 @@ import domain.powerup.Powerup;
 import ui.Frame;
 import ui.UIAtom;
 import ui.UIController;
+import ui.UIShooter;
 
 public class Controller {
 	//This class will handle all the UI actions.
@@ -53,7 +54,22 @@ public class Controller {
 //				System.out.println("Y:");
 //				System.out.println(ball.getY());
 				
-				Atom atom =  (Atom) tempobject;
+//				Atom atom =  (Atom) tempobject;
+				}
+			if (tempobject.getType() == "shooter") {
+				UIShooter shooter = (UIShooter) uicontroller.objects.get(i);
+				int x = (int) tempobject.getX();
+				int y = (int) tempobject.getY();
+				double rotation = tempobject.getRotationAngle();
+				shooter.setX(x);
+				shooter.setY(y);
+				shooter.setRotationAngle(rotation);
+//				ball.setBounds(ball.getX(),ball.getY(),ball.getX()+ball.getWidth(),ball.getY()+ball.getHeight());
+//				ball.setLocation(x, y);
+//				System.out.println(ball.getX());
+//				System.out.println("Y:");
+//				System.out.println(ball.getY());
+				
 				}
 		
 			tempobject.update();

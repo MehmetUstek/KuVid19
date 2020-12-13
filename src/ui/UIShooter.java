@@ -3,8 +3,10 @@ package ui;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
@@ -23,8 +25,13 @@ public class UIShooter extends UIGameObject implements ImageObserver{
 	public int diameter;
 	BufferedImage bimage;
 	Image image;
-	int width,height;
+	double width,height;
+	AffineTransform at = new AffineTransform();
+	double rotationAngle;
 	
+
+
+
 	public UIShooter(String type,int width, int height) {
 		// TODO Auto-generated constructor stub
 		super();
@@ -35,12 +42,23 @@ public class UIShooter extends UIGameObject implements ImageObserver{
 
 
 
+	public double getHeight() {
+		return height;
+	}
+
+
+
 	@Override
-	public void render(Graphics g) {
+	public void render(Graphics2D g) {
 		String file= "src/assets/shooter.png";
 		ImageIcon icon = new ImageIcon(file);
 		image = icon.getImage();
-		g.drawImage(image,(int) getX(),(int) getY(), this);
+		at.setToIdentity();
+		double rotation = getRotationAngle() /180;
+		at.rotate(rotation,x,y+getHeight());
+		at.translate(x, y);
+		
+		g.drawImage(image, at, null);
 		
 	}
 
@@ -52,7 +70,7 @@ public class UIShooter extends UIGameObject implements ImageObserver{
 		this.type = type;
 	}
 	
-	public void paintComponent(Graphics g) {
+	public void paintComponent(Graphics2D g) {
 		render(g);
 	}
 
@@ -61,5 +79,13 @@ public class UIShooter extends UIGameObject implements ImageObserver{
 		// TODO Auto-generated method stub
 		return false;
 	}
+	public double getRotationAngle() {
+		return rotationAngle;
+	}
 
+
+
+	public void setRotationAngle(double rotationAngle) {
+		this.rotationAngle = rotationAngle;
+	}
 }

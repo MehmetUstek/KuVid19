@@ -6,7 +6,7 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public abstract class GameObject implements Serializable {
 
-	protected double x, y, velX, velY;
+	protected double x, y, velX, velY, rotationAngle;
 	protected ID id;
 	String type;
 	
@@ -17,7 +17,6 @@ public abstract class GameObject implements Serializable {
 	}
 
 	public abstract void update();
-	public abstract Shape getBounds();
 	public double getX() {
 		return x;
 	}
@@ -28,6 +27,14 @@ public abstract class GameObject implements Serializable {
 
 	public double getY() {
 		return y;
+	}
+
+	public double getRotationAngle() {
+		return rotationAngle;
+	}
+
+	public void setRotationAngle(double rotationAngle) {
+		this.rotationAngle = rotationAngle;
 	}
 
 	public void setY(double y) {

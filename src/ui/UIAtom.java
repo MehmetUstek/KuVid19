@@ -3,6 +3,7 @@ package ui;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
@@ -57,7 +58,7 @@ public class UIAtom extends UIGameObject implements ImageObserver{
 
 
 	@Override
-	public void render(Graphics g) {
+	public void render(Graphics2D g) {
 		String file= "src/assets/atoms/"+ getAtomType() +".png";
 		ImageIcon icon = new ImageIcon(file);
 		image = icon.getImage();
@@ -85,7 +86,7 @@ public class UIAtom extends UIGameObject implements ImageObserver{
 		this.atomType = atomType;
 	}
 	
-	public void paintComponent(Graphics g) {
+	public void paintComponent(Graphics2D g) {
 		render(g);
 	}
 

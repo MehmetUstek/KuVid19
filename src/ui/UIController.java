@@ -3,6 +3,7 @@ package ui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class UIController {
 	public static double WIDTH= KuVid.WIDTH;
 	public static double HEIGHT= KuVid.HEIGHT;
 	
-	public void render(Graphics g) {
+	public void render(Graphics2D g) {
 		for (int i = 0; i < objects.size(); i++) {
 			UIGameObject temp = (UIGameObject) objects.get(i);
 			temp.render(g);
