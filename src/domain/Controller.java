@@ -1,5 +1,6 @@
 package domain;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -14,15 +15,11 @@ import ui.UIController;
 import ui.UIShooter;
 
 public class Controller {
-	//This class will handle all the UI actions.
-	// It will handle every user actions such that,
-	// shooting of atom, using blender etc. This class may also contain the handling of the collisions using collision handler class.
-	Object object;
-	KeyEvent event;
+	
 	private UIController uicontroller;
 	private ArrayList<Powerup> collectedPowerups = new ArrayList<Powerup>();
 	private int score = 0, time = 0, counter = 0, lives = 3, initialMoleculeCount;
-	
+	private boolean atomFalled;
 	public LinkedList<GameObject> objects = new LinkedList<GameObject>();
 	Frame frame;
 	
@@ -33,20 +30,33 @@ public class Controller {
 	
 	public void update() {
 		// TODO Auto-generated method stub
+//		if(atomFalled) {
+//			--lives;
+//			atomFalled=false;
+//		}
 		uicontroller.setScore(score);
 		uicontroller.setLives(lives);
-
+		
 		for (int i = 0; i < objects.size(); i++) {
 			GameObject tempobject = (GameObject) objects.get(i);
 			uicontroller.objects.get(i).setX((int) tempobject.getX());
 			uicontroller.objects.get(i).setY((int) tempobject.getY());
 			
 			if (tempobject.getType() == "alpha") {
-				UIAtom ball = (UIAtom) uicontroller.objects.get(i);
-				int x = (int) tempobject.getX();
-				int y = (int) tempobject.getY();
-				ball.setX(x);
-				ball.setY(y);
+				Atom tempobject1 = (Atom) tempobject;
+				UIAtom atom = (UIAtom) uicontroller.objects.get(i);
+				int x = (int) tempobject1.getX();
+				int y = (int) tempobject1.getY();
+				atom.setX(x);
+				atom.setY(y);
+				if(tempobject1.getY()> Toolkit.getDefaultToolkit().getScreenSize().getHeight()+ tempobject1.getWidth()/2) {
+		    		tempobject1.setX(x);
+		    		tempobject1.setY(y);
+		    		tempobject1.setShooted(false);
+		    		atomFalled=true;
+		    	}
+				
+//				tempobject = tempobject1;
 //				ball.setBounds(ball.getX(),ball.getY(),ball.getX()+ball.getWidth(),ball.getY()+ball.getHeight());
 //				ball.setLocation(x, y);
 //				System.out.println(ball.getX());
@@ -56,25 +66,25 @@ public class Controller {
 //				Atom atom =  (Atom) tempobject;
 				}
 			if (tempobject.getType() == "beta") {
-				UIAtom ball = (UIAtom) uicontroller.objects.get(i);
+				UIAtom atom = (UIAtom) uicontroller.objects.get(i);
 				int x = (int) tempobject.getX();
 				int y = (int) tempobject.getY();
-				ball.setX(x);
-				ball.setY(y);
+				atom.setX(x);
+				atom.setY(y);
 				}
 			if (tempobject.getType() == "sigma") {
-				UIAtom ball = (UIAtom) uicontroller.objects.get(i);
+				UIAtom atom = (UIAtom) uicontroller.objects.get(i);
 				int x = (int) tempobject.getX();
 				int y = (int) tempobject.getY();
-				ball.setX(x);
-				ball.setY(y);
+				atom.setX(x);
+				atom.setY(y);
 				}
 			if (tempobject.getType() == "gamma") {
-				UIAtom ball = (UIAtom) uicontroller.objects.get(i);
+				UIAtom atom = (UIAtom) uicontroller.objects.get(i);
 				int x = (int) tempobject.getX();
 				int y = (int) tempobject.getY();
-				ball.setX(x);
-				ball.setY(y);
+				atom.setX(x);
+				atom.setY(y);
 				}
 			if (tempobject.getType() == "shooter") {
 				UIShooter shooter = (UIShooter) uicontroller.objects.get(i);
@@ -87,8 +97,9 @@ public class Controller {
 				
 				}
 		
-			tempobject.update();
+//			tempobject.update();
 		}
+		
 	}
 	public Frame getFrame() {
 		return frame;
@@ -97,16 +108,16 @@ public class Controller {
 		this.frame = frame;
 	}
 	public LinkedList<Molecule> getMolecules() {
-		LinkedList<Molecule> allBricks = new LinkedList<Molecule>();
-		for (int i = 0; i < objects.size(); i++) {
-			GameObject tempobject = (GameObject) objects.get(i);
-			if (tempobject.getId() == ID.AlphaMolecule || tempobject.getId() == ID.BetaMolecule
-					|| tempobject.getId() == ID.SigmaMolecule || tempobject.getId() == ID.GammaMolecule) {
-
-				allBricks.add((Molecule) tempobject);
-			}
-		}
-		return allBricks;
+		LinkedList<Molecule> allMolecules = new LinkedList<Molecule>();
+//		for (int i = 0; i < objects.size(); i++) {
+//			GameObject tempobject = (GameObject) objects.get(i);
+//			if (tempobject.getId() == ID.AlphaMolecule || tempobject.getId() == ID.BetaMolecule
+//					|| tempobject.getId() == ID.SigmaMolecule || tempobject.getId() == ID.GammaMolecule) {
+//
+//				allMolecules.add((Molecule) tempobject);
+//			}
+//		}
+		return allMolecules;
 	}
 	public int getInitialMoleculeCount() {
 		return initialMoleculeCount;
@@ -118,12 +129,6 @@ public class Controller {
 		this.objects.add(obj);
 	}
 
-	/**
-	 * REQUIRES: obj != null, obj should exist in the list. MODIFIES: objects
-	 * EFFECTS: Removes a game object from the objects field list.
-	 * 
-	 * @param obj Game Object (Paddle, Brick, Powerups, etc.)
-	 */
 	public void removeObject(GameObject obj) {
 		this.objects.remove(obj);
 	}
@@ -138,6 +143,8 @@ public class Controller {
 		}
 		return null;
 	}
-	
+	public void updateLives() {
+		lives--;
+	}
 	
 }

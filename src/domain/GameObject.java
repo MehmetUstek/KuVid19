@@ -6,7 +6,9 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public abstract class GameObject implements Serializable {
 
-	protected double x, y, velX, velY, rotationAngle;
+	protected double x, y, velX, velY, rotationAngle,width,height;
+	
+
 	protected ID id;
 	String type;
 	
@@ -71,6 +73,20 @@ public abstract class GameObject implements Serializable {
 		this.velY = vely;
 	}
 
-	
+	public double getWidth() {
+		return width;
+	}
+
+	public void setWidth(double width) {
+		this.width = width;
+	}
+
+	public double getHeight() {
+		return height;
+	}
+
+	public void setHeight(double height) {
+		this.height = height;
+	}
 
 }

@@ -37,7 +37,6 @@ public class KuVid extends Canvas implements Runnable {
 	private static final double L= HEIGHT/10;
 	private JTextField blenderGivenAtom = new JTextField(10);
 	
-	private JPanel simpleGui = new JPanel(new FlowLayout());  
 	double shooterHeight = L;
 	double diameter= L/10;
 	double speed= L;
@@ -46,7 +45,6 @@ public class KuVid extends Canvas implements Runnable {
 	double atomX = shooterX;
 	double atomY = shooterY -diameter*2;
 	private boolean isPaused = false;
-	private boolean atomShooted=false;
 	
 //	private boolean atomShooted=false;
 	Random random = new Random();
@@ -96,6 +94,7 @@ public class KuVid extends Canvas implements Runnable {
 			uicontroller.addObject(shoterui);
 			controller.addObject(shooter);
 			
+			
 //			for(UIGameObject object:uicontroller.objects) {
 //				object.setBounds(object.getX(),object.getY(),object.getX()+object.getLength(),getY()+object.getLength());
 //				maingui.add(object,new Integer(1));
@@ -113,7 +112,6 @@ public class KuVid extends Canvas implements Runnable {
 							shooterRotationAngle = shooter.getRotationAngle();
 							atom.setRotationAngle(shooterRotationAngle);
 							System.out.println(atom.getRotationAngle());
-//							Atom atom = (Atom) controller.getObject("alpha");
 							timerTask = new UpdateBallTask(getAtom(),Toolkit.getDefaultToolkit().getScreenSize(),shooter);
 							timer = new Timer(true);
 					        timer.scheduleAtFixedRate(timerTask, 0, 40);
@@ -204,7 +202,7 @@ public class KuVid extends Canvas implements Runnable {
 					case  KeyEvent.VK_C:
 						System.out.println("Switch Atom");
 						int nextInt = random.nextInt(3);
-//						Atom atom = (Atom) controller.getObject(getAtom().getType());
+
 						Atom atom = getAtom();
 						switch(nextInt) {
 						case 0:
@@ -240,9 +238,7 @@ public class KuVid extends Canvas implements Runnable {
 						Atom atom1 = getAtom();
 						switch(nextInt) {
 						case 0:
-							blenderGivenAtom.setVisible(true);
-							simpleGui.setBounds(400,400,800,800);
-							simpleGui.setVisible(true);
+							
 							break;
 						case 1:
 							
@@ -260,7 +256,7 @@ public class KuVid extends Canvas implements Runnable {
 					default:
 						break;
 					}
-					update();
+//					update();
 //					
 				}
 
@@ -307,7 +303,6 @@ public class KuVid extends Canvas implements Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		System.out.println("lolzie");
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
 		double ns = 1000000000 / amountOfTicks;
@@ -329,7 +324,7 @@ public class KuVid extends Canvas implements Runnable {
 
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				System.out.println("FPS: " + frames);
+//				System.out.println("FPS: " + frames);
 				frames = 0;
 			}
 		}

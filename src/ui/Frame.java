@@ -1,27 +1,17 @@
 package ui;
 
-import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.Timer;
-import java.util.TimerTask;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
-import domain.Controller;
-import domain.atom.Atom;
 
 
 
@@ -36,7 +26,6 @@ public class Frame extends Canvas {
 	private JTextField moleculeCount = new JTextField(10);
 	private JTextField betaType = new JTextField();
 	private JTextField betaCount = new JTextField(10);
-	private boolean canAddBricks = false;
 	private JFrame frame;
 	private JPanel gui = new JPanel(new GridLayout(0,1));
 	private JPanel simpleGui = new JPanel(new FlowLayout());  
@@ -44,9 +33,6 @@ public class Frame extends Canvas {
 	private JButton Game = new JButton ("Play Game");
 	private JButton buildMode = new JButton("Build Mode");
 	
-	public UIController controller= new UIController();
-	public Controller GC= new Controller(controller, this);
-	//TODO: Change game type in here.
 	public Frame(Dimension d, String title, KuVid game) {
 		frame = new JFrame(title);
 		frame.setMaximumSize(d);
@@ -82,7 +68,7 @@ public class Frame extends Canvas {
 		
 		sidebar.add(quitButton);
 		sidebar.setBackground(Color.white);
-		sidebar.setBounds(10, HEIGHT - 90, 500, 40);
+		sidebar.setBounds(10, 10, 100, 40);
 		
 		frame.add(sidebar);
 		moleculeType.setText("Alpha Molecules");
@@ -105,9 +91,6 @@ public class Frame extends Canvas {
 		
 		frame.add(gui);
 		
-		JLabel label = new JLabel("EDITING AREA FOR THE PLAYER", SwingConstants.CENTER);
-		label.setBounds(WIDTH/2 - 100, HEIGHT/2+100, 200, 100);
-		frame.add(label);
 		
 
 		
@@ -150,101 +133,11 @@ public class Frame extends Canvas {
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setBackground(Color.BLACK);
 		frame.setLocationRelativeTo(null);
-//		UIAtom atom = new UIAtom("alpha",60);
-//		controller.addObject(atom);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		atom.setBounds(0,0,60,60);
-		
-//		frame.add(atom);
 		gamePanel.setBackground(Color.WHITE);
 		gamePanel.add(Game);
 		gamePanel.add(buildMode);
-//		gamePanel.add(atom);
-//		String file = "/src/assets/kuvid_bc.png";
-//		ImageIcon icon= new ImageIcon(file);
-//		Image image= icon.getImage();
-//		background.add(image);
-		// UIAtom(String atomType, int diameter, int x, int y) 
-//		int diameter= 40;
-//		int speed= diameter;
-//		int x= frame.getWidth()/2+diameter;
-//		int y = frame.getHeight() - 3*diameter;
-////		UIAtom atomui = new UIAtom("alpha",diameter,x,y);
-////		UIAtom beta = new UIAtom("beta",diameter,x+40,y);
-////		UIAtom gamma = new UIAtom("gamma",diameter,x-50,y);
-//		UIMolecule molecule = new UIMolecule("alpha-1",diameter*2,diameter*2,x-100,10);
-//		Atom atom = new AlphaAtom("alpha",diameter,x,y,speed,135);
-//		
-//		GC.addObject(atom);
-//		
-////		controller.addObject(beta);
-////		controller.addObject(atomui);
-////		controller.addObject(gamma);
-//		controller.addObject(molecule);
-//		
-////		
-////		for(UIGameObject object:controller.objects) {
-//////			object.setBounds(object.getX(),object.getY(),object.getX()+object.getWidth(),object.getY()+object.getHeight());
-//////			maingui.add(object,new Integer(1));
-////			System.out.println("refresh");
-////		}
-////		maingui.setBounds(0 , 0  , frame.getWidth(), frame.getHeight());
-////		
-////		frame.add(maingui);
-		
-		
-////		TimerTask timertask= new TimerTask() {
-////
-////			@Override
-////			public void run() {
-////				// TODO Auto-generated method stub
-////				for(UIGameObject object: controller.objects ) {
-////					System.out.println("task Running");
-////				while ( object.getX()< WIDTH && object.getY() <HEIGHT && object.getX()>0 && object.getY()>0) {
-////						object.move(object.getX(),object.getY(),speed, 180);
-////			}
-////			}
-////			}
-////		};
-////		Timer timer = new Timer(true);
-////        timer.scheduleAtFixedRate(timertask, 0, 10000);
-////        try {
-////            Thread.sleep(100000);
-////        } catch (InterruptedException e) {
-////            e.printStackTrace();
-////        }
-////        timer.cancel();
-//    
-//		Thread t1 = new Thread() {
-//			public void run() {
-//				UIGameObject object= controller.objects.get(0);
-//				while (true) {
-//				for(int i=0;i<controller.objects.size();i++) {
-//					 	if(object.getX()< WIDTH && object.getY() <HEIGHT && object.getX()>0 && object.getY()>0) {
-//						object= controller.objects.get(i);
-////						object.move(object.getX(),object.getY(),speed, 135);
-//						try {
-//							sleep(200);
-//						} catch (InterruptedException e) {
-//							e.printStackTrace();
-//						}
-//					 	}
-//					 	else{
-////					 		object.bounceBack(object.getX(),object.getY(),speed, 180);
-//						 	try {
-//								sleep(100);
-//							} catch (InterruptedException e) {
-//								e.printStackTrace();
-//							}
-//					 	}
-//				}
-//					
-//					
-//				}
-//				
-//			}
-//		};
-//		t1.start();
+
 		
 		frame.add(gamePanel);
 		
