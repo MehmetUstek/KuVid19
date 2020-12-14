@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import domain.Controller;
@@ -34,7 +32,7 @@ public class KuVid extends Canvas implements Runnable {
 			HEIGHT =  Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private Thread thread;
 	Controller controller;
-	UIController uicontroller;
+	Renderer renderer;
 	Statistics statistics;
 	private Frame window = new Frame(Toolkit.getDefaultToolkit().getScreenSize(), "KuVid", this);
 	private static KuVid game;
@@ -99,8 +97,8 @@ public class KuVid extends Canvas implements Runnable {
 	
 
 	public KuVid() {
-			uicontroller =new UIController();
-			controller = new Controller(uicontroller, window);
+			renderer =new Renderer();
+			controller = new Controller(renderer, window);
 			this.requestFocus();
 			
 			// Atom settings.
@@ -111,7 +109,7 @@ public class KuVid extends Canvas implements Runnable {
 			atom.setRotationAngle(shooterRotationAngle);
 			atomui.setDiameter(diameter);
 			
-			uicontroller.addObject(atomui);
+			renderer.addObject(atomui);
 			controller.addObject(atom);
 			
 			
@@ -122,7 +120,7 @@ public class KuVid extends Canvas implements Runnable {
 			shooter.setY(shooterY);
 			shooter.setRotationAngle(shooterRotationAngle);
 			
-			uicontroller.addObject(shoterui);
+			renderer.addObject(shoterui);
 			controller.addObject(shooter);
 			
 			
@@ -136,7 +134,7 @@ public class KuVid extends Canvas implements Runnable {
 			blender.setX(blenderX);
 			blender.setY(blenderY);
 			
-			uicontroller.addObject(blenderui);
+			renderer.addObject(blenderui);
 			controller.addObject(blender);
 			
 			System.out.println("Number of Alpha atoms: " + alphaList.size());
@@ -154,20 +152,19 @@ public class KuVid extends Canvas implements Runnable {
 			gammaMol.setX(500);
 			gammaMol.setY(0);
 			
-			uicontroller.addObject(alphaUI);
+			renderer.addObject(alphaUI);
 			controller.addObject(alphaMol);
-			uicontroller.addObject(betaUI);
+			renderer.addObject(betaUI);
 			controller.addObject(betaMol);
-			uicontroller.addObject(sigmaUI);
+			renderer.addObject(sigmaUI);
 			controller.addObject(sigmaMol);
-			uicontroller.addObject(gammaUI);
+			renderer.addObject(gammaUI);
 			controller.addObject(gammaMol);
 			
 			alphaMol.move(atomSpeed);
 			betaMol.move(atomSpeed);
 			sigmaMol.move(atomSpeed);
 			gammaMol.move(atomSpeed);
-			
 		
 			this.addKeyListener(new KeyListener() {
 				public void keyPressed(KeyEvent e) {
@@ -463,7 +460,7 @@ public class KuVid extends Canvas implements Runnable {
 		Graphics2D g = (Graphics2D) bs.getDrawGraphics();
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(0, 0, (int)WIDTH, (int) HEIGHT);
-		uicontroller.render(g);
+		renderer.render(g);
 		g.dispose();
 		bs.show();
 	}

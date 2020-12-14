@@ -6,7 +6,7 @@ import domain.atom.Atom;
 
 public abstract class Molecule extends GameObject implements MovementStrategy{
 	
-	public static double L;
+	public static double L=100;
 
 	public double width;
 	public double height;

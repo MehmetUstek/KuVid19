@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class UIController {
+public class Renderer {
 
 	public List<UIGameObject> objects = new LinkedList<UIGameObject>();
 	int lives,score;

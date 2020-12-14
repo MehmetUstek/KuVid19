@@ -27,7 +27,7 @@ public class BuildMode extends Canvas implements Runnable {
 	private Thread thread;
 	private boolean running = false;
 	private Frame window = new Frame(Toolkit.getDefaultToolkit().getScreenSize(), "KuVid Build Mode", this);
-	private UIController UIC = new UIController();
+	private Renderer UIC = new Renderer();
 	private Controller GC = new Controller(UIC, window);
 
 	public synchronized void start() {
@@ -118,7 +118,7 @@ public class BuildMode extends Canvas implements Runnable {
 
 	}
 
-	public void addMolecules(Controller GC, UIController UIC) throws IOException {
+	public void addMolecules(Controller GC, Renderer UIC) throws IOException {
 		//
 			
 			
