@@ -10,18 +10,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import domain.Controller;
+import domain.GameObject;
 import domain.atom.Atom;
 import domain.blender.Blender;
 import domain.gameState.Statistics;
 import domain.molecule.*;
+import domain.powerup.Powerup;
 import domain.shooter.AtomShooter;
 import ui.molecule.AlphaMoleculeUI;
 import ui.molecule.*;
@@ -58,6 +64,7 @@ public class KuVid extends Canvas implements Runnable {
 	double shooterMoveConstant = 15;
 	//These instances are only for the KUVID Game class atom. When these instances is used in this class they will be called with their get methods.
 	// The atom class will be added to the collisions no matter what.
+	// Initial shooting object.
 	Atom atom = new Atom("alpha");
 	UIAtom atomui = new UIAtom(atom.getType());
 	//TODO Get rid of atom x,y,diameter variables. All variables.
@@ -165,7 +172,7 @@ public class KuVid extends Canvas implements Runnable {
 			betaMol.move(atomSpeed);
 			sigmaMol.move(atomSpeed);
 			gammaMol.move(atomSpeed);
-		
+			
 			this.addKeyListener(new KeyListener() {
 				public void keyPressed(KeyEvent e) {
 					
@@ -181,13 +188,14 @@ public class KuVid extends Canvas implements Runnable {
 
 					switch (e.getKeyCode()) {
 					case KeyEvent.VK_UP:
-						if(!atom.isShooted()) {
-							atom.setShooted(true);
-							System.out.println("Shoot Atom");
+						GameObject shootingObject= getShootingObject();
+						if(!shootingObject.isShooted()) {
+							shootingObject.setShooted(true);
+							System.out.println("Shoot");
 							shooterRotationAngle = shooter.getRotationAngle();
-							atom.setRotationAngle(shooterRotationAngle);
-							System.out.println(atom.getRotationAngle());
-							timerTask = new UpdateBallTask(getAtom(),Toolkit.getDefaultToolkit().getScreenSize(),shooter);
+							shootingObject.setRotationAngle(shooterRotationAngle);
+							System.out.println(shootingObject.getRotationAngle());
+							timerTask = new UpdateAtomTask(shootingObject,Toolkit.getDefaultToolkit().getScreenSize(),shooter);
 							timer = new Timer(true);
 					        timer.scheduleAtFixedRate(timerTask, 0, 40);
 					        
@@ -195,7 +203,7 @@ public class KuVid extends Canvas implements Runnable {
 //					    		timer.cancel();
 //					    	}
 					        atomX = shooter.getX();
-					        atom.setX(atomX);
+					        shootingObject.setX(atomX);
 					        System.out.println(Thread.currentThread().getName()+" TimerTask started");
 							
 						}
@@ -267,7 +275,7 @@ public class KuVid extends Canvas implements Runnable {
 							start();
 //							timerTask.run();
 //							atom.setRotationAngle(shooterRotationAngle);
-							timerTask = new UpdateBallTask(atom,Toolkit.getDefaultToolkit().getScreenSize(),shooter);
+							timerTask = new UpdateAtomTask(atom,Toolkit.getDefaultToolkit().getScreenSize(),shooter);
 							setTimer(new Timer(true));
 							timer.scheduleAtFixedRate(timerTask, 0, 100);
 							
@@ -277,29 +285,30 @@ public class KuVid extends Canvas implements Runnable {
 					case  KeyEvent.VK_C:
 						System.out.println("Switch Atom");
 						int nextInt = random.nextInt(3);
-
-						Atom atom = getAtom();
-						switch(nextInt) {
-						case 0:
-							atom.setType("alpha");
-							atomui.setAtomType("alpha");
-//							update();
-							break;
-						case 1:
-							atom.setType("beta");
-							atomui.setAtomType("beta");
-//							update();
-							break;
-						case 2:
-							atom.setType("sigma");
-							atomui.setAtomType("sigma");
-//							update();
-							break;
-						case 3:
-							atom.setType("gamma");
-							atomui.setAtomType("gamma");
-//							update();
-							break;
+						if(isAtom(getShootingObject())) {
+							Atom atom = (Atom) getShootingObject();
+							switch(nextInt) {
+							case 0:
+								atom.setType("alpha");
+								atomui.setAtomType("alpha");
+	//							update();
+								break;
+							case 1:
+								atom.setType("beta");
+								atomui.setAtomType("beta");
+	//							update();
+								break;
+							case 2:
+								atom.setType("sigma");
+								atomui.setAtomType("sigma");
+	//							update();
+								break;
+							case 3:
+								atom.setType("gamma");
+								atomui.setAtomType("gamma");
+	//							update();
+								break;
+							}
 						}
 						
 						break;
@@ -392,8 +401,57 @@ public class KuVid extends Canvas implements Runnable {
 				}
 				
 			});
-		
+			window.getStatsWindow().getPuAlpha().addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					if(!getShootingObject().isShooted()) {
+						System.out.println("Pu Alpha clicked");
+						Powerup pu= new Powerup("+alpha");
+						pu.setHeight(diameter*2);
+						pu.setWidth(diameter*2);
+						pu.setSpeed(atomSpeed);
+						pu.setRotationAngle(shooterRotationAngle);
+						controller.objects.set(0,pu );
+						UIPowerup puUI= new UIPowerup("+alpha");
+						puUI.setHeight(diameter*4);
+						puUI.setWidth(diameter*4);
+						renderer.objects.set(0,puUI );
+					}
+				}
+				
+			});
+			window.getStatsWindow().getPuBeta().addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					System.out.println("Pu Beta clicked");
+				}
+				
+			});
+			window.getStatsWindow().getPuSigma().addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					System.out.println("Pu Alpha clicked");
+				}
+				
+			});
+			window.getStatsWindow().getPuGamma().addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					System.out.println("Pu Alpha clicked");
+				}
+				
+			});
 			
+
+				
 			window.getQuitButton().addActionListener(new ActionListener() {
 				@SuppressWarnings("deprecation")
 				@Override
@@ -488,8 +546,8 @@ public class KuVid extends Canvas implements Runnable {
 //		game = new KuVid();
 //	}
 	
-	public Atom getAtom() {
-		return atom;
+	public GameObject getShootingObject() {
+		return controller.objects.get(0);
 	}
 
 	public Timer getTimer() {
@@ -499,6 +557,12 @@ public class KuVid extends Canvas implements Runnable {
 	public void setTimer(Timer timer) {
 		this.timer = timer;
 	}
-	
+	public boolean isAtom(GameObject tempobject) {
+		if(tempobject.getType()=="alpha"|| tempobject.getType()=="beta"|| tempobject.getType()=="sigma"||
+				tempobject.getType()=="gamma") {
+			return true;
+		}
+		return false;
+	}
 	
 }

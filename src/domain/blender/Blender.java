@@ -189,6 +189,11 @@ public class Blender extends GameObject{
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public void move(double x, double y, double velX, double velY) {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 }

@@ -8,7 +8,7 @@ import java.util.TimerTask;
 import domain.atom.Atom;
 import domain.shooter.AtomShooter;
 
-public class UpdateBallTask extends TimerTask {
+public class UpdatePowerupTask extends TimerTask {
     Atom atom;
     Dimension d;
     double width;
@@ -17,7 +17,7 @@ public class UpdateBallTask extends TimerTask {
 	double velY;
 	double x;
 	double y;
-    public UpdateBallTask(Atom atom,Dimension d,AtomShooter shooter) {
+    public UpdatePowerupTask(Atom atom,Dimension d,AtomShooter shooter) {
     	 this.atom= atom;
     	 this.d = d;
     	 this.shooter= shooter;

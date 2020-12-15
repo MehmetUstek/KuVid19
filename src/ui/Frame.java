@@ -59,6 +59,8 @@ public class Frame extends Canvas {
 		game.start();
 	}
 	
+	
+
 	public Frame(Dimension d, String title, BuildMode buildmode) {
 		
 		frame = new JFrame(title);
@@ -187,6 +189,12 @@ public class Frame extends Canvas {
 		frame.dispose();
 	}
 	
-	
+	public StatisticsWindow getStatsWindow() {
+		return statsWindow;
+	}
+
+	public void setStatsWindow(StatisticsWindow statsWindow) {
+		this.statsWindow = statsWindow;
+	}
 	
 }

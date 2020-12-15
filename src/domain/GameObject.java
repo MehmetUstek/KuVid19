@@ -11,11 +11,28 @@ public abstract class GameObject implements Serializable {
 
 	protected ID id;
 	String type;
-	
+	double speed;
+	boolean isShooted;
 
 	public GameObject() {
 		this.x = getX();
 		this.y = getY();
+	}
+	public abstract void move(double x,double y,double velX,double velY);
+	public boolean isShooted() {
+		return isShooted;
+	}
+
+	public void setShooted(boolean isShooted) {
+		this.isShooted = isShooted;
+	}
+
+	public double getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(double speed) {
+		this.speed = speed;
 	}
 
 	public abstract void update();

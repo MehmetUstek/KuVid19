@@ -69,4 +69,10 @@ public class AlphaMolecule extends Molecule{
 		
 		
 	}
+
+	@Override
+	public void move(double x, double y, double velX, double velY) {
+		// TODO Auto-generated method stub
+		
+	}
 }

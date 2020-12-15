@@ -49,4 +49,10 @@ public class SigmaMolecule extends Molecule{
 	public void move(double speed) {
 		this.setY(this.getY() + speed);
 	}
+
+	@Override
+	public void move(double x, double y, double velX, double velY) {
+		// TODO Auto-generated method stub
+		
+	}
 }
