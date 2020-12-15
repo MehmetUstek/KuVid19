@@ -24,6 +24,8 @@ public class Controller {
 	private Renderer uicontroller;
 	private ArrayList<Powerup> collectedPowerups = new ArrayList<Powerup>();
 	private int score = 0, time = 0, counter = 0, lives = 3, initialMoleculeCount;
+	private int alphaCount=0,betaCount=0,sigmaCount=0,gammaCount=0;
+	private int alphaPUCount=0,betaPUCount=0,sigmaPUCount=0,gammaPUCount=0;
 	private boolean atomFalled;
 	public LinkedList<GameObject> objects = new LinkedList<GameObject>();
 	Frame frame;
@@ -207,14 +209,15 @@ public class Controller {
 			y=objects.get(1).getY();
 			tempobject.setX(x);
 			tempobject.setY(y);
-			
+			atom.setX(x);
+			atom.setY(y);
 		}
 		
 		if(tempobject1.getY()> Toolkit.getDefaultToolkit().getScreenSize().getHeight()+ tempobject1.getWidth()/2) {
-    		tempobject1.setX(x);
-    		tempobject1.setY(y);
-    		tempobject1.setShooted(false);
-    		atomFalled=true;
+//    		tempobject1.setX(x);
+//    		tempobject1.setY(y);
+//    		tempobject1.setShooted(false);
+//    		atomFalled=true;
     	}
 		
 		tempobject = tempobject1;
@@ -250,6 +253,7 @@ public class Controller {
 					tempobject.setX(objects.get(1).getX());
 					tempobject.setY(objects.get(1).getY());
 					((Atom) tempobject).setShooted(false);
+					
 //					uicontroller.addObject(atom);
 				}
 			}
@@ -273,10 +277,10 @@ public class Controller {
 		}
 		//TODO There is problem after atom lands.
 		if(tempobject1.getY()> Toolkit.getDefaultToolkit().getScreenSize().getHeight()+ tempobject1.getWidth()/2) {
-    		tempobject1.setX(x);
-    		tempobject1.setY(y);
-    		tempobject1.setShooted(false);
-    		atomFalled=true;
+//    		tempobject1.setX(x);
+//    		tempobject1.setY(y);
+//    		tempobject1.setShooted(false);
+//    		atomFalled=true;
     	}
 		
 		tempobject = tempobject1;

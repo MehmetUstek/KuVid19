@@ -24,6 +24,7 @@ import javax.swing.JTextField;
 import domain.Controller;
 import domain.GameObject;
 import domain.atom.Atom;
+import domain.atom.AtomFactory;
 import domain.blender.Blender;
 import domain.gameState.Statistics;
 import domain.molecule.*;
@@ -287,28 +288,32 @@ public class KuVid extends Canvas implements Runnable {
 						int nextInt = random.nextInt(3);
 						if(isAtom(getShootingObject())) {
 							Atom atom = (Atom) getShootingObject();
-							switch(nextInt) {
-							case 0:
-								atom.setType("alpha");
-								atomui.setAtomType("alpha");
-	//							update();
-								break;
-							case 1:
-								atom.setType("beta");
-								atomui.setAtomType("beta");
-	//							update();
-								break;
-							case 2:
-								atom.setType("sigma");
-								atomui.setAtomType("sigma");
-	//							update();
-								break;
-							case 3:
-								atom.setType("gamma");
-								atomui.setAtomType("gamma");
-	//							update();
-								break;
-							}
+							Atom atom1= AtomFactory.getAtom(atom);
+							System.out.println(atom1.getType());
+							((UIAtom) getUIShootingObject()).setAtomType(atom1.getType());
+//							setShootingObject(atom);
+//							switch(nextInt) {
+//							case 0:
+//								atom.setType("alpha");
+//								atomui.setAtomType("alpha");
+//	//							update();
+//								break;
+//							case 1:
+//								atom.setType("beta");
+//								atomui.setAtomType("beta");
+//	//							update();
+//								break;
+//							case 2:
+//								atom.setType("sigma");
+//								atomui.setAtomType("sigma");
+//	//							update();
+//								break;
+//							case 3:
+//								atom.setType("gamma");
+//								atomui.setAtomType("gamma");
+//	//							update();
+//								break;
+//							}
 						}
 						
 						break;
@@ -549,6 +554,13 @@ public class KuVid extends Canvas implements Runnable {
 	public GameObject getShootingObject() {
 		return controller.objects.get(0);
 	}
+//	public GameObject setShootingObject(GameObject obj) {
+//		obj.setType(type);
+//	}
+	public UIGameObject getUIShootingObject() {
+		return renderer.objects.get(0);
+	}
+	
 
 	public Timer getTimer() {
 		return timer;
