@@ -23,6 +23,7 @@ import javax.swing.JTextField;
 
 import domain.Controller;
 import domain.GameObject;
+import domain.Save;
 import domain.atom.Atom;
 import domain.atom.AtomFactory;
 import domain.blender.Blender;
@@ -464,6 +465,7 @@ public class KuVid extends Canvas implements Runnable {
 					window.dispose();
 					thread.stop();
 					running=false;
+//					Save save= new Save("mehmet");
 					new Main();
 				}
 			});
