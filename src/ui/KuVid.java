@@ -433,7 +433,20 @@ public class KuVid extends Canvas implements Runnable {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					// TODO Auto-generated method stub
-					System.out.println("Pu Beta clicked");
+					
+					if(!getShootingObject().isShooted()) {
+						Powerup pu= new Powerup("+beta");
+						System.out.println("Pu Beta clicked");
+						pu.setHeight(diameter*2);
+						pu.setWidth(diameter*2);
+						pu.setSpeed(atomSpeed);
+						pu.setRotationAngle(shooterRotationAngle);
+						controller.objects.set(0,pu );
+						UIPowerup puUI= new UIPowerup("+beta");
+						puUI.setHeight(diameter*4);
+						puUI.setWidth(diameter*4);
+						renderer.objects.set(0,puUI );
+					}
 				}
 				
 			});
@@ -442,7 +455,19 @@ public class KuVid extends Canvas implements Runnable {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					// TODO Auto-generated method stub
-					System.out.println("Pu Alpha clicked");
+					if(!getShootingObject().isShooted()) {
+						Powerup pu= new Powerup("+sigma");
+						System.out.println("Pu Sigma clicked");
+						pu.setHeight(diameter*2);
+						pu.setWidth(diameter*2);
+						pu.setSpeed(atomSpeed);
+						pu.setRotationAngle(shooterRotationAngle);
+						controller.objects.set(0,pu );
+						UIPowerup puUI= new UIPowerup("+sigma");
+						puUI.setHeight(diameter*4);
+						puUI.setWidth(diameter*4);
+						renderer.objects.set(0,puUI );
+					}
 				}
 				
 			});
@@ -451,7 +476,19 @@ public class KuVid extends Canvas implements Runnable {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					// TODO Auto-generated method stub
-					System.out.println("Pu Alpha clicked");
+					if(!getShootingObject().isShooted()) {
+						Powerup pu= new Powerup("+gamma");
+						System.out.println("Pu Gamma clicked");
+						pu.setHeight(diameter*2);
+						pu.setWidth(diameter*2);
+						pu.setSpeed(atomSpeed);
+						pu.setRotationAngle(shooterRotationAngle);
+						controller.objects.set(0,pu );
+						UIPowerup puUI= new UIPowerup("+gamma");
+						puUI.setHeight(diameter*4);
+						puUI.setWidth(diameter*4);
+						renderer.objects.set(0,puUI );
+					}
 				}
 				
 			});
@@ -465,7 +502,22 @@ public class KuVid extends Canvas implements Runnable {
 					window.dispose();
 					thread.stop();
 					running=false;
-//					Save save= new Save("mehmet");
+					int score=100;
+					int remainingTime=60;
+					int atomCount = 8;
+					ArrayList<Molecule> list= new ArrayList<Molecule>();
+					//TODO add every molecule element into the list with for loop.
+					list.add(betaMol);
+					list.add(alphaMol);
+					
+					Save save= new Save("mehmet",score,remainingTime,getShootingObject().getType(),getShootingObject().getRotationAngle(),
+							atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,list);
+					save.saveGame();
+					
+					// Loading process
+					controller= new Controller(renderer, window);
+//					controller.addObject();
+					System.out.println(save.loadGame(controller));
 					new Main();
 				}
 			});

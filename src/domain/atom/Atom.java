@@ -28,8 +28,7 @@ public class Atom extends GameObject{
 	}
 	@Override
 	public String toString() {
-		return "Atom [atomType=" + atomType + ", movementAngle=" + rotationAngle + "speed="
-				+ speed + ", diameter=" + diameter + "]";
+		return atomType;
 	}
 
 	public double getDiameter() {

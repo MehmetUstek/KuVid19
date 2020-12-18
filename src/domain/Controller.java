@@ -27,7 +27,7 @@ public class Controller {
 	private int alphaCount=0,betaCount=0,sigmaCount=0,gammaCount=0;
 	private int alphaPUCount=0,betaPUCount=0,sigmaPUCount=0,gammaPUCount=0;
 	private boolean atomFalled;
-	public LinkedList<GameObject> objects = new LinkedList<GameObject>();
+	public ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	Frame frame;
 	
 	public Controller(Renderer UI, Frame frame) {
