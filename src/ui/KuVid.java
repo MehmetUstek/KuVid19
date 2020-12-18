@@ -67,8 +67,8 @@ public class KuVid extends Canvas implements Runnable {
 	//These instances are only for the KUVID Game class atom. When these instances is used in this class they will be called with their get methods.
 	// The atom class will be added to the collisions no matter what.
 	// Initial shooting object.
-	Atom atom = new Atom("alpha");
-	UIAtom atomui = new UIAtom(atom.getType());
+	Atom shootingObject = new Atom("alpha");
+	UIAtom atomui = new UIAtom(shootingObject.getType());
 	//TODO Get rid of atom x,y,diameter variables. All variables.
 	
 	//Shooter
@@ -111,15 +111,15 @@ public class KuVid extends Canvas implements Runnable {
 			this.requestFocus();
 			
 			// Atom settings.
-			atom.setDiameter(diameter);
-			atom.setX(atomX);
-			atom.setY(atomY);
-			atom.setSpeed(atomSpeed);
-			atom.setRotationAngle(shooterRotationAngle);
+			shootingObject.setDiameter(diameter);
+			shootingObject.setX(atomX);
+			shootingObject.setY(atomY);
+			shootingObject.setSpeed(atomSpeed);
+			shootingObject.setRotationAngle(shooterRotationAngle);
 			atomui.setDiameter(diameter);
 			
 			renderer.addObject(atomui);
-			controller.addObject(atom);
+			controller.addObject(shootingObject);
 			
 			
 			// Shooter Settings.
@@ -134,9 +134,9 @@ public class KuVid extends Canvas implements Runnable {
 			
 			
 			// Blender Settings. Blender is just shown in this demo. It is not fully integrated with controller.
-			alphaList.add(atom);
-			alphaList.add(atom);
-			alphaList.add(atom);
+			alphaList.add(shootingObject);
+			alphaList.add(shootingObject);
+			alphaList.add(shootingObject);
 			
 			System.out.print("Printed " + alphaList.size() + diameter); 
 
@@ -190,25 +190,25 @@ public class KuVid extends Canvas implements Runnable {
 
 					switch (e.getKeyCode()) {
 					case KeyEvent.VK_UP:
-						GameObject shootingObject= getShootingObject();
-						if(!shootingObject.isShooted()) {
-							shootingObject.setShooted(true);
-							System.out.println("Shoot");
-							shooterRotationAngle = shooter.getRotationAngle();
-							shootingObject.setRotationAngle(shooterRotationAngle);
-							System.out.println(shootingObject.getRotationAngle());
-							timerTask = new UpdateAtomTask(shootingObject,Toolkit.getDefaultToolkit().getScreenSize(),shooter);
-							timer = new Timer(true);
-					        timer.scheduleAtFixedRate(timerTask, 0, 40);
-					        
-//					        if(atom.getX()> WIDTH-atom.getDiameter()*2 && atom.getY()> HEIGHT-atom.getDiameter()*2) {
-//					    		timer.cancel();
-//					    	}
-					        atomX = shooter.getX();
-					        shootingObject.setX(atomX);
-					        System.out.println(Thread.currentThread().getName()+" TimerTask started");
+						controller.shootObject(getShootingObject(), shooter, atomX);
+//						if(!shootingObject.isShooted()) {
+//							shootingObject.setShooted(true);
+//							System.out.println("Shoot");
+//							shooterRotationAngle = shooter.getRotationAngle();
+//							shootingObject.setRotationAngle(shooterRotationAngle);
+//							System.out.println(shootingObject.getRotationAngle());
+//							timerTask = new UpdateAtomTask(shootingObject,Toolkit.getDefaultToolkit().getScreenSize(),shooter);
+//							timer = new Timer(true);
+//					        timer.scheduleAtFixedRate(timerTask, 0, 40);
+//					        
+////					        if(atom.getX()> WIDTH-atom.getDiameter()*2 && atom.getY()> HEIGHT-atom.getDiameter()*2) {
+////					    		timer.cancel();
+////					    	}
+//					        atomX = shooter.getX();
+//					        shootingObject.setX(atomX);
+//					        System.out.println(Thread.currentThread().getName()+" TimerTask started");
 							
-						}
+//						}
 						break;
 					case  KeyEvent.VK_L:
 						System.out.println("LOADED");
@@ -217,105 +217,47 @@ public class KuVid extends Canvas implements Runnable {
 						System.out.println("SAVED");
 						break;
 					case  KeyEvent.VK_LEFT:
-						System.out.println("Move Shooter left");
-						
-						if (shooter.getX() > 0)
-							shooterX -=shooterMoveConstant;
-							
-						shooter.setX(shooterX);
-						if(!atom.isShooted()) {
-							atomX = shooterX;
-							atom.setX(atomX);
-						}
+						controller.moveShooter(shooter, shootingObject, "left");
 						break;
 					case  KeyEvent.VK_RIGHT:
-						System.out.println("Move Shooter right");
-						if (shooter.getX() < WIDTH - shooter.getWidth()) {
-							shooterX +=shooterMoveConstant;
-						}
-						shooter.setX(shooterX);
-						if(!atom.isShooted()) {
-							atomX = shooterX;
-							atom.setX(atomX);
-							
-						}
-
-						
+						controller.moveShooter(shooter, shootingObject, "right");
 						break;
-						
 					case  KeyEvent.VK_A:
-						System.out.println("Rotate shooter left");
-						if(shooterRotationAngle > -90 ) {
-							shooterRotationAngle -= rotationConstant;
-							shooter.setRotationAngle(shooterRotationAngle);
-							atom.setRotationAngle(shooterRotationAngle);
-							System.out.println(atom.getRotationAngle());
-						}
+						controller.rotateShooter(shooter, shootingObject, "left");
 						
 						break;
 					case  KeyEvent.VK_D:
-						System.out.println("Rotate shooter right");
-						if(shooterRotationAngle < 90) {
-							shooterRotationAngle += rotationConstant;
-							shooter.setRotationAngle(shooterRotationAngle);
-							atom.setRotationAngle(shooterRotationAngle);
-						}
+						controller.rotateShooter(shooter, shootingObject, "right");
 						break;
 					case  KeyEvent.VK_P:
 						if(!isPaused) {
 							System.out.println("PAUSED");
 							thread.stop();
-							timerTask.cancel();
+//							timerTask.cancel();
 							isPaused = true;
 
 //							timer.cancel();
 						}
+						controller.pauseGame();
 						break;
 					case  KeyEvent.VK_R:
 						System.out.println("RESUME");
+//						start();
+						
 						if(isPaused) {
 							start();
 //							timerTask.run();
 //							atom.setRotationAngle(shooterRotationAngle);
-							timerTask = new UpdateAtomTask(atom,Toolkit.getDefaultToolkit().getScreenSize(),shooter);
-							setTimer(new Timer(true));
-							timer.scheduleAtFixedRate(timerTask, 0, 100);
-							
+//							timerTask = new UpdateAtomTask(shootingObject,Toolkit.getDefaultToolkit().getScreenSize(),shooter);
+//							setTimer(new Timer(true));
+//							timer.scheduleAtFixedRate(timerTask, 0, 100);
+							controller.resumeGame(shooter, shootingObject);
 							isPaused= false;
 						}
+						
 						break;
 					case  KeyEvent.VK_C:
-						System.out.println("Switch Atom");
-						int nextInt = random.nextInt(3);
-						if(isAtom(getShootingObject())) {
-							Atom atom = (Atom) getShootingObject();
-							Atom atom1= AtomFactory.getAtom(atom);
-							System.out.println(atom1.getType());
-							((UIAtom) getUIShootingObject()).setAtomType(atom1.getType());
-//							setShootingObject(atom);
-//							switch(nextInt) {
-//							case 0:
-//								atom.setType("alpha");
-//								atomui.setAtomType("alpha");
-//	//							update();
-//								break;
-//							case 1:
-//								atom.setType("beta");
-//								atomui.setAtomType("beta");
-//	//							update();
-//								break;
-//							case 2:
-//								atom.setType("sigma");
-//								atomui.setAtomType("sigma");
-//	//							update();
-//								break;
-//							case 3:
-//								atom.setType("gamma");
-//								atomui.setAtomType("gamma");
-//	//							update();
-//								break;
-//							}
-						}
+						controller.switchAtom(getShootingObject(), getUIShootingObject());
 						
 						break;
 					case  KeyEvent.VK_B:

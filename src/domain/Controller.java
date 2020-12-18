@@ -7,20 +7,29 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import domain.atom.Atom;
+import domain.atom.AtomFactory;
 import domain.molecule.AlphaMolecule;
 import domain.molecule.Molecule;
 import domain.powerup.Powerup;
+import domain.shooter.AtomShooter;
 import ui.Frame;
+import ui.KuVid;
 import ui.UIAtom;
+import ui.UIGameObject;
 import ui.UIPowerup;
 import ui.Renderer;
 import ui.UIShooter;
+import ui.UpdateAtomTask;
 import ui.molecule.UIMolecule;
 
 public class Controller {
-	
+	public static double WIDTH =  Toolkit.getDefaultToolkit().getScreenSize().getWidth()-200,
+			HEIGHT =  Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private Renderer renderer;
 	private ArrayList<Powerup> collectedPowerups = new ArrayList<Powerup>();
 	private int score = 0, time = 0, counter = 0, lives = 3, initialMoleculeCount;
@@ -29,7 +38,23 @@ public class Controller {
 	private boolean atomFalled;
 	public ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	Frame frame;
-	
+	private Thread thread;
+	private boolean running = false;
+	public static final double L= HEIGHT/10;
+	double shooterHeight = L;
+	double diameter= L/10;
+	double speed= L;
+	double shooterX= WIDTH/2;
+	double shooterY =HEIGHT - shooterHeight*2;
+	double atomX = shooterX;
+	double atomY = shooterY -diameter*2;
+	double rotationConstant = 10;
+	double atomSpeed=L/5;
+	double shooterMoveConstant = 15;
+	private boolean isPaused = false;
+	TimerTask timerTask ;
+	Timer timer;
+	Random random = new Random();
 	public Controller(Renderer UI, Frame frame) {
 		this.renderer = UI;
 		this.frame = frame;
@@ -317,5 +342,112 @@ public class Controller {
 				}
 			}
 			}
+	}
+	
+	public void shootObject(GameObject shootingObject,AtomShooter shooter,double atomX) {
+		double shooterRotationAngle=0;
+		if(!shootingObject.isShooted()) {
+			shootingObject.setShooted(true);
+			System.out.println("Shoot");
+			shooterRotationAngle = shooter.getRotationAngle();
+			shootingObject.setRotationAngle(shooterRotationAngle);
+			System.out.println(shootingObject.getRotationAngle());
+			timerTask = new UpdateAtomTask(shootingObject,Toolkit.getDefaultToolkit().getScreenSize(),shooter);
+			timer = new Timer(true);
+	        timer.scheduleAtFixedRate(timerTask, 0, 40);
+	        
+//	        if(atom.getX()> WIDTH-atom.getDiameter()*2 && atom.getY()> HEIGHT-atom.getDiameter()*2) {
+//	    		timer.cancel();
+//	    	}
+	        atomX = shooter.getX();
+	        shootingObject.setX(atomX);
+	        System.out.println(Thread.currentThread().getName()+" TimerTask started");
+			
+		}
+	}
+	
+	public void moveShooter(AtomShooter shooter,GameObject shootingObject, String direction) {
+		if(direction == "left") {
+			if (shooter.getX() > 0)
+				shooterX -=shooterMoveConstant;
+				
+			shooter.setX(shooterX);
+			if(!shootingObject.isShooted()) {
+				atomX = shooterX;
+				shootingObject.setX(atomX);
+			}
+		}
+		else if(direction=="right") {
+			System.out.println("Move Shooter right");
+			if (shooter.getX() < WIDTH - shooter.getWidth()) {
+				shooterX +=shooterMoveConstant;
+			}
+			shooter.setX(shooterX);
+			if(!shootingObject.isShooted()) {
+				atomX = shooterX;
+				shootingObject.setX(atomX);
+				
+			}
+		}
+	}
+	
+	public void rotateShooter(AtomShooter shooter, GameObject shootingObject, String direction) {
+		double shooterRotationAngle= shooter.getRotationAngle();
+		if(direction == "left") {
+			System.out.println("Rotate shooter left");
+			if(shooterRotationAngle > -90 ) {
+				shooterRotationAngle -= rotationConstant;
+				shooter.setRotationAngle(shooterRotationAngle);
+				shootingObject.setRotationAngle(shooterRotationAngle);
+				System.out.println(shootingObject.getRotationAngle());
+			}
+		}
+		else if(direction=="right") {
+			System.out.println("Rotate shooter right");
+			if(shooterRotationAngle < 90) {
+				shooterRotationAngle += rotationConstant;
+				shooter.setRotationAngle(shooterRotationAngle);
+				shootingObject.setRotationAngle(shooterRotationAngle);
+			}
+		}
+	}
+	public void pauseGame() {
+		if(!isPaused) {
+			System.out.println("PAUSED");
+			timerTask.cancel();
+			isPaused = true;
+
+		}
+	}
+	public void resumeGame(AtomShooter shooter,GameObject shootingObject) {
+		System.out.println("RESUME");
+		if(isPaused) {
+			timerTask = new UpdateAtomTask(shootingObject,Toolkit.getDefaultToolkit().getScreenSize(),shooter);
+			setTimer(new Timer(true));
+			timer.scheduleAtFixedRate(timerTask, 0, 100);
+			isPaused= false;
+		}
+	}
+	
+	public void setTimer(Timer timer) {
+		this.timer = timer;
+	}
+	
+	public void switchAtom(GameObject shootingObject, UIGameObject uiShootingObject) {
+		System.out.println("Switch Atom");
+		int nextInt = random.nextInt(3);
+		if(isAtom(shootingObject)) {
+			Atom atom = (Atom) shootingObject;
+			Atom atom1= AtomFactory.getAtom(atom);
+			System.out.println(atom1.getType());
+			((UIAtom) uiShootingObject).setAtomType(atom1.getType());
+		}
+	}
+	public boolean isAtom(GameObject tempobject) {
+		if(tempobject.getType()=="alpha"|| tempobject.getType()=="beta"|| tempobject.getType()=="sigma"||
+				tempobject.getType()=="gamma") {
+			return true;
+		}
+		return false;
 	}
 }
