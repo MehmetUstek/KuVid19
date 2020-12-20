@@ -27,6 +27,7 @@ import ui.Frame;
 import ui.KuVid;
 import ui.UIAtom;
 import ui.UIGameObject;
+import ui.UIMoleculeFactory;
 import ui.UIPowerup;
 import ui.Renderer;
 import ui.UIShooter;
@@ -523,7 +524,8 @@ public class Controller {
 			//TODO Setting shootingObject does not work precisely.
 			Atom atom1= AtomFactory.getAtom((Atom) getShootingObject(),currentShootingObject);
 			((UIAtom) uiobject).setAtomType(atom1.getType());
-		}else {
+		}else if(currentShootingObject.equals("+alpha") || currentShootingObject.equals("+beta") || currentShootingObject.equals("+sigma") || currentShootingObject.equals("+gamma")) {
+
 //			shootingObject= new Powerup(currentShootingObject);
 //			uiobject = new UIPowerup(currentShootingObject);
 //			uiobject.setHeight(diameter*2);
@@ -548,7 +550,7 @@ public class Controller {
 			this.objects.add(molecule);
 			
 			//TODO Change UIMolecule with UIMoleculeFactory
-			UIMolecule uimolecule = new AlphaMoleculeUI();
+			UIMolecule uimolecule = UIMoleculeFactory.getMolecule(obj.get(i).getAsJsonObject().get("type").getAsString());
 			
 			uimolecule.setX(molecule.getX());
 			uimolecule.setY(molecule.getY());

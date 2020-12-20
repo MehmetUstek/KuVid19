@@ -5,15 +5,18 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
 import domain.Controller;
+import domain.Save;
 import domain.atom.Atom;
 import domain.molecule.Molecule;
 import domain.molecule.MoleculeFactory;
@@ -35,6 +38,7 @@ public class BuildMode extends Canvas implements Runnable {
 	public static final double L= HEIGHT/10;
 	Random random = new Random();
 	boolean moleculesAdded= false;
+	ArrayList<Molecule> list = new ArrayList<Molecule>();
 	public synchronized void start() {
 		thread = new Thread(this);
 		thread.start();
@@ -66,9 +70,7 @@ public class BuildMode extends Canvas implements Runnable {
 
 	public void update() {
 		controller.update();
-		if(!moleculesAdded) {
-			addMolecules(controller, renderer);
-		}
+		
 	}
 
 	public void run() {
@@ -118,7 +120,12 @@ public class BuildMode extends Canvas implements Runnable {
 			@SuppressWarnings("deprecation")
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				if(!moleculesAdded) {
+					addMolecules(controller, renderer);
+				}
+				Save save= new Save(list);
+				System.out.println(list);
+				save.saveGame();
 			}
 		});
 
@@ -130,45 +137,96 @@ public class BuildMode extends Canvas implements Runnable {
 		String s2 = window.getMoleculeCount().getText();
 		String s3 = window.getSigmaCount().getText();
 		String s4 = window.getGammaCount().getText();
-		ArrayList<String> list = new ArrayList<String>();
 		ArrayList<String> nameList = new ArrayList<String>();
 		nameList.add("AlphaMolecule");
 		nameList.add("BetaMolecule");
 		nameList.add("SigmaMolecule");
 		nameList.add("GammaMolecule");
-		list.add(s1);
-		list.add(s2);
+		ArrayList<Rectangle2D> positionList = new ArrayList<Rectangle2D>();
 		for (int i=0;i<Integer.parseInt(s1);i++) {
 			Molecule molecule = MoleculeFactory.getMolecule("AlphaMolecule");
-			molecule.setX(random.nextInt( WIDTH-(int) molecule.getWidth()));
-			molecule.setY(random.nextInt(HEIGHT/8));
+			double x= random.nextInt( WIDTH-(int) molecule.getWidth());
+			double y= random.nextInt(HEIGHT/8);
+			Rectangle2D rect = new Rectangle2D.Double(x,y,molecule.getWidth(),molecule.getHeight());
+			
+			for (Rectangle2D rectangle: positionList) {
+				if(rectangle.intersects(rect) || rect.intersects(rectangle)) {
+					x= random.nextInt( WIDTH-(int) molecule.getWidth());
+					y= random.nextInt(HEIGHT/8);
+					rect.setRect(x, y, molecule.getWidth(), molecule.getHeight());
+				}
+			}
+			positionList.add(rect);
+			molecule.setX(x);
+			molecule.setY(y);
 			controller.addObject(molecule);
 			UIMolecule uimolecule = UIMoleculeFactory.getMolecule("AlphaMolecule");
 			renderer.objects.add(uimolecule);
+			list.add(molecule);
+			
 		}
 		for (int i=0;i<Integer.parseInt(s2);i++) {
 			Molecule molecule = MoleculeFactory.getMolecule("BetaMolecule");
-			molecule.setX(random.nextInt(WIDTH));
-			molecule.setY(random.nextInt(HEIGHT/8));
+			double x= random.nextInt( WIDTH-(int) molecule.getWidth());
+			double y= random.nextInt(HEIGHT/8);
+			Rectangle2D rect = new Rectangle2D.Double(x,y,molecule.getWidth(),molecule.getHeight());
+			
+			for (Rectangle2D rectangle: positionList) {
+				if(rectangle.intersects(rect) || rect.intersects(rectangle)) {
+					x= random.nextInt( WIDTH-(int) molecule.getWidth());
+					y= random.nextInt(HEIGHT/8);
+					rect.setRect(x, y, molecule.getWidth(), molecule.getHeight());
+				}
+			}
+			positionList.add(rect);
+			molecule.setX(x);
+			molecule.setY(y);
 			controller.addObject(molecule);
 			UIMolecule uimolecule = UIMoleculeFactory.getMolecule("BetaMolecule");
 			renderer.objects.add(uimolecule);
+			list.add(molecule);
 		}
 		for (int i=0;i<Integer.parseInt(s3);i++) {
 			Molecule molecule = MoleculeFactory.getMolecule("SigmaMolecule");
-			molecule.setX(random.nextInt(WIDTH));
-			molecule.setY(random.nextInt(HEIGHT/8));
+			double x= random.nextInt( WIDTH-(int) molecule.getWidth());
+			double y= random.nextInt(HEIGHT/8);
+			Rectangle2D rect = new Rectangle2D.Double(x,y,molecule.getWidth(),molecule.getHeight());
+			
+			for (Rectangle2D rectangle: positionList) {
+				if(rectangle.intersects(rect) || rect.intersects(rectangle)) {
+					x= random.nextInt( WIDTH-(int) molecule.getWidth());
+					y= random.nextInt(HEIGHT/8);
+					rect.setRect(x, y, molecule.getWidth(), molecule.getHeight());
+				}
+			}
+			positionList.add(rect);
+			molecule.setX(x);
+			molecule.setY(y);
 			controller.addObject(molecule);
 			UIMolecule uimolecule = UIMoleculeFactory.getMolecule("SigmaMolecule");
 			renderer.objects.add(uimolecule);
+			list.add(molecule);
 		}
 		for (int i=0;i<Integer.parseInt(s4);i++) {
 			Molecule molecule = MoleculeFactory.getMolecule("GammaMolecule");
-			molecule.setX(random.nextInt(WIDTH));
-			molecule.setY(random.nextInt(HEIGHT/8));
+			double x= random.nextInt( WIDTH-(int) molecule.getWidth());
+			double y= random.nextInt(HEIGHT/8);
+			Rectangle2D rect = new Rectangle2D.Double(x,y,molecule.getWidth(),molecule.getHeight());
+			
+			for (Rectangle2D rectangle: positionList) {
+				if(rectangle.intersects(rect) || rect.intersects(rectangle)) {
+					x= random.nextInt( WIDTH-(int) molecule.getWidth());
+					y= random.nextInt(HEIGHT/8);
+					rect.setRect(x, y, molecule.getWidth(), molecule.getHeight());
+				}
+			}
+			positionList.add(rect);
+			molecule.setX(x);
+			molecule.setY(y);
 			controller.addObject(molecule);
 			UIMolecule uimolecule = UIMoleculeFactory.getMolecule("GammaMolecule");
 			renderer.objects.add(uimolecule);
+			list.add(molecule);
 		}
 		
 		moleculesAdded=true;

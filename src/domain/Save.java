@@ -23,10 +23,10 @@ import domain.molecule.MoleculeFactory;
 import domain.powerup.Powerup;
 
 public class Save {
-	String username,currentShootingObject;
-	double objectMovementAngle,objectX,objectY;
-	int score,  remainingTime, alphaAtomCount, betaAtomCount,sigmaAtomCount,gammaAtomCount, 
-	alphaPUCount,betaPUCount,sigmaPUCount,gammaPUCount;
+	String username="",currentShootingObject="";
+	double objectMovementAngle=0,objectX=0,objectY=0;
+	int score=0,  remainingTime=0, alphaAtomCount=0, betaAtomCount=0,sigmaAtomCount=0,gammaAtomCount=0, 
+	alphaPUCount=0,betaPUCount=0,sigmaPUCount=0,gammaPUCount=0;
 	ArrayList<Molecule> list;
 	Controller controller;
 	boolean isShooted;
@@ -52,7 +52,6 @@ public class Save {
 		this.objectX=objectX;
 		this.objectY=objectY;
 		this.isShooted= isShooted;
-		this.controller= controller;
 		
 		
 		// TODO Auto-generated constructor stub
@@ -60,6 +59,9 @@ public class Save {
 	}
 	public Save() {
 		
+	}
+	public Save(ArrayList<Molecule> list) {
+		this.list= list;
 	}
 	public void saveGame() {
 		JsonObject obj= new JsonObject();

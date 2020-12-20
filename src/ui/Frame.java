@@ -79,7 +79,7 @@ public class Frame extends Canvas {
 		sidebar.add(quitButton);
 		sidebar.add(applyButton);
 		sidebar.setBackground(Color.white);
-		sidebar.setBounds(10, 10, 100, 40);
+		sidebar.setBounds(10, 10, 200, 40);
 		
 		frame.add(sidebar);
 		moleculeType.setEditable(false);
