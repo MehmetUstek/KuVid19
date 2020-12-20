@@ -20,16 +20,18 @@ import com.google.gson.stream.JsonWriter;
 import domain.atom.Atom;
 import domain.molecule.Molecule;
 import domain.molecule.MoleculeFactory;
+import domain.powerup.Powerup;
 
 public class Save {
 	String username,currentShootingObject;
-	double objectMovementAngle;
+	double objectMovementAngle,objectX,objectY;
 	int score,  remainingTime, alphaAtomCount, betaAtomCount,sigmaAtomCount,gammaAtomCount, 
 	alphaPUCount,betaPUCount,sigmaPUCount,gammaPUCount;
 	ArrayList<Molecule> list;
 	Controller controller;
+	boolean isShooted;
 	public Save(String username
-			, int score, int remainingTime, String currentShootingObject, double objectMovementAngle,
+			, int score, int remainingTime, String currentShootingObject,boolean isShooted,double objectX, double objectY, double objectMovementAngle,
 			int alphaAtomCount,int betaAtomCount,int sigmaAtomCount,int gammaAtomCount, 
 			int alphaPUCount,int betaPUCount,int sigmaPUCount,int gammaPUCount,ArrayList<Molecule> list) 
 	{
@@ -47,10 +49,16 @@ public class Save {
 		this.sigmaPUCount= sigmaPUCount;
 		this.gammaPUCount= gammaPUCount;
 		this.list= list;
+		this.objectX=objectX;
+		this.objectY=objectY;
+		this.isShooted= isShooted;
 		this.controller= controller;
 		
 		
 		// TODO Auto-generated constructor stub
+		
+	}
+	public Save() {
 		
 	}
 	public void saveGame() {
@@ -64,7 +72,11 @@ public class Save {
 		
 		//Remaining time as seconds.
 		obj.addProperty("remainingTime", remainingTime);
+		
+		//Object
 		obj.addProperty("currentShootingObject", currentShootingObject);
+		obj.addProperty("objectX", objectX);
+		obj.addProperty("objectY", objectY);
 		
 		//Movement angle double.
 		obj.addProperty("objectMovementAngle", objectMovementAngle);
@@ -84,10 +96,7 @@ public class Save {
 		
 		
 		//molecule and its position (position as string, must do split.)
-		obj.addProperty("alphaMolecule", "10,10");
-		obj.addProperty("betaMolecule", "10,10");
-		obj.addProperty("sigmaMolecule", "10,10");
-		obj.addProperty("gammaMolecule", "10,10");
+		
 		array.add(obj);
 		// The first element of the array is the areas indicated above.
 		// The next element is the atom location.
@@ -124,7 +133,7 @@ public class Save {
 		
 		System.out.println(obj);
 	}
-	public JsonElement loadGame(Controller controller) {
+	public JsonElement loadGame() {
 		Gson gson = new Gson();
 		JsonReader reader;
 		ArrayList controllerNewObjects= new ArrayList<GameObject>();
@@ -132,33 +141,41 @@ public class Save {
 			reader = new JsonReader(new FileReader("saves.txt"));
 			JsonArray obj= gson.fromJson(reader, JsonArray.class);
 			
-			// Atom Load
-			username= obj.get(0).getAsJsonObject().get("username").getAsString();
-			score= obj.get(0).getAsJsonObject().get("score").getAsInt();
-			remainingTime= obj.get(0).getAsJsonObject().get("remainingTime").getAsInt();
-			currentShootingObject= obj.get(0).getAsJsonObject().get("currentShootingObject").getAsString();
-			objectMovementAngle= obj.get(0).getAsJsonObject().get("objectMovementAngle").getAsDouble();
-			currentShootingObject= obj.get(0).getAsJsonObject().get("currentShootingObject").getAsString();
-			objectMovementAngle= obj.get(0).getAsJsonObject().get("objectMovementAngle").getAsDouble();
-			
-			
-			
-			//Molecules Load
-			for(int i=1;i<obj.size();i++) {
-				System.out.println(obj.get(i).getAsJsonObject().get("type"));
-				Molecule molecule = MoleculeFactory.getMolecule(obj.get(i).getAsJsonObject().get("type").getAsString());
-				
-				molecule.setX(obj.get(i).getAsJsonObject().get("x").getAsDouble());
-				molecule.setY(obj.get(i).getAsJsonObject().get("y").getAsDouble());
-				System.out.println(molecule);
-			}
-			
-			
-			// Add objects to a list and then to controller.
-//			controllerNewObjects.add(0,)
-			
-			controller.addObject(null);
-			reader.close();
+//			// Atom Load
+//			username= obj.get(0).getAsJsonObject().get("username").getAsString();
+//			score= obj.get(0).getAsJsonObject().get("score").getAsInt();
+//			remainingTime= obj.get(0).getAsJsonObject().get("remainingTime").getAsInt();
+//			currentShootingObject= obj.get(0).getAsJsonObject().get("currentShootingObject").getAsString();
+//			objectMovementAngle= obj.get(0).getAsJsonObject().get("objectMovementAngle").getAsDouble();
+////			currentShootingObject= obj.get(0).getAsJsonObject().get("currentShootingObject").getAsString();
+////			objectMovementAngle= obj.get(0).getAsJsonObject().get("objectMovementAngle").getAsDouble();
+//			
+//			
+//			
+//			//Molecules Load
+//			for(int i=1;i<obj.size();i++) {
+//				System.out.println(obj.get(i).getAsJsonObject().get("type"));
+//				Molecule molecule = MoleculeFactory.getMolecule(obj.get(i).getAsJsonObject().get("type").getAsString());
+//				
+//				molecule.setX(obj.get(i).getAsJsonObject().get("x").getAsDouble());
+//				molecule.setY(obj.get(i).getAsJsonObject().get("y").getAsDouble());
+//				System.out.println(molecule);
+//			}
+//			
+//			GameObject shootingObject;
+//			if(currentShootingObject=="alpha" ||currentShootingObject=="beta" || currentShootingObject=="sigma" || currentShootingObject=="gamma") {
+//				shootingObject= new Atom(currentShootingObject);
+//			}else {
+//				shootingObject= new Powerup(currentShootingObject);
+//			}
+//			
+////			controller.objects.set(0, shootingObject);
+//			
+////			 Add objects to a list and then to controller.
+////			controllerNewObjects.add(0,"lol");
+//			
+////			controller.addObject(null);
+//			reader.close();
 			return obj;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

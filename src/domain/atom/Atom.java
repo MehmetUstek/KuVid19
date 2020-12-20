@@ -9,6 +9,8 @@ public class Atom extends GameObject{
 	double diameter;
 	double x,y;
 	boolean isShooted;
+	double stability,efficiency;
+	int protons, neutrons;
 	
 	public Atom(String atomType){
 		super();
@@ -18,6 +20,51 @@ public class Atom extends GameObject{
 		this.speed= getSpeed();
 		this.diameter= getDiameter();
 		this.atomType= atomType;
+		this.stability= getStability();
+		this.efficiency= getEfficiency();
+		this.protons = getProtons();
+		this.neutrons= getNeutrons();
+	}
+	public int getProtons() {
+		return protons;
+	}
+
+	public void setProtons(int protons) {
+		this.protons = protons;
+	}
+
+	public int getNeutrons() {
+		return neutrons;
+	}
+
+	public void setNeutrons(int neutrons) {
+		this.neutrons = neutrons;
+	}
+	public double getStability() {
+		return stability;
+	}
+
+	public void setStability(double stability) {
+		this.stability = stability;
+	}
+
+	public double getEfficiency() {
+		return efficiency;
+	}
+
+	public void setEfficiency() {
+		if(getType().equals("alpha")) {
+			this.efficiency = (1- (Math.abs((getNeutrons()-getProtons())) / getProtons()) ) * getStability();
+		}
+		if(getType().equals("beta")) {
+			this.efficiency = getStability() - (0.5 * Math.abs(getNeutrons() - getProtons()) / getProtons());
+		}
+		if(getType().equals("sigma")) {
+			this.efficiency = (1+ getStability()) /2 +  (Math.abs(getNeutrons() - getProtons()) / getProtons());
+		}
+		if(getType().equals("gamma")) {
+			this.efficiency = getStability() + (Math.abs(getNeutrons() - getProtons()) / (2* getProtons()));
+		}
 	}
 
 	public boolean isShooted() {

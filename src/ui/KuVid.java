@@ -212,9 +212,16 @@ public class KuVid extends Canvas implements Runnable {
 						break;
 					case  KeyEvent.VK_L:
 						System.out.println("LOADED");
+//						window.dispose();
+						controller.loadGame();
+						resumeGame();
+						//TODO these resume and pauses will change.
+						
 						break;
 					case  KeyEvent.VK_S:
 						System.out.println("SAVED");
+						controller.saveGame();
+						pauseGame();
 						break;
 					case  KeyEvent.VK_LEFT:
 						controller.moveShooter(shooter, shootingObject, "left");
@@ -230,34 +237,15 @@ public class KuVid extends Canvas implements Runnable {
 						controller.rotateShooter(shooter, shootingObject, "right");
 						break;
 					case  KeyEvent.VK_P:
-						if(!isPaused) {
-							System.out.println("PAUSED");
-							thread.stop();
-//							timerTask.cancel();
-							isPaused = true;
-
-//							timer.cancel();
-						}
-						controller.pauseGame();
+						pauseGame();
 						break;
 					case  KeyEvent.VK_R:
 						System.out.println("RESUME");
-//						start();
-						
-						if(isPaused) {
-							start();
-//							timerTask.run();
-//							atom.setRotationAngle(shooterRotationAngle);
-//							timerTask = new UpdateAtomTask(shootingObject,Toolkit.getDefaultToolkit().getScreenSize(),shooter);
-//							setTimer(new Timer(true));
-//							timer.scheduleAtFixedRate(timerTask, 0, 100);
-							controller.resumeGame(shooter, shootingObject);
-							isPaused= false;
-						}
+						resumeGame();
 						
 						break;
 					case  KeyEvent.VK_C:
-						controller.switchAtom(getShootingObject(), getUIShootingObject());
+						controller.switchAtom();
 						
 						break;
 					case  KeyEvent.VK_B:
@@ -451,15 +439,15 @@ public class KuVid extends Canvas implements Runnable {
 					//TODO add every molecule element into the list with for loop.
 					list.add(betaMol);
 					list.add(alphaMol);
-					
-					Save save= new Save("mehmet",score,remainingTime,getShootingObject().getType(),getShootingObject().getRotationAngle(),
-							atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,list);
-					save.saveGame();
-					
-					// Loading process
-					controller= new Controller(renderer, window);
-//					controller.addObject();
-					System.out.println(save.loadGame(controller));
+//					
+//					Save save= new Save("mehmet",score,remainingTime,getShootingObject().getType(),getShootingObject().getRotationAngle(),
+//							atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,list);
+//					save.saveGame();
+//					
+//					// Loading process
+//					controller= new Controller(renderer, window);
+////					controller.addObject();
+//					System.out.println(save.loadGame(controller));
 					new Main();
 				}
 			});
@@ -573,4 +561,27 @@ public class KuVid extends Canvas implements Runnable {
 		return false;
 	}
 	
+	private void pauseGame() {
+		if(!isPaused) {
+			System.out.println("PAUSED");
+			thread.stop();
+//			timerTask.cancel();
+			isPaused = true;
+
+//			timer.cancel();
+		}
+		controller.pauseGame();
+	}
+	private void resumeGame() {
+		if(isPaused) {
+			start();
+//			timerTask.run();
+//			atom.setRotationAngle(shooterRotationAngle);
+//			timerTask = new UpdateAtomTask(shootingObject,Toolkit.getDefaultToolkit().getScreenSize(),shooter);
+//			setTimer(new Timer(true));
+//			timer.scheduleAtFixedRate(timerTask, 0, 100);
+			controller.resumeGame(shooter, shootingObject);
+			isPaused= false;
+		}
+	}
 }

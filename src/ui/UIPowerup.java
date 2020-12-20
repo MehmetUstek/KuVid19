@@ -50,7 +50,7 @@ public class UIPowerup extends UIGameObject implements ImageObserver{
 
 	@Override
 	public void render(Graphics2D g) {
-		String file= "src/assets/powerups/"+ getAtomType() +"-b.png";
+		String file= "src/assets/powerups/"+ getPUType() +"-b.png";
 		icon = new ImageIcon(file);
 		image = icon.getImage();
 		at.setToIdentity();
@@ -59,11 +59,11 @@ public class UIPowerup extends UIGameObject implements ImageObserver{
 		g.drawImage(image,at, this);
 		
 	}
-	public String getAtomType() {
+	public String getPUType() {
 		return puType;
 	}
 
-	public void setAtomType(String atomType) {
+	public void setPUType(String atomType) {
 		this.puType = atomType;
 	}
 	
