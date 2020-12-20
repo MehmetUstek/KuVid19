@@ -28,7 +28,7 @@ import ui.molecule.UIMolecule;
 public class BuildMode extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
-	public static int WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth(),
+	public static int WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()-200,
 			HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private Thread thread;
 	private boolean running = false;
@@ -133,8 +133,8 @@ public class BuildMode extends Canvas implements Runnable {
 	}
 
 	public void addMolecules(Controller controller, Renderer renderer) {
-		String s1 = window.getBetaCount().getText();
-		String s2 = window.getMoleculeCount().getText();
+		String s1 = window.getAlphaCount().getText();
+		String s2 = window.getBetaCount().getText();
 		String s3 = window.getSigmaCount().getText();
 		String s4 = window.getGammaCount().getText();
 		ArrayList<String> nameList = new ArrayList<String>();
@@ -146,7 +146,7 @@ public class BuildMode extends Canvas implements Runnable {
 		for (int i=0;i<Integer.parseInt(s1);i++) {
 			Molecule molecule = MoleculeFactory.getMolecule("AlphaMolecule");
 			double x= random.nextInt( WIDTH-(int) molecule.getWidth());
-			double y= random.nextInt(HEIGHT/8);
+			double y= random.nextInt(HEIGHT)-HEIGHT;
 			Rectangle2D rect = new Rectangle2D.Double(x,y,molecule.getWidth(),molecule.getHeight());
 			
 			for (Rectangle2D rectangle: positionList) {
@@ -168,7 +168,7 @@ public class BuildMode extends Canvas implements Runnable {
 		for (int i=0;i<Integer.parseInt(s2);i++) {
 			Molecule molecule = MoleculeFactory.getMolecule("BetaMolecule");
 			double x= random.nextInt( WIDTH-(int) molecule.getWidth());
-			double y= random.nextInt(HEIGHT/8);
+			double y= random.nextInt(HEIGHT)-HEIGHT;
 			Rectangle2D rect = new Rectangle2D.Double(x,y,molecule.getWidth(),molecule.getHeight());
 			
 			for (Rectangle2D rectangle: positionList) {
@@ -189,7 +189,7 @@ public class BuildMode extends Canvas implements Runnable {
 		for (int i=0;i<Integer.parseInt(s3);i++) {
 			Molecule molecule = MoleculeFactory.getMolecule("SigmaMolecule");
 			double x= random.nextInt( WIDTH-(int) molecule.getWidth());
-			double y= random.nextInt(HEIGHT/8);
+			double y= random.nextInt(HEIGHT)-HEIGHT;
 			Rectangle2D rect = new Rectangle2D.Double(x,y,molecule.getWidth(),molecule.getHeight());
 			
 			for (Rectangle2D rectangle: positionList) {
@@ -210,7 +210,7 @@ public class BuildMode extends Canvas implements Runnable {
 		for (int i=0;i<Integer.parseInt(s4);i++) {
 			Molecule molecule = MoleculeFactory.getMolecule("GammaMolecule");
 			double x= random.nextInt( WIDTH-(int) molecule.getWidth());
-			double y= random.nextInt(HEIGHT/8);
+			double y= random.nextInt(HEIGHT)-HEIGHT;
 			Rectangle2D rect = new Rectangle2D.Double(x,y,molecule.getWidth(),molecule.getHeight());
 			
 			for (Rectangle2D rectangle: positionList) {

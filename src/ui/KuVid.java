@@ -1,37 +1,27 @@
 package ui;
-import java.awt.BorderLayout;
+
 import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import javax.swing.JLabel;
 import javax.swing.JTextField;
-
 import domain.Controller;
 import domain.GameObject;
-import domain.Save;
 import domain.atom.Atom;
-import domain.atom.AtomFactory;
 import domain.blender.Blender;
 import domain.gameState.Statistics;
 import domain.molecule.*;
 import domain.powerup.Powerup;
 import domain.shooter.AtomShooter;
-import ui.molecule.AlphaMoleculeUI;
 import ui.molecule.*;
 
 public class KuVid extends Canvas implements Runnable {
@@ -52,8 +42,8 @@ public class KuVid extends Canvas implements Runnable {
 	double speed= L;
 	double shooterX= WIDTH/2;
 	double shooterY =HEIGHT - shooterHeight*2;
-	double atomX = shooterX;
-	double atomY = shooterY -diameter*2;
+	double atomX = shooterX + diameter/2;
+	double atomY = shooterY/2 - diameter*2;
 	private boolean isPaused = false;
 	
 //	private boolean atomShooted=false;
@@ -82,15 +72,15 @@ public class KuVid extends Canvas implements Runnable {
 	
 	
 	//Molecule prototype
-		Molecule alphaMol = new AlphaMolecule();
-		Molecule betaMol = new BetaMolecule();
-		Molecule sigmaMol = new SigmaMolecule();
-		Molecule gammaMol = new GammaMolecule();
-		
-		UIMolecule alphaUI = new AlphaMoleculeUI();
-		UIMolecule betaUI = new BetaMoleculeUI();
-		UIMolecule sigmaUI = new SigmaMoleculeUI();
-		UIMolecule gammaUI = new GammaMoleculeUI();
+//		Molecule alphaMol = new AlphaMolecule();
+//		Molecule betaMol = new BetaMolecule();
+//		Molecule sigmaMol = new SigmaMolecule();
+//		Molecule gammaMol = new GammaMolecule();
+//		
+//		UIMolecule alphaUI = new AlphaMoleculeUI();
+//		UIMolecule betaUI = new BetaMoleculeUI();
+//		UIMolecule sigmaUI = new SigmaMoleculeUI();
+//		UIMolecule gammaUI = new GammaMoleculeUI();
 	
 	boolean keyB;
 	int atomRank;
@@ -152,28 +142,28 @@ public class KuVid extends Canvas implements Runnable {
 			System.out.println("Number of Gamma atoms: " + gammaList.size());
 			
 			// Molecule settings
-			alphaMol.setX(200);
-			alphaMol.setY(0);
-			betaMol.setX(300);
-			betaMol.setY(0);
-			sigmaMol.setX(400);
-			sigmaMol.setY(0);
-			gammaMol.setX(500);
-			gammaMol.setY(0);
+//			alphaMol.setX(200);
+//			alphaMol.setY(0);
+//			betaMol.setX(300);
+//			betaMol.setY(0);
+//			sigmaMol.setX(400);
+//			sigmaMol.setY(0);
+//			gammaMol.setX(500);
+//			gammaMol.setY(0);
 			
-			renderer.addObject(alphaUI);
-			controller.addObject(alphaMol);
-			renderer.addObject(betaUI);
-			controller.addObject(betaMol);
-			renderer.addObject(sigmaUI);
-			controller.addObject(sigmaMol);
-			renderer.addObject(gammaUI);
-			controller.addObject(gammaMol);
+//			renderer.addObject(alphaUI);
+//			controller.addObject(alphaMol);
+//			renderer.addObject(betaUI);
+//			controller.addObject(betaMol);
+//			renderer.addObject(sigmaUI);
+//			controller.addObject(sigmaMol);
+//			renderer.addObject(gammaUI);
+//			controller.addObject(gammaMol);
 			
-			alphaMol.move(atomSpeed);
-			betaMol.move(atomSpeed);
-			sigmaMol.move(atomSpeed);
-			gammaMol.move(atomSpeed);
+//			alphaMol.move(atomSpeed);
+//			betaMol.move(atomSpeed);
+//			sigmaMol.move(atomSpeed);
+//			gammaMol.move(atomSpeed);
 			
 			this.addKeyListener(new KeyListener() {
 				public void keyPressed(KeyEvent e) {
@@ -190,7 +180,7 @@ public class KuVid extends Canvas implements Runnable {
 
 					switch (e.getKeyCode()) {
 					case KeyEvent.VK_UP:
-						controller.shootObject(getShootingObject(), shooter, atomX);
+						controller.shootObject(getShootingObject(), shooter);
 //						if(!shootingObject.isShooted()) {
 //							shootingObject.setShooted(true);
 //							System.out.println("Shoot");
@@ -432,22 +422,6 @@ public class KuVid extends Canvas implements Runnable {
 					window.dispose();
 					thread.stop();
 					running=false;
-					int score=100;
-					int remainingTime=60;
-					int atomCount = 8;
-					ArrayList<Molecule> list= new ArrayList<Molecule>();
-					//TODO add every molecule element into the list with for loop.
-					list.add(betaMol);
-					list.add(alphaMol);
-//					
-//					Save save= new Save("mehmet",score,remainingTime,getShootingObject().getType(),getShootingObject().getRotationAngle(),
-//							atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,list);
-//					save.saveGame();
-//					
-//					// Loading process
-//					controller= new Controller(renderer, window);
-////					controller.addObject();
-//					System.out.println(save.loadGame(controller));
 					new Main();
 				}
 			});
@@ -505,7 +479,7 @@ public class KuVid extends Canvas implements Runnable {
 			return;
 		}
 		Graphics2D g = (Graphics2D) bs.getDrawGraphics();
-		g.setColor(Color.DARK_GRAY);
+		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, (int)WIDTH, (int) HEIGHT);
 		renderer.render(g);
 		g.dispose();

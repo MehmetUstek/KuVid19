@@ -54,7 +54,7 @@ public class UIShooter extends UIGameObject implements ImageObserver{
 		ImageIcon icon = new ImageIcon(file);
 		image = icon.getImage();
 		at.setToIdentity();
-		double rotation = Math.toRadians(getRotationAngle()) ;
+		double rotation = Math.toRadians(getRotationAngle());
 		at.rotate(rotation,x,y+getHeight());
 		at.translate(x, y);
 		

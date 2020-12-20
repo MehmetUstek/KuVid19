@@ -58,12 +58,13 @@ public class Controller {
 	double speed= L;
 	double shooterX= WIDTH/2;
 	double shooterY =HEIGHT - shooterHeight*2;
-	double atomX = shooterX;
+	double atomX = shooterX+ diameter/2;
 	double atomY = shooterY -diameter*2;
 	double rotationConstant = 10;
 	double atomSpeed=L/5;
 	double shooterMoveConstant = 15;
 	private boolean isPaused = false;
+	private boolean isLoaded = false;
 	
 	TimerTask timerTask ;
 	Timer timer;
@@ -238,17 +239,12 @@ public class Controller {
 		double y =  tempobject1.getY();
 		double x1= x + tempobject1.getDiameter();
 		double y1= y+ tempobject1.getDiameter();
-		if(tempobject1.isShooted()) {
-			atom.setX(x);
-			atom.setY(y);
-		}else {
+		if(!tempobject1.isShooted()) {
 			// TODO this will change. Will be added, when atom is destroyed put new atom from existing ones.
 			x=objects.get(1).getX();
 			y=objects.get(1).getY();
 			tempobject.setX(x);
 			tempobject.setY(y);
-			atom.setX(x);
-			atom.setY(y);
 		}
 		
 		if(tempobject1.getY()> Toolkit.getDefaultToolkit().getScreenSize().getHeight()+ tempobject1.getWidth()/2) {
@@ -284,14 +280,15 @@ public class Controller {
 //					tempobject.setX(objects.get(1).getX());
 //					tempobject.setY(objects.get(1).getY());
 //					objects.remove(tempobject);
-					
+					timerTask.cancel();
 					renderer.removeObject(molecule);
 //					uicontroller.removeObject(atom);
 					
 					tempobject.setX(objects.get(1).getX());
 					tempobject.setY(objects.get(1).getY());
+					tempobject.setRotationAngle(getShooter().getRotationAngle());
 					((Atom) tempobject).setShooted(false);
-					
+					score++;
 //					uicontroller.addObject(atom);
 				}
 			}
@@ -360,7 +357,7 @@ public class Controller {
 			}
 	}
 	
-	public void shootObject(GameObject shootingObject,AtomShooter shooter,double atomX) {
+	public void shootObject(GameObject shootingObject,AtomShooter shooter) {
 		double shooterRotationAngle=0;
 		if(!shootingObject.isShooted()) {
 			shootingObject.setShooted(true);
@@ -389,7 +386,7 @@ public class Controller {
 				
 			shooter.setX(shooterX);
 			if(!shootingObject.isShooted()) {
-				atomX = shooterX;
+				atomX = shooterX+shootingObject.getWidth();
 				shootingObject.setX(atomX);
 			}
 		}
@@ -400,7 +397,7 @@ public class Controller {
 			}
 			shooter.setX(shooterX);
 			if(!shootingObject.isShooted()) {
-				atomX = shooterX;
+				atomX = shooterX+shootingObject.getWidth();
 				shootingObject.setX(atomX);
 				
 			}
@@ -462,6 +459,7 @@ public class Controller {
 			((UIAtom) uiShootingObject).setAtomType(atom1.getType());
 		}
 	}
+	
 	public boolean isAtom(GameObject tempobject) {
 		if(tempobject.getType()=="alpha"|| tempobject.getType()=="beta"|| tempobject.getType()=="sigma"||
 				tempobject.getType()=="gamma") {
@@ -479,10 +477,11 @@ public class Controller {
 		Molecule betaMol = new BetaMolecule();
 		
 		//TODO Change all of the molecules which will come from building mode.
-		alphaMol.setX(500);
-		alphaMol.setY(500);
-		list.add(betaMol);
-		list.add(alphaMol);
+//		alphaMol.setX(500);
+//		alphaMol.setY(500);
+		for (int i=3;i<objects.size();i++) {
+			list.add((Molecule) objects.get(i));
+		}
 		GameObject shootingObject= getShootingObject();
 		save= new Save(username,score,remainingTime,shootingObject.getType(),shootingObject.isShooted(),shootingObject.getX(),shootingObject.getY(),shootingObject.getRotationAngle(),
 				atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,list);
@@ -491,70 +490,74 @@ public class Controller {
 	public void loadGame() {
 		
 //		System.out.println(save.loadGame(this));
-		if(save==null) {
-			save = new Save();
-			System.out.println("new save");
-		}
-		JsonArray obj = (JsonArray) save.loadGame();
-		System.out.println("object:"+obj);
-//		game = new KuVid();
-		username= obj.get(0).getAsJsonObject().get("username").getAsString();
-		score= obj.get(0).getAsJsonObject().get("score").getAsInt();
-		int remainingTime= obj.get(0).getAsJsonObject().get("remainingTime").getAsInt();
-		String currentShootingObject= obj.get(0).getAsJsonObject().get("currentShootingObject").getAsString();
-		System.out.println(currentShootingObject);
-		double objectMovementAngle= obj.get(0).getAsJsonObject().get("objectMovementAngle").getAsDouble();
-		double objectX= obj.get(0).getAsJsonObject().get("objectX").getAsDouble();
-		double objectY= obj.get(0).getAsJsonObject().get("objectY").getAsDouble();
-//		boolean isShooted = obj.get(0).getAsJsonObject().get("isShooted").getAsBoolean();
-		GameObject shootingObject= getShootingObject();
-		UIGameObject uiobject= renderer.objects.get(0);
-		System.out.println(currentShootingObject);
-		if(currentShootingObject.equals("alpha") || currentShootingObject.equals("beta") || currentShootingObject.equals("sigma") || currentShootingObject.equals("gamma")) {
-//			shootingObject= new Atom(currentShootingObject);
-//			uiobject = new UIAtom(shootingObject.getType());
-////			uiobject.setHeight(diameter);
-////			uiobject.setWidth(diameter);
-//			((UIAtom)uiobject).setDiameter(diameter);
-//			shootingObject.setHeight(diameter);
-//			shootingObject.setWidth(diameter);
-//			shootingObject.setSpeed(atomSpeed);
-//			shootingObject.setRotationAngle(objectMovementAngle);
+		if(!isLoaded) {
+			isLoaded= true;
+			if(save==null) {
+				save = new Save();
+				System.out.println("new save");
+			}
 			
-			//TODO Setting shootingObject does not work precisely.
-			Atom atom1= AtomFactory.getAtom((Atom) getShootingObject(),currentShootingObject);
-			((UIAtom) uiobject).setAtomType(atom1.getType());
-		}else if(currentShootingObject.equals("+alpha") || currentShootingObject.equals("+beta") || currentShootingObject.equals("+sigma") || currentShootingObject.equals("+gamma")) {
-
-//			shootingObject= new Powerup(currentShootingObject);
-//			uiobject = new UIPowerup(currentShootingObject);
-//			uiobject.setHeight(diameter*2);
-//			uiobject.setWidth(diameter*2);
-//			shootingObject.setHeight(diameter*2);
-//			shootingObject.setWidth(diameter*2);
-			Powerup pu1= PowerupFactory.getPU((Powerup) getShootingObject(),currentShootingObject);
-			((UIPowerup) uiobject).setPUType(pu1.getType());
-		}
-		
-		getShootingObject().setX(objectX);
-		getShootingObject().setY(objectY);
-		shootingObject.setRotationAngle(objectMovementAngle);
-		
-		//Molecules Load
-		for(int i=1;i<obj.size();i++) {
-			System.out.println(obj.get(i).getAsJsonObject().get("type"));
-			Molecule molecule = MoleculeFactory.getMolecule(obj.get(i).getAsJsonObject().get("type").getAsString());
-			molecule.setX(obj.get(i).getAsJsonObject().get("x").getAsDouble());
-			molecule.setY(obj.get(i).getAsJsonObject().get("y").getAsDouble());
-			System.out.println(molecule);
-			this.objects.add(molecule);
+			JsonArray obj = (JsonArray) save.loadGame();
+			System.out.println("object:"+obj);
+	//		game = new KuVid();
+			username= obj.get(0).getAsJsonObject().get("username").getAsString();
+			score= obj.get(0).getAsJsonObject().get("score").getAsInt();
+			int remainingTime= obj.get(0).getAsJsonObject().get("remainingTime").getAsInt();
+			String currentShootingObject= obj.get(0).getAsJsonObject().get("currentShootingObject").getAsString();
+			System.out.println(currentShootingObject);
+			double objectMovementAngle= obj.get(0).getAsJsonObject().get("objectMovementAngle").getAsDouble();
+			double objectX= obj.get(0).getAsJsonObject().get("objectX").getAsDouble();
+			double objectY= obj.get(0).getAsJsonObject().get("objectY").getAsDouble();
+	//		boolean isShooted = obj.get(0).getAsJsonObject().get("isShooted").getAsBoolean();
+			GameObject shootingObject= getShootingObject();
+			UIGameObject uiobject= renderer.objects.get(0);
+			System.out.println(currentShootingObject);
+			if(currentShootingObject.equals("alpha") || currentShootingObject.equals("beta") || currentShootingObject.equals("sigma") || currentShootingObject.equals("gamma")) {
+	//			shootingObject= new Atom(currentShootingObject);
+	//			uiobject = new UIAtom(shootingObject.getType());
+	////			uiobject.setHeight(diameter);
+	////			uiobject.setWidth(diameter);
+	//			((UIAtom)uiobject).setDiameter(diameter);
+	//			shootingObject.setHeight(diameter);
+	//			shootingObject.setWidth(diameter);
+	//			shootingObject.setSpeed(atomSpeed);
+	//			shootingObject.setRotationAngle(objectMovementAngle);
+				
+				//TODO Setting shootingObject does not work precisely.
+				Atom atom1= AtomFactory.getAtom((Atom) getShootingObject(),currentShootingObject);
+				((UIAtom) uiobject).setAtomType(atom1.getType());
+			}else if(currentShootingObject.equals("+alpha") || currentShootingObject.equals("+beta") || currentShootingObject.equals("+sigma") || currentShootingObject.equals("+gamma")) {
+	
+	//			shootingObject= new Powerup(currentShootingObject);
+	//			uiobject = new UIPowerup(currentShootingObject);
+	//			uiobject.setHeight(diameter*2);
+	//			uiobject.setWidth(diameter*2);
+	//			shootingObject.setHeight(diameter*2);
+	//			shootingObject.setWidth(diameter*2);
+				Powerup pu1= PowerupFactory.getPU((Powerup) getShootingObject(),currentShootingObject);
+				((UIPowerup) uiobject).setPUType(pu1.getType());
+			}
 			
-			//TODO Change UIMolecule with UIMoleculeFactory
-			UIMolecule uimolecule = UIMoleculeFactory.getMolecule(obj.get(i).getAsJsonObject().get("type").getAsString());
+			getShootingObject().setX(objectX);
+			getShootingObject().setY(objectY);
+			shootingObject.setRotationAngle(objectMovementAngle);
 			
-			uimolecule.setX(molecule.getX());
-			uimolecule.setY(molecule.getY());
-			renderer.objects.add(uimolecule);
+			//Molecules Load
+			for(int i=1;i<obj.size();i++) {
+				System.out.println(obj.get(i).getAsJsonObject().get("type"));
+				Molecule molecule = MoleculeFactory.getMolecule(obj.get(i).getAsJsonObject().get("type").getAsString());
+				molecule.setX(obj.get(i).getAsJsonObject().get("x").getAsDouble());
+				molecule.setY(obj.get(i).getAsJsonObject().get("y").getAsDouble());
+				System.out.println(molecule);
+				this.objects.add(molecule);
+				
+				//TODO Change UIMolecule with UIMoleculeFactory
+				UIMolecule uimolecule = UIMoleculeFactory.getMolecule(obj.get(i).getAsJsonObject().get("type").getAsString());
+				
+				uimolecule.setX(molecule.getX());
+				uimolecule.setY(molecule.getY());
+				renderer.objects.add(uimolecule);
+			}
 		}
 		
 	}
@@ -569,5 +572,8 @@ public class Controller {
 		// TODO Auto-generated method stub
 			this.objects.add(i,obj);
 		
+	}
+	public GameObject getShooter() {
+		return this.objects.get(1);
 	}
 }

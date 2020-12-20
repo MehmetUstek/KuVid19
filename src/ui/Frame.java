@@ -12,6 +12,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -27,9 +28,11 @@ public class Frame extends Canvas {
 			HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private JPanel sidebar = new JPanel();
 	private JButton quitButton = new JButton("Quit");
-	private JTextField moleculeType = new JTextField("AlphaMolecule");
-	private JTextField moleculeCount = new JTextField(10);
+	private JTextField alphaType = new JTextField("AlphaMolecule");
+	private JTextField alphaCount = new JTextField(10);
 	private JTextField betaType = new JTextField("BetaMolecule");
+	private JTextField sigmaType = new JTextField("SigmaMolecule");
+	private JTextField gammaType = new JTextField("GammaMolecule");
 	private JTextField betaCount = new JTextField(10);
 	private JTextField sigmaCount = new JTextField(10);
 	private JTextField gammaCount = new JTextField(10);
@@ -41,6 +44,7 @@ public class Frame extends Canvas {
 	private JButton buildMode = new JButton("Build Mode");
 	StatisticsWindow statsWindow= new StatisticsWindow();
 	private JButton applyButton = new JButton("Apply");
+	
 	public Frame(Dimension d, String title, KuVid game) {
 		frame = new JFrame(title);
 		frame.setMaximumSize(d);
@@ -64,7 +68,6 @@ public class Frame extends Canvas {
 	}
 	
 	
-
 	public Frame(Dimension d, String title, BuildMode buildmode) {
 		
 		frame = new JFrame(title);
@@ -82,19 +85,19 @@ public class Frame extends Canvas {
 		sidebar.setBounds(10, 10, 200, 40);
 		
 		frame.add(sidebar);
-		moleculeType.setEditable(false);
+		alphaType.setEditable(false);
 		betaType.setEditable(false);
-		moleculeCount.setEditable(true);
-		moleculeCount.setText("6");
+		alphaCount.setEditable(true);
+		alphaCount.setText("100");
 		betaCount.setEditable(true);
-		betaCount.setText("6");
+		betaCount.setText("100");
 		sigmaCount.setEditable(true);
-		sigmaCount.setText("6");
+		sigmaCount.setText("100");
 		gammaCount.setEditable(true);
-		gammaCount.setText("6");
+		gammaCount.setText("100");
 		
-		simpleGui.add( moleculeType );
-		simpleGui.add( moleculeCount );
+		simpleGui.add( alphaType );
+		simpleGui.add( alphaCount );
 		simpleGui.add( betaType );
 		simpleGui.add( betaCount );
 		simpleGui.add( sigmaCount );
@@ -105,10 +108,6 @@ public class Frame extends Canvas {
 		gui.setBounds(WIDTH- gui.getWidth() - 370, HEIGHT - 200 , 350, 150);
 		
 		frame.add(gui);
-		
-		
-
-		
 		frame.add(buildmode);
 
 		frame.setVisible(true);
@@ -117,40 +116,7 @@ public class Frame extends Canvas {
 		
 	}
 	
-	public JTextField getBetaType() {
-		return betaType;
-	}
-
-
-
-	public void setBetaType(JTextField betaType) {
-		this.betaType = betaType;
-	}
-
-
-
-	public JTextField getMoleculeType() {
-		return moleculeType;
-	}
-
-	public void setMoleculeType(JTextField moleculeType) {
-		this.moleculeType = moleculeType;
-	}
-
-	public JTextField getMoleculeCount() {
-		return moleculeCount;
-	}
-
-	public void setMoleculeCount(JTextField moleculeCount) {
-		this.moleculeCount = moleculeCount;
-	}
-	public JTextField getBetaCount() {
-		return betaCount;
-	}
-
-	public void setBetaCount(JTextField betaCount) {
-		this.betaCount = betaCount;
-	}
+	
 
 	public Frame() {}
 
@@ -164,14 +130,10 @@ public class Frame extends Canvas {
 		gamePanel.setBackground(Color.WHITE);
 		gamePanel.add(Game);
 		gamePanel.add(buildMode);
-
-		
 		frame.add(gamePanel);
 		
 	}
-
 	
-
 	public JFrame getFrame() {
 		return frame;
 	}
@@ -225,29 +187,55 @@ public class Frame extends Canvas {
 	public void setApplyButton(JButton applyButton) {
 		this.applyButton = applyButton;
 	}
-
-
-
 	public JTextField getSigmaCount() {
 		return sigmaCount;
 	}
-
-
-
 	public void setSigmaCount(JTextField sigmaCount) {
 		this.sigmaCount = sigmaCount;
 	}
-
-
-
 	public JTextField getGammaCount() {
 		return gammaCount;
 	}
-
-
-
 	public void setGammaCount(JTextField gammaCount) {
 		this.gammaCount = gammaCount;
 	}
 	
+	public JTextField getAlphaType() {
+		return alphaType;
+	}
+	public void setAlphaType(JTextField alphaType) {
+		this.alphaType = alphaType;
+	}
+	public JTextField getSigmaType() {
+		return sigmaType;
+	}
+	public void setSigmaType(JTextField sigmaType) {
+		this.sigmaType = sigmaType;
+	}
+	public JTextField getGammaType() {
+		return gammaType;
+	}
+	public void setGammaType(JTextField gammaType) {
+		this.gammaType = gammaType;
+	}
+
+	public JTextField getAlphaCount() {
+		return alphaCount;
+	}
+	public void setAlphaCount(JTextField alphaCount) {
+		this.alphaCount = alphaCount;
+	}
+	public JTextField getBetaType() {
+		return betaType;
+	}
+	public void setBetaType(JTextField betaType) {
+		this.betaType = betaType;
+	}
+	public JTextField getBetaCount() {
+		return betaCount;
+	}
+
+	public void setBetaCount(JTextField betaCount) {
+		this.betaCount = betaCount;
+	}
 }

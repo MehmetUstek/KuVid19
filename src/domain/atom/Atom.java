@@ -11,7 +11,7 @@ public class Atom extends GameObject{
 	boolean isShooted;
 	double stability,efficiency;
 	int protons, neutrons;
-	
+	double width,height;
 	public Atom(String atomType){
 		super();
 		this.x=getX();
@@ -24,6 +24,20 @@ public class Atom extends GameObject{
 		this.efficiency= getEfficiency();
 		this.protons = getProtons();
 		this.neutrons= getNeutrons();
+		this.width= getDiameter();
+		this.height= getDiameter();
+	}
+	public double getWidth() {
+		return diameter;
+	}
+	public void setWidth(double width) {
+		this.width = width;
+	}
+	public double getHeight() {
+		return diameter;
+	}
+	public void setHeight(double height) {
+		this.height = height;
 	}
 	public int getProtons() {
 		return protons;
@@ -84,6 +98,7 @@ public class Atom extends GameObject{
 	public void setDiameter(double diameter) {
 		this.diameter = diameter;
 	}
+	
 	
 	
 	public String getType() {

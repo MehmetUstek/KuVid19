@@ -7,7 +7,7 @@ public class AtomFactory {
 	static Random random = new Random();
 	public static Atom getAtom(Atom atom,String type) {
 		if(type== "") {
-			int i = random.nextInt(3);
+			int i = random.nextInt(4);
 			switch(i) {
 			case 0:
 				atom.setType("alpha");

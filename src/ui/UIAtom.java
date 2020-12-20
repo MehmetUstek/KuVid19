@@ -15,7 +15,6 @@ public class UIAtom extends UIGameObject implements ImageObserver{
 	public String atomType;
 	public double diameter;
 	ImageIcon icon;
-//	BufferedImage bimage;
 	Image image;
 	double width,height;
 	AffineTransform at = new AffineTransform();
@@ -64,13 +63,6 @@ public class UIAtom extends UIGameObject implements ImageObserver{
 		String file= "src/assets/atoms/"+ getAtomType() +".png";
 		icon = new ImageIcon(file);
 		image = icon.getImage();
-//		try {
-//			bimage = ImageIO.read(new File(file));
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		image = bimage.getScaledInstance((int) width, (int) height, Image.SCALE_DEFAULT);
 		at.setToIdentity();
 		at.translate(x, y);
 		
