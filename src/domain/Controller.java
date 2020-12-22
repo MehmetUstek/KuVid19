@@ -30,6 +30,7 @@ import ui.UIGameObject;
 import ui.UIMoleculeFactory;
 import ui.UIPowerup;
 import ui.Renderer;
+import ui.StatisticsWindow;
 import ui.UIShooter;
 import ui.UpdateAtomTask;
 import ui.molecule.AlphaMoleculeUI;
@@ -41,8 +42,8 @@ public class Controller {
 	private Renderer renderer;
 	private ArrayList<Powerup> collectedPowerups = new ArrayList<Powerup>();
 	private int score = 0, time = 0, counter = 0, lives = 3, initialMoleculeCount;
-	private int alphaCount=0,betaCount=0,sigmaCount=0,gammaCount=0;
-	private int alphaPUCount=0,betaPUCount=0,sigmaPUCount=0,gammaPUCount=0;
+	private int alphaCount=100,betaCount=100,sigmaCount=100,gammaCount=100;
+	private int alphaPUCount=20,betaPUCount=20,sigmaPUCount=20,gammaPUCount=20;
 	private boolean atomFalled;
 	public ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	Frame frame;
@@ -70,6 +71,7 @@ public class Controller {
 	Timer timer;
 	Save save;
 	Random random = new Random();
+	StatisticsWindow statsWindow = StatisticsWindow.getInstance();
 	String username="mehmet";
 	private static KuVid game;
 	public Controller(Renderer UI, Frame frame) {
@@ -81,9 +83,19 @@ public class Controller {
 	
 	public void update() {
 		// TODO Auto-generated method stub
-
+		statsWindow.getAlphaLabel().setText(Integer.toString(alphaCount));
+		statsWindow.getBetaLabel().setText(Integer.toString(betaCount));
+		statsWindow.getSigmaLabel().setText(Integer.toString(sigmaCount));
+		statsWindow.getGammaLabel().setText(Integer.toString(gammaCount));
+		statsWindow.getAlphaPULabel().setText(Integer.toString(alphaPUCount));
+		statsWindow.getBetaPULabel().setText(Integer.toString(betaPUCount));
+		statsWindow.getSigmaPULabel().setText(Integer.toString(sigmaPUCount));
+		statsWindow.getGammaPULabel().setText(Integer.toString(gammaPUCount));
 		renderer.setScore(score);
 		renderer.setLives(lives);
+		statsWindow.getScore().setText(Integer.toString(score));
+		statsWindow.getTime().setText(Integer.toString(time));
+		
 		
 		for (int i = 0; i < objects.size(); i++) {
 			GameObject tempobject = (GameObject) objects.get(i);
@@ -176,6 +188,7 @@ public class Controller {
 				}
 		
 			tempobject.update();
+			
 		}
 		
 	}
@@ -320,7 +333,6 @@ public class Controller {
 		
 		tempobject = tempobject1;
 		Rectangle2D r= new Rectangle2D.Double(x,y,tempobject1.getDiameter(),tempobject1.getDiameter());
-		// Collision with alpha molecule and alpha atom.
 		for (int j = 0; j < objects.size(); j++) {
 			if(objects.size()==0) {
 				break;
@@ -341,6 +353,7 @@ public class Controller {
 				if(r1.intersects(r) || r.intersects(r1)) {
 					System.out.println("Collision");
 					objects.remove(collisionObject);
+					
 //					tempobject.setX(objects.get(1).getX());
 //					tempobject.setY(objects.get(1).getY());
 //					objects.remove(tempobject);
@@ -359,7 +372,7 @@ public class Controller {
 	
 	public void shootObject(GameObject shootingObject,AtomShooter shooter) {
 		double shooterRotationAngle=0;
-		if(!shootingObject.isShooted()) {
+		if(!shootingObject.isShooted() && checkObjectScore(shootingObject.getType())>0) {
 			shootingObject.setShooted(true);
 			System.out.println("Shoot");
 			shooterRotationAngle = shooter.getRotationAngle();
@@ -368,7 +381,7 @@ public class Controller {
 			timerTask = new UpdateAtomTask(shootingObject,Toolkit.getDefaultToolkit().getScreenSize(),shooter);
 			timer = new Timer(true);
 	        timer.scheduleAtFixedRate(timerTask, 0, 40);
-	        
+	        updateObjectScore(shootingObject.getType());
 //	        if(atom.getX()> WIDTH-atom.getDiameter()*2 && atom.getY()> HEIGHT-atom.getDiameter()*2) {
 //	    		timer.cancel();
 //	    	}
@@ -376,6 +389,9 @@ public class Controller {
 	        shootingObject.setX(atomX);
 	        System.out.println(Thread.currentThread().getName()+" TimerTask started");
 			
+		}
+		else {
+			System.out.println("The object is already shooted or there is not enough of object:"+ shootingObject.getType());
 		}
 	}
 	
@@ -575,5 +591,59 @@ public class Controller {
 	}
 	public GameObject getShooter() {
 		return this.objects.get(1);
+	}
+	
+	private void updateObjectScore(String type) {
+		if(type.equals("alpha")) {
+			alphaCount--;
+			System.out.println(alphaCount);
+		}
+		else if(type.equals("beta")) {
+			betaCount--;
+		}
+		else if(type.equals("sigma")) {
+			sigmaCount--;
+		}
+		else if(type.equals("gamma")) {
+			gammaCount--;
+		}
+		else if(type.equals("+alpha")) {
+			alphaPUCount--;
+		}
+		else if(type.equals("+beta")) {
+			betaPUCount--;
+		}
+		else if(type.equals("+sigma")) {
+			sigmaPUCount--;
+		}
+		else {
+			gammaPUCount--;
+		}
+	}
+	private int checkObjectScore(String type) {
+		if(type.equals("alpha")) {
+			return alphaCount;
+		}
+		else if(type.equals("beta")) {
+			return betaCount;
+		}
+		else if(type.equals("sigma")) {
+			return sigmaCount;
+		}
+		else if(type.equals("gamma")) {
+			return gammaCount;
+		}
+		else if(type.equals("+alpha")) {
+			return alphaPUCount;
+		}
+		else if(type.equals("+beta")) {
+			return betaPUCount;
+		}
+		else if(type.equals("+sigma")) {
+			return sigmaPUCount;
+		}
+		else {
+			return gammaPUCount;
+		}
 	}
 }

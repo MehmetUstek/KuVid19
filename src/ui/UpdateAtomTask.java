@@ -1,12 +1,9 @@
 package ui;
 
 import java.awt.Dimension;
-import java.util.Date;
-import java.util.Timer;
 import java.util.TimerTask;
 
 import domain.GameObject;
-import domain.atom.Atom;
 import domain.shooter.AtomShooter;
 
 public class UpdateAtomTask extends TimerTask {

@@ -19,10 +19,8 @@ import domain.GameObject;
 import domain.atom.Atom;
 import domain.blender.Blender;
 import domain.gameState.Statistics;
-import domain.molecule.*;
 import domain.powerup.Powerup;
 import domain.shooter.AtomShooter;
-import ui.molecule.*;
 
 public class KuVid extends Canvas implements Runnable {
 	private boolean running = false;
@@ -181,24 +179,7 @@ public class KuVid extends Canvas implements Runnable {
 					switch (e.getKeyCode()) {
 					case KeyEvent.VK_UP:
 						controller.shootObject(getShootingObject(), shooter);
-//						if(!shootingObject.isShooted()) {
-//							shootingObject.setShooted(true);
-//							System.out.println("Shoot");
-//							shooterRotationAngle = shooter.getRotationAngle();
-//							shootingObject.setRotationAngle(shooterRotationAngle);
-//							System.out.println(shootingObject.getRotationAngle());
-//							timerTask = new UpdateAtomTask(shootingObject,Toolkit.getDefaultToolkit().getScreenSize(),shooter);
-//							timer = new Timer(true);
-//					        timer.scheduleAtFixedRate(timerTask, 0, 40);
-//					        
-////					        if(atom.getX()> WIDTH-atom.getDiameter()*2 && atom.getY()> HEIGHT-atom.getDiameter()*2) {
-////					    		timer.cancel();
-////					    	}
-//					        atomX = shooter.getX();
-//					        shootingObject.setX(atomX);
-//					        System.out.println(Thread.currentThread().getName()+" TimerTask started");
-							
-//						}
+
 						break;
 					case  KeyEvent.VK_L:
 						System.out.println("LOADED");

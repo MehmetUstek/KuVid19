@@ -1,14 +1,7 @@
 package ui;
 
-import java.awt.Component;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.io.Serializable;
-
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-
-
 
 public abstract class UIGameObject implements Serializable {
 

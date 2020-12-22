@@ -1,22 +1,11 @@
 package ui;
 
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 
 
@@ -43,7 +32,6 @@ public class UIBlender extends UIGameObject implements ImageObserver{
 		String file= "src/assets/mixer.png";
 		ImageIcon icon = new ImageIcon(file);
 		image = icon.getImage();
-		BufferedImage i = new BufferedImage(width, height, Image.SCALE_DEFAULT);
 		at.setToIdentity();
 		at.translate(x, y);
 		g.drawImage(image, (int) x, (int) y , width, height, this);

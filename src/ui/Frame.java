@@ -6,20 +6,10 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
-
-import javax.swing.AbstractButton;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-
-import domain.gameState.Statistics;
-
-
 
 public class Frame extends Canvas {
 
@@ -42,7 +32,7 @@ public class Frame extends Canvas {
 	private JPanel gamePanel = new JPanel(new FlowLayout());
 	private JButton Game = new JButton ("Play Game");
 	private JButton buildMode = new JButton("Build Mode");
-	StatisticsWindow statsWindow= new StatisticsWindow();
+	StatisticsWindow statsWindow;
 	private JButton applyButton = new JButton("Apply");
 	
 	public Frame(Dimension d, String title, KuVid game) {
@@ -58,8 +48,9 @@ public class Frame extends Canvas {
 		sidebar.add(quitButton);
 		sidebar.setBackground(Color.white);
 		sidebar.setBounds(10, 10, 100, 40);
-		statsWindow.setBounds(1800,10,90, 630);
-		statsWindow.setLayout(new BoxLayout(statsWindow, BoxLayout.Y_AXIS));
+		statsWindow = StatisticsWindow.getInstance();
+		statsWindow.setBounds(1750,10,150, 800);
+		statsWindow.setLayout(new GridLayout(9,2));
 		frame.add(sidebar);
 		frame.add(statsWindow);
 		frame.add(game);

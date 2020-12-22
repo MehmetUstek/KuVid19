@@ -1,7 +1,6 @@
 package ui;
 
-import java.awt.Image;
-
+import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -9,10 +8,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class StatisticsWindow extends JPanel{
+	static StatisticsWindow instance;
 	JButton statisticAlpha = new JButton();
 	JButton statisticBeta = new JButton();
 	JButton statisticSigma = new JButton();
 	JButton statisticGamma = new JButton();
+	Font myFont = new Font("Times New Roman", Font.BOLD, 25);
 	String alpha= "src/assets/atoms/alpha.png";
 	String beta= "src/assets/atoms/beta.png";
 	String sigma= "src/assets/atoms/sigma.png";
@@ -41,17 +42,50 @@ public class StatisticsWindow extends JPanel{
 	ImageIcon gammaPU = new ImageIcon(gammaP);
 	
 	
+	JLabel alphaLabel = new JLabel("1");
+	JLabel betaLabel = new JLabel("1");
+	JLabel sigmaLabel = new JLabel("1");
+	JLabel gammaLabel = new JLabel("1");
+	
+	JLabel alphaPULabel = new JLabel("1");
+	JLabel betaPULabel = new JLabel("1");
+	JLabel sigmaPULabel = new JLabel("1");
+	JLabel gammaPULabel = new JLabel("1");
+	JLabel scoreText = new JLabel("Score");
+	JLabel score= new JLabel();
+	JLabel timeShape = new JLabel("");
+	JLabel time = new JLabel();
+	
 	public StatisticsWindow() {
-		
+//		this.setLayout(new GridLayout());
 		statisticAlpha.setIcon(icona);
 		statisticBeta.setIcon(iconb);
 		statisticSigma.setIcon(icons);
 		statisticGamma.setIcon(icong);
-		add(statisticAlpha);
-		add(statisticBeta);
-		add(statisticSigma);
-		add(statisticGamma);
+		alphaLabel.setFont(myFont);
+		betaLabel.setFont(myFont);
+		sigmaLabel.setFont(myFont);
+		gammaLabel.setFont(myFont);
+		alphaPULabel.setFont(myFont);
+		betaPULabel.setFont(myFont);
+		sigmaPULabel.setFont(myFont);
+		gammaPULabel.setFont(myFont);
+		scoreText.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		score.setFont(myFont);
+		time.setFont(myFont);
+		add(scoreText);
+		add(score);
+//		add(timeShape);
+//		add(time);
 		
+		add(alphaLabel);
+		add(statisticAlpha);
+		add(betaLabel);
+		add(statisticBeta);
+		add(sigmaLabel);
+		add(statisticSigma);
+		add(gammaLabel);
+		add(statisticGamma);
 		puAlpha.setIcon(alphaPU);
 		puBeta.setIcon(betaPU);
 		puSigma.setIcon(sigmaPU);
@@ -82,14 +116,117 @@ public class StatisticsWindow extends JPanel{
 		statisticGamma.setBorder(BorderFactory.createEmptyBorder());
 		statisticGamma.setContentAreaFilled(false);
 		
-		
+		add(alphaPULabel);
 		add(puAlpha);
+		add(betaPULabel);
 		add(puBeta);
+		add(sigmaPULabel);
 		add(puSigma);
+		add(gammaPULabel);
 		add(puGamma);
 		
 		
 		
+	}
+
+
+	public JLabel getScore() {
+		return score;
+	}
+
+
+	public void setScore(JLabel score) {
+		this.score = score;
+	}
+
+
+	public JLabel getTime() {
+		return time;
+	}
+
+
+	public void setTime(JLabel time) {
+		this.time = time;
+	}
+
+
+	public JLabel getAlphaPULabel() {
+		return alphaPULabel;
+	}
+
+
+	public void setAlphaPULabel(JLabel alphaPULabel) {
+		this.alphaPULabel = alphaPULabel;
+	}
+
+
+	public JLabel getBetaPULabel() {
+		return betaPULabel;
+	}
+
+
+	public void setBetaPULabel(JLabel betaPULabel) {
+		this.betaPULabel = betaPULabel;
+	}
+
+
+	public JLabel getSigmaPULabel() {
+		return sigmaPULabel;
+	}
+
+
+	public void setSigmaPULabel(JLabel sigmaPULabel) {
+		this.sigmaPULabel = sigmaPULabel;
+	}
+
+
+	public JLabel getGammaPULabel() {
+		return gammaPULabel;
+	}
+
+
+	public void setGammaPULabel(JLabel gammaPULabel) {
+		this.gammaPULabel = gammaPULabel;
+	}
+
+
+	public JLabel getAlphaLabel() {
+		return alphaLabel;
+	}
+
+
+	public void setAlphaLabel(JLabel alphaLabel) {
+		this.alphaLabel = alphaLabel;
+	}
+
+
+	public JLabel getBetaLabel() {
+		return betaLabel;
+	}
+
+
+	public void setBetaLabel(JLabel betaLabel) {
+		this.betaLabel = betaLabel;
+	}
+
+
+	public JLabel getSigmaLabel() {
+		return sigmaLabel;
+	}
+
+
+	public void setSigmaLabel(JLabel sigmaLabel) {
+		this.sigmaLabel = sigmaLabel;
+	}
+
+
+	public JLabel getGammaLabel() {
+		return gammaLabel;
+	}
+
+
+	public void setGammaLabel(JLabel gammaLabel) {
+		this.gammaLabel = gammaLabel;
 	}
 
 
@@ -172,7 +309,12 @@ public class StatisticsWindow extends JPanel{
 		this.puGamma = puGamma;
 	}
 
-
+	public static StatisticsWindow getInstance() {
+		if(instance==null) {
+			instance= new StatisticsWindow();
+		}
+		return instance;
+	}
 	
 	
 
