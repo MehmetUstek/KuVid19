@@ -18,11 +18,18 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 import domain.atom.Atom;
+import domain.atom.AtomFactory;
 import domain.molecule.Molecule;
 import domain.molecule.MoleculeFactory;
 import domain.powerup.Powerup;
+import domain.powerup.PowerupFactory;
+import ui.UIAtom;
+import ui.UIGameObject;
+import ui.UIMoleculeFactory;
+import ui.UIPowerup;
+import ui.molecule.UIMolecule;
 
-public class Save {
+public class Save implements ISaveLoad {
 	String username="",currentShootingObject="";
 	double objectMovementAngle=0,objectX=0,objectY=0;
 	int score=0,  remainingTime=0, alphaAtomCount=0, betaAtomCount=0,sigmaAtomCount=0,gammaAtomCount=0, 
@@ -30,10 +37,11 @@ public class Save {
 	ArrayList<Molecule> list;
 	Controller controller;
 	boolean isShooted;
+	private boolean isLoaded = false;
 	public Save(String username
 			, int score, int remainingTime, String currentShootingObject,boolean isShooted,double objectX, double objectY, double objectMovementAngle,
 			int alphaAtomCount,int betaAtomCount,int sigmaAtomCount,int gammaAtomCount, 
-			int alphaPUCount,int betaPUCount,int sigmaPUCount,int gammaPUCount,ArrayList<Molecule> list) 
+			int alphaPUCount,int betaPUCount,int sigmaPUCount,int gammaPUCount,ArrayList<Molecule> list,Controller controller) 
 	{
 		this.username=username;
 		this.score=score;
@@ -52,13 +60,14 @@ public class Save {
 		this.objectX=objectX;
 		this.objectY=objectY;
 		this.isShooted= isShooted;
+		this.controller= controller;
 		
 		
 		// TODO Auto-generated constructor stub
 		
 	}
-	public Save() {
-		
+	public Save(Controller controller) {
+		this.controller= controller;
 	}
 	public Save(ArrayList<Molecule> list) {
 		this.list= list;
@@ -135,7 +144,8 @@ public class Save {
 		
 		System.out.println(obj);
 	}
-	public JsonElement loadGame() {
+	public void loadGame() {
+		
 		Gson gson = new Gson();
 		JsonReader reader;
 		ArrayList controllerNewObjects= new ArrayList<GameObject>();
@@ -143,47 +153,73 @@ public class Save {
 			reader = new JsonReader(new FileReader("saves.txt"));
 			JsonArray obj= gson.fromJson(reader, JsonArray.class);
 			
-//			// Atom Load
-//			username= obj.get(0).getAsJsonObject().get("username").getAsString();
-//			score= obj.get(0).getAsJsonObject().get("score").getAsInt();
-//			remainingTime= obj.get(0).getAsJsonObject().get("remainingTime").getAsInt();
-//			currentShootingObject= obj.get(0).getAsJsonObject().get("currentShootingObject").getAsString();
-//			objectMovementAngle= obj.get(0).getAsJsonObject().get("objectMovementAngle").getAsDouble();
-////			currentShootingObject= obj.get(0).getAsJsonObject().get("currentShootingObject").getAsString();
-////			objectMovementAngle= obj.get(0).getAsJsonObject().get("objectMovementAngle").getAsDouble();
-//			
-//			
-//			
-//			//Molecules Load
-//			for(int i=1;i<obj.size();i++) {
-//				System.out.println(obj.get(i).getAsJsonObject().get("type"));
-//				Molecule molecule = MoleculeFactory.getMolecule(obj.get(i).getAsJsonObject().get("type").getAsString());
-//				
-//				molecule.setX(obj.get(i).getAsJsonObject().get("x").getAsDouble());
-//				molecule.setY(obj.get(i).getAsJsonObject().get("y").getAsDouble());
-//				System.out.println(molecule);
-//			}
-//			
-//			GameObject shootingObject;
-//			if(currentShootingObject=="alpha" ||currentShootingObject=="beta" || currentShootingObject=="sigma" || currentShootingObject=="gamma") {
-//				shootingObject= new Atom(currentShootingObject);
-//			}else {
-//				shootingObject= new Powerup(currentShootingObject);
-//			}
-//			
-////			controller.objects.set(0, shootingObject);
-//			
-////			 Add objects to a list and then to controller.
-////			controllerNewObjects.add(0,"lol");
-//			
-////			controller.addObject(null);
-//			reader.close();
-			return obj;
+			username= obj.get(0).getAsJsonObject().get("username").getAsString();
+			score= obj.get(0).getAsJsonObject().get("score").getAsInt();
+			int remainingTime= obj.get(0).getAsJsonObject().get("remainingTime").getAsInt();
+			String currentShootingObject= obj.get(0).getAsJsonObject().get("currentShootingObject").getAsString();
+			System.out.println(currentShootingObject);
+			double objectMovementAngle= obj.get(0).getAsJsonObject().get("objectMovementAngle").getAsDouble();
+			double objectX= obj.get(0).getAsJsonObject().get("objectX").getAsDouble();
+			double objectY= obj.get(0).getAsJsonObject().get("objectY").getAsDouble();
+	//		boolean isShooted = obj.get(0).getAsJsonObject().get("isShooted").getAsBoolean();
+			GameObject shootingObject= controller.getShootingObject();
+			UIGameObject uiobject= controller.getUIShootingObject();
+			System.out.println(currentShootingObject);
+			if(currentShootingObject.equals("alpha") || currentShootingObject.equals("beta") || currentShootingObject.equals("sigma") || currentShootingObject.equals("gamma")) {
+	//			shootingObject= new Atom(currentShootingObject);
+	//			uiobject = new UIAtom(shootingObject.getType());
+	////			uiobject.setHeight(diameter);
+	////			uiobject.setWidth(diameter);
+	//			((UIAtom)uiobject).setDiameter(diameter);
+	//			shootingObject.setHeight(diameter);
+	//			shootingObject.setWidth(diameter);
+	//			shootingObject.setSpeed(atomSpeed);
+	//			shootingObject.setRotationAngle(objectMovementAngle);
+				
+				//TODO Setting shootingObject does not work precisely.
+				Atom atom1= AtomFactory.getAtom((Atom) shootingObject,currentShootingObject);
+				((UIAtom) uiobject).setAtomType(atom1.getType());
+			}else if(currentShootingObject.equals("+alpha") || currentShootingObject.equals("+beta") || currentShootingObject.equals("+sigma") || currentShootingObject.equals("+gamma")) {
+	
+	//			shootingObject= new Powerup(currentShootingObject);
+	//			uiobject = new UIPowerup(currentShootingObject);
+	//			uiobject.setHeight(diameter*2);
+	//			uiobject.setWidth(diameter*2);
+	//			shootingObject.setHeight(diameter*2);
+	//			shootingObject.setWidth(diameter*2);
+				Powerup pu1= PowerupFactory.getPU((Powerup) shootingObject,currentShootingObject);
+				((UIPowerup) uiobject).setPUType(pu1.getType());
+			}
+			
+			shootingObject.setX(objectX);
+			shootingObject.setY(objectY);
+			shootingObject.setRotationAngle(objectMovementAngle);
+			
+			//Molecules Load
+			for(int i=1;i<obj.size();i++) {
+				System.out.println(obj.get(i).getAsJsonObject().get("type"));
+				Molecule molecule = MoleculeFactory.getMolecule(obj.get(i).getAsJsonObject().get("type").getAsString());
+				molecule.setX(obj.get(i).getAsJsonObject().get("x").getAsDouble());
+				molecule.setY(obj.get(i).getAsJsonObject().get("y").getAsDouble());
+				System.out.println(molecule);
+				controller.objects.add(molecule);
+				
+				//TODO Change UIMolecule with UIMoleculeFactory
+				UIMolecule uimolecule = UIMoleculeFactory.getMolecule(obj.get(i).getAsJsonObject().get("type").getAsString());
+				
+				uimolecule.setX(molecule.getX());
+				uimolecule.setY(molecule.getY());
+				controller.getRenderer().objects.add(uimolecule);
+			}
+		
+	
+			reader.close();
+//			return obj;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		
 		
 		
 	}
