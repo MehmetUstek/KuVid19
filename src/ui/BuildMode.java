@@ -37,7 +37,7 @@ public class BuildMode extends Canvas implements Runnable {
 	private Controller controller = new Controller(renderer, window);
 	public static final double L= HEIGHT/10;
 	public static final double diameter = L/10;
-	public static final double atomSpeed = 3;
+	public static final double atomSpeed = 20;
 	Random random = new Random();
 	boolean moleculesAdded= false;
 	private String username= "mehmet";
