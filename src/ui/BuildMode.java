@@ -12,10 +12,14 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import domain.Controller;
+import domain.GameObject;
 import domain.Save;
+import domain.SaveLoadAdapter;
 import domain.atom.Atom;
 import domain.molecule.Molecule;
 import domain.molecule.MoleculeFactory;
+import domain.powerup.Powerup;
+import domain.powerup.PowerupFactory;
 import domain.shooter.AtomShooter;
 import ui.molecule.UIMolecule;
 
@@ -32,9 +36,13 @@ public class BuildMode extends Canvas implements Runnable {
 	private Renderer renderer = new Renderer();
 	private Controller controller = new Controller(renderer, window);
 	public static final double L= HEIGHT/10;
+	public static final double diameter = L/10;
+	public static final double atomSpeed = 3;
 	Random random = new Random();
 	boolean moleculesAdded= false;
-	ArrayList<Molecule> list = new ArrayList<Molecule>();
+	private String username= "mehmet";
+	ArrayList<GameObject> list = new ArrayList<GameObject>();
+	ArrayList<GameObject> pulist = new ArrayList<GameObject>();
 	public synchronized void start() {
 		thread = new Thread(this);
 		thread.start();
@@ -90,7 +98,7 @@ public class BuildMode extends Canvas implements Runnable {
 
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				System.out.println("FPS: " + frames);
+//				System.out.println("FPS: " + frames);
 				frames = 0;
 			}
 		}
@@ -102,6 +110,7 @@ public class BuildMode extends Canvas implements Runnable {
 		controller.addObject(new AtomShooter("shooter"));
 		renderer.addObject(new UIAtom("alpha"));
 		renderer.addObject(new UIShooter("shooter",L,L/2));
+		
 		window.getQuitButton().addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			@Override
@@ -118,7 +127,7 @@ public class BuildMode extends Canvas implements Runnable {
 				if(!moleculesAdded) {
 					addMolecules(controller, renderer);
 				}
-				Save save= new Save(list);
+				SaveLoadAdapter save= new SaveLoadAdapter(new Save(username,controller,list,pulist));
 				System.out.println(list);
 				save.saveGame();
 			}
@@ -132,6 +141,7 @@ public class BuildMode extends Canvas implements Runnable {
 		String s2 = window.getBetaCount().getText();
 		String s3 = window.getSigmaCount().getText();
 		String s4 = window.getGammaCount().getText();
+		String s5 = window.getPuCount().getText();
 		ArrayList<String> nameList = new ArrayList<String>();
 		nameList.add("AlphaMolecule");
 		nameList.add("BetaMolecule");
@@ -223,13 +233,38 @@ public class BuildMode extends Canvas implements Runnable {
 			renderer.objects.add(uimolecule);
 			list.add(molecule);
 		}
-		
+		for (int i=0;i<Integer.parseInt(s5);i++) {
+			Powerup pu = PowerupFactory.getPU();
+			pu.setHeight(diameter*2);
+			pu.setWidth(diameter*2);
+			pu.setSpeed(atomSpeed);
+			pu.setRotationAngle(0);
+			double x= random.nextInt( WIDTH-(int) pu.getWidth());
+			System.out.println(pu.getWidth());
+			double y= random.nextInt(HEIGHT)-HEIGHT;
+			Rectangle2D rect = new Rectangle2D.Double(x,y,pu.getWidth(),pu.getHeight());
+			
+			for (Rectangle2D rectangle: positionList) {
+				if(rectangle.intersects(rect) || rect.intersects(rectangle)) {
+					x= random.nextInt( WIDTH-(int) pu.getWidth());
+					y= random.nextInt(HEIGHT/8);
+					rect.setRect(x, y, pu.getWidth(), pu.getHeight());
+				}
+			}
+			positionList.add(rect);
+			pu.setX(x);
+			pu.setY(y);
+			controller.addObject(pu);
+			UIPowerup uiPu = new UIPowerup(pu.getType());
+			renderer.objects.add(uiPu);
+			pulist.add(pu);
+		}
 		moleculesAdded=true;
 	}
 	
 
-	public static void main(String[] args) {
-//		new BuildMode();
-	}
+//	public static void main(String[] args) {
+////		new BuildMode();
+//	}
 
 }

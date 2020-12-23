@@ -39,7 +39,7 @@ import ui.molecule.UIMolecule;
 public class Controller {
 	public static double WIDTH =  Toolkit.getDefaultToolkit().getScreenSize().getWidth()-200,
 			HEIGHT =  Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-	private Renderer renderer;
+	Renderer renderer;
 	private ArrayList<Powerup> collectedPowerups = new ArrayList<Powerup>();
 	private int score = 0, time = 0, counter = 0, lives = 3, initialMoleculeCount;
 	private int alphaCount=100,betaCount=100,sigmaCount=100,gammaCount=100;
@@ -109,71 +109,9 @@ public class Controller {
 				}else {
 					setPowerupPositionsAndCheckCollision(tempobject);
 				}
-//				Atom tempobject1 = (Atom) tempobject;
-//				UIAtom atom = (UIAtom) uicontroller.objects.get(i);
-//				double x = tempobject1.getX();
-//				double y =  tempobject1.getY();
-//				double x1= x + tempobject1.getDiameter();
-//				double y1= y+ tempobject1.getDiameter();
-//				atom.setX(x);
-//				atom.setY(y);
-//				
-//				if(tempobject1.getY()> Toolkit.getDefaultToolkit().getScreenSize().getHeight()+ tempobject1.getWidth()/2) {
-//		    		tempobject1.setX(x);
-//		    		tempobject1.setY(y);
-//		    		tempobject1.setShooted(false);
-//		    		atomFalled=true;
-//		    	}
-//				
-//				tempobject = tempobject1;
-//				Rectangle2D r= new Rectangle2D.Double(x,y,tempobject1.getDiameter(),tempobject1.getDiameter());
-//				// Collision with alpha molecule and alpha atom.
-//				for (int j = 0; j < objects.size(); j++) {
-//					GameObject collisionObject = (GameObject) objects.get(j);
-//					uicontroller.objects.get(j).setX((int) collisionObject.getX());
-//					uicontroller.objects.get(j).setY((int) collisionObject.getY());
-////					System.out.println(collisionObject);
-//					if (collisionObject.getId()== ID.AlphaMolecule) {
-//						AlphaMolecule collisionObject1 = (AlphaMolecule) collisionObject;
-//						UIMolecule molecule = (UIMolecule) uicontroller.objects.get(j);
-//						double a = collisionObject1.getX();
-//						double b = collisionObject1.getY();
-////						double a1 =a+ collisionObject.getWidth();
-////						double b1 =b+ collisionObject.getHeight();
-//						Rectangle2D r1= new Rectangle2D.Double(a,b,collisionObject1.getHeight(),collisionObject1.getWidth());
-//						if(r1.intersects(r) || r.intersects(r1)) {
-//							System.out.println("Collision");
-//							objects.remove(collisionObject);
-//							objects.remove(tempobject);
-//							uicontroller.removeObject(molecule);
-//							uicontroller.removeObject(atom);
-//							
-//						}
-//					}
-//					}
 				}
-//			if (tempobject.getType() == "beta") {
-//				UIAtom atom = (UIAtom) uicontroller.objects.get(i);
-//				int x = (int) tempobject.getX();
-//				int y = (int) tempobject.getY();
-//				atom.setX(x);
-//				atom.setY(y);
-//				}
-//			if (tempobject.getType() == "sigma") {
-//				UIAtom atom = (UIAtom) uicontroller.objects.get(i);
-//				int x = (int) tempobject.getX();
-//				int y = (int) tempobject.getY();
-//				atom.setX(x);
-//				atom.setY(y);
-//				}
-//			if (tempobject.getType() == "gamma") {
-//				UIAtom atom = (UIAtom) uicontroller.objects.get(i);
-//				int x = (int) tempobject.getX();
-//				int y = (int) tempobject.getY();
-//				atom.setX(x);
-//				atom.setY(y);
-//				}
-			if (tempobject.getType() == "shooter") {
+//			if (tempobject.getType() == "shooter") {
+			if (i==1) {
 				UIShooter shooter = (UIShooter) renderer.objects.get(i);
 				int x = (int) tempobject.getX();
 				int y = (int) tempobject.getY();
@@ -181,14 +119,23 @@ public class Controller {
 				shooter.setX(x);
 				shooter.setY(y);
 				shooter.setRotationAngle(rotation);
-				
 				}
-			if (tempobject.getId()==ID.AlphaMolecule) {
-				
+			System.out.println(tempobject.getType());
+			if(tempobject.getType()!=null) {
+				if (i!=0 && (tempobject.getType().equals("+alpha") ||
+						tempobject.getType().equals("+beta") || 
+						tempobject.getType().equals("+sigma") ||
+						tempobject.getType().equals("+gamma"))) {
+					System.out.println("yesasd");
+					Powerup tempobject1=(Powerup) tempobject;
+					tempobject1.fallInStraightLine(tempobject1.getX(), tempobject1.getY());
+	//				UIPowerup uipowerup = (UIPowerup) renderer.objects.get(i);
+	//				uipowerup.setX(tempobject1.getX());
+	//				uipowerup.setY(tempobject1.getY());
 				}
+			}
 		
 			tempobject.update();
-			
 		}
 		
 	}
@@ -293,7 +240,9 @@ public class Controller {
 //					tempobject.setX(objects.get(1).getX());
 //					tempobject.setY(objects.get(1).getY());
 //					objects.remove(tempobject);
-					timerTask.cancel();
+					if(timerTask !=null) {
+						timerTask.cancel();
+					}
 					renderer.removeObject(molecule);
 //					uicontroller.removeObject(atom);
 					
@@ -340,10 +289,12 @@ public class Controller {
 			GameObject collisionObject = (GameObject) objects.get(j);
 			renderer.objects.get(j).setX((int) collisionObject.getX());
 			renderer.objects.get(j).setY((int) collisionObject.getY());
-			if ((collisionObject.getId()== ID.AlphaMolecule && tempobject.getType()=="alpha") ||
-					(collisionObject.getId()== ID.BetaMolecule && tempobject.getType()=="beta") ||
-					(collisionObject.getId()== ID.SigmaMolecule && tempobject.getType()=="sigma") ||
-					(collisionObject.getId()== ID.GammaMolecule && tempobject.getType()=="gamma")
+			
+			//Powerup and Reaction Blocker collision
+			if ((collisionObject.getId()== ID.AlphaBlocker && tempobject.getType()=="+alpha") ||
+					(collisionObject.getId()== ID.BetaBlocker && tempobject.getType()=="+beta") ||
+					(collisionObject.getId()== ID.SigmaBlocker && tempobject.getType()=="+sigma") ||
+					(collisionObject.getId()== ID.GammaBlocker && tempobject.getType()=="+gamma")
 					) {
 				Molecule collisionObject1 = (Molecule) collisionObject;
 				UIMolecule molecule = (UIMolecule) renderer.objects.get(j);
@@ -358,6 +309,10 @@ public class Controller {
 //					tempobject.setY(objects.get(1).getY());
 //					objects.remove(tempobject);
 					
+					// TODO Add when blocker is completed.
+//					if(timerTask !=null) {
+//						timerTask.cancel();
+//					}
 					renderer.removeObject(molecule);
 //					uicontroller.removeObject(atom);
 					
@@ -487,29 +442,21 @@ public class Controller {
 		int score=100;
 		int remainingTime=60;
 		int atomCount = 8;
-		ArrayList<Molecule> list= new ArrayList<Molecule>();
-		//TODO add every molecule element into the list with for loop.
-		Molecule alphaMol = new AlphaMolecule();
-		Molecule betaMol = new BetaMolecule();
-		
-		//TODO Change all of the molecules which will come from building mode.
-//		alphaMol.setX(500);
-//		alphaMol.setY(500);
-		for (int i=3;i<objects.size();i++) {
-			list.add((Molecule) objects.get(i));
-		}
 		GameObject shootingObject= getShootingObject();
 		save= new SaveLoadAdapter(new Save(username,score,remainingTime,shootingObject.getType(),shootingObject.isShooted(),shootingObject.getX(),shootingObject.getY(),shootingObject.getRotationAngle(),
-				atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,list,this));
+				atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,null,null,this));
 		save.saveGame();
 	}
 	public void loadGame() {
 		
 //		System.out.println(save.loadGame(this));
+		int score=100;
+		int remainingTime=60;
+		int atomCount = 8;
 		if(!isLoaded) {
 			isLoaded= true;
 			if(save==null) {
-				save = new SaveLoadAdapter(new Save(this));
+				save = new SaveLoadAdapter(new Save(username,this));
 				System.out.println("new save");
 			}
 			save.loadGame();
@@ -653,5 +600,42 @@ public class Controller {
 		else {
 			return gammaPUCount;
 		}
+	}
+	private void shooterCollision(AtomShooter shooter) {
+		UIShooter uishooter = (UIShooter) renderer.objects.get(1);
+		int x = (int) shooter.getX();
+		int y = (int) shooter.getY();
+		double rotation = shooter.getRotationAngle();
+		uishooter.setX(x);
+		uishooter.setY(y);
+		uishooter.setRotationAngle(rotation);
+		
+	
+		Rectangle2D r= new Rectangle2D.Double(x,y,shooter.getWidth(),shooter.getHeight());
+		// Collision with alpha molecule and alpha atom.
+		for (int j = 0; j < objects.size(); j++) {
+			if(objects.size()==0) {
+				break;
+			}
+			GameObject collisionObject = (GameObject) objects.get(j);
+			renderer.objects.get(j).setX((int) collisionObject.getX());
+			renderer.objects.get(j).setY((int) collisionObject.getY());
+			if (collisionObject.getType().equals("+alpha") || collisionObject.getType().equals("+beta") ||
+					collisionObject.getType().equals("+sigma") || collisionObject.getType().equals("+gamma")) {
+				Powerup collisionObject1 = (Powerup) collisionObject;
+				UIMolecule molecule = (UIMolecule) renderer.objects.get(j);
+				double a = collisionObject1.getX();
+				double b = collisionObject1.getY();
+				Rectangle2D r1= new Rectangle2D.Double(a,b,collisionObject1.getHeight(),collisionObject1.getWidth());
+				if(r1.intersects(r) || r.intersects(r1)) {
+					System.out.println("Collision");
+					objects.remove(collisionObject);
+					renderer.removeObject(molecule);
+					
+					shooter.setX(objects.get(1).getX());
+					shooter.setY(objects.get(1).getY());
+				}
+			}
+			}
 	}
 }

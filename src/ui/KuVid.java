@@ -131,8 +131,8 @@ public class KuVid extends Canvas implements Runnable {
 			blender.setX(blenderX);
 			blender.setY(blenderY);
 			
-			renderer.addObject(blenderui);
-			controller.addObject(blender);
+//			renderer.addObject(blenderui);
+//			controller.addObject(blender);
 			
 			System.out.println("Number of Alpha atoms: " + alphaList.size());
 			System.out.println("Number of Beta atoms: " + betaList.size());
@@ -470,6 +470,8 @@ public class KuVid extends Canvas implements Runnable {
 
 	public void update() {     
 		controller.update();
+		//TODO delete this later.
+		controller.loadGame();
 	}
 	
 	public synchronized void stop() {

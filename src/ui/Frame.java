@@ -23,9 +23,11 @@ public class Frame extends Canvas {
 	private JTextField betaType = new JTextField("BetaMolecule");
 	private JTextField sigmaType = new JTextField("SigmaMolecule");
 	private JTextField gammaType = new JTextField("GammaMolecule");
+	private JTextField puText = new JTextField("Powerups");
 	private JTextField betaCount = new JTextField(10);
 	private JTextField sigmaCount = new JTextField(10);
 	private JTextField gammaCount = new JTextField(10);
+	private JTextField puCount = new JTextField(10);
 	private JFrame frame;
 	private JPanel gui = new JPanel(new GridLayout(0,1));
 	private JPanel simpleGui = new JPanel(new FlowLayout());  
@@ -78,6 +80,9 @@ public class Frame extends Canvas {
 		frame.add(sidebar);
 		alphaType.setEditable(false);
 		betaType.setEditable(false);
+		sigmaType.setEditable(false);
+		gammaType.setEditable(false);
+		puText.setEditable(false);
 		alphaCount.setEditable(true);
 		alphaCount.setText("100");
 		betaCount.setEditable(true);
@@ -86,15 +91,21 @@ public class Frame extends Canvas {
 		sigmaCount.setText("100");
 		gammaCount.setEditable(true);
 		gammaCount.setText("100");
+		puCount.setEditable(true);
+		puCount.setText("20");
 		
 		simpleGui.add( alphaType );
 		simpleGui.add( alphaCount );
 		simpleGui.add( betaType );
 		simpleGui.add( betaCount );
+		simpleGui.add( sigmaType );
 		simpleGui.add( sigmaCount );
+		simpleGui.add( gammaType );
 		simpleGui.add( gammaCount );
+		simpleGui.add( puText);
+		simpleGui.add( puCount );
+		simpleGui.setLayout(new GridLayout(0,2));
 		
-		// frame.add();
 		gui.add(simpleGui);
 		gui.setBounds(WIDTH- gui.getWidth() - 370, HEIGHT - 200 , 350, 150);
 		
@@ -107,8 +118,6 @@ public class Frame extends Canvas {
 		
 	}
 	
-	
-
 	public Frame() {}
 
 	public Frame(Dimension screenSize, String title, Main mainGame) {
@@ -228,5 +237,11 @@ public class Frame extends Canvas {
 
 	public void setBetaCount(JTextField betaCount) {
 		this.betaCount = betaCount;
+	}
+	public JTextField getPuCount() {
+		return puCount;
+	}
+	public void setPuCount(JTextField puCount) {
+		this.puCount = puCount;
 	}
 }

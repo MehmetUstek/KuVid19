@@ -34,14 +34,18 @@ public class Save implements ISaveLoad {
 	double objectMovementAngle=0,objectX=0,objectY=0;
 	int score=0,  remainingTime=0, alphaAtomCount=0, betaAtomCount=0,sigmaAtomCount=0,gammaAtomCount=0, 
 	alphaPUCount=0,betaPUCount=0,sigmaPUCount=0,gammaPUCount=0;
-	ArrayList<Molecule> list;
+	ArrayList<GameObject> list,powerupList;
 	Controller controller;
 	boolean isShooted;
 	private boolean isLoaded = false;
+	Save instance;
+	double speed;
+	double diameter= controller.L/10;
 	public Save(String username
 			, int score, int remainingTime, String currentShootingObject,boolean isShooted,double objectX, double objectY, double objectMovementAngle,
 			int alphaAtomCount,int betaAtomCount,int sigmaAtomCount,int gammaAtomCount, 
-			int alphaPUCount,int betaPUCount,int sigmaPUCount,int gammaPUCount,ArrayList<Molecule> list,Controller controller) 
+			int alphaPUCount,int betaPUCount,int sigmaPUCount,int gammaPUCount,ArrayList<GameObject> list,ArrayList<GameObject> powerupList,
+			Controller controller) 
 	{
 		this.username=username;
 		this.score=score;
@@ -61,16 +65,21 @@ public class Save implements ISaveLoad {
 		this.objectY=objectY;
 		this.isShooted= isShooted;
 		this.controller= controller;
+		this.powerupList= powerupList;
 		
 		
 		// TODO Auto-generated constructor stub
 		
 	}
-	public Save(Controller controller) {
+	public Save(String username,Controller controller) {
+		this.username= username;
 		this.controller= controller;
 	}
-	public Save(ArrayList<Molecule> list) {
+	public Save(String username,Controller controller,ArrayList<GameObject> list,ArrayList<GameObject> powerupList) {
+		this.username= username;
+		this.controller= controller;
 		this.list= list;
+		this.powerupList= powerupList;
 	}
 	public void saveGame() {
 		JsonObject obj= new JsonObject();
@@ -124,10 +133,18 @@ public class Save implements ISaveLoad {
 			moleculePositions.addProperty("y", list.get(i).getY());
 			array.add(moleculePositions);
 		}
+		for(int i=0;i<powerupList.size();i++) {
+			JsonObject puPositions= new JsonObject();
+			puPositions.addProperty("type", powerupList.get(i).getType());
+			puPositions.addProperty("x", powerupList.get(i).getX());
+			puPositions.addProperty("y", powerupList.get(i).getY());
+			puPositions.addProperty("speed", powerupList.get(i).getSpeed());
+			array.add(puPositions);
+		}
 		
 		FileWriter writer;
 		try {
-			writer = new FileWriter("saves.txt");
+			writer = new FileWriter(username+"_saves.txt");
 //			gson.toJson(obj,writer);
 //			gson.toJson(moleculePositions,writer);
 //			gson.toJson(atom,writer);
@@ -148,11 +165,12 @@ public class Save implements ISaveLoad {
 		
 		Gson gson = new Gson();
 		JsonReader reader;
-		ArrayList controllerNewObjects= new ArrayList<GameObject>();
+		JsonArray obj = new JsonArray();
 		try {
-			reader = new JsonReader(new FileReader("saves.txt"));
-			JsonArray obj= gson.fromJson(reader, JsonArray.class);
-			
+			System.out.println("username is:"+username);
+			reader = new JsonReader(new FileReader(username+"_saves.txt"));
+			obj= gson.fromJson(reader, JsonArray.class);
+			System.out.println(obj);
 			username= obj.get(0).getAsJsonObject().get("username").getAsString();
 			score= obj.get(0).getAsJsonObject().get("score").getAsInt();
 			int remainingTime= obj.get(0).getAsJsonObject().get("remainingTime").getAsInt();
@@ -197,23 +215,38 @@ public class Save implements ISaveLoad {
 			
 			//Molecules Load
 			for(int i=1;i<obj.size();i++) {
-				System.out.println(obj.get(i).getAsJsonObject().get("type"));
-				Molecule molecule = MoleculeFactory.getMolecule(obj.get(i).getAsJsonObject().get("type").getAsString());
-				molecule.setX(obj.get(i).getAsJsonObject().get("x").getAsDouble());
-				molecule.setY(obj.get(i).getAsJsonObject().get("y").getAsDouble());
-				System.out.println(molecule);
-				controller.objects.add(molecule);
-				
-				//TODO Change UIMolecule with UIMoleculeFactory
-				UIMolecule uimolecule = UIMoleculeFactory.getMolecule(obj.get(i).getAsJsonObject().get("type").getAsString());
-				
-				uimolecule.setX(molecule.getX());
-				uimolecule.setY(molecule.getY());
-				controller.getRenderer().objects.add(uimolecule);
+				String s= obj.get(i).getAsJsonObject().get("type").getAsString();
+				if(isMolecule(s)) {
+					GameObject molecule = MoleculeFactory.getMolecule(obj.get(i).getAsJsonObject().get("type").getAsString());
+					molecule.setX(obj.get(i).getAsJsonObject().get("x").getAsDouble());
+					molecule.setY(obj.get(i).getAsJsonObject().get("y").getAsDouble());
+					System.out.println(molecule);
+					controller.objects.add(molecule);
+					
+					//TODO Change UIMolecule with UIMoleculeFactory
+					UIMolecule uimolecule = UIMoleculeFactory.getMolecule(obj.get(i).getAsJsonObject().get("type").getAsString());
+					
+					uimolecule.setX(molecule.getX());
+					uimolecule.setY(molecule.getY());
+					controller.getRenderer().objects.add(uimolecule);
+				}
+				else if(isPowerup(s)){
+					Powerup pu = PowerupFactory.getPU(s);
+					pu.setX(obj.get(i).getAsJsonObject().get("x").getAsDouble());
+					pu.setY(obj.get(i).getAsJsonObject().get("y").getAsDouble());
+					pu.setWidth(diameter*2);
+					pu.setHeight(diameter*2);
+//					pu.setRotationAngle(0);
+					pu.setSpeed(obj.get(i).getAsJsonObject().get("speed").getAsDouble());
+//					System.out.println(pu.getSpeed());
+					controller.addObject(pu);
+					UIPowerup uiPu = new UIPowerup(pu.getType());
+					controller.renderer.objects.add(uiPu);
+				}
 			}
 		
-	
 			reader.close();
+			
 //			return obj;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -222,6 +255,25 @@ public class Save implements ISaveLoad {
 		
 		
 		
+		
 	}
+//	public Save getInstance() {
+//		if(instance==null) {
+//			return new Save(username,controller);
+//		}
+//		return instance;
+//	}
 
+	private boolean isMolecule(String s) {
+		if(s.equals("AlphaMolecule") || s.equals("BetaMolecule") || s.equals("SigmaMolecule") || s.equals("GammaMolecule")) {
+			return true;
+		}
+		return false;
+	}
+	private boolean isPowerup(String s) {
+		if(s.equals("+alpha") || s.equals("+beta") || s.equals("+sigma") || s.equals("+gamma")) {
+			return true;
+		}
+		return false;
+	}
 }
