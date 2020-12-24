@@ -17,11 +17,5 @@ public class SaveLoadAdapter implements ISaveLoad{
 		// TODO Auto-generated method stub
 		saveload.loadGame();
 	}
-//	public static SaveLoadAdapter getInstance() {
-//		if(instance==null) {
-//			return new SaveLoadAdapter(new Save("mehmet", controller),controller);
-//		}
-//		return instance;
-//		
-//	}
+
 }

@@ -45,7 +45,7 @@ public class Save implements ISaveLoad {
 			, int score, int remainingTime, String currentShootingObject,boolean isShooted,double objectX, double objectY, double objectMovementAngle,
 			int alphaAtomCount,int betaAtomCount,int sigmaAtomCount,int gammaAtomCount, 
 			int alphaPUCount,int betaPUCount,int sigmaPUCount,int gammaPUCount,ArrayList<GameObject> list,ArrayList<GameObject> powerupList,
-			Controller controller) 
+			Controller controller)
 	{
 		this.username=username;
 		this.score=score;
@@ -75,11 +75,15 @@ public class Save implements ISaveLoad {
 		this.username= username;
 		this.controller= controller;
 	}
-	public Save(String username,Controller controller,ArrayList<GameObject> list,ArrayList<GameObject> powerupList) {
+	public Save(String username,Controller controller, ArrayList<GameObject> list,ArrayList<GameObject> powerupList) {
 		this.username= username;
 		this.controller= controller;
 		this.list= list;
 		this.powerupList= powerupList;
+		this.alphaAtomCount=controller.getAlphaCount();
+		this.betaAtomCount= controller.getBetaCount();
+		this.sigmaAtomCount= controller.getSigmaCount();
+		this.gammaAtomCount= controller.getGammaCount();
 	}
 	public void saveGame() {
 		JsonObject obj= new JsonObject();
@@ -173,6 +177,10 @@ public class Save implements ISaveLoad {
 			System.out.println(obj);
 			username= obj.get(0).getAsJsonObject().get("username").getAsString();
 			score= obj.get(0).getAsJsonObject().get("score").getAsInt();
+			alphaAtomCount= obj.get(0).getAsJsonObject().get("alphaAtom").getAsInt();
+			betaAtomCount= obj.get(0).getAsJsonObject().get("betaAtom").getAsInt();
+			sigmaAtomCount= obj.get(0).getAsJsonObject().get("sigmaAtom").getAsInt();
+			gammaAtomCount= obj.get(0).getAsJsonObject().get("gammaAtom").getAsInt();
 			int remainingTime= obj.get(0).getAsJsonObject().get("remainingTime").getAsInt();
 			String currentShootingObject= obj.get(0).getAsJsonObject().get("currentShootingObject").getAsString();
 			System.out.println(currentShootingObject);
@@ -183,6 +191,9 @@ public class Save implements ISaveLoad {
 			GameObject shootingObject= controller.getShootingObject();
 			UIGameObject uiobject= controller.getUIShootingObject();
 			System.out.println(currentShootingObject);
+			
+			
+			
 			if(currentShootingObject.equals("alpha") || currentShootingObject.equals("beta") || currentShootingObject.equals("sigma") || currentShootingObject.equals("gamma")) {
 	//			shootingObject= new Atom(currentShootingObject);
 	//			uiobject = new UIAtom(shootingObject.getType());
@@ -244,6 +255,14 @@ public class Save implements ISaveLoad {
 					controller.renderer.objects.add(uiPu);
 				}
 			}
+			
+			
+			// Loading the Atom counts on the game.
+			controller.setAlphaCount(alphaAtomCount);
+			controller.setBetaCount(betaAtomCount);
+			controller.setSigmaCount(sigmaAtomCount);
+			controller.setGammaCount(gammaAtomCount);
+			
 		
 			reader.close();
 			

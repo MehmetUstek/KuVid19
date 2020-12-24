@@ -471,7 +471,7 @@ public class KuVid extends Canvas implements Runnable {
 	public void update() {     
 		controller.update();
 		//TODO delete this later.
-		controller.loadGame();
+//		controller.loadGame();
 	}
 	
 	public synchronized void stop() {

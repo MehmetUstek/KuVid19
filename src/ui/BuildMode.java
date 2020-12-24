@@ -127,21 +127,42 @@ public class BuildMode extends Canvas implements Runnable {
 				if(!moleculesAdded) {
 					addMolecules(controller, renderer);
 				}
+				addAtoms(controller);
 				SaveLoadAdapter save= new SaveLoadAdapter(new Save(username,controller,list,pulist));
-				System.out.println(list);
+//				System.out.println(list);
 				save.saveGame();
 			}
 		});
 
 
 	}
-
+	public void addAtoms(Controller controller) {
+		String s1 = window.getAlphaAtomCount().getText();
+		String s2 = window.getBetaAtomCount().getText();
+		String s3 = window.getSigmaAtomCount().getText();
+		String s4 = window.getGammaAtomCount().getText();
+		controller.setAlphaCount(Integer.parseInt(s1));
+		controller.setBetaCount(Integer.parseInt(s2));
+		controller.setSigmaCount(Integer.parseInt(s3));
+		controller.setGammaCount(Integer.parseInt(s4));
+	}
+	public void addPUs(Controller controller) {
+		String s1 = window.getAlphaAtomCount().getText();
+		String s2 = window.getBetaAtomCount().getText();
+		String s3 = window.getSigmaAtomCount().getText();
+		String s4 = window.getGammaAtomCount().getText();
+		controller.setAlphaCount(Integer.parseInt(s1));
+		controller.setBetaCount(Integer.parseInt(s2));
+		controller.setSigmaCount(Integer.parseInt(s3));
+		controller.setGammaCount(Integer.parseInt(s4));
+	}
 	public void addMolecules(Controller controller, Renderer renderer) {
-		String s1 = window.getAlphaCount().getText();
-		String s2 = window.getBetaCount().getText();
-		String s3 = window.getSigmaCount().getText();
-		String s4 = window.getGammaCount().getText();
+		String s1 = window.getAlphaMoleculeCount().getText();
+		String s2 = window.getBetaMoleculeCount().getText();
+		String s3 = window.getSigmaMoleculeCount().getText();
+		String s4 = window.getGammaMoleculeCount().getText();
 		String s5 = window.getPuCount().getText();
+		
 		ArrayList<String> nameList = new ArrayList<String>();
 		nameList.add("AlphaMolecule");
 		nameList.add("BetaMolecule");

@@ -312,9 +312,9 @@ public class Controller {
 //					objects.remove(tempobject);
 					
 					// TODO Add when blocker is completed.
-//					if(timerTask !=null) {
-//						timerTask.cancel();
-//					}
+					if(timerTask !=null) {
+						timerTask.cancel();
+					}
 					renderer.removeObject(molecule);
 //					uicontroller.removeObject(atom);
 					
@@ -444,6 +444,10 @@ public class Controller {
 		int score=100;
 		int remainingTime=60;
 		int atomCount = 8;
+		ArrayList<GameObject> moleculeList= new ArrayList<GameObject>();
+		for(int i=2;i<objects.size();i++) {
+			moleculeList.add(objects.get(i));
+		}
 		GameObject shootingObject= getShootingObject();
 		save= new SaveLoadAdapter(new Save(username,score,remainingTime,shootingObject.getType(),shootingObject.isShooted(),shootingObject.getX(),shootingObject.getY(),shootingObject.getRotationAngle(),
 				atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,null,null,this));
@@ -462,7 +466,6 @@ public class Controller {
 				System.out.println("new save");
 			}
 			save.loadGame();
-			
 			
 //			JsonArray obj = (JsonArray) save.loadGame();
 //			System.out.println("object:"+obj);
@@ -645,7 +648,73 @@ public class Controller {
 						
 					}
 				}
-		}
 			}
+		}
 	}
+
+	public void setAlphaCount(int alphaCount) {
+		this.alphaCount = alphaCount;
+	}
+
+	public void setBetaCount(int betaCount) {
+		this.betaCount = betaCount;
+	}
+
+	public void setSigmaCount(int sigmaCount) {
+		this.sigmaCount = sigmaCount;
+	}
+
+	public void setGammaCount(int gammaCount) {
+		this.gammaCount = gammaCount;
+	}
+
+	public void setBetaPUCount(int betaPUCount) {
+		this.betaPUCount = betaPUCount;
+	}
+
+	public int getAlphaCount() {
+		return alphaCount;
+	}
+
+	public int getBetaCount() {
+		return betaCount;
+	}
+
+	public int getSigmaCount() {
+		return sigmaCount;
+	}
+
+	public int getGammaCount() {
+		return gammaCount;
+	}
+
+	public int getAlphaPUCount() {
+		return alphaPUCount;
+	}
+
+	public void setAlphaPUCount(int alphaPUCount) {
+		this.alphaPUCount = alphaPUCount;
+	}
+
+	public int getSigmaPUCount() {
+		return sigmaPUCount;
+	}
+
+	public void setSigmaPUCount(int sigmaPUCount) {
+		this.sigmaPUCount = sigmaPUCount;
+	}
+
+	public int getGammaPUCount() {
+		return gammaPUCount;
+	}
+
+	public void setGammaPUCount(int gammaPUCount) {
+		this.gammaPUCount = gammaPUCount;
+	}
+
+	public int getBetaPUCount() {
+		return betaPUCount;
+	}
+	
+	
 }

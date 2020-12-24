@@ -18,16 +18,27 @@ public class Frame extends Canvas {
 			HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private JPanel sidebar = new JPanel();
 	private JButton quitButton = new JButton("Quit");
-	private JTextField alphaType = new JTextField("AlphaMolecule");
-	private JTextField alphaCount = new JTextField(10);
-	private JTextField betaType = new JTextField("BetaMolecule");
-	private JTextField sigmaType = new JTextField("SigmaMolecule");
-	private JTextField gammaType = new JTextField("GammaMolecule");
+	private JTextField alphaMoleculeType = new JTextField("AlphaMolecule");
+	private JTextField alphaMoleculeCount = new JTextField(10);
+	private JTextField betaMoleculeType = new JTextField("BetaMolecule");
+	private JTextField sigmaMoleculeType = new JTextField("SigmaMolecule");
+	private JTextField gammaMoleculeType = new JTextField("GammaMolecule");
 	private JTextField puText = new JTextField("Powerups");
-	private JTextField betaCount = new JTextField(10);
-	private JTextField sigmaCount = new JTextField(10);
-	private JTextField gammaCount = new JTextField(10);
+	private JTextField betaMoleculeCount = new JTextField(10);
+	private JTextField sigmaMoleculeCount = new JTextField(10);
+	private JTextField gammaMoleculeCount = new JTextField(10);
 	private JTextField puCount = new JTextField(10);
+	
+	private JTextField alphaAtomType = new JTextField("AlphaAtom");
+	private JTextField betaAtomType = new JTextField("BetaAtom");
+	private JTextField sigmaAtomType = new JTextField("SigmaAtom");
+	private JTextField gammaAtomType = new JTextField("GammaAtom");
+	
+	private JTextField alphaAtomCount = new JTextField(10);
+	private JTextField betaAtomCount = new JTextField(10);
+	private JTextField sigmaAtomCount = new JTextField(10);
+	private JTextField gammaAtomCount = new JTextField(10);
+	
 	private JFrame frame;
 	private JPanel gui = new JPanel(new GridLayout(0,1));
 	private JPanel simpleGui = new JPanel(new FlowLayout());  
@@ -78,36 +89,59 @@ public class Frame extends Canvas {
 		sidebar.setBounds(10, 10, 200, 40);
 		
 		frame.add(sidebar);
-		alphaType.setEditable(false);
-		betaType.setEditable(false);
-		sigmaType.setEditable(false);
-		gammaType.setEditable(false);
+		alphaMoleculeType.setEditable(false);
+		betaMoleculeType.setEditable(false);
+		sigmaMoleculeType.setEditable(false);
+		gammaMoleculeType.setEditable(false);
+		alphaAtomType.setEditable(false);
+		betaAtomType.setEditable(false);
+		sigmaAtomType.setEditable(false);
+		gammaAtomType.setEditable(false);
 		puText.setEditable(false);
-		alphaCount.setEditable(true);
-		alphaCount.setText("100");
-		betaCount.setEditable(true);
-		betaCount.setText("100");
-		sigmaCount.setEditable(true);
-		sigmaCount.setText("100");
-		gammaCount.setEditable(true);
-		gammaCount.setText("100");
+		
+		alphaAtomCount.setEditable(true);
+		alphaAtomCount.setText("20");
+		betaAtomCount.setEditable(true);
+		betaAtomCount.setText("20");
+		sigmaAtomCount.setEditable(true);
+		sigmaAtomCount.setText("20");
+		gammaAtomCount.setEditable(true);
+		gammaAtomCount.setText("20");
+		alphaMoleculeCount.setEditable(true);
+		alphaMoleculeCount.setText("100");
+		betaMoleculeCount.setEditable(true);
+		betaMoleculeCount.setText("100");
+		sigmaMoleculeCount.setEditable(true);
+		sigmaMoleculeCount.setText("100");
+		gammaMoleculeCount.setEditable(true);
+		gammaMoleculeCount.setText("100");
+		
 		puCount.setEditable(true);
 		puCount.setText("20");
 		
-		simpleGui.add( alphaType );
-		simpleGui.add( alphaCount );
-		simpleGui.add( betaType );
-		simpleGui.add( betaCount );
-		simpleGui.add( sigmaType );
-		simpleGui.add( sigmaCount );
-		simpleGui.add( gammaType );
-		simpleGui.add( gammaCount );
+		simpleGui.add( alphaAtomType );
+		simpleGui.add( alphaAtomCount );
+		simpleGui.add( betaAtomType );
+		simpleGui.add( betaAtomCount );
+		simpleGui.add( sigmaAtomType );
+		simpleGui.add( sigmaAtomCount );
+		simpleGui.add( gammaAtomType );
+		simpleGui.add( gammaAtomCount );
+		
+		simpleGui.add( alphaMoleculeType );
+		simpleGui.add( alphaMoleculeCount );
+		simpleGui.add( betaMoleculeType );
+		simpleGui.add( betaMoleculeCount );
+		simpleGui.add( sigmaMoleculeType );
+		simpleGui.add( sigmaMoleculeCount );
+		simpleGui.add( gammaMoleculeType );
+		simpleGui.add( gammaMoleculeCount );
 		simpleGui.add( puText);
 		simpleGui.add( puCount );
 		simpleGui.setLayout(new GridLayout(0,2));
 		
 		gui.add(simpleGui);
-		gui.setBounds(WIDTH- gui.getWidth() - 370, HEIGHT - 200 , 350, 150);
+		gui.setBounds(WIDTH- gui.getWidth() - 370, HEIGHT - 300 , 350, 300);
 		
 		frame.add(gui);
 		frame.add(buildmode);
@@ -187,57 +221,127 @@ public class Frame extends Canvas {
 	public void setApplyButton(JButton applyButton) {
 		this.applyButton = applyButton;
 	}
-	public JTextField getSigmaCount() {
-		return sigmaCount;
-	}
-	public void setSigmaCount(JTextField sigmaCount) {
-		this.sigmaCount = sigmaCount;
-	}
-	public JTextField getGammaCount() {
-		return gammaCount;
-	}
-	public void setGammaCount(JTextField gammaCount) {
-		this.gammaCount = gammaCount;
-	}
 	
-	public JTextField getAlphaType() {
-		return alphaType;
-	}
-	public void setAlphaType(JTextField alphaType) {
-		this.alphaType = alphaType;
-	}
-	public JTextField getSigmaType() {
-		return sigmaType;
-	}
-	public void setSigmaType(JTextField sigmaType) {
-		this.sigmaType = sigmaType;
-	}
-	public JTextField getGammaType() {
-		return gammaType;
-	}
-	public void setGammaType(JTextField gammaType) {
-		this.gammaType = gammaType;
+	public JTextField getAlphaMoleculeType() {
+		return alphaMoleculeType;
 	}
 
-	public JTextField getAlphaCount() {
-		return alphaCount;
-	}
-	public void setAlphaCount(JTextField alphaCount) {
-		this.alphaCount = alphaCount;
-	}
-	public JTextField getBetaType() {
-		return betaType;
-	}
-	public void setBetaType(JTextField betaType) {
-		this.betaType = betaType;
-	}
-	public JTextField getBetaCount() {
-		return betaCount;
+
+	public void setAlphaMoleculeType(JTextField alphaMoleculeType) {
+		this.alphaMoleculeType = alphaMoleculeType;
 	}
 
-	public void setBetaCount(JTextField betaCount) {
-		this.betaCount = betaCount;
+
+	public JTextField getAlphaMoleculeCount() {
+		return alphaMoleculeCount;
 	}
+
+
+	public void setAlphaMoleculeCount(JTextField alphaMoleculeCount) {
+		this.alphaMoleculeCount = alphaMoleculeCount;
+	}
+
+
+	public JTextField getBetaMoleculeType() {
+		return betaMoleculeType;
+	}
+
+
+	public void setBetaMoleculeType(JTextField betaMoleculeType) {
+		this.betaMoleculeType = betaMoleculeType;
+	}
+
+
+	public JTextField getSigmaMoleculeType() {
+		return sigmaMoleculeType;
+	}
+
+
+	public void setSigmaMoleculeType(JTextField sigmaMoleculeType) {
+		this.sigmaMoleculeType = sigmaMoleculeType;
+	}
+
+
+	public JTextField getGammaMoleculeType() {
+		return gammaMoleculeType;
+	}
+
+
+	public void setGammaMoleculeType(JTextField gammaMoleculeType) {
+		this.gammaMoleculeType = gammaMoleculeType;
+	}
+
+
+	public JTextField getBetaMoleculeCount() {
+		return betaMoleculeCount;
+	}
+
+
+	public void setBetaMoleculeCount(JTextField betaMoleculeCount) {
+		this.betaMoleculeCount = betaMoleculeCount;
+	}
+
+
+	public JTextField getSigmaMoleculeCount() {
+		return sigmaMoleculeCount;
+	}
+
+
+	public void setSigmaMoleculeCount(JTextField sigmaMoleculeCount) {
+		this.sigmaMoleculeCount = sigmaMoleculeCount;
+	}
+
+
+	public JTextField getGammaMoleculeCount() {
+		return gammaMoleculeCount;
+	}
+
+
+	public void setGammaMoleculeCount(JTextField gammaMoleculeCount) {
+		this.gammaMoleculeCount = gammaMoleculeCount;
+	}
+
+
+	public JTextField getAlphaAtomCount() {
+		return alphaAtomCount;
+	}
+
+
+	public void setAlphaAtomCount(JTextField alphaAtomCount) {
+		this.alphaAtomCount = alphaAtomCount;
+	}
+
+
+	public JTextField getBetaAtomCount() {
+		return betaAtomCount;
+	}
+
+
+	public void setBetaAtomCount(JTextField betaAtomCount) {
+		this.betaAtomCount = betaAtomCount;
+	}
+
+
+	public JTextField getSigmaAtomCount() {
+		return sigmaAtomCount;
+	}
+
+
+	public void setSigmaAtomCount(JTextField sigmaAtomCount) {
+		this.sigmaAtomCount = sigmaAtomCount;
+	}
+
+
+	public JTextField getGammaAtomCount() {
+		return gammaAtomCount;
+	}
+
+
+	public void setGammaAtomCount(JTextField gammaAtomCount) {
+		this.gammaAtomCount = gammaAtomCount;
+	}
+
+
 	public JTextField getPuCount() {
 		return puCount;
 	}
