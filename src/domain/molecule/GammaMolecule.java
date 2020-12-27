@@ -40,7 +40,11 @@ public class GammaMolecule extends Molecule{
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	@Override
+	public String getType() {
+		// TODO Auto-generated method stub
+		return "GammaMolecule";
+	}
 	@Override
 	public void update() {
 		move(KuVid.L/50);
@@ -82,6 +86,11 @@ public class GammaMolecule extends Molecule{
 	public void move(double x, double y, double velX, double velY) {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public double getSpeed() {
+		// TODO Auto-generated method stub
+		return super.getSpeed();
 	}
 
 }

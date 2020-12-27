@@ -33,7 +33,16 @@ public class SigmaMolecule extends Molecule{
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	@Override
+	public String getType() {
+		// TODO Auto-generated method stub
+		return "SigmaMolecule";
+	}
+	@Override
+	public double getSpeed() {
+		// TODO Auto-generated method stub
+		return super.getSpeed();
+	}
 	@Override
 	public void update() {
 		move(KuVid.L/50);

@@ -6,6 +6,17 @@ import domain.atom.Atom;
 
 public abstract class Molecule extends GameObject implements MovementStrategy{
 	
+	@Override
+	public void move(double speed) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public double getSpeed() {
+		// TODO Auto-generated method stub
+		return super.getSpeed();
+	}
 	public static double L=100;
 
 	public double width;
@@ -33,6 +44,12 @@ public abstract class Molecule extends GameObject implements MovementStrategy{
 		this.height = height;
 	}
 
+
+	@Override
+	public String getType() {
+		// TODO Auto-generated method stub
+		return super.getType();
+	}
 
 	public abstract void collectMolecule();
 	public abstract boolean isInDanger();

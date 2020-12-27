@@ -10,6 +10,8 @@ import ui.KuVid;
 
 public class AlphaMolecule extends Molecule{
 	
+	
+
 	private boolean rotationFlag = true;
 	private final double rightRotation = 45;
 	private final double leftRotation = -45;
@@ -74,5 +76,16 @@ public class AlphaMolecule extends Molecule{
 	public void move(double x, double y, double velX, double velY) {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public String getType() {
+		// TODO Auto-generated method stub
+		return "AlphaMolecule";
+	}
+
+	@Override
+	public double getSpeed() {
+		// TODO Auto-generated method stub
+		return super.getSpeed();
 	}
 }

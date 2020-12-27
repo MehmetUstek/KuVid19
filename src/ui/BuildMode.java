@@ -128,7 +128,7 @@ public class BuildMode extends Canvas implements Runnable {
 					addMolecules(controller, renderer);
 				}
 				addAtoms(controller);
-				SaveLoadAdapter save= new SaveLoadAdapter(new Save(username,controller,list,pulist));
+				SaveLoadAdapter save= new SaveLoadAdapter(new Save(username,controller,list));
 //				System.out.println(list);
 				save.saveGame();
 			}
@@ -278,7 +278,7 @@ public class BuildMode extends Canvas implements Runnable {
 			controller.addObject(pu);
 			UIPowerup uiPu = new UIPowerup(pu.getType());
 			renderer.objects.add(uiPu);
-			pulist.add(pu);
+			list.add(pu);
 		}
 		moleculesAdded=true;
 	}

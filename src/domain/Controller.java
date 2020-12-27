@@ -450,7 +450,7 @@ public class Controller {
 		}
 		GameObject shootingObject= getShootingObject();
 		save= new SaveLoadAdapter(new Save(username,score,remainingTime,shootingObject.getType(),shootingObject.isShooted(),shootingObject.getX(),shootingObject.getY(),shootingObject.getRotationAngle(),
-				atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,null,null,this));
+				atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,moleculeList,this));
 		save.saveGame();
 	}
 	public void loadGame() {

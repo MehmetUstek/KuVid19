@@ -34,7 +34,7 @@ public class Save implements ISaveLoad {
 	double objectMovementAngle=0,objectX=0,objectY=0;
 	int score=0,  remainingTime=0, alphaAtomCount=0, betaAtomCount=0,sigmaAtomCount=0,gammaAtomCount=0, 
 	alphaPUCount=0,betaPUCount=0,sigmaPUCount=0,gammaPUCount=0;
-	ArrayList<GameObject> list,powerupList;
+	ArrayList<GameObject> list;
 	Controller controller;
 	boolean isShooted;
 	private boolean isLoaded = false;
@@ -44,7 +44,7 @@ public class Save implements ISaveLoad {
 	public Save(String username
 			, int score, int remainingTime, String currentShootingObject,boolean isShooted,double objectX, double objectY, double objectMovementAngle,
 			int alphaAtomCount,int betaAtomCount,int sigmaAtomCount,int gammaAtomCount, 
-			int alphaPUCount,int betaPUCount,int sigmaPUCount,int gammaPUCount,ArrayList<GameObject> list,ArrayList<GameObject> powerupList,
+			int alphaPUCount,int betaPUCount,int sigmaPUCount,int gammaPUCount,ArrayList<GameObject> list,
 			Controller controller)
 	{
 		this.username=username;
@@ -65,7 +65,6 @@ public class Save implements ISaveLoad {
 		this.objectY=objectY;
 		this.isShooted= isShooted;
 		this.controller= controller;
-		this.powerupList= powerupList;
 		
 		
 		// TODO Auto-generated constructor stub
@@ -75,11 +74,10 @@ public class Save implements ISaveLoad {
 		this.username= username;
 		this.controller= controller;
 	}
-	public Save(String username,Controller controller, ArrayList<GameObject> list,ArrayList<GameObject> powerupList) {
+	public Save(String username,Controller controller, ArrayList<GameObject> list) {
 		this.username= username;
 		this.controller= controller;
 		this.list= list;
-		this.powerupList= powerupList;
 		this.alphaAtomCount=controller.getAlphaCount();
 		this.betaAtomCount= controller.getBetaCount();
 		this.sigmaAtomCount= controller.getSigmaCount();
@@ -130,19 +128,21 @@ public class Save implements ISaveLoad {
 		// Atom Location
 		
 		// Molecule locations.
+//		for(int i=0;i<list.size();i++) {
+//			JsonObject moleculePositions= new JsonObject();
+//			moleculePositions.addProperty("type", list.get(i).getId().toString());
+//			moleculePositions.addProperty("x", list.get(i).getX());
+//			moleculePositions.addProperty("y", list.get(i).getY());
+//			array.add(moleculePositions);
+//		}
+		
+		// Molecule and Powerup & Reaction Blockers
 		for(int i=0;i<list.size();i++) {
-			JsonObject moleculePositions= new JsonObject();
-			moleculePositions.addProperty("type", list.get(i).getId().toString());
-			moleculePositions.addProperty("x", list.get(i).getX());
-			moleculePositions.addProperty("y", list.get(i).getY());
-			array.add(moleculePositions);
-		}
-		for(int i=0;i<powerupList.size();i++) {
 			JsonObject puPositions= new JsonObject();
-			puPositions.addProperty("type", powerupList.get(i).getType());
-			puPositions.addProperty("x", powerupList.get(i).getX());
-			puPositions.addProperty("y", powerupList.get(i).getY());
-			puPositions.addProperty("speed", powerupList.get(i).getSpeed());
+			puPositions.addProperty("type", list.get(i).getType());
+			puPositions.addProperty("x", list.get(i).getX());
+			puPositions.addProperty("y", list.get(i).getY());
+			puPositions.addProperty("speed", list.get(i).getSpeed());
 			array.add(puPositions);
 		}
 		

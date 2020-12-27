@@ -10,6 +10,8 @@ import ui.KuVid;
 
 public class BetaMolecule extends Molecule{
 	
+	
+
 	public static boolean hasReached = false;
 	private boolean rotationFlag = true;
 
@@ -30,7 +32,11 @@ public class BetaMolecule extends Molecule{
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	@Override
+	public String getType() {
+		// TODO Auto-generated method stub
+		return "BetaMolecule";
+	}
 
 
 	@Override
@@ -80,4 +86,5 @@ public class BetaMolecule extends Molecule{
 		// TODO Auto-generated method stub
 		
 	}
+	
 }
