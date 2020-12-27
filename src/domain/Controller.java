@@ -66,7 +66,7 @@ public class Controller {
 	double shooterMoveConstant = 15;
 	private boolean isPaused = false;
 	private boolean isLoaded = false;
-	
+	public double fallingSpeed = atomSpeed;
 	TimerTask timerTask ;
 	Timer timer;
 	SaveLoadAdapter save;
@@ -128,8 +128,10 @@ public class Controller {
 						tempobject.getType().equals("+beta") || 
 						tempobject.getType().equals("+sigma") ||
 						tempobject.getType().equals("+gamma"))) {
-					System.out.println("yesasd");
 					Powerup tempobject1=(Powerup) tempobject;
+					if(!frame.isBuildMode()) {
+						tempobject1.setSpeed(fallingSpeed);
+					}
 					tempobject1.fallInStraightLine(tempobject1.getX(), tempobject1.getY());
 	//				UIPowerup uipowerup = (UIPowerup) renderer.objects.get(i);
 	//				uipowerup.setX(tempobject1.getX());
@@ -203,8 +205,8 @@ public class Controller {
 		double y1= y+ tempobject1.getDiameter();
 		if(!tempobject1.isShooted()) {
 			// TODO this will change. Will be added, when atom is destroyed put new atom from existing ones.
-			x=objects.get(1).getX();
-			y=objects.get(1).getY();
+			x=objects.get(1).getX()+tempobject1.getDiameter()/3;
+			y=objects.get(1).getY()-tempobject1.getDiameter()*3;
 			tempobject.setX(x);
 			tempobject.setY(y);
 		}

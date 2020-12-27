@@ -258,7 +258,6 @@ public class BuildMode extends Canvas implements Runnable {
 			Powerup pu = PowerupFactory.getPU();
 			pu.setHeight(diameter*2);
 			pu.setWidth(diameter*2);
-			pu.setSpeed(atomSpeed);
 			pu.setRotationAngle(0);
 			double x= random.nextInt( WIDTH-(int) pu.getWidth());
 			System.out.println(pu.getWidth());

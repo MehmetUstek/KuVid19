@@ -47,9 +47,11 @@ public class Frame extends Canvas {
 	private JButton buildMode = new JButton("Build Mode");
 	StatisticsWindow statsWindow;
 	private JButton applyButton = new JButton("Apply");
+	private boolean isBuildMode= false;
 	
 	public Frame(Dimension d, String title, KuVid game) {
 		frame = new JFrame(title);
+		isBuildMode= false;
 		frame.setMaximumSize(d);
 		frame.setMinimumSize(new Dimension(1, 1));
 		frame.setSize(frame.getMaximumSize());
@@ -75,7 +77,7 @@ public class Frame extends Canvas {
 	public Frame(Dimension d, String title, BuildMode buildmode) {
 		
 		frame = new JFrame(title);
-		
+		isBuildMode= true;
 		frame.setMaximumSize(d);
 		frame.setMinimumSize(new Dimension(1, 1));
 		frame.setSize(frame.getMaximumSize());
@@ -155,6 +157,7 @@ public class Frame extends Canvas {
 	public Frame() {}
 
 	public Frame(Dimension screenSize, String title, Main mainGame) {
+		isBuildMode= false;
 		frame = new JFrame(title);
 		frame.setVisible(true);
 		frame.setSize(WIDTH, HEIGHT);
@@ -348,4 +351,9 @@ public class Frame extends Canvas {
 	public void setPuCount(JTextField puCount) {
 		this.puCount = puCount;
 	}
+
+	public boolean isBuildMode() {
+		return isBuildMode;
+	}
+	
 }

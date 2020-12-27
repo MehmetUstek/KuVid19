@@ -23,8 +23,6 @@ public class Renderer {
 		}
 		g.setColor(Color.black);
 		g.setFont(new Font("TimesRoman",Font.PLAIN,22));
-		g.drawString("Score: " + score, (int) WIDTH-270, (int) HEIGHT-80);
-		g.drawString("Lives: " + lives, (int) WIDTH-90, (int) HEIGHT-80);
 		if(gameOver) {
 			g.setFont(new Font("TimesRoman",Font.PLAIN,48));
 			g.drawString("GAME OVER", (int) WIDTH/2 - 160,(int)  HEIGHT/2 - 24);
