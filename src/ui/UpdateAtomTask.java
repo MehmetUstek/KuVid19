@@ -41,7 +41,6 @@ public class UpdateAtomTask extends TimerTask {
 	    		atom.setRotationAngle(atom.getRotationAngle()-180);
 	    		velY = -velY;
 	    		atom.move(atom.getX(),atom.getY(),velX,velY);
-	    		System.out.println(velY);
     		}
     		else if(atom.getRotationAngle()<0) {
     			atom.setRotationAngle(180+atom.getRotationAngle());
@@ -63,13 +62,11 @@ public class UpdateAtomTask extends TimerTask {
     		atom.setRotationAngle(-atom.getRotationAngle());
     		velX = -velX;
     		atom.move(atom.getX(),atom.getY(),velX,velY);
-    		System.out.println(velX);
     	}
     	else if( atom.getX() >= width - atom.getWidth()*4) {
     		velX = -velX;
     		atom.setRotationAngle(-atom.getRotationAngle());
     		atom.move(atom.getX(),atom.getY(),velX,velY);
-    		System.out.println(velX);
     	}
     	else {
     		atom.move(atom.getX(),atom.getY(),velX,velY);

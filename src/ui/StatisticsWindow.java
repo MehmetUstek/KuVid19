@@ -127,9 +127,7 @@ public class StatisticsWindow extends JPanel{
 		add(puGamma);
 		
 		
-		
 	}
-
 
 	public JLabel getScore() {
 		return score;

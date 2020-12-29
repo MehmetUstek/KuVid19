@@ -37,7 +37,7 @@ public class BuildMode extends Canvas implements Runnable {
 	private Controller controller = new Controller(renderer, window);
 	public static final double L= HEIGHT/10;
 	public static final double diameter = L/10;
-	public static final double atomSpeed = 20;
+	public double speed = 20;
 	Random random = new Random();
 	boolean moleculesAdded= false;
 	private String username= "mehmet";
@@ -128,13 +128,32 @@ public class BuildMode extends Canvas implements Runnable {
 					addMolecules(controller, renderer);
 				}
 				addAtoms(controller);
-				SaveLoadAdapter save= new SaveLoadAdapter(new Save(username,controller,list));
+				SaveLoadAdapter save= new SaveLoadAdapter(new Save(username,controller,list,speed,getTime()));
 //				System.out.println(list);
 				save.saveGame();
+				getDifficulty(controller);
 			}
 		});
 
-
+	}
+	public int getTime() {
+		String s1= window.getGameTime().getText();
+		return Integer.parseInt(s1);
+	}
+	public void getDifficulty(Controller controller) {
+		if(window.getbGroup().getSelection().getActionCommand().equals("easy")) {
+			System.out.println("Object will fall in 1 second span");
+			speed= 10;
+		}
+		else if(window.getbGroup().getSelection().getActionCommand().equals("medium")) {
+			System.out.println("Object will fall in 1/2 second span");
+			speed= 20;
+		}
+		else {
+			System.out.println("Object will fall in 1/4 second span");
+			speed= 30;
+		}
+		
 	}
 	public void addAtoms(Controller controller) {
 		String s1 = window.getAlphaAtomCount().getText();
@@ -260,7 +279,7 @@ public class BuildMode extends Canvas implements Runnable {
 			pu.setWidth(diameter*2);
 			pu.setRotationAngle(0);
 			double x= random.nextInt( WIDTH-(int) pu.getWidth());
-			System.out.println(pu.getWidth());
+//			System.out.println(pu.getWidth());
 			double y= random.nextInt(HEIGHT)-HEIGHT;
 			Rectangle2D rect = new Rectangle2D.Double(x,y,pu.getWidth(),pu.getHeight());
 			

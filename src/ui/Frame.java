@@ -6,9 +6,15 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+
+import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JSlider;
 import javax.swing.JTextField;
 
 public class Frame extends Canvas {
@@ -48,6 +54,20 @@ public class Frame extends Canvas {
 	StatisticsWindow statsWindow;
 	private JButton applyButton = new JButton("Apply");
 	private boolean isBuildMode= false;
+	
+	// Time
+	JLabel time= new JLabel("Time(As Seconds)");
+	JTextField gameTime = new JTextField("600");
+	
+	
+	
+	//Hardness of the game
+	private JPanel hardnessGui = new JPanel(new FlowLayout());  
+	JLabel hardness= new JLabel("Difficulty");
+	JRadioButton easyBox= new JRadioButton("Easy");
+	JRadioButton mediumBox= new JRadioButton("Medium");
+	JRadioButton hardBox= new JRadioButton("Hard");
+	ButtonGroup bGroup = new ButtonGroup();
 	
 	public Frame(Dimension d, String title, KuVid game) {
 		frame = new JFrame(title);
@@ -120,7 +140,10 @@ public class Frame extends Canvas {
 		
 		puCount.setEditable(true);
 		puCount.setText("20");
+		gameTime.setEditable(true);
 		
+		simpleGui.add(time);
+		simpleGui.add(gameTime);
 		simpleGui.add( alphaAtomType );
 		simpleGui.add( alphaAtomCount );
 		simpleGui.add( betaAtomType );
@@ -143,6 +166,24 @@ public class Frame extends Canvas {
 		simpleGui.setLayout(new GridLayout(0,2));
 		
 		gui.add(simpleGui);
+		
+		//Hardness
+		easyBox.setActionCommand("easy");
+		mediumBox.setActionCommand("medium");
+		hardBox.setActionCommand("hard");
+		hardnessGui.add(hardness);
+		hardnessGui.add(easyBox);
+		hardnessGui.add(mediumBox);
+		hardnessGui.add(hardBox);
+		bGroup.add(easyBox);
+		bGroup.add(mediumBox);
+		bGroup.add(hardBox);
+		bGroup.setSelected(easyBox.getModel(), true);
+		hardnessGui.setLayout(new GridLayout(0,1));
+		hardnessGui.setBounds(WIDTH- gui.getWidth() - 700, HEIGHT - 100 , 100, 100);
+		frame.add(hardnessGui);
+		
+		
 		gui.setBounds(WIDTH- gui.getWidth() - 370, HEIGHT - 300 , 350, 300);
 		
 		frame.add(gui);
@@ -354,6 +395,41 @@ public class Frame extends Canvas {
 
 	public boolean isBuildMode() {
 		return isBuildMode;
+	}
+
+
+	public ButtonGroup getbGroup() {
+		return bGroup;
+	}
+
+
+	public void setbGroup(ButtonGroup bGroup) {
+		this.bGroup = bGroup;
+	}
+
+
+	public JRadioButton getEasyBox() {
+		return easyBox;
+	}
+
+
+	public JRadioButton getMediumBox() {
+		return mediumBox;
+	}
+
+
+	public JRadioButton getHardBox() {
+		return hardBox;
+	}
+
+
+	public JTextField getGameTime() {
+		return gameTime;
+	}
+
+
+	public void setGameTime(JTextField gameTime) {
+		this.gameTime = gameTime;
 	}
 	
 }

@@ -41,7 +41,7 @@ public class Controller {
 			HEIGHT =  Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	Renderer renderer;
 	private ArrayList<Powerup> collectedPowerups = new ArrayList<Powerup>();
-	private int score = 0, time = 0, counter = 0, lives = 3, initialMoleculeCount;
+	private int score = 0, time, counter = 0, lives = 3, initialMoleculeCount;
 	private int alphaCount=100,betaCount=100,sigmaCount=100,gammaCount=100;
 	private int alphaPUCount=20,betaPUCount=20,sigmaPUCount=20,gammaPUCount=20;
 	private boolean atomFalled;
@@ -56,7 +56,7 @@ public class Controller {
 	private static final double GAMMA_STABILITY= 0.7;
 	double shooterHeight = L;
 	double diameter= L/10;
-	double speed= L;
+	double speed= 20;
 	double shooterX= WIDTH/2;
 	double shooterY =HEIGHT - shooterHeight*2;
 	double atomX = shooterX+ diameter/2;
@@ -102,7 +102,10 @@ public class Controller {
 			second += "0";
 		}
 		statsWindow.getTime().setText(minute+":"+second);
-		
+		if(time==0 && !frame.isBuildMode()) {
+			System.out.println("Time is Up! Game Over");
+			
+		}
 		
 		for (int i = 0; i < objects.size(); i++) {
 			GameObject tempobject = (GameObject) objects.get(i);
@@ -129,7 +132,7 @@ public class Controller {
 				shooter.setRotationAngle(rotation);
 				shooterCollision(tempobject1);
 				}
-			System.out.println(tempobject.getType());
+//			System.out.println(tempobject.getType());
 			if(tempobject.getType()!=null) {
 				if (i!=0 && (tempobject.getType().equals("+alpha") ||
 						tempobject.getType().equals("+beta") || 
@@ -343,7 +346,7 @@ public class Controller {
 			System.out.println("Shoot");
 			shooterRotationAngle = shooter.getRotationAngle();
 			shootingObject.setRotationAngle(shooterRotationAngle);
-			System.out.println(shootingObject.getRotationAngle());
+//			System.out.println(shootingObject.getRotationAngle());
 			timerTask = new UpdateAtomTask(shootingObject,Toolkit.getDefaultToolkit().getScreenSize(),shooter);
 			timer = new Timer(true);
 	        timer.scheduleAtFixedRate(timerTask, 0, 40);
@@ -457,7 +460,7 @@ public class Controller {
 		}
 		GameObject shootingObject= getShootingObject();
 		save= new SaveLoadAdapter(new Save(username,score,time,shootingObject.getType(),shootingObject.isShooted(),shootingObject.getX(),shootingObject.getY(),shootingObject.getRotationAngle(),
-				alphaCount,betaCount,sigmaCount,gammaCount,alphaPUCount,betaPUCount,sigmaPUCount,gammaPUCount,moleculeList,this));
+				alphaCount,betaCount,sigmaCount,gammaCount,alphaPUCount,betaPUCount,sigmaPUCount,gammaPUCount,moleculeList,this,speed));
 		save.saveGame();
 	}
 	public void loadGame() {
@@ -663,6 +666,14 @@ public class Controller {
 
 	public void setTime(int time) {
 		this.time = time;
+	}
+
+	public double getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(double speed) {
+		this.speed = speed;
 	}
 	
 	

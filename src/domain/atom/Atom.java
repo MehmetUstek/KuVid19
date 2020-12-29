@@ -120,10 +120,6 @@ public class Atom extends GameObject{
 		this.speed = speed;
 	}
 	public void move(double x, double y,double velX, double velY) {
-//		double radian = Math.toRadians(getRotationAngle());
-//		System.out.println(getRotationAngle());
-//		double newX=  x+ (speed * Math.sin(radian));
-//		double newY=  y +(speed * -Math.cos(radian));
 		double newX=  x+velX;
 		double newY=  y +velY;
 		setX(newX);

@@ -61,7 +61,6 @@ public class Powerup extends GameObject{
 	}
 	public void fallInStraightLine(double x, double y) {
 		double newY=  y + getSpeed()/20;
-		System.out.println("speed is:"+getSpeed());
 		setY(newY);
 	}
 	public double getX() {

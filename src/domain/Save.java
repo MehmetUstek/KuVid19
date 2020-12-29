@@ -45,7 +45,7 @@ public class Save implements ISaveLoad {
 			, int score, int remainingTime, String currentShootingObject,boolean isShooted,double objectX, double objectY, double objectMovementAngle,
 			int alphaAtomCount,int betaAtomCount,int sigmaAtomCount,int gammaAtomCount, 
 			int alphaPUCount,int betaPUCount,int sigmaPUCount,int gammaPUCount,ArrayList<GameObject> list,
-			Controller controller)
+			Controller controller,double speed)
 	{
 		this.username=username;
 		this.score=score;
@@ -65,6 +65,7 @@ public class Save implements ISaveLoad {
 		this.objectY=objectY;
 		this.isShooted= isShooted;
 		this.controller= controller;
+		this.speed= speed;
 		
 		
 		// TODO Auto-generated constructor stub
@@ -74,10 +75,12 @@ public class Save implements ISaveLoad {
 		this.username= username;
 		this.controller= controller;
 	}
-	public Save(String username,Controller controller, ArrayList<GameObject> list) {
+	public Save(String username,Controller controller, ArrayList<GameObject> list,double speed,int remainingTime) {
 		this.username= username;
 		this.controller= controller;
 		this.list= list;
+		this.speed= speed;
+		this.remainingTime= remainingTime;
 		this.alphaAtomCount=controller.getAlphaCount();
 		this.betaAtomCount= controller.getBetaCount();
 		this.sigmaAtomCount= controller.getSigmaCount();
@@ -88,10 +91,9 @@ public class Save implements ISaveLoad {
 		Gson gson = new GsonBuilder().create();
 		JsonArray array = new JsonArray();
 		
-		//all the variables are trivial for now.
 		obj.addProperty("username", username);
 		obj.addProperty("score", score);
-		
+		obj.addProperty("speed", speed);
 		//Remaining time as seconds.
 		obj.addProperty("remainingTime", remainingTime);
 		
@@ -163,7 +165,7 @@ public class Save implements ISaveLoad {
 		System.out.println("done");
 		
 		
-		System.out.println(obj);
+//		System.out.println(obj);
 	}
 	public void loadGame() {
 		
@@ -174,26 +176,28 @@ public class Save implements ISaveLoad {
 			System.out.println("username is:"+username);
 			reader = new JsonReader(new FileReader(username+"_saves.txt"));
 			obj= gson.fromJson(reader, JsonArray.class);
-			System.out.println(obj);
+//			System.out.println(obj);
 			username= obj.get(0).getAsJsonObject().get("username").getAsString();
 			score= obj.get(0).getAsJsonObject().get("score").getAsInt();
+			speed= obj.get(0).getAsJsonObject().get("speed").getAsDouble();
 			alphaAtomCount= obj.get(0).getAsJsonObject().get("alphaAtom").getAsInt();
 			betaAtomCount= obj.get(0).getAsJsonObject().get("betaAtom").getAsInt();
 			sigmaAtomCount= obj.get(0).getAsJsonObject().get("sigmaAtom").getAsInt();
 			gammaAtomCount= obj.get(0).getAsJsonObject().get("gammaAtom").getAsInt();
 			int remainingTime= obj.get(0).getAsJsonObject().get("remainingTime").getAsInt();
 			String currentShootingObject= obj.get(0).getAsJsonObject().get("currentShootingObject").getAsString();
-			System.out.println(currentShootingObject);
+//			System.out.println(currentShootingObject);
 			double objectMovementAngle= obj.get(0).getAsJsonObject().get("objectMovementAngle").getAsDouble();
 			double objectX= obj.get(0).getAsJsonObject().get("objectX").getAsDouble();
 			double objectY= obj.get(0).getAsJsonObject().get("objectY").getAsDouble();
 	//		boolean isShooted = obj.get(0).getAsJsonObject().get("isShooted").getAsBoolean();
 			GameObject shootingObject= controller.getShootingObject();
 			UIGameObject uiobject= controller.getUIShootingObject();
-			System.out.println(currentShootingObject);
+//			System.out.println(currentShootingObject);
 			
 			//Time
 			controller.setTime(remainingTime);
+			controller.setSpeed(speed);
 			
 			if(currentShootingObject.equals("alpha") || currentShootingObject.equals("beta") || currentShootingObject.equals("sigma") || currentShootingObject.equals("gamma")) {
 	//			shootingObject= new Atom(currentShootingObject);
@@ -232,7 +236,6 @@ public class Save implements ISaveLoad {
 					GameObject molecule = MoleculeFactory.getMolecule(obj.get(i).getAsJsonObject().get("type").getAsString());
 					molecule.setX(obj.get(i).getAsJsonObject().get("x").getAsDouble());
 					molecule.setY(obj.get(i).getAsJsonObject().get("y").getAsDouble());
-					System.out.println(molecule);
 					controller.objects.add(molecule);
 					
 					//TODO Change UIMolecule with UIMoleculeFactory
