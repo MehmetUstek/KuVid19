@@ -94,7 +94,14 @@ public class Controller {
 		renderer.setScore(score);
 		renderer.setLives(lives);
 		statsWindow.getScore().setText(Integer.toString(score));
-		statsWindow.getTime().setText(Integer.toString(time));
+		// Remaining timer
+		int timeAsSecond= time;
+		String minute=Integer.toString(timeAsSecond/60);
+		String second= Integer.toString(timeAsSecond%60);
+		if(timeAsSecond%60 ==0) {
+			second += "0";
+		}
+		statsWindow.getTime().setText(minute+":"+second);
 		
 		
 		for (int i = 0; i < objects.size(); i++) {
@@ -444,23 +451,17 @@ public class Controller {
 	}
 	public void saveGame() {
 		int score=100;
-		int remainingTime=60;
-		int atomCount = 8;
 		ArrayList<GameObject> moleculeList= new ArrayList<GameObject>();
 		for(int i=2;i<objects.size();i++) {
 			moleculeList.add(objects.get(i));
 		}
 		GameObject shootingObject= getShootingObject();
-		save= new SaveLoadAdapter(new Save(username,score,remainingTime,shootingObject.getType(),shootingObject.isShooted(),shootingObject.getX(),shootingObject.getY(),shootingObject.getRotationAngle(),
-				atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,atomCount,moleculeList,this));
+		save= new SaveLoadAdapter(new Save(username,score,time,shootingObject.getType(),shootingObject.isShooted(),shootingObject.getX(),shootingObject.getY(),shootingObject.getRotationAngle(),
+				alphaCount,betaCount,sigmaCount,gammaCount,alphaPUCount,betaPUCount,sigmaPUCount,gammaPUCount,moleculeList,this));
 		save.saveGame();
 	}
 	public void loadGame() {
 		
-//		System.out.println(save.loadGame(this));
-		int score=100;
-		int remainingTime=60;
-		int atomCount = 8;
 		if(!isLoaded) {
 			isLoaded= true;
 			if(save==null) {
@@ -468,68 +469,6 @@ public class Controller {
 				System.out.println("new save");
 			}
 			save.loadGame();
-			
-//			JsonArray obj = (JsonArray) save.loadGame();
-//			System.out.println("object:"+obj);
-//	//		game = new KuVid();
-//			username= obj.get(0).getAsJsonObject().get("username").getAsString();
-//			score= obj.get(0).getAsJsonObject().get("score").getAsInt();
-//			int remainingTime= obj.get(0).getAsJsonObject().get("remainingTime").getAsInt();
-//			String currentShootingObject= obj.get(0).getAsJsonObject().get("currentShootingObject").getAsString();
-//			System.out.println(currentShootingObject);
-//			double objectMovementAngle= obj.get(0).getAsJsonObject().get("objectMovementAngle").getAsDouble();
-//			double objectX= obj.get(0).getAsJsonObject().get("objectX").getAsDouble();
-//			double objectY= obj.get(0).getAsJsonObject().get("objectY").getAsDouble();
-//	//		boolean isShooted = obj.get(0).getAsJsonObject().get("isShooted").getAsBoolean();
-//			GameObject shootingObject= getShootingObject();
-//			UIGameObject uiobject= renderer.objects.get(0);
-//			System.out.println(currentShootingObject);
-//			if(currentShootingObject.equals("alpha") || currentShootingObject.equals("beta") || currentShootingObject.equals("sigma") || currentShootingObject.equals("gamma")) {
-//	//			shootingObject= new Atom(currentShootingObject);
-//	//			uiobject = new UIAtom(shootingObject.getType());
-//	////			uiobject.setHeight(diameter);
-//	////			uiobject.setWidth(diameter);
-//	//			((UIAtom)uiobject).setDiameter(diameter);
-//	//			shootingObject.setHeight(diameter);
-//	//			shootingObject.setWidth(diameter);
-//	//			shootingObject.setSpeed(atomSpeed);
-//	//			shootingObject.setRotationAngle(objectMovementAngle);
-//				
-//				//TODO Setting shootingObject does not work precisely.
-//				Atom atom1= AtomFactory.getAtom((Atom) getShootingObject(),currentShootingObject);
-//				((UIAtom) uiobject).setAtomType(atom1.getType());
-//			}else if(currentShootingObject.equals("+alpha") || currentShootingObject.equals("+beta") || currentShootingObject.equals("+sigma") || currentShootingObject.equals("+gamma")) {
-//	
-//	//			shootingObject= new Powerup(currentShootingObject);
-//	//			uiobject = new UIPowerup(currentShootingObject);
-//	//			uiobject.setHeight(diameter*2);
-//	//			uiobject.setWidth(diameter*2);
-//	//			shootingObject.setHeight(diameter*2);
-//	//			shootingObject.setWidth(diameter*2);
-//				Powerup pu1= PowerupFactory.getPU((Powerup) getShootingObject(),currentShootingObject);
-//				((UIPowerup) uiobject).setPUType(pu1.getType());
-//			}
-//			
-//			getShootingObject().setX(objectX);
-//			getShootingObject().setY(objectY);
-//			shootingObject.setRotationAngle(objectMovementAngle);
-//			
-//			//Molecules Load
-//			for(int i=1;i<obj.size();i++) {
-//				System.out.println(obj.get(i).getAsJsonObject().get("type"));
-//				Molecule molecule = MoleculeFactory.getMolecule(obj.get(i).getAsJsonObject().get("type").getAsString());
-//				molecule.setX(obj.get(i).getAsJsonObject().get("x").getAsDouble());
-//				molecule.setY(obj.get(i).getAsJsonObject().get("y").getAsDouble());
-//				System.out.println(molecule);
-//				this.objects.add(molecule);
-//				
-//				//TODO Change UIMolecule with UIMoleculeFactory
-//				UIMolecule uimolecule = UIMoleculeFactory.getMolecule(obj.get(i).getAsJsonObject().get("type").getAsString());
-//				
-//				uimolecule.setX(molecule.getX());
-//				uimolecule.setY(molecule.getY());
-//				renderer.objects.add(uimolecule);
-//			}
 		}
 		
 	}
@@ -716,6 +655,14 @@ public class Controller {
 
 	public int getBetaPUCount() {
 		return betaPUCount;
+	}
+
+	public int getTime() {
+		return time;
+	}
+
+	public void setTime(int time) {
+		this.time = time;
 	}
 	
 	

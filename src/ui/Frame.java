@@ -65,7 +65,7 @@ public class Frame extends Canvas {
 		sidebar.setBounds(10, 10, 100, 40);
 		statsWindow = StatisticsWindow.getInstance();
 		statsWindow.setBounds(1750,10,150, 800);
-		statsWindow.setLayout(new GridLayout(9,2));
+		statsWindow.setLayout(new GridLayout(0,2));
 		frame.add(sidebar);
 		frame.add(statsWindow);
 		frame.add(game);

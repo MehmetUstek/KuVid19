@@ -97,7 +97,7 @@ public class KuVid extends Canvas implements Runnable {
 			renderer =new Renderer();
 			controller = new Controller(renderer, window);
 			this.requestFocus();
-			
+			controller.setTime(600);
 			// Atom settings.
 			shootingObject.setDiameter(diameter);
 			shootingObject.setX(atomX);
@@ -447,6 +447,7 @@ public class KuVid extends Canvas implements Runnable {
 				timer += 1000;
 //				System.out.println("FPS: " + frames);
 				frames = 0;
+				controller.setTime(controller.getTime()-1);
 			}
 		}
 		stop();

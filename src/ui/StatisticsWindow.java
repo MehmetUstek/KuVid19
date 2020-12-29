@@ -53,11 +53,10 @@ public class StatisticsWindow extends JPanel{
 	JLabel gammaPULabel = new JLabel("1");
 	JLabel scoreText = new JLabel("Score");
 	JLabel score= new JLabel();
-	JLabel timeShape = new JLabel("");
-	JLabel time = new JLabel();
+	JLabel timeShape = new JLabel("Time");
+	JLabel time = new JLabel("lolzie");
 	
 	public StatisticsWindow() {
-//		this.setLayout(new GridLayout());
 		statisticAlpha.setIcon(icona);
 		statisticBeta.setIcon(iconb);
 		statisticSigma.setIcon(icons);
@@ -72,11 +71,13 @@ public class StatisticsWindow extends JPanel{
 		gammaPULabel.setFont(myFont);
 		scoreText.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		score.setFont(myFont);
+		timeShape.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		time.setFont(myFont);
+		
 		add(scoreText);
 		add(score);
-//		add(timeShape);
-//		add(time);
+		add(timeShape);
+		add(time);
 		
 		add(alphaLabel);
 		add(statisticAlpha);

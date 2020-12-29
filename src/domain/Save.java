@@ -192,7 +192,8 @@ public class Save implements ISaveLoad {
 			UIGameObject uiobject= controller.getUIShootingObject();
 			System.out.println(currentShootingObject);
 			
-			
+			//Time
+			controller.setTime(remainingTime);
 			
 			if(currentShootingObject.equals("alpha") || currentShootingObject.equals("beta") || currentShootingObject.equals("sigma") || currentShootingObject.equals("gamma")) {
 	//			shootingObject= new Atom(currentShootingObject);
