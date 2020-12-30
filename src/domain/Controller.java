@@ -686,10 +686,9 @@ public class Controller {
 		// TODO Auto-generated method stub
 	if(isAtom(getShootingObject())) {
 		Atom shootingObject= (Atom) getShootingObject();
-		System.out.println(shootingObject.getEfficiency());
 		if(type.equals("eta")) {
 			setShootingObject(new Eta(shootingObject));
-			System.out.println(shootingObject.getEfficiency());
+			
 		}
 		else if(type.equals("lota")) {
 			setShootingObject(new Lota(shootingObject));
@@ -701,7 +700,9 @@ public class Controller {
 			setShootingObject(new Zeta(shootingObject));
 		}
 	}
+	System.out.println(((Atom)getShootingObject()).getEfficiency());
 	}
+	
 	
 	
 }
