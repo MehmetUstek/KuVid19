@@ -22,6 +22,7 @@ import domain.molecule.Molecule;
 import domain.molecule.MoleculeFactory;
 import domain.powerup.Powerup;
 import domain.powerup.PowerupFactory;
+import domain.shield.*;
 import domain.shooter.AtomShooter;
 import ui.Frame;
 import ui.KuVid;
@@ -282,8 +283,10 @@ public class Controller {
 			pu.setX(x);
 			pu.setY(y);
 		}else {
-			tempobject.setX(objects.get(1).getX());
-			tempobject.setY(objects.get(1).getY());
+			x=objects.get(1).getX()-tempobject1.getWidth();
+			y=objects.get(1).getY()-tempobject1.getHeight()*4;
+			tempobject.setX(x);
+			tempobject.setY(y);
 			
 		}
 		//TODO There is problem after atom lands.
@@ -477,6 +480,9 @@ public class Controller {
 	}
 	public GameObject getShootingObject() {
 		return this.objects.get(0);
+	}
+	public GameObject setShootingObject(GameObject obj) {
+		return this.objects.set(0,obj);
 	}
 	public UIGameObject getUIShootingObject() {
 		return this.renderer.objects.get(0);
@@ -674,6 +680,27 @@ public class Controller {
 
 	public void setSpeed(double speed) {
 		this.speed = speed;
+	}
+
+	public void shieldClicked(String type) {
+		// TODO Auto-generated method stub
+	if(isAtom(getShootingObject())) {
+		Atom shootingObject= (Atom) getShootingObject();
+		System.out.println(shootingObject.getEfficiency());
+		if(type.equals("eta")) {
+			setShootingObject(new Eta(shootingObject));
+			System.out.println(shootingObject.getEfficiency());
+		}
+		else if(type.equals("lota")) {
+			setShootingObject(new Lota(shootingObject));
+		}
+		else if(type.equals("theta")) {
+			setShootingObject(new Theta(shootingObject));
+		}
+		else {
+			setShootingObject(new Zeta(shootingObject));
+		}
+	}
 	}
 	
 	

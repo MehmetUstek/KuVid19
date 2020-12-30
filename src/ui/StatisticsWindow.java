@@ -13,7 +13,10 @@ public class StatisticsWindow extends JPanel{
 	JButton statisticBeta = new JButton();
 	JButton statisticSigma = new JButton();
 	JButton statisticGamma = new JButton();
-	Font myFont = new Font("Times New Roman", Font.BOLD, 25);
+	Font myFont = new Font("Times New Roman", Font.BOLD, 20);
+	Font secondFont = new Font("Times New Roman", Font.BOLD, 15);
+	
+
 	String alpha= "src/assets/atoms/alpha.png";
 	String beta= "src/assets/atoms/beta.png";
 	String sigma= "src/assets/atoms/sigma.png";
@@ -54,7 +57,16 @@ public class StatisticsWindow extends JPanel{
 	JLabel scoreText = new JLabel("Score");
 	JLabel score= new JLabel();
 	JLabel timeShape = new JLabel("Time");
-	JLabel time = new JLabel("lolzie");
+	JLabel time = new JLabel("0");
+	//Shields
+	JButton etaLabel = new JButton("Eta");
+	JLabel eta= new JLabel("0");
+	JButton lotaLabel = new JButton("Lota");
+	JLabel lota= new JLabel("0");
+	JButton thetaLabel = new JButton("Theta");
+	JLabel theta= new JLabel("0");
+	JButton zetaLabel = new JButton("Zeta");
+	JLabel zeta= new JLabel("0");
 	
 	public StatisticsWindow() {
 		statisticAlpha.setIcon(icona);
@@ -69,10 +81,18 @@ public class StatisticsWindow extends JPanel{
 		betaPULabel.setFont(myFont);
 		sigmaPULabel.setFont(myFont);
 		gammaPULabel.setFont(myFont);
-		scoreText.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		scoreText.setFont(secondFont);
 		score.setFont(myFont);
-		timeShape.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		timeShape.setFont(secondFont);
 		time.setFont(myFont);
+		etaLabel.setFont(secondFont);
+		lotaLabel.setFont(secondFont);
+		thetaLabel.setFont(secondFont);
+		zetaLabel.setFont(secondFont);
+		eta.setFont(myFont);
+		lota.setFont(myFont);
+		theta.setFont(myFont);
+		zeta.setFont(myFont);
 		
 		add(scoreText);
 		add(score);
@@ -87,6 +107,9 @@ public class StatisticsWindow extends JPanel{
 		add(statisticSigma);
 		add(gammaLabel);
 		add(statisticGamma);
+		
+		
+		
 		puAlpha.setIcon(alphaPU);
 		puBeta.setIcon(betaPU);
 		puSigma.setIcon(sigmaPU);
@@ -117,6 +140,28 @@ public class StatisticsWindow extends JPanel{
 		statisticGamma.setBorder(BorderFactory.createEmptyBorder());
 		statisticGamma.setContentAreaFilled(false);
 		
+		//Shields
+		etaLabel.setBorder(BorderFactory.createEmptyBorder());
+		etaLabel.setContentAreaFilled(false);
+		lotaLabel.setBorder(BorderFactory.createEmptyBorder());
+		lotaLabel.setContentAreaFilled(false);
+		thetaLabel.setBorder(BorderFactory.createEmptyBorder());
+		thetaLabel.setContentAreaFilled(false);
+		zetaLabel.setBorder(BorderFactory.createEmptyBorder());
+		zetaLabel.setContentAreaFilled(false);
+		
+		
+		
+		//Shields Add
+		add(etaLabel);
+		add(eta);
+		add(lotaLabel);
+		add(lota);
+		add(thetaLabel);
+		add(theta);
+		add(zetaLabel);
+		add(zeta);
+				
 		add(alphaPULabel);
 		add(puAlpha);
 		add(betaPULabel);
@@ -315,6 +360,36 @@ public class StatisticsWindow extends JPanel{
 		return instance;
 	}
 	
-	
+	public JButton getEtaLabel() {
+		return etaLabel;
+	}
+
+	public void setEtaLabel(JButton etaLabel) {
+		this.etaLabel = etaLabel;
+	}
+
+	public JButton getLotaLabel() {
+		return lotaLabel;
+	}
+
+	public void setLotaLabel(JButton lotaLabel) {
+		this.lotaLabel = lotaLabel;
+	}
+
+	public JButton getThetaLabel() {
+		return thetaLabel;
+	}
+
+	public void setThetaLabel(JButton thetaLabel) {
+		this.thetaLabel = thetaLabel;
+	}
+
+	public JButton getZetaLabel() {
+		return zetaLabel;
+	}
+
+	public void setZetaLabel(JButton zetaLabel) {
+		this.zetaLabel = zetaLabel;
+	}
 
 }

@@ -136,6 +136,9 @@ public class BuildMode extends Canvas implements Runnable {
 		});
 
 	}
+	public void addShields(Controller controller) {
+		
+	}
 	public int getTime() {
 		String s1= window.getGameTime().getText();
 		return Integer.parseInt(s1);

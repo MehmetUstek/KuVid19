@@ -45,6 +45,17 @@ public class Frame extends Canvas {
 	private JTextField sigmaAtomCount = new JTextField(10);
 	private JTextField gammaAtomCount = new JTextField(10);
 	
+	//Shields
+	private JTextField etaType = new JTextField("Eta");
+	private JTextField lotaType = new JTextField("Lota");
+	private JTextField thetaType = new JTextField("Theta");
+	private JTextField zetaType = new JTextField("Zeta");
+	private JTextField etaCount = new JTextField(10);
+	private JTextField lotaCount = new JTextField(10);
+	private JTextField thetaCount = new JTextField(10);
+	private JTextField zetaCount = new JTextField(10);
+	
+	
 	private JFrame frame;
 	private JPanel gui = new JPanel(new GridLayout(0,1));
 	private JPanel simpleGui = new JPanel(new FlowLayout());  
@@ -84,7 +95,7 @@ public class Frame extends Canvas {
 		sidebar.setBackground(Color.white);
 		sidebar.setBounds(10, 10, 100, 40);
 		statsWindow = StatisticsWindow.getInstance();
-		statsWindow.setBounds(1750,10,150, 800);
+		statsWindow.setBounds(1750,10,150, 1000);
 		statsWindow.setLayout(new GridLayout(0,2));
 		frame.add(sidebar);
 		frame.add(statsWindow);
@@ -120,6 +131,10 @@ public class Frame extends Canvas {
 		sigmaAtomType.setEditable(false);
 		gammaAtomType.setEditable(false);
 		puText.setEditable(false);
+		etaType.setEditable(false);
+		lotaType.setEditable(false);
+		thetaType.setEditable(false);
+		zetaType.setEditable(false);
 		
 		alphaAtomCount.setEditable(true);
 		alphaAtomCount.setText("20");
@@ -137,6 +152,16 @@ public class Frame extends Canvas {
 		sigmaMoleculeCount.setText("100");
 		gammaMoleculeCount.setEditable(true);
 		gammaMoleculeCount.setText("100");
+		
+		//Shields
+		etaCount.setEditable(true);
+		etaCount.setText("20");
+		lotaCount.setEditable(true);
+		lotaCount.setText("20");
+		thetaCount.setEditable(true);
+		thetaCount.setText("20");
+		zetaCount.setEditable(true);
+		zetaCount.setText("20");
 		
 		puCount.setEditable(true);
 		puCount.setText("20");
@@ -163,6 +188,14 @@ public class Frame extends Canvas {
 		simpleGui.add( gammaMoleculeCount );
 		simpleGui.add( puText);
 		simpleGui.add( puCount );
+		simpleGui.add(etaType);
+		simpleGui.add(etaCount);
+		simpleGui.add(lotaType);
+		simpleGui.add(lotaCount);
+		simpleGui.add(thetaType);
+		simpleGui.add(thetaCount);
+		simpleGui.add(zetaType);
+		simpleGui.add(zetaCount);
 		simpleGui.setLayout(new GridLayout(0,2));
 		
 		gui.add(simpleGui);

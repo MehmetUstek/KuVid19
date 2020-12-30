@@ -1,5 +1,7 @@
 package domain.atom;
 
+import java.util.Random;
+
 import domain.GameObject;
 
 public class Atom extends GameObject{
@@ -20,12 +22,12 @@ public class Atom extends GameObject{
 		this.speed= getSpeed();
 		this.diameter= getDiameter();
 		this.atomType= atomType;
-		this.stability= getStability();
-		this.efficiency= getEfficiency();
+//		this.stability= getStability();
 		this.protons = getProtons();
 		this.neutrons= getNeutrons();
 		this.width= getDiameter();
 		this.height= getDiameter();
+		setEfficiency();
 	}
 	public double getWidth() {
 		return diameter;
@@ -40,27 +42,80 @@ public class Atom extends GameObject{
 		this.height = height;
 	}
 	public int getProtons() {
-		return protons;
+		if(getType().equals("alpha")) {
+			return 8;
+		}
+		else if(getType().equals("beta")) {
+			return 16;
+		}
+		else if(getType().equals("sigma")) {
+			return 32;
+		}
+		else {
+			return 64;
+		}
 	}
 
-	public void setProtons(int protons) {
-		this.protons = protons;
-	}
 
 	public int getNeutrons() {
+		Random random = new Random();
+		
+		if(getType().equals("alpha")) {
+			int number=random.nextInt(3);
+			switch(number) {
+			case 0:
+				return 7;
+			case 1:
+				return 8;
+			case 2:
+				return 9;
+			}
+			
+		}
+		else if(getType().equals("beta")) {
+			int number=random.nextInt(5);
+			switch(number) {
+			case 0:
+				return 15;
+			case 1:
+				return 16;
+			case 2:
+				return 17;
+			case 3:
+				return 18;
+			case 4:
+				return 21;
+			}
+		}
+		else if(getType().equals("sigma")) {
+			int number=random.nextInt(3);
+			switch(number) {
+			case 0:
+				return 29;
+			case 1:
+				return 32;
+			case 2:
+				return 33;
+			}
+		}
+		else {
+			int number=random.nextInt(3);
+			switch(number) {
+			case 0:
+				return 63;
+			case 1:
+				return 64;
+			case 2:
+				return 67;
+			}
+		}
 		return neutrons;
 	}
 
 	public void setNeutrons(int neutrons) {
 		this.neutrons = neutrons;
 	}
-	public double getStability() {
-		return stability;
-	}
-
-	public void setStability(double stability) {
-		this.stability = stability;
-	}
+	
 
 	public double getEfficiency() {
 		return efficiency;
@@ -68,16 +123,16 @@ public class Atom extends GameObject{
 
 	public void setEfficiency() {
 		if(getType().equals("alpha")) {
-			this.efficiency = (1- (Math.abs((getNeutrons()-getProtons())) / getProtons()) ) * getStability();
+			this.efficiency = (1- (Math.abs((getNeutrons()-getProtons())) / getProtons()) ) * 0.85;
 		}
 		if(getType().equals("beta")) {
-			this.efficiency = getStability() - (0.5 * Math.abs(getNeutrons() - getProtons()) / getProtons());
+			this.efficiency = 0.9 - (0.5 * Math.abs(getNeutrons() - getProtons()) / getProtons());
 		}
 		if(getType().equals("sigma")) {
-			this.efficiency = (1+ getStability()) /2 +  (Math.abs(getNeutrons() - getProtons()) / getProtons());
+			this.efficiency = (1+ 0.8) /2 +  (Math.abs(getNeutrons() - getProtons()) / getProtons());
 		}
 		if(getType().equals("gamma")) {
-			this.efficiency = getStability() + (Math.abs(getNeutrons() - getProtons()) / (2* getProtons()));
+			this.efficiency = 0.7 + (Math.abs(getNeutrons() - getProtons()) / (2* getProtons()));
 		}
 	}
 

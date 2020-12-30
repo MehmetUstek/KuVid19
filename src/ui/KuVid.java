@@ -308,6 +308,46 @@ public class KuVid extends Canvas implements Runnable {
 				}
 				
 			});
+			
+			//SHIELDS
+			window.getStatsWindow().getEtaLabel().addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					controller.shieldClicked("eta");
+				}
+				
+			});
+			window.getStatsWindow().getLotaLabel().addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					controller.shieldClicked("lota");
+				}
+				
+			});
+			window.getStatsWindow().getThetaLabel().addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					controller.shieldClicked("theta");
+				}
+				
+			});
+			window.getStatsWindow().getZetaLabel().addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					controller.shieldClicked("zeta");
+				}
+				
+			});
+			
+			//POWERUPS
 			window.getStatsWindow().getPuAlpha().addActionListener(new ActionListener() {
 
 				@Override
