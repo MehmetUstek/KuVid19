@@ -127,17 +127,26 @@ public class BuildMode extends Canvas implements Runnable {
 				if(!moleculesAdded) {
 					addMolecules(controller, renderer);
 				}
+				getDifficulty(controller);
 				addAtoms(controller);
+				
 				SaveLoadAdapter save= new SaveLoadAdapter(new Save(username,controller,list,speed,getTime()));
 //				System.out.println(list);
 				save.saveGame();
-				getDifficulty(controller);
+				
 			}
 		});
 
 	}
 	public void addShields(Controller controller) {
-		
+		String s1 = window.getEtaCount().getText();
+		String s2 = window.getLotaCount().getText();
+		String s3 = window.getThetaCount().getText();
+		String s4 = window.getZetaCount().getText();
+		controller.setEtaCount(Integer.parseInt(s1));
+		controller.setLotaCount(Integer.parseInt(s2));
+		controller.setThetaCount(Integer.parseInt(s3));
+		controller.setZetaCount(Integer.parseInt(s4));
 	}
 	public int getTime() {
 		String s1= window.getGameTime().getText();
@@ -146,15 +155,15 @@ public class BuildMode extends Canvas implements Runnable {
 	public void getDifficulty(Controller controller) {
 		if(window.getbGroup().getSelection().getActionCommand().equals("easy")) {
 			System.out.println("Object will fall in 1 second span");
-			speed= 10;
+			this.speed= 10;
 		}
 		else if(window.getbGroup().getSelection().getActionCommand().equals("medium")) {
 			System.out.println("Object will fall in 1/2 second span");
-			speed= 20;
+			this.speed= 20;
 		}
 		else {
 			System.out.println("Object will fall in 1/4 second span");
-			speed= 30;
+			this.speed= 30;
 		}
 		
 	}

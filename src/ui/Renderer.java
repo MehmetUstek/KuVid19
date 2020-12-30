@@ -11,7 +11,8 @@ import java.util.List;
 public class Renderer {
 
 	public List<UIGameObject> objects = new LinkedList<UIGameObject>();
-	int lives,score;
+	int lives;
+	double score;
 	boolean gameOver;
 	public static double WIDTH= KuVid.WIDTH;
 	public static double HEIGHT= KuVid.HEIGHT;
@@ -45,11 +46,11 @@ public class Renderer {
 		this.lives = lives;
 	}
 
-	public int getScore() {
+	public double getScore() {
 		return score;
 	}
 
-	public void setScore(int score) {
+	public void setScore(double score) {
 		this.score = score;
 	}
 

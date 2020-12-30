@@ -42,9 +42,11 @@ public class Controller {
 			HEIGHT =  Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	Renderer renderer;
 	private ArrayList<Powerup> collectedPowerups = new ArrayList<Powerup>();
-	private int score = 0, time, counter = 0, lives = 3, initialMoleculeCount;
+	private int time, counter = 0, lives = 3, initialMoleculeCount;
+	private double score= 0;
 	private int alphaCount=100,betaCount=100,sigmaCount=100,gammaCount=100;
 	private int alphaPUCount=20,betaPUCount=20,sigmaPUCount=20,gammaPUCount=20;
+	private int etaCount=20,lotaCount=20,thetaCount=20,zetaCount=20;
 	private boolean atomFalled;
 	public ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	Frame frame;
@@ -92,9 +94,15 @@ public class Controller {
 		statsWindow.getBetaPULabel().setText(Integer.toString(betaPUCount));
 		statsWindow.getSigmaPULabel().setText(Integer.toString(sigmaPUCount));
 		statsWindow.getGammaPULabel().setText(Integer.toString(gammaPUCount));
+		
+		//Shields
+		statsWindow.getEta().setText(Integer.toString(etaCount));
+		statsWindow.getLota().setText(Integer.toString(lotaCount));
+		statsWindow.getTheta().setText(Integer.toString(thetaCount));
+		statsWindow.getZeta().setText(Integer.toString(zetaCount));
 		renderer.setScore(score);
 		renderer.setLives(lives);
-		statsWindow.getScore().setText(Integer.toString(score));
+		statsWindow.getScore().setText(Double.toString(score));
 		// Remaining timer
 		int timeAsSecond= time;
 		String minute=Integer.toString(timeAsSecond/60);
@@ -260,12 +268,11 @@ public class Controller {
 					}
 					renderer.removeObject(molecule);
 //					uicontroller.removeObject(atom);
-					
 					tempobject.setX(objects.get(1).getX());
 					tempobject.setY(objects.get(1).getY());
 					tempobject.setRotationAngle(getShooter().getRotationAngle());
 					((Atom) tempobject).setShooted(false);
-					score++;
+					score += ((Atom)tempobject).getEfficiency();
 //					uicontroller.addObject(atom);
 				}
 			}
@@ -456,14 +463,15 @@ public class Controller {
 		return false;
 	}
 	public void saveGame() {
-		int score=100;
 		ArrayList<GameObject> moleculeList= new ArrayList<GameObject>();
 		for(int i=2;i<objects.size();i++) {
 			moleculeList.add(objects.get(i));
 		}
 		GameObject shootingObject= getShootingObject();
 		save= new SaveLoadAdapter(new Save(username,score,time,shootingObject.getType(),shootingObject.isShooted(),shootingObject.getX(),shootingObject.getY(),shootingObject.getRotationAngle(),
-				alphaCount,betaCount,sigmaCount,gammaCount,alphaPUCount,betaPUCount,sigmaPUCount,gammaPUCount,moleculeList,this,speed));
+				alphaCount,betaCount,sigmaCount,gammaCount,alphaPUCount,betaPUCount,sigmaPUCount,gammaPUCount,
+				etaCount,lotaCount,thetaCount,zetaCount,
+				moleculeList,this,speed));
 		save.saveGame();
 	}
 	public void loadGame() {
@@ -701,6 +709,38 @@ public class Controller {
 		}
 	}
 	System.out.println(((Atom)getShootingObject()).getEfficiency());
+	}
+
+	public int getEtaCount() {
+		return etaCount;
+	}
+
+	public void setEtaCount(int etaCount) {
+		this.etaCount = etaCount;
+	}
+
+	public int getLotaCount() {
+		return lotaCount;
+	}
+
+	public void setLotaCount(int lotaCount) {
+		this.lotaCount = lotaCount;
+	}
+
+	public int getThetaCount() {
+		return thetaCount;
+	}
+
+	public void setThetaCount(int thetaCount) {
+		this.thetaCount = thetaCount;
+	}
+
+	public int getZetaCount() {
+		return zetaCount;
+	}
+
+	public void setZetaCount(int zetaCount) {
+		this.zetaCount = zetaCount;
 	}
 	
 	

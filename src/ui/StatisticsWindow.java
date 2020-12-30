@@ -392,4 +392,36 @@ public class StatisticsWindow extends JPanel{
 		this.zetaLabel = zetaLabel;
 	}
 
+	public JLabel getEta() {
+		return eta;
+	}
+
+	public void setEta(JLabel eta) {
+		this.eta = eta;
+	}
+
+	public JLabel getLota() {
+		return lota;
+	}
+
+	public void setLota(JLabel lota) {
+		this.lota = lota;
+	}
+
+	public JLabel getTheta() {
+		return theta;
+	}
+
+	public void setTheta(JLabel theta) {
+		this.theta = theta;
+	}
+
+	public JLabel getZeta() {
+		return zeta;
+	}
+
+	public void setZeta(JLabel zeta) {
+		this.zeta = zeta;
+	}
+
 }

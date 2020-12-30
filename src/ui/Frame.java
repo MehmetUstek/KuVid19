@@ -464,5 +464,45 @@ public class Frame extends Canvas {
 	public void setGameTime(JTextField gameTime) {
 		this.gameTime = gameTime;
 	}
+
+
+	public JTextField getEtaCount() {
+		return etaCount;
+	}
+
+
+	public void setEtaCount(JTextField etaCount) {
+		this.etaCount = etaCount;
+	}
+
+
+	public JTextField getLotaCount() {
+		return lotaCount;
+	}
+
+
+	public void setLotaCount(JTextField lotaCount) {
+		this.lotaCount = lotaCount;
+	}
+
+
+	public JTextField getThetaCount() {
+		return thetaCount;
+	}
+
+
+	public void setThetaCount(JTextField thetaCount) {
+		this.thetaCount = thetaCount;
+	}
+
+
+	public JTextField getZetaCount() {
+		return zetaCount;
+	}
+
+
+	public void setZetaCount(JTextField zetaCount) {
+		this.zetaCount = zetaCount;
+	}
 	
 }

@@ -31,9 +31,10 @@ import ui.molecule.UIMolecule;
 
 public class Save implements ISaveLoad {
 	String username="",currentShootingObject="";
-	double objectMovementAngle=0,objectX=0,objectY=0;
-	int score=0,  remainingTime=0, alphaAtomCount=0, betaAtomCount=0,sigmaAtomCount=0,gammaAtomCount=0, 
-	alphaPUCount=0,betaPUCount=0,sigmaPUCount=0,gammaPUCount=0;
+	double objectMovementAngle=0,objectX=0,objectY=0, score=0;
+	int remainingTime=0, alphaAtomCount=0, betaAtomCount=0,sigmaAtomCount=0,gammaAtomCount=0, 
+	alphaPUCount=0,betaPUCount=0,sigmaPUCount=0,gammaPUCount=0,
+	etaCount= 0, lotaCount= 0, thetaCount = 0, zetaCount =0;
 	ArrayList<GameObject> list;
 	Controller controller;
 	boolean isShooted;
@@ -42,9 +43,11 @@ public class Save implements ISaveLoad {
 	double speed;
 	double diameter= controller.L/10;
 	public Save(String username
-			, int score, int remainingTime, String currentShootingObject,boolean isShooted,double objectX, double objectY, double objectMovementAngle,
+			, double score, int remainingTime, String currentShootingObject,boolean isShooted,double objectX, double objectY, double objectMovementAngle,
 			int alphaAtomCount,int betaAtomCount,int sigmaAtomCount,int gammaAtomCount, 
-			int alphaPUCount,int betaPUCount,int sigmaPUCount,int gammaPUCount,ArrayList<GameObject> list,
+			int alphaPUCount,int betaPUCount,int sigmaPUCount,int gammaPUCount,
+			int etaCount, int lotaCount, int thetaCount, int zetaCount, 
+			ArrayList<GameObject> list,
 			Controller controller,double speed)
 	{
 		this.username=username;
@@ -66,6 +69,10 @@ public class Save implements ISaveLoad {
 		this.isShooted= isShooted;
 		this.controller= controller;
 		this.speed= speed;
+		this.etaCount=etaCount;
+		this.lotaCount=lotaCount;
+		this.thetaCount= thetaCount;
+		this.zetaCount= zetaCount;
 		
 		
 		// TODO Auto-generated constructor stub
@@ -85,6 +92,10 @@ public class Save implements ISaveLoad {
 		this.betaAtomCount= controller.getBetaCount();
 		this.sigmaAtomCount= controller.getSigmaCount();
 		this.gammaAtomCount= controller.getGammaCount();
+		this.etaCount= controller.getEtaCount();
+		this.lotaCount= controller.getLotaCount();
+		this.thetaCount= controller.getThetaCount();
+		this.zetaCount= controller.getZetaCount();
 	}
 	public void saveGame() {
 		JsonObject obj= new JsonObject();
@@ -117,6 +128,12 @@ public class Save implements ISaveLoad {
 		obj.addProperty("betaPU", betaPUCount);
 		obj.addProperty("sigmaPU", sigmaPUCount);
 		obj.addProperty("gammaPU", gammaPUCount);
+		
+		//Shields
+		obj.addProperty("eta", etaCount);
+		obj.addProperty("lota", lotaCount);
+		obj.addProperty("theta", thetaCount);
+		obj.addProperty("zeta", zetaCount);
 		
 		
 		//molecule and its position (position as string, must do split.)
@@ -184,6 +201,13 @@ public class Save implements ISaveLoad {
 			betaAtomCount= obj.get(0).getAsJsonObject().get("betaAtom").getAsInt();
 			sigmaAtomCount= obj.get(0).getAsJsonObject().get("sigmaAtom").getAsInt();
 			gammaAtomCount= obj.get(0).getAsJsonObject().get("gammaAtom").getAsInt();
+			
+			//Shields
+			etaCount= obj.get(0).getAsJsonObject().get("eta").getAsInt();
+			lotaCount= obj.get(0).getAsJsonObject().get("lota").getAsInt();
+			thetaCount= obj.get(0).getAsJsonObject().get("theta").getAsInt();
+			zetaCount= obj.get(0).getAsJsonObject().get("zeta").getAsInt();
+			
 			int remainingTime= obj.get(0).getAsJsonObject().get("remainingTime").getAsInt();
 			String currentShootingObject= obj.get(0).getAsJsonObject().get("currentShootingObject").getAsString();
 //			System.out.println(currentShootingObject);
@@ -194,6 +218,12 @@ public class Save implements ISaveLoad {
 			GameObject shootingObject= controller.getShootingObject();
 			UIGameObject uiobject= controller.getUIShootingObject();
 //			System.out.println(currentShootingObject);
+			
+			//Shields
+			controller.setEtaCount(etaCount);
+			controller.setLotaCount(lotaCount);
+			controller.setThetaCount(thetaCount);
+			controller.setZetaCount(zetaCount);
 			
 			//Time
 			controller.setTime(remainingTime);
