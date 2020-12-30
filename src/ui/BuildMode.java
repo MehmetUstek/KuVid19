@@ -129,14 +129,18 @@ public class BuildMode extends Canvas implements Runnable {
 				}
 				getDifficulty(controller);
 				addAtoms(controller);
-				
+				setUsername();
 				SaveLoadAdapter save= new SaveLoadAdapter(new Save(username,controller,list,speed,getTime()));
 //				System.out.println(list);
 				save.saveGame();
+				System.out.println(username);
 				
 			}
 		});
 
+	}
+	public void setUsername() {
+		this.username= window.getUsername().getText();
 	}
 	public void addShields(Controller controller) {
 		String s1 = window.getEtaCount().getText();

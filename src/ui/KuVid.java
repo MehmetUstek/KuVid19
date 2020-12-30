@@ -32,6 +32,7 @@ public class KuVid extends Canvas implements Runnable {
 	Statistics statistics;
 	private Frame window = new Frame(Toolkit.getDefaultToolkit().getScreenSize(), "KuVid", this);
 	private static KuVid game;
+	public String username;
 	public static final double L= HEIGHT/10;
 	private JTextField blenderGivenAtom = new JTextField(10);
 	
@@ -98,6 +99,7 @@ public class KuVid extends Canvas implements Runnable {
 			controller = new Controller(renderer, window);
 			this.requestFocus();
 			controller.setTime(600);
+			
 			// Atom settings.
 			shootingObject.setDiameter(diameter);
 			shootingObject.setX(atomX);
@@ -309,6 +311,16 @@ public class KuVid extends Canvas implements Runnable {
 				
 			});
 			
+			window.getLogin().addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					username= window.getUsername().getText();
+					controller.setUsername(username);
+				}
+				
+			});
 			//SHIELDS
 			window.getStatsWindow().getEtaLabel().addActionListener(new ActionListener() {
 
@@ -582,4 +594,13 @@ public class KuVid extends Canvas implements Runnable {
 			isPaused= false;
 		}
 	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
 }

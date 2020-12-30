@@ -65,7 +65,8 @@ public class Frame extends Canvas {
 	StatisticsWindow statsWindow;
 	private JButton applyButton = new JButton("Apply");
 	private boolean isBuildMode= false;
-	
+	JTextField username= new JTextField("Enter username:");
+	JButton login = new JButton("login");
 	// Time
 	JLabel time= new JLabel("Time(As Seconds)");
 	JTextField gameTime = new JTextField("600");
@@ -92,8 +93,10 @@ public class Frame extends Canvas {
 		frame.setBackground(Color.WHITE);
 		frame.setLocationRelativeTo(null);
 		sidebar.add(quitButton);
+		sidebar.add(username);
+		sidebar.add(login);
 		sidebar.setBackground(Color.white);
-		sidebar.setBounds(10, 10, 100, 40);
+		sidebar.setBounds(10, 10, 300, 40);
 		statsWindow = StatisticsWindow.getInstance();
 		statsWindow.setBounds(1750,10,150, 1000);
 		statsWindow.setLayout(new GridLayout(0,2));
@@ -166,7 +169,8 @@ public class Frame extends Canvas {
 		puCount.setEditable(true);
 		puCount.setText("20");
 		gameTime.setEditable(true);
-		
+		simpleGui.add(new JLabel("Username"));
+		simpleGui.add(username);
 		simpleGui.add(time);
 		simpleGui.add(gameTime);
 		simpleGui.add( alphaAtomType );
@@ -232,6 +236,7 @@ public class Frame extends Canvas {
 
 	public Frame(Dimension screenSize, String title, Main mainGame) {
 		isBuildMode= false;
+		
 		frame = new JFrame(title);
 		frame.setVisible(true);
 		frame.setSize(WIDTH, HEIGHT);
@@ -239,6 +244,7 @@ public class Frame extends Canvas {
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gamePanel.setBackground(Color.WHITE);
+		
 		gamePanel.add(Game);
 		gamePanel.add(buildMode);
 		frame.add(gamePanel);
@@ -503,6 +509,26 @@ public class Frame extends Canvas {
 
 	public void setZetaCount(JTextField zetaCount) {
 		this.zetaCount = zetaCount;
+	}
+
+
+	public JTextField getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(JTextField username) {
+		this.username = username;
+	}
+
+
+	public JButton getLogin() {
+		return login;
+	}
+
+
+	public void setLogin(JButton login) {
+		this.login = login;
 	}
 	
 }
