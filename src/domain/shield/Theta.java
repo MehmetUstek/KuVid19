@@ -2,6 +2,10 @@ package domain.shield;
 import domain.atom.Atom;
 
 public class Theta extends ShieldDecorator{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Atom atom;
 	double low = 0.05;
 	double high = 0.15;

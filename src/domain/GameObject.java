@@ -1,6 +1,5 @@
 package domain;
 
-import java.awt.Shape;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")

@@ -12,6 +12,10 @@ import javax.swing.ImageIcon;
 public class UIPowerup extends UIGameObject implements ImageObserver{
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public String puType;
 	ImageIcon icon;
 	Image image;

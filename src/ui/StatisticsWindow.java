@@ -8,6 +8,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class StatisticsWindow extends JPanel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	static StatisticsWindow instance;
 	JButton statisticAlpha = new JButton();
 	JButton statisticBeta = new JButton();

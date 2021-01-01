@@ -3,6 +3,10 @@ package domain.shield;
 import domain.atom.Atom;
 
 public class Zeta extends ShieldDecorator{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Atom atom;
 	double zetaEfficiencyBoost = 0.2;
 	

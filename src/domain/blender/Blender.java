@@ -1,36 +1,22 @@
 package domain.blender;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.RenderingHints;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
-import javax.imageio.ImageIO;
-import javax.swing.JPanel;
 
 import domain.GameObject;
 import domain.atom.Atom;
-import domain.powerup.Powerup;
 import ui.KuVid;
 
 public class Blender extends GameObject{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String atomType;
 	String targetAtomType;
 	BufferedImage bimage;
 	Image image;
 	int width;
 	int height;
-	private static final int FRAME_WIDTH = 600;
 	final static int atomNumber= 100;
 	final static int L=200;
 	final static int diameter= L/10;

@@ -5,6 +5,10 @@ import java.util.Random;
 import domain.GameObject;
 
 public class Atom extends GameObject{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String atomType;
 	double rotationAngle;
 	double speed;

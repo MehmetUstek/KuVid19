@@ -1,37 +1,25 @@
 package domain;
 
-import java.awt.Toolkit;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
 import domain.atom.Atom;
 import domain.atom.AtomFactory;
-import domain.molecule.Molecule;
 import domain.molecule.MoleculeFactory;
 import domain.powerup.Powerup;
 import domain.powerup.PowerupFactory;
-import domain.shooter.AtomShooter;
 import ui.UIAtom;
 import ui.UIGameObject;
 import ui.UIMoleculeFactory;
 import ui.UIPowerup;
-import ui.UpdateAtomTask;
 import ui.molecule.UIMolecule;
 
 public class Save implements ISaveLoad {
@@ -43,10 +31,9 @@ public class Save implements ISaveLoad {
 	ArrayList<GameObject> list;
 	Controller controller;
 	boolean isShooted;
-	private boolean isLoaded = false;
 	Save instance;
 	double speed;
-	double diameter= controller.L/10;
+	double diameter= Controller.L/10;
 	public Save(String username
 			, double score, int remainingTime, String currentShootingObject,boolean isShooted,double objectX, double objectY, double objectMovementAngle,
 			int alphaAtomCount,int betaAtomCount,int sigmaAtomCount,int gammaAtomCount, 

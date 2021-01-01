@@ -12,6 +12,10 @@ import javax.swing.ImageIcon;
 public class UIBlender extends UIGameObject implements ImageObserver{
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public String atomType;
 	public double diameter;
 	BufferedImage bimage;

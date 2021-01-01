@@ -3,6 +3,10 @@ package domain.shield;
 import domain.atom.Atom;
 
 public class Lota extends ShieldDecorator {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Atom atom;
 	double lotaEfficiencyBoost = 0.1;
 	double efficiency;

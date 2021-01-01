@@ -11,6 +11,10 @@ import javax.swing.ImageIcon;
 
 public class UIShooter extends UIGameObject implements ImageObserver{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String type;
 	public int diameter;
 	BufferedImage bimage;

@@ -1,9 +1,6 @@
 package domain;
 
-import java.awt.Rectangle;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -11,52 +8,39 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-
 import domain.atom.Atom;
 import domain.atom.AtomFactory;
-import domain.molecule.AlphaMolecule;
-import domain.molecule.BetaMolecule;
 import domain.molecule.Molecule;
-import domain.molecule.MoleculeFactory;
 import domain.powerup.Powerup;
-import domain.powerup.PowerupFactory;
 import domain.shield.*;
 import domain.shooter.AtomShooter;
 import ui.Frame;
 import ui.KuVid;
 import ui.UIAtom;
 import ui.UIGameObject;
-import ui.UIMoleculeFactory;
 import ui.UIPowerup;
 import ui.Renderer;
 import ui.StatisticsWindow;
 import ui.UIShooter;
 import ui.UpdateAtomTask;
-import ui.molecule.AlphaMoleculeUI;
 import ui.molecule.UIMolecule;
 
 public class Controller {
 	public static double WIDTH =  Toolkit.getDefaultToolkit().getScreenSize().getWidth()-200,
 			HEIGHT =  Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	Renderer renderer;
-	private ArrayList<Powerup> collectedPowerups = new ArrayList<Powerup>();
-	private int time, counter = 0, lives = 3, initialMoleculeCount;
+	private int time, lives = 3, initialMoleculeCount;
 	private double score= 0;
 	private int alphaCount=100,betaCount=100,sigmaCount=100,gammaCount=100;
 	private int alphaPUCount=20,betaPUCount=20,sigmaPUCount=20,gammaPUCount=20;
 	private int etaCount=20,lotaCount=20,thetaCount=20,zetaCount=20;
-	private boolean atomFalled;
 	public ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	Frame frame;
-	private Thread thread;
-	private boolean running = false;
 	public static final double L= HEIGHT/10;
-	private static final double ALPHA_STABILITY= 0.85;
-	private static final double BETA_STABILITY= 0.9;
-	private static final double SIGMA_STABILITY= 0.8;
-	private static final double GAMMA_STABILITY= 0.7;
+//	private static final double ALPHA_STABILITY= 0.85;
+//	private static final double BETA_STABILITY= 0.9;
+//	private static final double SIGMA_STABILITY= 0.8;
+//	private static final double GAMMA_STABILITY= 0.7;
 	double shooterHeight = L;
 	double diameter= L/10;
 	double speed= 20;
@@ -113,6 +97,9 @@ public class Controller {
 		statsWindow.getTime().setText(minute+":"+second);
 		if(time==0 && !frame.isBuildMode()) {
 			System.out.println("Time is Up! Game Over");
+			objects= new ArrayList<>();
+			renderer.objects= new ArrayList<>();
+			renderer.setGameOver(true);
 			
 		}
 		
@@ -196,9 +183,7 @@ public class Controller {
 	
 	
 	public GameObject getObject(String obj) {
-		int i=0;
 		for(GameObject tempObject: this.objects) {
-			i++;
 			if(tempObject.getType()== obj) {
 				return tempObject;
 			}
@@ -217,11 +202,11 @@ public class Controller {
 	
 	private void setAtomPositionsAndCheckCollision(GameObject tempobject) {
 		Atom tempobject1 = (Atom) tempobject;
-		UIAtom atom = (UIAtom) renderer.objects.get(0);
+//		UIAtom atom = (UIAtom) renderer.objects.get(0);
 		double x = tempobject1.getX();
 		double y =  tempobject1.getY();
-		double x1= x + tempobject1.getDiameter();
-		double y1= y+ tempobject1.getDiameter();
+//		double x1= x + tempobject1.getDiameter();
+//		double y1= y+ tempobject1.getDiameter();
 		if(!tempobject1.isShooted()) {
 			// TODO this will change. Will be added, when atom is destroyed put new atom from existing ones.
 			x=objects.get(1).getX()+tempobject1.getDiameter()/3;
@@ -284,8 +269,8 @@ public class Controller {
 		UIPowerup pu = (UIPowerup) renderer.objects.get(0);
 		double x = tempobject1.getX();
 		double y =  tempobject1.getY();
-		double x1= x + tempobject1.getDiameter();
-		double y1= y+ tempobject1.getDiameter();
+//		double x1= x + tempobject1.getDiameter();
+//		double y1= y+ tempobject1.getDiameter();
 		if(tempobject1.isShooted()) {
 			pu.setX(x);
 			pu.setY(y);
@@ -620,7 +605,7 @@ public class Controller {
 		}
 	}
 	private void shooterCollision(AtomShooter shooter) {
-		UIShooter uishooter = (UIShooter) renderer.objects.get(1);
+//		UIShooter uishooter = (UIShooter) renderer.objects.get(1);
 		int x = (int) shooter.getX();
 		int y = (int) shooter.getY();
 		Rectangle2D r= new Rectangle2D.Double(x,y,shooter.getWidth(),shooter.getHeight());

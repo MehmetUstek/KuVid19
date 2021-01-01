@@ -13,28 +13,28 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-import javax.swing.JTextField;
 import domain.Controller;
 import domain.GameObject;
 import domain.atom.Atom;
 import domain.blender.Blender;
-import domain.gameState.Statistics;
 import domain.powerup.Powerup;
 import domain.shooter.AtomShooter;
 
 public class KuVid extends Canvas implements Runnable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private boolean running = false;
 	public static double WIDTH =  Toolkit.getDefaultToolkit().getScreenSize().getWidth()-200,
 			HEIGHT =  Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private Thread thread;
 	Controller controller;
 	Renderer renderer;
-	Statistics statistics;
 	private Frame window = new Frame(Toolkit.getDefaultToolkit().getScreenSize(), "KuVid", this);
 	private static KuVid game;
 	public String username;
 	public static final double L= HEIGHT/10;
-	private JTextField blenderGivenAtom = new JTextField(10);
 	
 	double shooterHeight = L;
 	double diameter= L/10;
@@ -58,7 +58,6 @@ public class KuVid extends Canvas implements Runnable {
 	// Initial shooting object.
 	Atom shootingObject = new Atom("alpha");
 	UIAtom atomui = new UIAtom(shootingObject.getType());
-	//TODO Get rid of atom x,y,diameter variables. All variables.
 	
 	//Shooter
 	AtomShooter shooter = new AtomShooter("shooter");
@@ -98,7 +97,7 @@ public class KuVid extends Canvas implements Runnable {
 			renderer =new Renderer();
 			controller = new Controller(renderer, window);
 			this.requestFocus();
-			controller.setTime(600);
+			controller.setTime(5);
 			
 			// Atom settings.
 			shootingObject.setDiameter(diameter);
@@ -305,7 +304,6 @@ public class KuVid extends Canvas implements Runnable {
 
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					// TODO Auto-generated method stub
 					
 				}
 				
@@ -481,7 +479,7 @@ public class KuVid extends Canvas implements Runnable {
 		double ns = 1000000000 / amountOfTicks;
 		double delta = 0;
 		long timer = System.currentTimeMillis();
-		int frames = 0;
+//		int frames = 0;
 		while (running) {
 			
 			long now = System.nanoTime();
@@ -493,13 +491,20 @@ public class KuVid extends Canvas implements Runnable {
 			}
 			if (running)
 				render();
-			frames++;
+//			frames++;
 
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
 //				System.out.println("FPS: " + frames);
-				frames = 0;
-				controller.setTime(controller.getTime()-1);
+//				frames = 0;
+				//TODO If we want to continue game when time is up, we need to change this.
+				if(controller.getTime()==0) {
+					stop();
+				}
+				else {
+					controller.setTime(controller.getTime()-1);
+				}
+				
 			}
 		}
 		stop();
@@ -571,6 +576,7 @@ public class KuVid extends Canvas implements Runnable {
 		return false;
 	}
 	
+	@SuppressWarnings("deprecation")
 	private void pauseGame() {
 		if(!isPaused) {
 			System.out.println("PAUSED");
