@@ -296,7 +296,7 @@ public class BuildMode extends Canvas implements Runnable {
 			pu.setRotationAngle(0);
 			double x= random.nextInt( WIDTH-(int) pu.getWidth());
 //			System.out.println(pu.getWidth());
-			double y= random.nextInt(HEIGHT)-HEIGHT;
+			double y= random.nextInt(HEIGHT)-HEIGHT-200;
 			Rectangle2D rect = new Rectangle2D.Double(x,y,pu.getWidth(),pu.getHeight());
 			
 			for (Rectangle2D rectangle: positionList) {

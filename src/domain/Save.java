@@ -1,5 +1,6 @@
 package domain;
 
+import java.awt.Toolkit;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -7,6 +8,8 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -23,10 +26,12 @@ import domain.molecule.Molecule;
 import domain.molecule.MoleculeFactory;
 import domain.powerup.Powerup;
 import domain.powerup.PowerupFactory;
+import domain.shooter.AtomShooter;
 import ui.UIAtom;
 import ui.UIGameObject;
 import ui.UIMoleculeFactory;
 import ui.UIPowerup;
+import ui.UpdateAtomTask;
 import ui.molecule.UIMolecule;
 
 public class Save implements ISaveLoad {
@@ -107,7 +112,7 @@ public class Save implements ISaveLoad {
 		obj.addProperty("speed", speed);
 		//Remaining time as seconds.
 		obj.addProperty("remainingTime", remainingTime);
-		
+		obj.addProperty("isShooted", isShooted);
 		//Object
 		obj.addProperty("currentShootingObject", currentShootingObject);
 		obj.addProperty("objectX", objectX);
@@ -214,7 +219,7 @@ public class Save implements ISaveLoad {
 			double objectMovementAngle= obj.get(0).getAsJsonObject().get("objectMovementAngle").getAsDouble();
 			double objectX= obj.get(0).getAsJsonObject().get("objectX").getAsDouble();
 			double objectY= obj.get(0).getAsJsonObject().get("objectY").getAsDouble();
-	//		boolean isShooted = obj.get(0).getAsJsonObject().get("isShooted").getAsBoolean();
+			boolean isShooted = obj.get(0).getAsJsonObject().get("isShooted").getAsBoolean();
 			GameObject shootingObject= controller.getShootingObject();
 			UIGameObject uiobject= controller.getUIShootingObject();
 //			System.out.println(currentShootingObject);
@@ -229,6 +234,7 @@ public class Save implements ISaveLoad {
 			controller.setTime(remainingTime);
 			controller.setSpeed(speed);
 			
+			//Shooting Object load
 			if(currentShootingObject.equals("alpha") || currentShootingObject.equals("beta") || currentShootingObject.equals("sigma") || currentShootingObject.equals("gamma")) {
 	//			shootingObject= new Atom(currentShootingObject);
 	//			uiobject = new UIAtom(shootingObject.getType());
@@ -254,10 +260,11 @@ public class Save implements ISaveLoad {
 				Powerup pu1= PowerupFactory.getPU((Powerup) shootingObject,currentShootingObject);
 				((UIPowerup) uiobject).setPUType(pu1.getType());
 			}
+			controller.getShootingObject().setShooted(isShooted);
+			controller.getShootingObject().setX(objectX);
+			controller.getShootingObject().setY(objectY);
+			controller.getShootingObject().setRotationAngle(objectMovementAngle);
 			
-			shootingObject.setX(objectX);
-			shootingObject.setY(objectY);
-			shootingObject.setRotationAngle(objectMovementAngle);
 			
 			//Molecules Load
 			for(int i=1;i<obj.size();i++) {

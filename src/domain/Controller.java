@@ -449,9 +449,19 @@ public class Controller {
 		System.out.println("Switch Atom");
 		if(isAtom(shootingObject) && !shootingObject.isShooted()) {
 			Atom atom = (Atom) shootingObject;
+			String temp =atom.getType();
 			Atom atom1= AtomFactory.getAtom(atom,"");
-			System.out.println(atom1.getType());
-			((UIAtom) uiShootingObject).setAtomType(atom1.getType());
+			
+			if(checkObjectScore(atom1.getType())>0) {
+				System.out.println(atom1.getType());
+				((UIAtom) uiShootingObject).setAtomType(atom1.getType());
+			}
+			else {
+				// If there is no other atom. TODO Check this code later
+				atom = AtomFactory.getAtom(atom,temp);
+				System.out.println("temp:"+temp);
+				System.out.println(shootingObject.getType());
+			}
 		}
 	}
 	
@@ -483,6 +493,12 @@ public class Controller {
 				System.out.println("new save");
 			}
 			save.loadGame();
+			if(getShootingObject().isShooted()) {
+				TimerTask timerTask = new UpdateAtomTask(getShootingObject(),Toolkit.getDefaultToolkit().getScreenSize(),(AtomShooter) getShooter());
+				setTimer(new Timer(true));
+				timer.scheduleAtFixedRate(timerTask, 0, 100);
+				setPaused(false);
+			}
 		}
 		
 	}
@@ -534,6 +550,18 @@ public class Controller {
 		else if(type.equals("+sigma")) {
 			sigmaPUCount--;
 		}
+		else if(type.equals("eta")) {
+			etaCount--;
+		}
+		else if(type.equals("lota")) {
+			lotaCount--;
+		}
+		else if(type.equals("theta")) {
+			thetaCount--;
+		}
+		else if(type.equals("zeta")) {
+			zetaCount--;
+		}
 		else {
 			gammaPUCount--;
 		}
@@ -574,6 +602,18 @@ public class Controller {
 		}
 		else if(type.equals("+sigma")) {
 			return sigmaPUCount;
+		}
+		else if(type.equals("eta")) {
+			return etaCount;
+		}
+		else if(type.equals("lota")) {
+			return lotaCount;
+		}
+		else if(type.equals("theta")) {
+			return thetaCount;
+		}
+		else if(type.equals("zeta")) {
+			return zetaCount;
 		}
 		else {
 			return gammaPUCount;
@@ -692,14 +732,14 @@ public class Controller {
 
 	public void shieldClicked(String type) {
 		// TODO Auto-generated method stub
-	if(isAtom(getShootingObject())) {
+	if(isAtom(getShootingObject()) && checkObjectScore(type)>0) {
 		Atom shootingObject= (Atom) getShootingObject();
 		if(type.equals("eta")) {
 			setShootingObject(new Eta(shootingObject));
-			
 		}
 		else if(type.equals("lota")) {
 			setShootingObject(new Lota(shootingObject));
+			
 		}
 		else if(type.equals("theta")) {
 			setShootingObject(new Theta(shootingObject));
@@ -707,6 +747,7 @@ public class Controller {
 		else {
 			setShootingObject(new Zeta(shootingObject));
 		}
+		updateObjectScore(type);
 	}
 	System.out.println(((Atom)getShootingObject()).getEfficiency());
 	}
@@ -749,6 +790,14 @@ public class Controller {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public boolean isPaused() {
+		return isPaused;
+	}
+
+	public void setPaused(boolean isPaused) {
+		this.isPaused = isPaused;
 	}
 
 	
