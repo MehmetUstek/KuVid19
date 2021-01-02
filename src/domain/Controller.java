@@ -150,7 +150,7 @@ public class Controller {
 						tempobject.getType().equals("+gamma"))) {
 					Powerup tempobject1=(Powerup) tempobject;
 					if(!frame.isBuildMode()) {
-						tempobject1.setSpeed(fallingSpeed);
+						tempobject1.setSpeed(speed);
 					}
 					tempobject1.fallInStraightLine(tempobject1.getX(), tempobject1.getY());
 	//				UIPowerup uipowerup = (UIPowerup) renderer.objects.get(i);
@@ -259,7 +259,6 @@ public class Controller {
 			GameObject collisionObject = (GameObject) objects.get(j);
 			renderer.objects.get(j).setX((int) collisionObject.getX());
 			renderer.objects.get(j).setY((int) collisionObject.getY());
-			System.out.println(collisionObject.getType());
 			if ((collisionObject.getId()== ID.AlphaMolecule && tempobject.getType().equals("alpha")) ||
 					(collisionObject.getId()== ID.BetaMolecule && tempobject.getType().equals("beta")) ||
 					(collisionObject.getId()== ID.SigmaMolecule && tempobject.getType().equals("sigma")) ||

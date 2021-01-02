@@ -26,7 +26,7 @@ import domain.shooter.AtomShooter;
  */
 public class KuVid extends Canvas implements Runnable {
 	/**
-	 * 
+	 * OVERVIEW: This class is a UI class where the player plays, loads, saves and controls the game objects.
 	 */
 	private static final long serialVersionUID = 1L;
 	private boolean running = false;
@@ -98,6 +98,12 @@ public class KuVid extends Canvas implements Runnable {
 	
 
 	public KuVid() {
+		/**
+		 * @modifies the ui objects' visibility and positions in the frame. Evaluates the player's actions and
+		 * sends them to the controller's corresponding method.
+		 * @effects display every element which is added to the UI, using Renderer's render method.
+		 * Take keyboard and mouse actions and send them to the controller class, where evaluation is handled.
+		 */
 			renderer =new Renderer();
 			controller = new Controller(renderer, window);
 			this.requestFocus();
@@ -413,11 +419,12 @@ public class KuVid extends Canvas implements Runnable {
 		
 	}
 	
-	public boolean isIn(int x, int y) {
-		return (x <= WIDTH && x >= 0 && y <= HEIGHT && y >= 0);
-}
 
 	public synchronized void start() {
+		/**
+		 * @modifies the thread object.
+		 * @effects initialize and start the thread
+		 */
 		System.out.println("Started");
 		thread = new Thread(this);
 		running = true;
@@ -426,7 +433,9 @@ public class KuVid extends Canvas implements Runnable {
 	}
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		/**
+		 * @effects run the thread every second.
+		 */
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
 		double ns = 1000000000 / amountOfTicks;
@@ -464,7 +473,10 @@ public class KuVid extends Canvas implements Runnable {
 	}
 	
 	private void render() {
-		// TODO Auto-generated method stub
+		/**
+		 * @modifies the ui objects's visibility in the frame
+		 * @effects display every element which is added to the UI, using Renderer's render method.
+		 */
 		BufferStrategy bs = this.getBufferStrategy();
 		if (bs == null) {
 			this.createBufferStrategy(3);
@@ -479,13 +491,18 @@ public class KuVid extends Canvas implements Runnable {
 	}
 
 
-	public void update() {     
+	public void update() {
+		/**
+		 * @effects update the UI objects' specifics after every specified time period.
+		 */
 		controller.update();
-		//TODO delete this later.
-//		controller.loadGame();
 	}
 	
 	public synchronized void stop() {
+		/**
+		 * @modifies the thread object.
+		 * @effects stop the current thread object.
+		 */
 		try {
 			thread.join();
 			running = false;
@@ -531,6 +548,10 @@ public class KuVid extends Canvas implements Runnable {
 	
 	@SuppressWarnings("deprecation")
 	private void pauseGame() {
+		/**
+		 * @modifies the game's isPaused method, and current thread in the game.
+		 * @effects call the controller's pause method and stop the thread.
+		 */
 		if(!isPaused) {
 			System.out.println("PAUSED");
 			thread.stop();
@@ -542,6 +563,10 @@ public class KuVid extends Canvas implements Runnable {
 		controller.pauseGame();
 	}
 	private void resumeGame() {
+		/**
+		 * @modifies the game's isPaused method, and current thread in the game.
+		 * @effects call the controller's resume method and re-start the thread.
+		 */
 		if(isPaused) {
 			start();
 //			timerTask.run();

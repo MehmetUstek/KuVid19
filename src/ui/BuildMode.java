@@ -30,7 +30,9 @@ import ui.molecule.UIMolecule;
  *
  */
 public class BuildMode extends Canvas implements Runnable {
-
+	/**
+	 * OVERVIEW: This class is a UI class that enables user to specify game object quantities, the speed and username.
+	 */
 	private static final long serialVersionUID = 1L;
 	public static int WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()-200,
 			HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
@@ -63,6 +65,10 @@ public class BuildMode extends Canvas implements Runnable {
 	}
 
 	public void render() {
+		/**
+		 * @modifies the ui objects's visibility in the frame
+		 * @effects display every element which is added to the UI, using Renderer's render method.
+		 */
 		BufferStrategy bs = this.getBufferStrategy();
 		if (bs == null) {
 			this.createBufferStrategy(3);
@@ -77,11 +83,17 @@ public class BuildMode extends Canvas implements Runnable {
 	}
 
 	public void update() {
+		/**
+		 * @effects update the UI objects' specifics after every specified time period.
+		 */
 		controller.update();
 		
 	}
 
 	public void run() {
+		/**
+		 * @effects run the thread every second.
+		 */
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
 		double ns = 1000000000 / amountOfTicks;
@@ -129,12 +141,12 @@ public class BuildMode extends Canvas implements Runnable {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!moleculesAdded) {
-					addMolecules(controller, renderer);
+					addMoleculesAndPowerups(controller, renderer);
 				}
 				getDifficulty(controller);
 				addAtoms(controller);
 				setUsername();
-				SaveLoadAdapter save= new SaveLoadAdapter(new Save(username,controller,list,speed,getTime()));
+				SaveLoadAdapter save= new SaveLoadAdapter(new Save(username,controller,list,getTime()));
 //				System.out.println(list);
 				save.saveGame();
 				System.out.println(username);
@@ -147,6 +159,12 @@ public class BuildMode extends Canvas implements Runnable {
 		this.username= window.getUsername().getText();
 	}
 	public void addShields(Controller controller) {
+		/**
+		 * @requires a valid and initialized controller object which has at least 2 objects
+		 * that has to be shootingObject and shooter.
+		 * @modifies the building mode controller's shield quantities.
+		 * @effects updates the shield quantities which is specified by the player in building mode.
+		 */
 		String s1 = window.getEtaCount().getText();
 		String s2 = window.getLotaCount().getText();
 		String s3 = window.getThetaCount().getText();
@@ -161,21 +179,34 @@ public class BuildMode extends Canvas implements Runnable {
 		return Integer.parseInt(s1);
 	}
 	public void getDifficulty(Controller controller) {
+		/**
+		 * @requires a valid and initialized controller object which has at least 2 objects
+		 * that has to be shootingObject and shooter.
+		 * @modifies the building mode controller's game speed.
+		 * @effects updates the game speed according to choice that is specified by the player.
+		 * There is three choices. Easy, Medium and Hard.
+		 */
 		if(window.getbGroup().getSelection().getActionCommand().equals("easy")) {
 			System.out.println("Object will fall in 1 second span");
-			this.speed= 10;
+			controller.setSpeed(10);
 		}
 		else if(window.getbGroup().getSelection().getActionCommand().equals("medium")) {
 			System.out.println("Object will fall in 1/2 second span");
-			this.speed= 20;
+			controller.setSpeed(20);
 		}
 		else {
 			System.out.println("Object will fall in 1/4 second span");
-			this.speed= 30;
+			controller.setSpeed(30);
 		}
 		
 	}
 	public void addAtoms(Controller controller) {
+		/**
+		 * @requires a valid and initialized controller object which has at least 2 objects
+		 * that has to be shootingObject and shooter.
+		 * @modifies the building mode controller's atom quantities.
+		 * @effects updates the atom quantities according to number that is specified by the player in building mode.
+		 */
 		String s1 = window.getAlphaAtomCount().getText();
 		String s2 = window.getBetaAtomCount().getText();
 		String s3 = window.getSigmaAtomCount().getText();
@@ -186,6 +217,12 @@ public class BuildMode extends Canvas implements Runnable {
 		controller.setGammaCount(Integer.parseInt(s4));
 	}
 	public void addPUs(Controller controller) {
+		/**
+		 * @requires a valid and initialized controller object which has at least 2 objects
+		 * that has to be shootingObject and shooter.
+		 * @modifies the current controller's powerup quantities.
+		 * @effects updates the powerup quantities according to number that is specified by the player in build mode.
+		 */
 		String s1 = window.getAlphaAtomCount().getText();
 		String s2 = window.getBetaAtomCount().getText();
 		String s3 = window.getSigmaAtomCount().getText();
@@ -195,7 +232,16 @@ public class BuildMode extends Canvas implements Runnable {
 		controller.setSigmaCount(Integer.parseInt(s3));
 		controller.setGammaCount(Integer.parseInt(s4));
 	}
-	public void addMolecules(Controller controller, Renderer renderer) {
+	public void addMoleculesAndPowerups(Controller controller, Renderer renderer) {
+		/**
+		 * @requires a valid and initialized controller object which has at least 2 objects
+		 * that has to be shootingObject and shooter. Also a valid and initialized Renderer object which holds
+		 * every UI element which corresponds to each domain element.
+		 * @modifies the current controller's game objects list and renderer's UI game objects list.
+		 * @effects add the new molecule or powerup objects according to their specified number in build mode.
+		 * Get the number from window's corresponding object and add that much of that game object to the controller.
+		 * The positions are randomly distributed, however it is guaranteed that no two objects will intersect.
+		 */
 		String s1 = window.getAlphaMoleculeCount().getText();
 		String s2 = window.getBetaMoleculeCount().getText();
 		String s3 = window.getSigmaMoleculeCount().getText();

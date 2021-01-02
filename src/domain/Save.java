@@ -43,11 +43,7 @@ public class Save implements ISaveLoad {
 	double diameter= Controller.L/10;
 	public Save(Controller controller)
 	{
-		/**
-		 * @requires the game's must-save objects which are username, score, time, shooting object's position, angle etc.
-		 * @modifies 
-		 * @effects 
-		 */
+		
 		this.controller= controller;
 		this.username=controller.getUsername();
 		this.score=controller.getScore();
@@ -67,18 +63,16 @@ public class Save implements ISaveLoad {
 		this.gammaPUCount= controller.getGammaPUCount();
 		
 		
-		// TODO Auto-generated constructor stub
-		
 	}
 	public Save(String username,Controller controller) {
 		this.username= username;
 		this.controller= controller;
 	}
-	public Save(String username,Controller controller, ArrayList<GameObject> list,double speed,int remainingTime) {
-		this.username= username;
+	public Save(String username,Controller controller, ArrayList<GameObject> list,int remainingTime) {
 		this.controller= controller;
+		this.username= username;
 		this.list= list;
-		this.speed= speed;
+		this.speed= controller.getSpeed();
 		this.remainingTime= remainingTime;
 		this.alphaAtomCount=controller.getAlphaCount();
 		this.betaAtomCount= controller.getBetaCount();
@@ -90,6 +84,12 @@ public class Save implements ISaveLoad {
 		this.zetaCount= controller.getZetaCount();
 	}
 	public void saveGame() {
+		/**
+		 * @requires the game's must-save objects which are username, score, time, shooting object's position, angle etc.
+		 * @modifies the JSON file which the game is saved.
+		 * @effects write the specified keys to the JSON file. The structure will be i.e "username":"mehmet".
+		 * The saved file is "username"_saves.txt i.e mehmet_saves.txt
+		 */
 		JsonObject obj= new JsonObject();
 		Gson gson = new GsonBuilder().create();
 		JsonArray array = new JsonArray();
@@ -185,6 +185,11 @@ public class Save implements ISaveLoad {
 //		System.out.println(obj);
 	}
 	public void loadGame() {
+		/**
+		 * @requires the game has to be saved at least once for that username. 
+		 * @effects brings the values from JSON file and assigns them into controller object's corresponding values.
+		 * The file that will be load has a structure such "username"_saves.txt.
+		 */
 		
 		Gson gson = new Gson();
 		JsonReader reader;
