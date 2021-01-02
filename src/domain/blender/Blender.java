@@ -1,7 +1,6 @@
 package domain.blender;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-
 import domain.GameObject;
 import domain.atom.Atom;
 import ui.KuVid;

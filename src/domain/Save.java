@@ -22,7 +22,14 @@ import ui.UIMoleculeFactory;
 import ui.UIPowerup;
 import ui.molecule.UIMolecule;
 
+/**
+ * @author MehmetUstek
+ *
+ */
 public class Save implements ISaveLoad {
+	/**
+	 * OVERVIEW: This class is saver and loader class which uses JSON file to save and load the game.
+	 */
 	String username="",currentShootingObject="";
 	double objectMovementAngle=0,objectX=0,objectY=0, score=0;
 	int remainingTime=0, alphaAtomCount=0, betaAtomCount=0,sigmaAtomCount=0,gammaAtomCount=0, 
@@ -34,37 +41,30 @@ public class Save implements ISaveLoad {
 	Save instance;
 	double speed;
 	double diameter= Controller.L/10;
-	public Save(String username
-			, double score, int remainingTime, String currentShootingObject,boolean isShooted,double objectX, double objectY, double objectMovementAngle,
-			int alphaAtomCount,int betaAtomCount,int sigmaAtomCount,int gammaAtomCount, 
-			int alphaPUCount,int betaPUCount,int sigmaPUCount,int gammaPUCount,
-			int etaCount, int lotaCount, int thetaCount, int zetaCount, 
-			ArrayList<GameObject> list,
-			Controller controller,double speed)
+	public Save(Controller controller)
 	{
-		this.username=username;
-		this.score=score;
-		this.remainingTime= remainingTime;
-		this.currentShootingObject= currentShootingObject;
-		this.objectMovementAngle= objectMovementAngle;
-		this.alphaAtomCount= alphaAtomCount;
-		this.betaAtomCount= betaAtomCount;
-		this.sigmaAtomCount= sigmaAtomCount;
-		this.gammaAtomCount= gammaAtomCount;
-		this.alphaPUCount= alphaPUCount;
-		this.betaPUCount= betaPUCount;
-		this.sigmaPUCount= sigmaPUCount;
-		this.gammaPUCount= gammaPUCount;
-		this.list= list;
-		this.objectX=objectX;
-		this.objectY=objectY;
-		this.isShooted= isShooted;
+		/**
+		 * @requires the game's must-save objects which are username, score, time, shooting object's position, angle etc.
+		 * @modifies 
+		 * @effects 
+		 */
 		this.controller= controller;
-		this.speed= speed;
-		this.etaCount=etaCount;
-		this.lotaCount=lotaCount;
-		this.thetaCount= thetaCount;
-		this.zetaCount= zetaCount;
+		this.username=controller.getUsername();
+		this.score=controller.getScore();
+		this.remainingTime= controller.getTime();
+		this.speed= controller.getSpeed();
+		this.etaCount=controller.getEtaCount();
+		this.lotaCount=controller.getLotaCount();
+		this.thetaCount= controller.getThetaCount();
+		this.zetaCount= controller.getZetaCount();
+		this.alphaAtomCount= controller.getAlphaCount();
+		this.betaAtomCount= controller.getBetaCount();
+		this.sigmaAtomCount= controller.getSigmaCount();
+		this.gammaAtomCount= controller.getGammaCount();
+		this.alphaPUCount= controller.getAlphaPUCount();
+		this.betaPUCount= controller.getBetaPUCount();
+		this.sigmaPUCount= controller.getSigmaPUCount();
+		this.gammaPUCount= controller.getGammaPUCount();
 		
 		
 		// TODO Auto-generated constructor stub
@@ -99,11 +99,17 @@ public class Save implements ISaveLoad {
 		obj.addProperty("speed", speed);
 		//Remaining time as seconds.
 		obj.addProperty("remainingTime", remainingTime);
-		obj.addProperty("isShooted", isShooted);
-		//Object
+		
+		//Shooting Object
+		currentShootingObject= controller.getShootingObject().getType();
+		isShooted= controller.getShootingObject().isShooted();
+		objectX = controller.getShootingObject().getX();
+		objectY = controller.getShootingObject().getY();
+		objectMovementAngle= controller.getShootingObject().getRotationAngle();
 		obj.addProperty("currentShootingObject", currentShootingObject);
 		obj.addProperty("objectX", objectX);
 		obj.addProperty("objectY", objectY);
+		obj.addProperty("isShooted", isShooted);
 		
 		//Movement angle double.
 		obj.addProperty("objectMovementAngle", objectMovementAngle);
@@ -146,7 +152,9 @@ public class Save implements ISaveLoad {
 //			moleculePositions.addProperty("y", list.get(i).getY());
 //			array.add(moleculePositions);
 //		}
-		
+		for(int i=2;i<controller.objects.size();i++) {
+			list.add(controller.objects.get(i));
+		}
 		// Molecule and Powerup & Reaction Blockers
 		for(int i=0;i<list.size();i++) {
 			JsonObject puPositions= new JsonObject();

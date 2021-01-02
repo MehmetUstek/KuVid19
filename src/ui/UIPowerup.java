@@ -9,6 +9,10 @@ import javax.swing.ImageIcon;
 
 
 
+/**
+ * @author MehmetUstek
+ *
+ */
 public class UIPowerup extends UIGameObject implements ImageObserver{
 	
 	

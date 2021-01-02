@@ -6,6 +6,10 @@ import java.awt.event.ActionListener;
 
 
 
+/**
+ * @author MehmetUstek
+ *
+ */
 public class Main {
 	private Frame frame = new Frame(Toolkit.getDefaultToolkit().getScreenSize(), "KuVid", this);
 	public Main() {

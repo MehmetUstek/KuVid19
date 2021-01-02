@@ -12,6 +12,5 @@ public abstract class ShieldDecorator extends Atom{
 		super(atomType);
 		// TODO Auto-generated constructor stub
 	}
-	public abstract void changeSpeed();
 	public abstract double getEfficiency();
 }

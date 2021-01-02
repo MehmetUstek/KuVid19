@@ -17,17 +17,11 @@ public class Lota extends ShieldDecorator {
 		setType(atom.getType());
 		setX(atom.getX());
 		setY(atom.getY());
-		setSpeed(atom.getSpeed());
+		setSpeed(atom.getSpeed() * 93/100);
 		setDiameter(atom.getDiameter());
 	}
 
 	
-	@Override
-	public void changeSpeed() {
-		// TODO Auto-generated method stub
-		atom.setSpeed(atom.getSpeed() * 7/100);
-	}
-
 	@Override
 	public double getEfficiency() {
 		// TODO Auto-generated method stub

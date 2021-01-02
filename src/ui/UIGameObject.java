@@ -3,6 +3,10 @@ package ui;
 import java.awt.Graphics2D;
 import java.io.Serializable;
 
+/**
+ * @author MehmetUstek
+ *
+ */
 public abstract class UIGameObject implements Serializable {
 
 	/**

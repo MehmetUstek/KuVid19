@@ -25,6 +25,10 @@ import ui.molecule.UIMolecule;
 
 
 
+/**
+ * @author MehmetUstek
+ *
+ */
 public class BuildMode extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;

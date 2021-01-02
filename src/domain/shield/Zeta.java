@@ -16,16 +16,10 @@ public class Zeta extends ShieldDecorator{
 		setType(atom.getType());
 		setX(atom.getX());
 		setY(atom.getY());
-		setSpeed(atom.getSpeed());
+		setSpeed(atom.getSpeed() * 89/100);
 		setDiameter(atom.getDiameter());
 	}
 	
-	@Override
-	public void changeSpeed() {
-		// TODO Auto-generated method stub
-		atom.setSpeed(atom.getSpeed() * 11/100);
-	}
-
 	@Override
 	public double getEfficiency() {
 		// TODO Auto-generated method stub

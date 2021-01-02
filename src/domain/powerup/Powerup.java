@@ -2,6 +2,10 @@ package domain.powerup;
 
 import domain.GameObject;
 
+/**
+ * @author MehmetUstek
+ *
+ */
 public class Powerup extends GameObject{
 	/**
 	 * 

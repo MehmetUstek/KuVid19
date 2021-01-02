@@ -7,6 +7,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 
+/**
+ * @author MehmetUstek
+ *
+ */
 public class Renderer {
 
 	public List<UIGameObject> objects = new LinkedList<UIGameObject>();

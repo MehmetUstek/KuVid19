@@ -1,5 +1,9 @@
 package domain;
 
+/**
+ * @author MehmetUstek
+ *
+ */
 public class SaveLoadAdapter implements ISaveLoad{
 	
 	ISaveLoad saveload;

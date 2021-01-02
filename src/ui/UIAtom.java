@@ -9,6 +9,10 @@ import javax.swing.ImageIcon;
 
 
 
+/**
+ * @author MehmetUstek
+ *
+ */
 public class UIAtom extends UIGameObject implements ImageObserver{
 	
 	

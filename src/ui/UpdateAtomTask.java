@@ -6,6 +6,10 @@ import java.util.TimerTask;
 import domain.GameObject;
 import domain.shooter.AtomShooter;
 
+/**
+ * @author MehmetUstek
+ *
+ */
 public class UpdateAtomTask extends TimerTask {
     GameObject atom;
     Dimension d;

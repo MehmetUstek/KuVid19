@@ -20,6 +20,10 @@ import domain.blender.Blender;
 import domain.powerup.Powerup;
 import domain.shooter.AtomShooter;
 
+/**
+ * @author MehmetUstek
+ *
+ */
 public class KuVid extends Canvas implements Runnable {
 	/**
 	 * 
@@ -97,7 +101,7 @@ public class KuVid extends Canvas implements Runnable {
 			renderer =new Renderer();
 			controller = new Controller(renderer, window);
 			this.requestFocus();
-			controller.setTime(5);
+			controller.setTime(600);
 			
 			// Atom settings.
 			shootingObject.setDiameter(diameter);
@@ -362,20 +366,7 @@ public class KuVid extends Canvas implements Runnable {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					// TODO Auto-generated method stub
-					if(!getShootingObject().isShooted()) {
-						System.out.println("Pu Alpha clicked");
-						Powerup pu= new Powerup("+alpha");
-						pu.setHeight(diameter*2);
-						pu.setWidth(diameter*2);
-						pu.setSpeed(atomSpeed);
-						pu.setRotationAngle(shooterRotationAngle);
-						controller.objects.set(0,pu );
-						UIPowerup puUI= new UIPowerup("+alpha");
-						puUI.setHeight(diameter*4);
-						puUI.setWidth(diameter*4);
-						renderer.objects.set(0,puUI );
-					}
+					controller.switchToPowerup("+alpha");
 				}
 				
 			});
@@ -383,21 +374,7 @@ public class KuVid extends Canvas implements Runnable {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					// TODO Auto-generated method stub
-					
-					if(!getShootingObject().isShooted()) {
-						Powerup pu= new Powerup("+beta");
-						System.out.println("Pu Beta clicked");
-						pu.setHeight(diameter*2);
-						pu.setWidth(diameter*2);
-						pu.setSpeed(atomSpeed);
-						pu.setRotationAngle(shooterRotationAngle);
-						controller.objects.set(0,pu );
-						UIPowerup puUI= new UIPowerup("+beta");
-						puUI.setHeight(diameter*4);
-						puUI.setWidth(diameter*4);
-						renderer.objects.set(0,puUI );
-					}
+					controller.switchToPowerup("+beta");
 				}
 				
 			});
@@ -406,19 +383,7 @@ public class KuVid extends Canvas implements Runnable {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					// TODO Auto-generated method stub
-					if(!getShootingObject().isShooted()) {
-						Powerup pu= new Powerup("+sigma");
-						System.out.println("Pu Sigma clicked");
-						pu.setHeight(diameter*2);
-						pu.setWidth(diameter*2);
-						pu.setSpeed(atomSpeed);
-						pu.setRotationAngle(shooterRotationAngle);
-						controller.objects.set(0,pu );
-						UIPowerup puUI= new UIPowerup("+sigma");
-						puUI.setHeight(diameter*4);
-						puUI.setWidth(diameter*4);
-						renderer.objects.set(0,puUI );
-					}
+					controller.switchToPowerup("+sigma");
 				}
 				
 			});
@@ -427,19 +392,7 @@ public class KuVid extends Canvas implements Runnable {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					// TODO Auto-generated method stub
-					if(!getShootingObject().isShooted()) {
-						Powerup pu= new Powerup("+gamma");
-						System.out.println("Pu Gamma clicked");
-						pu.setHeight(diameter*2);
-						pu.setWidth(diameter*2);
-						pu.setSpeed(atomSpeed);
-						pu.setRotationAngle(shooterRotationAngle);
-						controller.objects.set(0,pu );
-						UIPowerup puUI= new UIPowerup("+gamma");
-						puUI.setHeight(diameter*4);
-						puUI.setWidth(diameter*4);
-						renderer.objects.set(0,puUI );
-					}
+					controller.switchToPowerup("+gamma");
 				}
 				
 			});

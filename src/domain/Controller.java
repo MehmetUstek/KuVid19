@@ -25,7 +25,16 @@ import ui.UIShooter;
 import ui.UpdateAtomTask;
 import ui.molecule.UIMolecule;
 
+/**
+ * @author MehmetUstek
+ *
+ */
 public class Controller {
+	/**
+	 * OVERVIEW: This class is a bridge class who connects every ui and domain element. Without this class, the ui object will not know the
+	 * domain objects and vice versa. Every player action came from ui class is evaluated in this class.
+	 */
+	
 	public static double WIDTH =  Toolkit.getDefaultToolkit().getScreenSize().getWidth()-200,
 			HEIGHT =  Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	Renderer renderer;
@@ -69,7 +78,12 @@ public class Controller {
 	// Set the shooted object to be 0th in list.
 	
 	public void update() {
-		// TODO Auto-generated method stub
+		/**
+		 * @requires an initialized game objects list. The list can be empty but it has to be initialized before.
+		 * @modifies the game objects' positions and quantity, also updates time.
+		 * @effects for every object which is added to the game objects list, update that object's position in the game,
+		 * check whether any collision happens, if so take corresponding action. If the timer hits 0, end the game.
+		 */
 		statsWindow.getAlphaLabel().setText(Integer.toString(alphaCount));
 		statsWindow.getBetaLabel().setText(Integer.toString(betaCount));
 		statsWindow.getSigmaLabel().setText(Integer.toString(sigmaCount));
@@ -193,7 +207,14 @@ public class Controller {
 	public void updateLives() {
 		lives--;
 	}
+	
 	public boolean intersects(Rectangle2D r, Rectangle2D r1) {
+		/**
+		 * @requires Two rectangle objects with each are specified with valid coordinations, width and height.
+		 * @effects returns true if these two rectangles are in a intersection. Such that assume we have 
+		 * specified (2,2,4,4) rectangle. It is a rectangle with points starting from 2,2 and containing lines:
+		 * (2,6), (6,2) and (6,6). Thus if the other rectangle has any point inside of these lines, then they are intersecting.
+		 */
 		if(r.intersects(r1)) {
 			return true;
 		}
@@ -201,6 +222,12 @@ public class Controller {
 	}
 	
 	private void setAtomPositionsAndCheckCollision(GameObject tempobject) {
+		/**
+		 * @requires a valid gameObject which strictly has to be an Atom object.
+		 * @modifies the atom's position in the frame, atom's existence in the frame.
+		 * @effects removes the atom and corresponding molecule from the frame if a collision happens.
+		 * 			If a collision does not happen, then it will update the atom's position.
+		 */
 		Atom tempobject1 = (Atom) tempobject;
 //		UIAtom atom = (UIAtom) renderer.objects.get(0);
 		double x = tempobject1.getX();
@@ -232,10 +259,11 @@ public class Controller {
 			GameObject collisionObject = (GameObject) objects.get(j);
 			renderer.objects.get(j).setX((int) collisionObject.getX());
 			renderer.objects.get(j).setY((int) collisionObject.getY());
-			if ((collisionObject.getId()== ID.AlphaMolecule && tempobject.getType()=="alpha") ||
-					(collisionObject.getId()== ID.BetaMolecule && tempobject.getType()=="beta") ||
-					(collisionObject.getId()== ID.SigmaMolecule && tempobject.getType()=="sigma") ||
-					(collisionObject.getId()== ID.GammaMolecule && tempobject.getType()=="gamma")
+			System.out.println(collisionObject.getType());
+			if ((collisionObject.getId()== ID.AlphaMolecule && tempobject.getType().equals("alpha")) ||
+					(collisionObject.getId()== ID.BetaMolecule && tempobject.getType().equals("beta")) ||
+					(collisionObject.getId()== ID.SigmaMolecule && tempobject.getType().equals("sigma")) ||
+					(collisionObject.getId()== ID.GammaMolecule && tempobject.getType().equals("gamma"))
 					) {
 				Molecule collisionObject1 = (Molecule) collisionObject;
 				UIMolecule molecule = (UIMolecule) renderer.objects.get(j);
@@ -265,6 +293,12 @@ public class Controller {
 	}
 	
 	private void setPowerupPositionsAndCheckCollision(GameObject tempobject) {
+		/**
+		 * @requires a valid gameObject which strictly has to be an Powerup object.
+		 * @modifies the powerup's position in the frame, powerup's existence in the frame.
+		 * @effects removes the powerup and corresponding blocker from the frame if a collision happens.
+		 * 			If a collision does not happen, then it will update the powerup's position.
+		 */
 		Powerup tempobject1 = (Powerup) tempobject;
 		UIPowerup pu = (UIPowerup) renderer.objects.get(0);
 		double x = tempobject1.getX();
@@ -335,6 +369,13 @@ public class Controller {
 	}
 	
 	public void shootObject(GameObject shootingObject,AtomShooter shooter) {
+		/**
+		 * @requires a valid gameObject which strictly has to be an Atom or Powerup object, 
+		 * a valid AtomShooter object which is initialized before.
+		 * @modifies the object's position and the object's isShooted method.
+		 * @effects update the object's new position in every timer tick. Update the object's isShooted method
+		 * to be true. Start the timerTask for that object which will continue until the object falls down the frame.
+		 */
 		double shooterRotationAngle=0;
 		if(!shootingObject.isShooted() && checkObjectScore(shootingObject.getType())>0) {
 			shootingObject.setShooted(true);
@@ -360,6 +401,15 @@ public class Controller {
 	}
 	
 	public void moveShooter(AtomShooter shooter,GameObject shootingObject, String direction) {
+		/**
+		 * @requires a valid gameObject which strictly has to be an Atom or Powerup object, 
+		 * a valid AtomShooter object which is initialized before, and a string that strictly has to be
+		 * "left" or "right".
+		 * @modifies the shooter's position.
+		 * @effects if the signal is left, then move shooter to the left by given units.
+		 * 	If the signal is right, then move the shooter to the right by given units.
+		 *  Set shooter's position in the frame.
+		 */
 		if(direction == "left") {
 			if (shooter.getX() > 0)
 				shooterX -=shooterMoveConstant;
@@ -385,6 +435,15 @@ public class Controller {
 	}
 	
 	public void rotateShooter(AtomShooter shooter, GameObject shootingObject, String direction) {
+		/**
+		 * @requires a valid gameObject which strictly has to be an Atom or Powerup object, 
+		 * a valid AtomShooter object which is initialized before, and a string that strictly has to be
+		 * "left" or "right".
+		 * @modifies the shooter's angle.
+		 * @effects if the signal is left, then rotate shooter to the left by given units.
+		 * 	If the signal is right, then rotate the shooter to the right by given units.
+		 *  Set shooter's rotation in the frame.
+		 */
 		double shooterRotationAngle= shooter.getRotationAngle();
 		if(direction == "left") {
 			System.out.println("Rotate shooter left");
@@ -405,6 +464,9 @@ public class Controller {
 		}
 	}
 	public void pauseGame() {
+		/**
+		 * @effects if there is a timerTask such that an atom or powerup is shooted, stop that task.
+		 */
 		if(!isPaused) {
 			System.out.println("PAUSED");
 			if(timerTask!= null) {
@@ -415,20 +477,39 @@ public class Controller {
 		}
 	}
 	public void resumeGame(AtomShooter shooter,GameObject shootingObject) {
+		/**
+		 * @requires a valid AtomShooter which is initialized. 
+		 * A valid gameObject which strictly has to be an Atom or Powerup object.
+		 * @effects if the game is paused before, start the game. 
+		 * Create a timerTask if the object is shooted before. If the object is not shooted, do not start a timerTask.
+		 */
 		System.out.println("RESUME");
 		if(isPaused) {
-			timerTask = new UpdateAtomTask(shootingObject,Toolkit.getDefaultToolkit().getScreenSize(),shooter);
-			setTimer(new Timer(true));
-			timer.scheduleAtFixedRate(timerTask, 0, 100);
+			if(getShootingObject().isShooted()) {
+				timerTask = new UpdateAtomTask(shootingObject,Toolkit.getDefaultToolkit().getScreenSize(),shooter);
+				setTimer(new Timer(true));
+				timer.scheduleAtFixedRate(timerTask, 0, 40);
+			}
 			isPaused= false;
 		}
 	}
 	
 	public void setTimer(Timer timer) {
+		/**
+		 * @requires a valid Timer object.
+		 * @modifies the timer object to be set to the given timer object.
+		 * @effects given the timer object, set the global timer object to follow given timer object.
+		 */
 		this.timer = timer;
 	}
 	
 	public void switchAtom() {
+		/**
+		 * @requires a valid GameObject that is strictly Atom object which must be initialized before.
+		 * @modifies the shooting object's type.
+		 * @effects change the object's type randomly, if the object is atom and the atom is not shooted or,
+		 * If the randomly chosen atom has enough instances to be used.
+		 */
 		GameObject shootingObject = getShootingObject();
 		UIGameObject uiShootingObject = renderer.objects.get(0);
 		System.out.println("Switch Atom");
@@ -451,6 +532,10 @@ public class Controller {
 	}
 	
 	public boolean isAtom(GameObject tempobject) {
+		/**
+		 * @requires a valid GameObject.
+		 * @effects returns true if the specified gameobject is one of the instances of atom object.
+		 */
 		if(tempobject.getType()=="alpha"|| tempobject.getType()=="beta"|| tempobject.getType()=="sigma"||
 				tempobject.getType()=="gamma") {
 			return true;
@@ -458,19 +543,23 @@ public class Controller {
 		return false;
 	}
 	public void saveGame() {
-		ArrayList<GameObject> moleculeList= new ArrayList<GameObject>();
-		for(int i=2;i<objects.size();i++) {
-			moleculeList.add(objects.get(i));
-		}
+		/**
+		 * @requires a valid GameObject that is strictly Atom or Powerup object which must be initialized before.
+		 * @modifies the JSON file that is used as the saver/loader file. Uses an SaveLoadAdapter class to adapt changes.
+		 * @effects save the game into a specified file or database (whichever is given in the adapter) using some key instances
+		 * such as username, the gameobject counts, types and positions etc.
+		 */
+		
 		GameObject shootingObject= getShootingObject();
-		save= new SaveLoadAdapter(new Save(username,score,time,shootingObject.getType(),shootingObject.isShooted(),shootingObject.getX(),shootingObject.getY(),shootingObject.getRotationAngle(),
-				alphaCount,betaCount,sigmaCount,gammaCount,alphaPUCount,betaPUCount,sigmaPUCount,gammaPUCount,
-				etaCount,lotaCount,thetaCount,zetaCount,
-				moleculeList,this,speed));
+		save= new SaveLoadAdapter(new Save(this));
 		save.saveGame();
 	}
 	public void loadGame() {
-		
+		/**
+		 * @modifies the controller's objects list and every each game instances.
+		 * @effects load the game from the specified Adapter and load interface classes.
+		 * If the specified object is shooted when saved, start the timerTask for that object.
+		 */
 		if(!isLoaded) {
 			isLoaded= true;
 			if(save==null) {
@@ -504,15 +593,29 @@ public class Controller {
 	}
 
 	public void addObject(int i, GameObject obj) {
-		// TODO Auto-generated method stub
+		/**
+		 * @requires a valid GameObject of any instance. A valid position in the list
+		 * @modifies the controller's objects list.
+		 * @effects update the objects list with given object.
+		 */
 			this.objects.add(i,obj);
 		
 	}
 	public GameObject getShooter() {
+		/**
+		 * @effects returns the object list's element at the first index which is always 
+		 * specified as shooter object in this project's structure.
+		 */
 		return this.objects.get(1);
 	}
 	
 	private void updateObjectScore(String type) {
+		/**
+		 * @requires a valid string which indicates corresponding number of atoms, powerups or shields.
+		 * @modifies the number of specified type of gameObject.
+		 * @effects decrease the quantity of specified object. i.e a shield object is used, decrease corresponding
+		 * shield by one. Or when an atom or powerup is shooted, decrease that object's quantity.
+		 */
 		if(type.equals("alpha")) {
 			alphaCount--;
 			System.out.println(alphaCount);
@@ -552,7 +655,12 @@ public class Controller {
 		}
 	}
 	private void increasePUScore(String type) {
-		
+		/**
+		 * @requires a valid string which indicates corresponding number of powerups.
+		 * @modifies the number of specified type of gameObject.
+		 * @effects increase the quantity of specified object. i.e a powerup is catched, then increase the total number of
+		 * corresponding powerups.
+		 */
 		if(type.equals("+alpha")) {
 			alphaPUCount++;
 		}
@@ -567,6 +675,11 @@ public class Controller {
 		}
 	}
 	private int checkObjectScore(String type) {
+		/**
+		 * @requires a valid string which indicates corresponding number of atoms, powerups or shields.
+		 * @effects return the specified object's quantity in the game. i.e return the number of atoms, powerups or
+		 * shields.
+		 */
 		if(type.equals("alpha")) {
 			return alphaCount;
 		}
@@ -605,6 +718,12 @@ public class Controller {
 		}
 	}
 	private void shooterCollision(AtomShooter shooter) {
+		/**
+		 * @requires a valid AtomShooter which has to be initialized before.
+		 * @modifies the number of powerup available to the player.
+		 * @effects if the AtomShooter catches a powerup, increase the quantity of powerups and remove the powerup object from
+		 * the frame. 
+		 */
 //		UIShooter uishooter = (UIShooter) renderer.objects.get(1);
 		int x = (int) shooter.getX();
 		int y = (int) shooter.getY();
@@ -716,8 +835,16 @@ public class Controller {
 	}
 
 	public void shieldClicked(String type) {
-		// TODO Auto-generated method stub
-	if(isAtom(getShootingObject()) && checkObjectScore(type)>0) {
+		/**
+		 * @requires a valid string which strictly indicates a shield object. 
+		 * @modifies the number of specified type of shield and current shooting object's (which has to strictly be an atom)
+		 * efficiency by using decorator pattern, which changes the object's one value (which is efficiency in this case)
+		 * but does not change or interfere the object's main functions.
+		 * @effects decrease the quantity of specified shield. Set the current shooting object's (which has to strictly be an atom)
+		 * efficiency to be shootingObject's efficiency + specified shield's efficiency. Also decrease the speed by corresponding shield
+		 * values.
+		 */
+	if(isAtom(getShootingObject()) && checkObjectScore(type)>0 && !getShootingObject().isShooted()) {
 		Atom shootingObject= (Atom) getShootingObject();
 		if(type.equals("eta")) {
 			setShootingObject(new Eta(shootingObject));
@@ -734,7 +861,8 @@ public class Controller {
 		}
 		updateObjectScore(type);
 	}
-	System.out.println(((Atom)getShootingObject()).getEfficiency());
+	System.out.println("efficiency:"+((Atom)getShootingObject()).getEfficiency());
+	System.out.println("speed:"+((Atom)getShootingObject()).getSpeed());
 	}
 
 	public int getEtaCount() {
@@ -785,7 +913,34 @@ public class Controller {
 		this.isPaused = isPaused;
 	}
 
-	
+	public void switchToPowerup(String puType) {
+		/**
+		 * @requires a valid string which strictly indicates a powerup object. 
+		 * @modifies the first element of the objects list which indicates the shooting object.
+		 * @effects update the shooting object to be a powerup regarding the specified powerup type.
+		 */
+		if(!getShootingObject().isShooted()) {
+			System.out.println("Pu Alpha clicked");
+			Powerup pu= new Powerup(puType);
+			pu.setHeight(diameter*2);
+			pu.setWidth(diameter*2);
+			pu.setSpeed(atomSpeed);
+			pu.setRotationAngle(getShooter().getRotationAngle());
+			objects.set(0,pu );
+			UIPowerup puUI= new UIPowerup(puType);
+			puUI.setHeight(diameter*4);
+			puUI.setWidth(diameter*4);
+			renderer.objects.set(0,puUI );
+		}
+	}
+
+	public double getScore() {
+		return score;
+	}
+
+	public void setScore(double score) {
+		this.score = score;
+	}
 	
 	
 }

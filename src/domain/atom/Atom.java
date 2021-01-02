@@ -4,6 +4,10 @@ import java.util.Random;
 
 import domain.GameObject;
 
+/**
+ * @author MehmetUstek
+ *
+ */
 public class Atom extends GameObject{
 	/**
 	 * 
@@ -183,8 +187,6 @@ public class Atom extends GameObject{
 		double newY=  y +velY;
 		setX(newX);
 		setY(newY);
-		
-		 
 	}
 	public double getX() {
 		return x;
@@ -198,9 +200,6 @@ public class Atom extends GameObject{
 	public void setY(double y) {
 		this.y = y;
 	}
-//	public void bounceBack(int x, int y,double speed, double movementangle) {
-//		move(x,y,speed);
-//	}
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub

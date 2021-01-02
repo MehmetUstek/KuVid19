@@ -15,6 +15,10 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+/**
+ * @author MehmetUstek
+ *
+ */
 public class Frame extends Canvas {
 
 	private static final long serialVersionUID = 1L;

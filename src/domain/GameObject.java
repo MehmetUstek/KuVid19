@@ -2,6 +2,10 @@ package domain;
 
 import java.io.Serializable;
 
+/**
+ * @author MehmetUstek
+ *
+ */
 @SuppressWarnings("serial")
 public abstract class GameObject implements Serializable {
 

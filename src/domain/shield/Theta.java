@@ -18,14 +18,8 @@ public class Theta extends ShieldDecorator{
 		setType(atom.getType());
 		setX(atom.getX());
 		setY(atom.getY());
-		setSpeed(atom.getSpeed());
+		setSpeed(atom.getSpeed() * 91/100);
 		setDiameter(atom.getDiameter());
-	}
-	
-	@Override
-	public void changeSpeed() {
-		// TODO Auto-generated method stub
-		atom.setSpeed(atom.getSpeed() * 9/100);
 	}
 
 	@Override
