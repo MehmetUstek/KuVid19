@@ -10,6 +10,7 @@ import java.util.TimerTask;
 
 import domain.atom.Atom;
 import domain.atom.AtomFactory;
+import domain.blender.Blender;
 import domain.molecule.Molecule;
 import domain.powerup.Powerup;
 import domain.shield.*;
@@ -69,6 +70,15 @@ public class Controller {
 	StatisticsWindow statsWindow = StatisticsWindow.getInstance();
 	String username="mehmet";
 	private static KuVid game;
+	
+	//Blender
+	public Blender blender = new Blender();
+	
+
+	public boolean keyB= false;
+	public int atomRank;
+	public int targetAtomRank;
+
 	public Controller(Renderer UI, Frame frame) {
 		this.renderer = UI;
 		this.frame = frame;
@@ -461,6 +471,53 @@ public class Controller {
 			}
 		}
 	}
+	public void blenderObject(Boolean keyB, int rank) {
+		/**
+		 * @requires keyB to be true and rank to be 1,2,3 or 4 (KuVid already detects only these numbers in keylistener) 
+		 * 			and certain number of the atomRank type of atoms to exists.
+		 * @modifies the number of certain types of atoms when they are blended or broken.
+		 * @effects if required number of the atomRank type of atoms exists removes and adds corresponding number of atoms,
+		 * 			else says "You don't have enough atoms to do this".
+
+		 */
+		blender.alphaCount = this.alphaCount;
+		blender.betaCount = this.betaCount;
+		blender.gammaCount = this.gammaCount;
+		blender.sigmaCount = this.sigmaCount;
+
+		this.keyB = keyB;
+		if(rank == 0) {
+			this.atomRank = 0;
+			this.targetAtomRank = 0;
+		}
+		if(this.atomRank == 0 && this.keyB == true) {
+			this.atomRank = rank;
+		} else if(this.atomRank != 0 && this.keyB == true) {
+			this.targetAtomRank = rank;
+			if(this.atomRank < this.targetAtomRank) {
+			blender.BlendAtom(this.atomRank, this.targetAtomRank);
+			} else {
+			blender.BreakAtom(this.atomRank, this.targetAtomRank);
+			}
+			this.alphaCount = blender.alphaCount;
+			this.betaCount = blender.betaCount;
+			this.gammaCount = blender.gammaCount;
+			this.sigmaCount = blender.sigmaCount;
+			
+			this.keyB = false;
+			this.atomRank = 0;
+			this.targetAtomRank = 0;
+		}
+
+		System.out.println("BLENDED");
+
+		System.out.println("Number of Alpha atoms: " + KuVid.alphaList.size());
+		System.out.println("Number of Beta atoms: " + KuVid.betaList.size());
+		System.out.println("Number of Sigma atoms: " + KuVid.sigmaList.size());
+		System.out.println("Number of Gamma atoms: " + KuVid.gammaList.size());
+
+	}
+
 	public void pauseGame() {
 		/**
 		 * @effects if there is a timerTask such that an atom or powerup is shooted, stop that task.
@@ -956,5 +1013,27 @@ public class Controller {
 		this.score = score;
 	}
 	
-	
+	public boolean isKeyB() {
+		return keyB;
+	}
+
+	public void setKeyB(boolean keyB) {
+		this.keyB = keyB;
+	}
+
+	public int getAtomRank() {
+		return atomRank;
+	}
+
+	public void setAtomRank(int atomRank) {
+		this.atomRank = atomRank;
+	}
+
+	public int getTargetAtomRank() {
+		return targetAtomRank;
+	}
+
+	public void setTargetAtomRank(int targetAtomRank) {
+		this.targetAtomRank = targetAtomRank;
+	}
 }

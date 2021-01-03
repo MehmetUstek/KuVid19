@@ -70,7 +70,8 @@ public class KuVid extends Canvas implements Runnable {
 	//Blender
 	Blender blender = new Blender();
 	UIBlender blenderui = new UIBlender(150, 150);
-	
+	double blenderX = WIDTH - shooterHeight*2+50;
+	double blenderY = HEIGHT - 4* shooterHeight;
 	
 	
 	//Molecule prototype
@@ -84,12 +85,8 @@ public class KuVid extends Canvas implements Runnable {
 //		UIMolecule sigmaUI = new SigmaMoleculeUI();
 //		UIMolecule gammaUI = new GammaMoleculeUI();
 	
-	boolean keyB;
-	int atomRank;
-	int targetAtomRank;
-	double blenderX = WIDTH - shooterHeight*2+50;
-	double blenderY = HEIGHT - 4* shooterHeight;
 	
+
 	public static ArrayList<Atom> alphaList= new ArrayList<Atom>();
 	public static ArrayList<Atom> betaList= new ArrayList<Atom>();
 	public static ArrayList<Atom> sigmaList= new ArrayList<Atom>();
@@ -138,7 +135,7 @@ public class KuVid extends Canvas implements Runnable {
 			alphaList.add(shootingObject);
 			
 			System.out.print("Printed " + alphaList.size() + diameter); 
-
+			
 			blender.setX(blenderX);
 			blender.setY(blenderY);
 			
@@ -182,10 +179,10 @@ public class KuVid extends Canvas implements Runnable {
 							&& e.getKeyCode() != KeyEvent.VK_2 
 							&& e.getKeyCode() != KeyEvent.VK_3 
 							&& e.getKeyCode() != KeyEvent.VK_4) {
-						keyB = false;
-						atomRank = 0;
-						targetAtomRank = 0;
+						controller.blenderObject(false, 0);
+						controller.setKeyB(false);
 					}
+
 
 					switch (e.getKeyCode()) {
 					case KeyEvent.VK_UP:
@@ -232,71 +229,21 @@ public class KuVid extends Canvas implements Runnable {
 						break;
 					case  KeyEvent.VK_B:
 						System.out.println("BLEND");
-						keyB = true;
-						atomRank = 0;
-						targetAtomRank = 0;
+						controller.blenderObject(true, 0);
 						break;
 					case  KeyEvent.VK_1:
-						if(atomRank == 0 && keyB == true) {
-							atomRank = 1;
-						} else if(atomRank != 0 && keyB == true) {
-							targetAtomRank = 1;
-							blender.BlendAtom(atomRank, targetAtomRank);
-							keyB = false;
-							atomRank = 0;
-							targetAtomRank = 0;
-						}
-						System.out.println("BLENDED");
-
-						System.out.println("Number of Alpha atoms: " + alphaList.size());
-						System.out.println("Number of Beta atoms: " + betaList.size());
-						System.out.println("Number of Sigma atoms: " + sigmaList.size());
-						System.out.println("Number of Gamma atoms: " + gammaList.size());
-
+						controller.blenderObject(true, 1);
 						break;
 					case  KeyEvent.VK_2:
-						if(atomRank == 0 && keyB == true) {
-							atomRank = 2;
-						} else if(atomRank != 0 && keyB == true) {
-							targetAtomRank = 2;
-							blender.BlendAtom(atomRank, targetAtomRank);
-							keyB = false;
-							atomRank = 0;
-							targetAtomRank = 0;
-						}
-						System.out.println("BLENDED");
-
-						System.out.println("Number of Alpha atoms: " + alphaList.size());
-						System.out.println("Number of Beta atoms: " + betaList.size());
-						System.out.println("Number of Sigma atoms: " + sigmaList.size());
-						System.out.println("Number of Gamma atoms: " + gammaList.size());
+						controller.blenderObject(true, 2);
 						break;
 					case  KeyEvent.VK_3:
-						if(atomRank == 0 && keyB == true) {
-							atomRank = 3;
-						} else if(atomRank != 0 && keyB == true) {
-							targetAtomRank = 3;
-							blender.BlendAtom(atomRank, targetAtomRank);
-							keyB = false;
-							atomRank = 0;
-							targetAtomRank = 0;
-						}
-						System.out.println("BLENDED");
-
+						controller.blenderObject(true, 3);
 						break;
 					case  KeyEvent.VK_4:
-						if(atomRank == 0 && keyB == true) {
-							atomRank = 4;
-						} else if(atomRank != 0 && keyB == true) {
-							targetAtomRank = 4;
-							blender.BlendAtom(atomRank, targetAtomRank);
-							keyB = false;
-							atomRank = 0;
-							targetAtomRank = 0;
-						}
-						System.out.println("BLENDED");
-
+						controller.blenderObject(true, 4);
 						break;
+
 
 						
 					default:
