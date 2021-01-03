@@ -41,9 +41,7 @@ public class Save implements ISaveLoad {
 	Save instance;
 	double speed;
 	double diameter= Controller.L/10;
-	public Save(Controller controller)
-	{
-		
+	public Save(Controller controller) {
 		this.controller= controller;
 		this.username=controller.getUsername();
 		this.score=controller.getScore();
@@ -61,8 +59,6 @@ public class Save implements ISaveLoad {
 		this.betaPUCount= controller.getBetaPUCount();
 		this.sigmaPUCount= controller.getSigmaPUCount();
 		this.gammaPUCount= controller.getGammaPUCount();
-		
-		
 	}
 	public Save(String username,Controller controller) {
 		this.username= username;

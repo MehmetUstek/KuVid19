@@ -217,14 +217,14 @@ public class Controller {
 		lives--;
 	}
 	
-	public boolean intersects(Rectangle2D r, Rectangle2D r1) {
+	public static boolean intersects(Rectangle2D r, Rectangle2D r1) {
 		/**
 		 * @requires Two rectangle objects with each are specified with valid coordinations, width and height.
 		 * @effects returns true if these two rectangles are in a intersection. Such that assume we have 
 		 * specified (2,2,4,4) rectangle. It is a rectangle with points starting from 2,2 and containing lines:
 		 * (2,6), (6,2) and (6,6). Thus if the other rectangle has any point inside of these lines, then they are intersecting.
 		 */
-		if(r.intersects(r1)) {
+		if(r.intersects(r1) || r1.intersects(r)) {
 			return true;
 		}
 		return false;
@@ -278,7 +278,7 @@ public class Controller {
 				double a = collisionObject1.getX();
 				double b = collisionObject1.getY();
 				Rectangle2D r1= new Rectangle2D.Double(a,b,collisionObject1.getHeight(),collisionObject1.getWidth());
-				if(r1.intersects(r) || r.intersects(r1)) {
+				if(intersects(r,r1)) {
 					System.out.println("Collision");
 					objects.remove(collisionObject);
 //					tempobject.setX(objects.get(1).getX());
@@ -352,7 +352,7 @@ public class Controller {
 				double a = collisionObject1.getX();
 				double b = collisionObject1.getY();
 				Rectangle2D r1= new Rectangle2D.Double(a,b,collisionObject1.getHeight(),collisionObject1.getWidth());
-				if(r1.intersects(r) || r.intersects(r1)) {
+				if(intersects(r,r1)) {
 					System.out.println("Collision");
 					objects.remove(collisionObject);
 					
@@ -602,7 +602,7 @@ public class Controller {
 		}
 	}
 	
-	public boolean isAtom(GameObject tempobject) {
+	public static boolean isAtom(GameObject tempobject) {
 		/**
 		 * @requires a valid GameObject.
 		 * @effects returns true if the specified gameobject is one of the instances of atom object.
