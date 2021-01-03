@@ -13,7 +13,8 @@ import javax.swing.JPanel;
  */
 public class StatisticsWindow extends JPanel{
 	/**
-	 * 
+	 * OVERVIEW: This UI class is where we keep the meta values of the game. The atoms, powerups, shields,
+	 * score and time is displayed in this window. Only contains UI elements such Buttons, Labels and textfields. 
 	 */
 	private static final long serialVersionUID = 1L;
 	static StatisticsWindow instance;

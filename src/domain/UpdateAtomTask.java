@@ -1,9 +1,8 @@
-package ui;
+package domain;
 
 import java.awt.Dimension;
 import java.util.TimerTask;
 
-import domain.GameObject;
 import domain.shooter.AtomShooter;
 
 /**
@@ -11,6 +10,10 @@ import domain.shooter.AtomShooter;
  *
  */
 public class UpdateAtomTask extends TimerTask {
+	/**
+	 * OVERVIEW: This class is a domain class that updates atom's positions and angles once an atom is shooted.
+	 * It extends TimerTask class to enable multi timing of the frame.
+	 */
     GameObject atom;
     Dimension d;
     double width;
@@ -31,7 +34,11 @@ public class UpdateAtomTask extends TimerTask {
     }
     @Override
     public void run() {
-//    	System.out.println(atom.getHeight());
+    	/**
+		 * @requires a valid and initialized shooting object and AtomShooter.
+		 * @modifies the shooting object's positions, angles.
+		 * @effects update the position and angle of a shooted object regarding its speed, place in the game's legal positions etc.
+		 */
     	if(atom.getY()> d.getHeight()+atom.getHeight()/2) {
     		atom.setX(x);
     		atom.setY(y);

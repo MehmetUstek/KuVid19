@@ -12,7 +12,11 @@ import java.util.List;
  *
  */
 public class Renderer {
-
+	/**
+	 * OVERVIEW: This class is a UI class that works on displaying every objects in the specified Frame.
+	 * Every UI object has render() method that overrides UIGameObject class. We used this class where we add
+	 * every element and for each element we call render() or update() methods from their class' structure.
+	 */
 	public List<UIGameObject> objects = new LinkedList<UIGameObject>();
 	int lives;
 	double score;
@@ -21,6 +25,10 @@ public class Renderer {
 	public static double HEIGHT= KuVid.HEIGHT;
 	
 	public void render(Graphics2D g) {
+		/**
+		 * @modifies the ui objects's visibility in the frame
+		 * @effects display every element which is added to the UI by using the object's render method.
+		 */
 		for (int i = 0; i < objects.size(); i++) {
 			UIGameObject temp = (UIGameObject) objects.get(i);
 			temp.render(g);
@@ -64,8 +72,5 @@ public class Renderer {
 	public void setGameOver(boolean gameOver) {
 		this.gameOver = gameOver;
 	}
-	
-	
-	
 	
 }

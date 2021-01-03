@@ -22,7 +22,6 @@ import ui.UIPowerup;
 import ui.Renderer;
 import ui.StatisticsWindow;
 import ui.UIShooter;
-import ui.UpdateAtomTask;
 import ui.molecule.UIMolecule;
 
 /**
@@ -512,20 +511,36 @@ public class Controller {
 		GameObject shootingObject = getShootingObject();
 		UIGameObject uiShootingObject = renderer.objects.get(0);
 		System.out.println("Switch Atom");
-		if(isAtom(shootingObject) && !shootingObject.isShooted()) {
-			Atom atom = (Atom) shootingObject;
-			String temp =atom.getType();
-			Atom atom1= AtomFactory.getAtom(atom,"");
-			
-			if(checkObjectScore(atom1.getType())>0) {
-				System.out.println(atom1.getType());
-				((UIAtom) uiShootingObject).setAtomType(atom1.getType());
+		if(isAtom(shootingObject)) {
+			if(!shootingObject.isShooted()) {
+				Atom atom = (Atom) shootingObject;
+				String temp =atom.getType();
+				Atom atom1= AtomFactory.getAtom(atom,"");
+				
+				if(checkObjectScore(atom1.getType())>0) {
+					System.out.println(atom1.getType());
+					((UIAtom) uiShootingObject).setAtomType(atom1.getType());
+				}
+				else {
+					// If there is no other atom. TODO Check this code later
+					atom = AtomFactory.getAtom(atom,temp);
+					System.out.println("temp:"+temp);
+					System.out.println(shootingObject.getType());
+				}
 			}
-			else {
-				// If there is no other atom. TODO Check this code later
-				atom = AtomFactory.getAtom(atom,temp);
-				System.out.println("temp:"+temp);
-				System.out.println(shootingObject.getType());
+		}
+		else {
+			if(!shootingObject.isShooted()) {
+				shootingObject= new Atom("alpha");
+				UIAtom atomui= new UIAtom("alpha");
+				((Atom) shootingObject).setDiameter(diameter);
+				shootingObject.setX(atomX);
+				shootingObject.setY(atomY);
+				shootingObject.setSpeed(atomSpeed);
+				((Atom) shootingObject).setRotationAngle(getShooter().getRotationAngle());
+				atomui.setDiameter(diameter);
+				objects.set(0,shootingObject );
+				renderer.objects.set(0,atomui);
 			}
 		}
 	}
