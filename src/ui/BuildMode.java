@@ -127,9 +127,10 @@ public class BuildMode extends Canvas implements Runnable {
 		controller.addObject(atom);
 		controller.addObject(new AtomShooter("shooter"));
 		UIAtom uiatom = new UIAtom("alpha");
-		uiatom.setDiameter(100);
+		uiatom.setDiameter(1);
 		renderer.addObject(uiatom);
-		renderer.addObject(new UIShooter("shooter",L,L/2));
+		renderer.addObject(new UIShooter("shooter",1,1));
+		
 		
 		window.getQuitButton().addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
@@ -158,7 +159,7 @@ public class BuildMode extends Canvas implements Runnable {
 				
 			}
 		});
-
+		start();
 	}
 	public void setLengthL() {
 		controller.setLengthL(Integer.parseInt(window.getLengthL().getText()));

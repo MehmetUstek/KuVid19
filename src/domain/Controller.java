@@ -128,7 +128,6 @@ public class Controller {
 			objects= new ArrayList<>();
 			renderer.objects= new ArrayList<>();
 			renderer.setGameOver(true);
-			
 		}
 		
 		for (int i = 0; i < objects.size(); i++) {
@@ -175,7 +174,10 @@ public class Controller {
 						tempobject.getType().equals("BetaMolecule") || 
 						tempobject.getType().equals("SigmaMolecule") ||
 						tempobject.getType().equals("GammaMolecule"))) {
-					tempobject.setSpeed(speed);
+					if(!frame.isBuildMode()) {
+						tempobject.setSpeed(speed);
+					}
+					
 					
 				}
 			}
@@ -490,43 +492,50 @@ public class Controller {
 		 * @modifies the number of certain types of atoms when they are blended or broken.
 		 * @effects if required number of the atomRank type of atoms exists removes and adds corresponding number of atoms,
 		 * 			else says "You don't have enough atoms to do this".
-
 		 */
-//		blender.alphaCount = this.alphaCount;
-//		blender.betaCount = this.betaCount;
-//		blender.gammaCount = this.gammaCount;
-//		blender.sigmaCount = this.sigmaCount;
-//
-//		this.keyB = keyB;
-//		if(rank == 0) {
-//			this.atomRank = 0;
-//			this.targetAtomRank = 0;
-//		}
-//		if(this.atomRank == 0 && this.keyB == true) {
-//			this.atomRank = rank;
-//		} else if(this.atomRank != 0 && this.keyB == true) {
-//			this.targetAtomRank = rank;
-//			if(this.atomRank < this.targetAtomRank) {
-//			blender.BlendAtom(this.atomRank, this.targetAtomRank);
-//			} else {
-//			blender.BreakAtom(this.atomRank, this.targetAtomRank);
-//			}
-//			this.alphaCount = blender.alphaCount;
-//			this.betaCount = blender.betaCount;
-//			this.gammaCount = blender.gammaCount;
-//			this.sigmaCount = blender.sigmaCount;
-//			
-//			this.keyB = false;
-//			this.atomRank = 0;
-//			this.targetAtomRank = 0;
-//		}
-//
-//		System.out.println("BLENDED");
-//
-//		System.out.println("Number of Alpha atoms: " + KuVid.alphaList.size());
-//		System.out.println("Number of Beta atoms: " + KuVid.betaList.size());
-//		System.out.println("Number of Sigma atoms: " + KuVid.sigmaList.size());
-//		System.out.println("Number of Gamma atoms: " + KuVid.gammaList.size());
+		blender.alphaCount = this.alphaCount;
+		blender.betaCount = this.betaCount;
+		blender.gammaCount = this.gammaCount;
+		blender.sigmaCount = this.sigmaCount;
+
+		this.keyB = keyB;
+		if(rank == 0) {
+			this.keyB = false;
+			this.atomRank = 0;
+			this.targetAtomRank = 0;
+		}
+		if(this.atomRank == 0 && this.keyB == true) {
+			this.atomRank = rank;
+		} else if(this.atomRank != 0 && this.keyB == true) {
+			this.targetAtomRank = rank;
+			if(this.atomRank < this.targetAtomRank) {
+			blender.BlendAtom(this.atomRank, this.targetAtomRank);
+			} else {
+			blender.BreakAtom(this.atomRank, this.targetAtomRank);
+			}
+			this.alphaCount = blender.alphaCount;
+			this.betaCount = blender.betaCount;
+			this.gammaCount = blender.gammaCount;
+			this.sigmaCount = blender.sigmaCount;
+			
+			this.keyB = false;
+			this.atomRank = 0;
+			this.targetAtomRank = 0;
+		}
+
+		System.out.println("BLENDED");
+
+		System.out.println("Number of Alpha atoms: " + KuVid.alphaList.size());
+		System.out.println("Number of Beta atoms: " + KuVid.betaList.size());
+		System.out.println("Number of Sigma atoms: " + KuVid.sigmaList.size());
+		System.out.println("Number of Gamma atoms: " + KuVid.gammaList.size());
+		
+		System.out.println("Number of Alpha atoms: " + alphaCount);
+		System.out.println("Number of Beta atoms: " + betaCount);
+		System.out.println("Number of Sigma atoms: " + sigmaCount);
+		System.out.println("Number of Gamma atoms: " + gammaCount);
+		
+	
 
 	}
 

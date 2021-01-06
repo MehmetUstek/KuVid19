@@ -63,11 +63,14 @@ public class KuVid extends Canvas implements Runnable {
 	
 	//Shooter
 	AtomShooter shooter = new AtomShooter("shooter");
-	UIShooter shoterui = new UIShooter("shooter",diameter*2,diameter/2);
+	UIShooter shooterui = new UIShooter("shooter",diameter*2,diameter/2);
 	
 	//Blender
 	Blender blender = new Blender();
 	UIBlender blenderui = new UIBlender(150, 150);
+	boolean keyB;
+	int atomRank;
+	int targetAtomRank;
 	double blenderX = WIDTH - shooterHeight*2+50;
 	double blenderY = HEIGHT - 4* shooterHeight;
 	
@@ -106,45 +109,34 @@ public class KuVid extends Canvas implements Runnable {
 			controller.setTime(600);
 			
 			// Atom settings.
-			shootingObject.setDiameter(diameter);
+			shootingObject.setDiameter(20);
 			shootingObject.setX(atomX);
 			shootingObject.setY(atomY);
 			shootingObject.setSpeed(atomSpeed);
 			shootingObject.setRotationAngle(shooterRotationAngle);
-			atomui.setDiameter(diameter);
+			atomui.setDiameter(20);
 			
 			renderer.addObject(atomui);
 			controller.addObject(shootingObject);
 			
 			
 			// Shooter Settings.
-			shooter.setWidth(shooterHeight /2 );
+			shooter.setWidth(shooterHeight /4 );
 			shooter.setHeight(shooterHeight);
 			shooter.setX(shooterX);
 			shooter.setY(shooterY);
 			shooter.setRotationAngle(shooterRotationAngle);
+			shooterui.setWidth(shooterHeight /2 );
+			shooterui.setHeight(shooterHeight);
 			
-			renderer.addObject(shoterui);
+			renderer.addObject(shooterui);
 			controller.addObject(shooter);
-			
-			
-			// Blender Settings. Blender is just shown in this demo. It is not fully integrated with controller.
-			alphaList.add(shootingObject);
-			alphaList.add(shootingObject);
-			alphaList.add(shootingObject);
-			
-			System.out.print("Printed " + alphaList.size() + diameter); 
 			
 			blender.setX(blenderX);
 			blender.setY(blenderY);
 			
 //			renderer.addObject(blenderui);
 //			controller.addObject(blender);
-			
-			System.out.println("Number of Alpha atoms: " + alphaList.size());
-			System.out.println("Number of Beta atoms: " + betaList.size());
-			System.out.println("Number of Sigma atoms: " + sigmaList.size());
-			System.out.println("Number of Gamma atoms: " + gammaList.size());
 			
 			// Molecule settings
 //			alphaMol.setX(200);
@@ -179,8 +171,8 @@ public class KuVid extends Canvas implements Runnable {
 							&& e.getKeyCode() != KeyEvent.VK_3 
 							&& e.getKeyCode() != KeyEvent.VK_4) {
 						controller.blenderObject(false, 0);
-						controller.setKeyB(false);
 					}
+
 
 
 					switch (e.getKeyCode()) {
@@ -195,8 +187,8 @@ public class KuVid extends Canvas implements Runnable {
 //						L= controller.getLengthL();
 //						diameter= L/10;
 //						shooterHeight=L;
-						System.out.println("diametereasd"+diameter);
-						System.out.println("heghe"+HEIGHT);
+//						System.out.println("diametereasd"+diameter);
+//						System.out.println("heghe"+HEIGHT);
 						resumeGame();
 						//TODO these resume and pauses will change.
 						
@@ -236,18 +228,17 @@ public class KuVid extends Canvas implements Runnable {
 						controller.blenderObject(true, 0);
 						break;
 					case  KeyEvent.VK_1:
-						controller.blenderObject(true, 1);
+						controller.blenderObject(controller.keyB, 1);
 						break;
 					case  KeyEvent.VK_2:
-						controller.blenderObject(true, 2);
+						controller.blenderObject(controller.keyB, 2);
 						break;
 					case  KeyEvent.VK_3:
-						controller.blenderObject(true, 3);
+						controller.blenderObject(controller.keyB, 3);
 						break;
 					case  KeyEvent.VK_4:
-						controller.blenderObject(true, 4);
+						controller.blenderObject(controller.keyB, 4);
 						break;
-
 
 						
 					default:
@@ -367,7 +358,7 @@ public class KuVid extends Canvas implements Runnable {
 				}
 			});
 			
-		
+		start();
 	}
 	
 

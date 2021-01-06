@@ -110,7 +110,7 @@ public class Frame extends Canvas {
 		frame.add(statsWindow);
 		frame.add(game);
 		frame.setVisible(true);
-		game.start();
+//		game.start();
 	}
 	
 	
@@ -235,7 +235,6 @@ public class Frame extends Canvas {
 		frame.add(buildmode);
 
 		frame.setVisible(true);
-		buildmode.start();
 		
 		
 	}
