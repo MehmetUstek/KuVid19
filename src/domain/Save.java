@@ -32,7 +32,7 @@ public class Save implements ISaveLoad {
 	 */
 	String username="",currentShootingObject="";
 	double objectMovementAngle=0,objectX=0,objectY=0, score=0;
-	int remainingTime=0, alphaAtomCount=0, betaAtomCount=0,sigmaAtomCount=0,gammaAtomCount=0, 
+	int lengthL=0,remainingTime=0, alphaAtomCount=0, betaAtomCount=0,sigmaAtomCount=0,gammaAtomCount=0, 
 	alphaPUCount=0,betaPUCount=0,sigmaPUCount=0,gammaPUCount=0,
 	etaCount= 0, lotaCount= 0, thetaCount = 0, zetaCount =0;
 	ArrayList<GameObject> list;
@@ -59,6 +59,7 @@ public class Save implements ISaveLoad {
 		this.betaPUCount= controller.getBetaPUCount();
 		this.sigmaPUCount= controller.getSigmaPUCount();
 		this.gammaPUCount= controller.getGammaPUCount();
+		this.lengthL= controller.getLengthL();
 	}
 	public Save(String username,Controller controller) {
 		this.username= username;
@@ -78,6 +79,7 @@ public class Save implements ISaveLoad {
 		this.lotaCount= controller.getLotaCount();
 		this.thetaCount= controller.getThetaCount();
 		this.zetaCount= controller.getZetaCount();
+		this.lengthL= controller.getLengthL();
 	}
 	public void saveGame() {
 		/**
@@ -95,7 +97,8 @@ public class Save implements ISaveLoad {
 		obj.addProperty("speed", speed);
 		//Remaining time as seconds.
 		obj.addProperty("remainingTime", remainingTime);
-		
+		lengthL= controller.getLengthL();
+		obj.addProperty("lengthL", lengthL);
 		//Shooting Object
 		currentShootingObject= controller.getShootingObject().getType();
 		isShooted= controller.getShootingObject().isShooted();
@@ -161,6 +164,8 @@ public class Save implements ISaveLoad {
 			array.add(puPositions);
 		}
 		
+		
+		
 		FileWriter writer;
 		try {
 			writer = new FileWriter(username+"_saves.txt");
@@ -202,7 +207,7 @@ public class Save implements ISaveLoad {
 			betaAtomCount= obj.get(0).getAsJsonObject().get("betaAtom").getAsInt();
 			sigmaAtomCount= obj.get(0).getAsJsonObject().get("sigmaAtom").getAsInt();
 			gammaAtomCount= obj.get(0).getAsJsonObject().get("gammaAtom").getAsInt();
-			
+//			lengthL= obj.get(0).getAsJsonObject().get("lengthL").getAsInt();
 			//Shields
 			etaCount= obj.get(0).getAsJsonObject().get("eta").getAsInt();
 			lotaCount= obj.get(0).getAsJsonObject().get("lota").getAsInt();
@@ -229,6 +234,7 @@ public class Save implements ISaveLoad {
 			//Time
 			controller.setTime(remainingTime);
 			controller.setSpeed(speed);
+//			controller.setLengthL(lengthL);
 			
 			//Shooting Object load
 			if(currentShootingObject.equals("alpha") || currentShootingObject.equals("beta") || currentShootingObject.equals("sigma") || currentShootingObject.equals("gamma")) {

@@ -73,6 +73,10 @@ public class Frame extends Canvas {
 	JLabel time= new JLabel("Time(As Seconds)");
 	JTextField gameTime = new JTextField("600");
 	
+	//L Length
+	JLabel lengthofAtom= new JLabel("L(lenght of atom)");
+	JTextField lengthL = new JTextField("200");
+	
 	
 	
 	//Hardness of the game
@@ -173,6 +177,8 @@ public class Frame extends Canvas {
 		gameTime.setEditable(true);
 		simpleGui.add(new JLabel("Username"));
 		simpleGui.add(username);
+		simpleGui.add(lengthofAtom);
+		simpleGui.add(lengthL);
 		simpleGui.add(time);
 		simpleGui.add(gameTime);
 		simpleGui.add( alphaAtomType );
@@ -531,6 +537,16 @@ public class Frame extends Canvas {
 
 	public void setLogin(JButton login) {
 		this.login = login;
+	}
+
+
+	public JTextField getLengthL() {
+		return lengthL;
+	}
+
+
+	public void setLengthL(JTextField lengthL) {
+		this.lengthL = lengthL;
 	}
 	
 }

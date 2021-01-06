@@ -17,7 +17,6 @@ import domain.Controller;
 import domain.GameObject;
 import domain.atom.Atom;
 import domain.blender.Blender;
-import domain.powerup.Powerup;
 import domain.shooter.AtomShooter;
 
 /**
@@ -38,8 +37,7 @@ public class KuVid extends Canvas implements Runnable {
 	private Frame window = new Frame(Toolkit.getDefaultToolkit().getScreenSize(), "KuVid", this);
 	private static KuVid game;
 	public String username;
-	public static final double L= HEIGHT/10;
-	
+	public double L= HEIGHT/10;
 	double shooterHeight = L;
 	double diameter= L/10;
 	double speed= L;
@@ -101,6 +99,7 @@ public class KuVid extends Canvas implements Runnable {
 		 * @effects display every element which is added to the UI, using Renderer's render method.
 		 * Take keyboard and mouse actions and send them to the controller class, where evaluation is handled.
 		 */
+		
 			renderer =new Renderer();
 			controller = new Controller(renderer, window);
 			this.requestFocus();
@@ -193,6 +192,11 @@ public class KuVid extends Canvas implements Runnable {
 						System.out.println("LOADED");
 //						window.dispose();
 						controller.loadGame();
+//						L= controller.getLengthL();
+//						diameter= L/10;
+//						shooterHeight=L;
+						System.out.println("diametereasd"+diameter);
+						System.out.println("heghe"+HEIGHT);
 						resumeGame();
 						//TODO these resume and pauses will change.
 						

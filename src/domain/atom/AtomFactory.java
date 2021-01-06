@@ -11,7 +11,7 @@ public class AtomFactory {
 	/**
 	 * OVERVIEW: This class is a factory class that takes an atom and modifies it.
 	 */
-	static Random random = new Random();
+	public static Random random = new Random();
 	public static Atom getAtom(Atom atom,String type) {
 		/**
 		 * @requires a valid Atom object and a string which may be either empty string or the string with a valid atom type.

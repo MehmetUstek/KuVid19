@@ -39,7 +39,7 @@ public class AlphaMolecule extends Molecule{
 
 	@Override
 	public void update() {
-		move(KuVid.L/50);
+		move(getSpeed()/50);
 	}
 	
 	@Override

@@ -45,13 +45,15 @@ public class Controller {
 	private int etaCount=20,lotaCount=20,thetaCount=20,zetaCount=20;
 	public ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	Frame frame;
-	public static final double L= HEIGHT/10;
+	
+	public static int L= (int) HEIGHT/10;
+	public int LengthL;
 //	private static final double ALPHA_STABILITY= 0.85;
 //	private static final double BETA_STABILITY= 0.9;
 //	private static final double SIGMA_STABILITY= 0.8;
 //	private static final double GAMMA_STABILITY= 0.7;
 	double shooterHeight = L;
-	double diameter= L/10;
+	double diameter= L/5;
 	double speed= 20;
 	double shooterX= WIDTH/2;
 	double shooterY =HEIGHT - shooterHeight*2;
@@ -93,6 +95,9 @@ public class Controller {
 		 * @effects for every object which is added to the game objects list, update that object's position in the game,
 		 * check whether any collision happens, if so take corresponding action. If the timer hits 0, end the game.
 		 */
+		//if you comment out this, shooter will not catch powerup
+//		L= LengthL;
+//		System.out.println(diameter);
 		statsWindow.getAlphaLabel().setText(Integer.toString(alphaCount));
 		statsWindow.getBetaLabel().setText(Integer.toString(betaCount));
 		statsWindow.getSigmaLabel().setText(Integer.toString(sigmaCount));
@@ -165,6 +170,13 @@ public class Controller {
 	//				UIPowerup uipowerup = (UIPowerup) renderer.objects.get(i);
 	//				uipowerup.setX(tempobject1.getX());
 	//				uipowerup.setY(tempobject1.getY());
+				}
+				if (i!=0 && (tempobject.getType().equals("AlphaMolecule") ||
+						tempobject.getType().equals("BetaMolecule") || 
+						tempobject.getType().equals("SigmaMolecule") ||
+						tempobject.getType().equals("GammaMolecule"))) {
+					tempobject.setSpeed(speed);
+					
 				}
 			}
 		
@@ -245,8 +257,8 @@ public class Controller {
 //		double y1= y+ tempobject1.getDiameter();
 		if(!tempobject1.isShooted()) {
 			// TODO this will change. Will be added, when atom is destroyed put new atom from existing ones.
-			x=objects.get(1).getX()+tempobject1.getDiameter()/3;
-			y=objects.get(1).getY()-tempobject1.getDiameter()*3;
+			x=objects.get(1).getX()-tempobject1.getDiameter()*2/3;
+			y=objects.get(1).getY()-tempobject1.getHeight();
 			tempobject.setX(x);
 			tempobject.setY(y);
 		}
@@ -480,41 +492,41 @@ public class Controller {
 		 * 			else says "You don't have enough atoms to do this".
 
 		 */
-		blender.alphaCount = this.alphaCount;
-		blender.betaCount = this.betaCount;
-		blender.gammaCount = this.gammaCount;
-		blender.sigmaCount = this.sigmaCount;
-
-		this.keyB = keyB;
-		if(rank == 0) {
-			this.atomRank = 0;
-			this.targetAtomRank = 0;
-		}
-		if(this.atomRank == 0 && this.keyB == true) {
-			this.atomRank = rank;
-		} else if(this.atomRank != 0 && this.keyB == true) {
-			this.targetAtomRank = rank;
-			if(this.atomRank < this.targetAtomRank) {
-			blender.BlendAtom(this.atomRank, this.targetAtomRank);
-			} else {
-			blender.BreakAtom(this.atomRank, this.targetAtomRank);
-			}
-			this.alphaCount = blender.alphaCount;
-			this.betaCount = blender.betaCount;
-			this.gammaCount = blender.gammaCount;
-			this.sigmaCount = blender.sigmaCount;
-			
-			this.keyB = false;
-			this.atomRank = 0;
-			this.targetAtomRank = 0;
-		}
-
-		System.out.println("BLENDED");
-
-		System.out.println("Number of Alpha atoms: " + KuVid.alphaList.size());
-		System.out.println("Number of Beta atoms: " + KuVid.betaList.size());
-		System.out.println("Number of Sigma atoms: " + KuVid.sigmaList.size());
-		System.out.println("Number of Gamma atoms: " + KuVid.gammaList.size());
+//		blender.alphaCount = this.alphaCount;
+//		blender.betaCount = this.betaCount;
+//		blender.gammaCount = this.gammaCount;
+//		blender.sigmaCount = this.sigmaCount;
+//
+//		this.keyB = keyB;
+//		if(rank == 0) {
+//			this.atomRank = 0;
+//			this.targetAtomRank = 0;
+//		}
+//		if(this.atomRank == 0 && this.keyB == true) {
+//			this.atomRank = rank;
+//		} else if(this.atomRank != 0 && this.keyB == true) {
+//			this.targetAtomRank = rank;
+//			if(this.atomRank < this.targetAtomRank) {
+//			blender.BlendAtom(this.atomRank, this.targetAtomRank);
+//			} else {
+//			blender.BreakAtom(this.atomRank, this.targetAtomRank);
+//			}
+//			this.alphaCount = blender.alphaCount;
+//			this.betaCount = blender.betaCount;
+//			this.gammaCount = blender.gammaCount;
+//			this.sigmaCount = blender.sigmaCount;
+//			
+//			this.keyB = false;
+//			this.atomRank = 0;
+//			this.targetAtomRank = 0;
+//		}
+//
+//		System.out.println("BLENDED");
+//
+//		System.out.println("Number of Alpha atoms: " + KuVid.alphaList.size());
+//		System.out.println("Number of Beta atoms: " + KuVid.betaList.size());
+//		System.out.println("Number of Sigma atoms: " + KuVid.sigmaList.size());
+//		System.out.println("Number of Gamma atoms: " + KuVid.gammaList.size());
 
 	}
 
@@ -804,6 +816,8 @@ public class Controller {
 			if(objects.size()==0) {
 				break;
 			}
+			
+			
 			GameObject collisionObject = (GameObject) objects.get(j);
 			if(collisionObject.getType()!=null) {
 				if (collisionObject.getType().equals("+alpha") || collisionObject.getType().equals("+beta") ||
@@ -813,7 +827,7 @@ public class Controller {
 					double a = collisionObject1.getX();
 					double b = collisionObject1.getY();
 					Rectangle2D r1= new Rectangle2D.Double(a,b,collisionObject1.getHeight(),collisionObject1.getWidth());
-					if(r1.intersects(r) || r.intersects(r1)) {
+					if(intersects(r,r1)) {
 						System.out.println("Collision");
 						objects.remove(collisionObject);
 						renderer.removeObject(pu);
@@ -1036,4 +1050,21 @@ public class Controller {
 	public void setTargetAtomRank(int targetAtomRank) {
 		this.targetAtomRank = targetAtomRank;
 	}
+
+	public int getLengthL() {
+		return LengthL;
+	}
+
+	public void setLengthL(int lenghtL) {
+		LengthL = lenghtL;
+	}
+
+	public double getDiameter() {
+		return diameter;
+	}
+
+	public void setDiameter(double diameter) {
+		this.diameter = diameter;
+	}
+	
 }

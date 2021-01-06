@@ -122,9 +122,13 @@ public class BuildMode extends Canvas implements Runnable {
 	}
 
 	public BuildMode() {
-		controller.addObject(new Atom("alpha"));
+		Atom atom = new Atom("alpha");
+		atom.setDiameter(100);
+		controller.addObject(atom);
 		controller.addObject(new AtomShooter("shooter"));
-		renderer.addObject(new UIAtom("alpha"));
+		UIAtom uiatom = new UIAtom("alpha");
+		uiatom.setDiameter(100);
+		renderer.addObject(uiatom);
 		renderer.addObject(new UIShooter("shooter",L,L/2));
 		
 		window.getQuitButton().addActionListener(new ActionListener() {
@@ -143,6 +147,7 @@ public class BuildMode extends Canvas implements Runnable {
 				if(!moleculesAdded) {
 					addMoleculesAndPowerups(controller, renderer);
 				}
+				setLengthL();
 				getDifficulty(controller);
 				addAtoms(controller);
 				setUsername();
@@ -154,6 +159,10 @@ public class BuildMode extends Canvas implements Runnable {
 			}
 		});
 
+	}
+	public void setLengthL() {
+		controller.setLengthL(Integer.parseInt(window.getLengthL().getText()));
+		System.out.println(controller.getLengthL());
 	}
 	public void setUsername() {
 		this.username= window.getUsername().getText();
@@ -191,12 +200,12 @@ public class BuildMode extends Canvas implements Runnable {
 			controller.setSpeed(10);
 		}
 		else if(window.getbGroup().getSelection().getActionCommand().equals("medium")) {
-			System.out.println("Object will fall in 1/2 second span");
-			controller.setSpeed(20);
+			System.out.println("Object will fall in 2/3 second span");
+			controller.setSpeed(15);
 		}
 		else {
-			System.out.println("Object will fall in 1/4 second span");
-			controller.setSpeed(30);
+			System.out.println("Object will fall in 1/2 second span");
+			controller.setSpeed(20);
 		}
 		
 	}

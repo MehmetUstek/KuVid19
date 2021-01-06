@@ -38,13 +38,13 @@ public class Atom extends GameObject{
 		setEfficiency();
 	}
 	public double getWidth() {
-		return diameter;
+		return diameter*2;
 	}
 	public void setWidth(double width) {
 		this.width = width;
 	}
 	public double getHeight() {
-		return diameter;
+		return diameter*2;
 	}
 	public void setHeight(double height) {
 		this.height = height;
