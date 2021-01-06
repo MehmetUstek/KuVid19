@@ -500,7 +500,6 @@ public class Controller {
 
 		this.keyB = keyB;
 		if(rank == 0) {
-			this.keyB = false;
 			this.atomRank = 0;
 			this.targetAtomRank = 0;
 		}
