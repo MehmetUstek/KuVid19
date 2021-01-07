@@ -332,7 +332,7 @@ public class Controller {
 			pu.setY(y);
 		}else {
 			x=objects.get(1).getX()-tempobject1.getWidth();
-			y=objects.get(1).getY()-tempobject1.getHeight()*4;
+			y=objects.get(1).getY()-tempobject1.getHeight()*2;
 			tempobject.setX(x);
 			tempobject.setY(y);
 			

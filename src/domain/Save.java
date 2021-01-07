@@ -151,6 +151,7 @@ public class Save implements ISaveLoad {
 //			moleculePositions.addProperty("y", list.get(i).getY());
 //			array.add(moleculePositions);
 //		}
+		list = new ArrayList<GameObject>();
 		for(int i=2;i<controller.objects.size();i++) {
 			list.add(controller.objects.get(i));
 		}

@@ -1,8 +1,10 @@
 package ui;
 
+import java.awt.Canvas;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
 
 import javax.swing.ImageIcon;
@@ -61,10 +63,16 @@ public class UIPowerup extends UIGameObject implements ImageObserver{
 		String file= "src/assets/powerups/"+ getPUType() +"-b.png";
 		icon = new ImageIcon(file);
 		image = icon.getImage();
-		at.setToIdentity();
-		at.translate(x, y);
-		
-		g.drawImage(image,at, this);
+		image= image.getScaledInstance((int)getWidth(), (int)getHeight(), Image.SCALE_SMOOTH);
+		icon = new ImageIcon(image);
+		image = icon.getImage();
+		Rectangle2D r= new Rectangle2D.Double(x,y,getWidth(),getHeight());
+        double cx= r.getCenterX();
+        double cy= r.getCenterY();
+        System.out.println(cx);
+        at.setToIdentity();
+		at.translate(cx,cy);
+		g.drawImage(image,at, new Canvas());
 		
 	}
 	public String getPUType() {
