@@ -1091,5 +1091,13 @@ public class Controller {
 	public void setDiameter(double diameter) {
 		this.diameter = diameter;
 	}
+
+	public double getShooterX() {
+		return shooterX;
+	}
+
+	public void setShooterX(double shooterX) {
+		this.shooterX = shooterX;
+	}
 	
 }

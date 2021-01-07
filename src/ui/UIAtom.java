@@ -94,7 +94,6 @@ public class UIAtom extends UIGameObject implements ImageObserver{
 		Rectangle2D r= new Rectangle2D.Double(x,y,getWidth(),getHeight());
         double cx= r.getCenterX();
         double cy= r.getCenterY();
-        System.out.println(cx);
         at.setToIdentity();
 		at.translate(cx,cy);
 //		Rectangle2D r= new Rectangle2D.Double(x,y,getDiameter(),getDiameter());
