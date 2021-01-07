@@ -42,7 +42,7 @@ public class BuildMode extends Canvas implements Runnable {
 	private Renderer renderer = new Renderer();
 	private Controller controller = new Controller(renderer, window);
 	public static final double L= HEIGHT/10;
-	public static final double diameter = L/10;
+	public static final double diameter = 20;
 	public double speed = 20;
 	Random random = new Random();
 	boolean moleculesAdded= false;
@@ -256,7 +256,10 @@ public class BuildMode extends Canvas implements Runnable {
 		String s2 = window.getBetaMoleculeCount().getText();
 		String s3 = window.getSigmaMoleculeCount().getText();
 		String s4 = window.getGammaMoleculeCount().getText();
-		String s5 = window.getPuCount().getText();
+		String s5 = window.getAlphaPuCount().getText();
+		String s6 = window.getBetaPuCount().getText();
+		String s7 = window.getSigmaPuCount().getText();
+		String s8 = window.getGammaPuCount().getText();
 		
 		ArrayList<String> nameList = new ArrayList<String>();
 		nameList.add("AlphaMolecule");
@@ -266,7 +269,7 @@ public class BuildMode extends Canvas implements Runnable {
 		ArrayList<Rectangle2D> positionList = new ArrayList<Rectangle2D>();
 		for (int i=0;i<Integer.parseInt(s1);i++) {
 			Molecule molecule = MoleculeFactory.getMolecule("AlphaMolecule");
-			double x= random.nextInt( WIDTH-(int) molecule.getWidth());
+			double x= random.nextInt( WIDTH-(int) molecule.getWidth())-50;
 			double y= random.nextInt(HEIGHT)-HEIGHT;
 			Rectangle2D rect = new Rectangle2D.Double(x,y,molecule.getWidth(),molecule.getHeight());
 			
@@ -288,7 +291,7 @@ public class BuildMode extends Canvas implements Runnable {
 		}
 		for (int i=0;i<Integer.parseInt(s2);i++) {
 			Molecule molecule = MoleculeFactory.getMolecule("BetaMolecule");
-			double x= random.nextInt( WIDTH-(int) molecule.getWidth());
+			double x= random.nextInt( WIDTH-(int) molecule.getWidth())-50;
 			double y= random.nextInt(HEIGHT)-HEIGHT;
 			Rectangle2D rect = new Rectangle2D.Double(x,y,molecule.getWidth(),molecule.getHeight());
 			
@@ -309,7 +312,7 @@ public class BuildMode extends Canvas implements Runnable {
 		}
 		for (int i=0;i<Integer.parseInt(s3);i++) {
 			Molecule molecule = MoleculeFactory.getMolecule("SigmaMolecule");
-			double x= random.nextInt( WIDTH-(int) molecule.getWidth());
+			double x= random.nextInt( WIDTH-(int) molecule.getWidth())-50;
 			double y= random.nextInt(HEIGHT)-HEIGHT;
 			Rectangle2D rect = new Rectangle2D.Double(x,y,molecule.getWidth(),molecule.getHeight());
 			
@@ -330,7 +333,7 @@ public class BuildMode extends Canvas implements Runnable {
 		}
 		for (int i=0;i<Integer.parseInt(s4);i++) {
 			Molecule molecule = MoleculeFactory.getMolecule("GammaMolecule");
-			double x= random.nextInt( WIDTH-(int) molecule.getWidth());
+			double x= random.nextInt( WIDTH-(int) molecule.getWidth())-50;
 			double y= random.nextInt(HEIGHT)-HEIGHT;
 			Rectangle2D rect = new Rectangle2D.Double(x,y,molecule.getWidth(),molecule.getHeight());
 			
@@ -350,11 +353,11 @@ public class BuildMode extends Canvas implements Runnable {
 			list.add(molecule);
 		}
 		for (int i=0;i<Integer.parseInt(s5);i++) {
-			Powerup pu = PowerupFactory.getPU();
+			Powerup pu = PowerupFactory.getPU("+alpha");
 			pu.setHeight(diameter*2);
 			pu.setWidth(diameter*2);
 			pu.setRotationAngle(0);
-			double x= random.nextInt( WIDTH-(int) pu.getWidth());
+			double x= random.nextInt( WIDTH-(int) pu.getWidth())-50;
 //			System.out.println(pu.getWidth());
 			double y= random.nextInt(HEIGHT)-HEIGHT-200;
 			Rectangle2D rect = new Rectangle2D.Double(x,y,pu.getWidth(),pu.getHeight());
@@ -367,10 +370,101 @@ public class BuildMode extends Canvas implements Runnable {
 				}
 			}
 			positionList.add(rect);
+			pu.setWidth(diameter*4);
+			pu.setHeight(diameter*4);
 			pu.setX(x);
 			pu.setY(y);
 			controller.addObject(pu);
 			UIPowerup uiPu = new UIPowerup(pu.getType());
+			uiPu.setWidth(pu.getWidth());
+			uiPu.setHeight(pu.getHeight());
+			renderer.objects.add(uiPu);
+			list.add(pu);
+		}
+		for (int i=0;i<Integer.parseInt(s6);i++) {
+			Powerup pu = PowerupFactory.getPU("+beta");
+			pu.setHeight(diameter*2);
+			pu.setWidth(diameter*2);
+			pu.setRotationAngle(0);
+			double x= random.nextInt( WIDTH-(int) pu.getWidth())-50;
+//			System.out.println(pu.getWidth());
+			double y= random.nextInt(HEIGHT)-HEIGHT-200;
+			Rectangle2D rect = new Rectangle2D.Double(x,y,pu.getWidth(),pu.getHeight());
+			
+			for (Rectangle2D rectangle: positionList) {
+				if(rectangle.intersects(rect) || rect.intersects(rectangle)) {
+					x= random.nextInt( WIDTH-(int) pu.getWidth());
+					y= random.nextInt(HEIGHT/8);
+					rect.setRect(x, y, pu.getWidth(), pu.getHeight());
+				}
+			}
+			positionList.add(rect);
+			pu.setWidth(diameter*4);
+			pu.setHeight(diameter*4);
+			pu.setX(x);
+			pu.setY(y);
+			controller.addObject(pu);
+			UIPowerup uiPu = new UIPowerup(pu.getType());
+			uiPu.setWidth(pu.getWidth());
+			uiPu.setHeight(pu.getHeight());
+			renderer.objects.add(uiPu);
+			list.add(pu);
+		}
+		for (int i=0;i<Integer.parseInt(s7);i++) {
+			Powerup pu = PowerupFactory.getPU("+sigma");
+			pu.setHeight(diameter*2);
+			pu.setWidth(diameter*2);
+			pu.setRotationAngle(0);
+			double x= random.nextInt( WIDTH-(int) pu.getWidth())-50;
+//			System.out.println(pu.getWidth());
+			double y= random.nextInt(HEIGHT)-HEIGHT-200;
+			Rectangle2D rect = new Rectangle2D.Double(x,y,pu.getWidth(),pu.getHeight());
+			
+			for (Rectangle2D rectangle: positionList) {
+				if(rectangle.intersects(rect) || rect.intersects(rectangle)) {
+					x= random.nextInt( WIDTH-(int) pu.getWidth());
+					y= random.nextInt(HEIGHT/8);
+					rect.setRect(x, y, pu.getWidth(), pu.getHeight());
+				}
+			}
+			positionList.add(rect);
+			pu.setWidth(diameter*4);
+			pu.setHeight(diameter*4);
+			pu.setX(x);
+			pu.setY(y);
+			controller.addObject(pu);
+			UIPowerup uiPu = new UIPowerup(pu.getType());
+			uiPu.setWidth(pu.getWidth());
+			uiPu.setHeight(pu.getHeight());
+			renderer.objects.add(uiPu);
+			list.add(pu);
+		}
+		for (int i=0;i<Integer.parseInt(s8);i++) {
+			Powerup pu = PowerupFactory.getPU("+gamma");
+			pu.setHeight(diameter*2);
+			pu.setWidth(diameter*2);
+			pu.setRotationAngle(0);
+			double x= random.nextInt( WIDTH-(int) pu.getWidth())-50;
+//			System.out.println(pu.getWidth());
+			double y= random.nextInt(HEIGHT)-HEIGHT-200;
+			Rectangle2D rect = new Rectangle2D.Double(x,y,pu.getWidth(),pu.getHeight());
+			
+			for (Rectangle2D rectangle: positionList) {
+				if(rectangle.intersects(rect) || rect.intersects(rectangle)) {
+					x= random.nextInt( WIDTH-(int) pu.getWidth());
+					y= random.nextInt(HEIGHT/8);
+					rect.setRect(x, y, pu.getWidth(), pu.getHeight());
+				}
+			}
+			positionList.add(rect);
+			pu.setWidth(diameter*4);
+			pu.setHeight(diameter*4);
+			pu.setX(x);
+			pu.setY(y);
+			controller.addObject(pu);
+			UIPowerup uiPu = new UIPowerup(pu.getType());
+			uiPu.setWidth(pu.getWidth());
+			uiPu.setHeight(pu.getHeight());
 			renderer.objects.add(uiPu);
 			list.add(pu);
 		}

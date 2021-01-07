@@ -40,7 +40,7 @@ public class Save implements ISaveLoad {
 	boolean isShooted;
 	Save instance;
 	double speed;
-	double diameter= Controller.L/10;
+	double diameter= Controller.L/4;
 	public Save(Controller controller) {
 		this.controller= controller;
 		this.username=controller.getUsername();
@@ -151,7 +151,9 @@ public class Save implements ISaveLoad {
 //			moleculePositions.addProperty("y", list.get(i).getY());
 //			array.add(moleculePositions);
 //		}
-		list = new ArrayList<GameObject>();
+		if(list==null) {
+			list = new ArrayList<GameObject>();
+		}
 		for(int i=2;i<controller.objects.size();i++) {
 			list.add(controller.objects.get(i));
 		}
@@ -289,13 +291,15 @@ public class Save implements ISaveLoad {
 					Powerup pu = PowerupFactory.getPU(s);
 					pu.setX(obj.get(i).getAsJsonObject().get("x").getAsDouble());
 					pu.setY(obj.get(i).getAsJsonObject().get("y").getAsDouble());
-					pu.setWidth(diameter*2);
-					pu.setHeight(diameter*2);
+					pu.setWidth(diameter*3);
+					pu.setHeight(diameter*3);
 //					pu.setRotationAngle(0);
 					pu.setSpeed(obj.get(i).getAsJsonObject().get("speed").getAsDouble());
 //					System.out.println(pu.getSpeed());
 					controller.addObject(pu);
 					UIPowerup uiPu = new UIPowerup(pu.getType());
+					uiPu.setWidth(pu.getWidth());
+					uiPu.setHeight(pu.getHeight());
 					controller.renderer.objects.add(uiPu);
 				}
 			}

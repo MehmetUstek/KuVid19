@@ -29,7 +29,7 @@ public class KuVid extends Canvas implements Runnable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private boolean running = false;
-	public static double WIDTH =  Toolkit.getDefaultToolkit().getScreenSize().getWidth()-200,
+	public static double WIDTH =  Toolkit.getDefaultToolkit().getScreenSize().getWidth()-180,
 			HEIGHT =  Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private Thread thread;
 	Controller controller;

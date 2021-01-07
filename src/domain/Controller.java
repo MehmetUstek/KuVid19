@@ -54,6 +54,7 @@ public class Controller {
 //	private static final double GAMMA_STABILITY= 0.7;
 	double shooterHeight = L;
 	double diameter= L/5;
+	double puWidth = L/2;
 	double speed= 20;
 	double shooterX= WIDTH/2;
 	double shooterY =HEIGHT - shooterHeight*2;
@@ -165,7 +166,13 @@ public class Controller {
 					if(!frame.isBuildMode()) {
 						tempobject1.setSpeed(speed);
 					}
+					tempobject1.setWidth(puWidth);
+					tempobject1.setHeight(puWidth);
 					tempobject1.fallInStraightLine(tempobject1.getX(), tempobject1.getY());
+					if(tempobject1.getY()> HEIGHT) {
+						objects.remove(i);
+						renderer.objects.remove(i);
+					}
 	//				UIPowerup uipowerup = (UIPowerup) renderer.objects.get(i);
 	//				uipowerup.setX(tempobject1.getX());
 	//				uipowerup.setY(tempobject1.getY());
@@ -176,6 +183,16 @@ public class Controller {
 						tempobject.getType().equals("GammaMolecule"))) {
 					if(!frame.isBuildMode()) {
 						tempobject.setSpeed(speed);
+					}
+					if(tempobject.getY()> HEIGHT) {
+						objects.remove(i);
+						renderer.objects.remove(i);
+					}
+					if(objects.size()==2) {
+						System.out.println("Time is Up! Game Over");
+						objects= new ArrayList<>();
+						renderer.objects= new ArrayList<>();
+						renderer.setGameOver(true);
 					}
 					
 					

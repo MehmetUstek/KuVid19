@@ -31,11 +31,20 @@ public class Frame extends Canvas {
 	private JTextField betaMoleculeType = new JTextField("BetaMolecule");
 	private JTextField sigmaMoleculeType = new JTextField("SigmaMolecule");
 	private JTextField gammaMoleculeType = new JTextField("GammaMolecule");
-	private JTextField puText = new JTextField("Powerups");
+	
 	private JTextField betaMoleculeCount = new JTextField(10);
 	private JTextField sigmaMoleculeCount = new JTextField(10);
 	private JTextField gammaMoleculeCount = new JTextField(10);
-	private JTextField puCount = new JTextField(10);
+	
+	private JTextField apuText = new JTextField("Alpha Pu");
+	private JTextField bpuText = new JTextField("Beta PU");
+	private JTextField spuText = new JTextField("Sigma PU");
+	private JTextField gpuText = new JTextField("Gamma PU");
+	
+	private JTextField alphaPuCount = new JTextField(10);
+	private JTextField betaPuCount = new JTextField(10);
+	private JTextField gammaPuCount = new JTextField(10);
+	private JTextField sigmaPuCount = new JTextField(10);
 	
 	private JTextField alphaAtomType = new JTextField("AlphaAtom");
 	private JTextField betaAtomType = new JTextField("BetaAtom");
@@ -139,7 +148,10 @@ public class Frame extends Canvas {
 		betaAtomType.setEditable(false);
 		sigmaAtomType.setEditable(false);
 		gammaAtomType.setEditable(false);
-		puText.setEditable(false);
+		apuText.setEditable(false);
+		bpuText.setEditable(false);
+		spuText.setEditable(false);
+		gpuText.setEditable(false);
 		etaType.setEditable(false);
 		lotaType.setEditable(false);
 		thetaType.setEditable(false);
@@ -154,13 +166,13 @@ public class Frame extends Canvas {
 		gammaAtomCount.setEditable(true);
 		gammaAtomCount.setText("20");
 		alphaMoleculeCount.setEditable(true);
-		alphaMoleculeCount.setText("100");
+		alphaMoleculeCount.setText("20");
 		betaMoleculeCount.setEditable(true);
-		betaMoleculeCount.setText("100");
+		betaMoleculeCount.setText("20");
 		sigmaMoleculeCount.setEditable(true);
-		sigmaMoleculeCount.setText("100");
+		sigmaMoleculeCount.setText("20");
 		gammaMoleculeCount.setEditable(true);
-		gammaMoleculeCount.setText("100");
+		gammaMoleculeCount.setText("20");
 		
 		//Shields
 		etaCount.setEditable(true);
@@ -172,8 +184,14 @@ public class Frame extends Canvas {
 		zetaCount.setEditable(true);
 		zetaCount.setText("20");
 		
-		puCount.setEditable(true);
-		puCount.setText("20");
+		alphaPuCount.setEditable(true);
+		alphaPuCount.setText("5");
+		betaPuCount.setEditable(true);
+		betaPuCount.setText("5");
+		sigmaPuCount.setEditable(true);
+		sigmaPuCount.setText("5");
+		gammaPuCount.setEditable(true);
+		gammaPuCount.setText("5");
 		gameTime.setEditable(true);
 		simpleGui.add(new JLabel("Username"));
 		simpleGui.add(username);
@@ -198,8 +216,14 @@ public class Frame extends Canvas {
 		simpleGui.add( sigmaMoleculeCount );
 		simpleGui.add( gammaMoleculeType );
 		simpleGui.add( gammaMoleculeCount );
-		simpleGui.add( puText);
-		simpleGui.add( puCount );
+		simpleGui.add( apuText);
+		simpleGui.add( alphaPuCount );
+		simpleGui.add( bpuText);
+		simpleGui.add( betaPuCount );
+		simpleGui.add( spuText);
+		simpleGui.add( sigmaPuCount );
+		simpleGui.add( gpuText);
+		simpleGui.add( gammaPuCount );
 		simpleGui.add(etaType);
 		simpleGui.add(etaCount);
 		simpleGui.add(lotaType);
@@ -229,7 +253,7 @@ public class Frame extends Canvas {
 		frame.add(hardnessGui);
 		
 		
-		gui.setBounds(WIDTH- gui.getWidth() - 370, HEIGHT - 300 , 350, 300);
+		gui.setBounds(WIDTH- gui.getWidth() - 370, HEIGHT - 400 , 350, 460);
 		
 		frame.add(gui);
 		frame.add(buildmode);
@@ -433,12 +457,12 @@ public class Frame extends Canvas {
 
 
 	public JTextField getPuCount() {
-		return puCount;
+		return alphaPuCount;
 	}
 	public void setPuCount(JTextField puCount) {
-		this.puCount = puCount;
+		this.alphaPuCount = puCount;
 	}
-
+	
 	public boolean isBuildMode() {
 		return isBuildMode;
 	}
@@ -546,6 +570,46 @@ public class Frame extends Canvas {
 
 	public void setLengthL(JTextField lengthL) {
 		this.lengthL = lengthL;
+	}
+
+
+	public JTextField getAlphaPuCount() {
+		return alphaPuCount;
+	}
+
+
+	public void setAlphaPuCount(JTextField alphaPuCount) {
+		this.alphaPuCount = alphaPuCount;
+	}
+
+
+	public JTextField getBetaPuCount() {
+		return betaPuCount;
+	}
+
+
+	public void setBetaPuCount(JTextField betaPuCount) {
+		this.betaPuCount = betaPuCount;
+	}
+
+
+	public JTextField getGammaPuCount() {
+		return gammaPuCount;
+	}
+
+
+	public void setGammaPuCount(JTextField gammaPuCount) {
+		this.gammaPuCount = gammaPuCount;
+	}
+
+
+	public JTextField getSigmaPuCount() {
+		return sigmaPuCount;
+	}
+
+
+	public void setSigmaPuCount(JTextField sigmaPuCount) {
+		this.sigmaPuCount = sigmaPuCount;
 	}
 	
 }
