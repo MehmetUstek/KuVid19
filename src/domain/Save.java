@@ -16,10 +16,13 @@ import domain.atom.AtomFactory;
 import domain.molecule.MoleculeFactory;
 import domain.powerup.Powerup;
 import domain.powerup.PowerupFactory;
+import domain.reactionBlocker.BlockerFactory;
+import domain.reactionBlocker.ReactionBlocker;
 import ui.UIAtom;
 import ui.UIGameObject;
 import ui.UIMoleculeFactory;
 import ui.UIPowerup;
+import ui.UIReactionBlocker;
 import ui.molecule.UIMolecule;
 
 /**
@@ -302,6 +305,19 @@ public class Save implements ISaveLoad {
 					uiPu.setHeight(pu.getHeight());
 					controller.renderer.objects.add(uiPu);
 				}
+				else if(isBlocker(s)){
+					ReactionBlocker blocker = BlockerFactory.getBlocker(s);
+					blocker.setX(obj.get(i).getAsJsonObject().get("x").getAsDouble());
+					blocker.setY(obj.get(i).getAsJsonObject().get("y").getAsDouble());
+					blocker.setWidth(diameter*3);
+					blocker.setHeight(diameter*3);
+					blocker.setSpeed(obj.get(i).getAsJsonObject().get("speed").getAsDouble());
+					controller.addObject(blocker);
+					UIReactionBlocker uiBlocker = new UIReactionBlocker(blocker.getType());
+					uiBlocker.setWidth(blocker.getWidth());
+					uiBlocker.setHeight(blocker.getHeight());
+					controller.renderer.objects.add(uiBlocker);
+				}
 			}
 			
 			
@@ -339,6 +355,12 @@ public class Save implements ISaveLoad {
 	}
 	private boolean isPowerup(String s) {
 		if(s.equals("+alpha") || s.equals("+beta") || s.equals("+sigma") || s.equals("+gamma")) {
+			return true;
+		}
+		return false;
+	}
+	private boolean isBlocker(String s) {
+		if(s.equals("alpha") || s.equals("beta") || s.equals("sigma") || s.equals("gamma")) {
 			return true;
 		}
 		return false;

@@ -197,6 +197,21 @@ public class Controller {
 					
 					
 				}
+				if (i!=0 && (tempobject.getType().equals("alpha") ||
+						tempobject.getType().equals("beta") || 
+						tempobject.getType().equals("sigma") ||
+						tempobject.getType().equals("gamma"))) {
+					if(!frame.isBuildMode()) {
+						tempobject.setSpeed(speed);
+					}
+					if(tempobject.getY()> HEIGHT) {
+						objects.remove(i);
+						renderer.objects.remove(i);
+					}
+					
+					
+				}
+				
 			}
 		
 			tempobject.update();

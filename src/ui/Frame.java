@@ -66,7 +66,16 @@ public class Frame extends Canvas {
 	private JTextField thetaCount = new JTextField(10);
 	private JTextField zetaCount = new JTextField(10);
 	
-	
+	//Blocker
+	private JTextField ablockerField = new JTextField("Alpha Blocker");
+	private JTextField ablockerCount = new JTextField(10);
+	private JTextField bblockerField = new JTextField("Beta Blocker");
+	private JTextField bblockerCount = new JTextField(10);
+	private JTextField sblockerField = new JTextField("Sigma Blocker");
+	private JTextField sblockerCount = new JTextField(10);
+	private JTextField gblockerField = new JTextField("Gamma Blocker");
+	private JTextField gblockerCount = new JTextField(10);
+
 	private JFrame frame;
 	private JPanel gui = new JPanel(new GridLayout(0,1));
 	private JPanel simpleGui = new JPanel(new FlowLayout());  
@@ -156,6 +165,10 @@ public class Frame extends Canvas {
 		lotaType.setEditable(false);
 		thetaType.setEditable(false);
 		zetaType.setEditable(false);
+		ablockerField.setEditable(false);
+		bblockerField.setEditable(false);
+		sblockerField.setEditable(false);
+		gblockerField.setEditable(false);
 		
 		alphaAtomCount.setEditable(true);
 		alphaAtomCount.setText("20");
@@ -192,6 +205,16 @@ public class Frame extends Canvas {
 		sigmaPuCount.setText("5");
 		gammaPuCount.setEditable(true);
 		gammaPuCount.setText("5");
+		
+		ablockerCount.setEditable(true);
+		ablockerCount.setText("5");
+		bblockerCount.setEditable(true);
+		bblockerCount.setText("5");
+		sblockerCount.setEditable(true);
+		sblockerCount.setText("5");
+		gblockerCount.setEditable(true);
+		gblockerCount.setText("5");
+		
 		gameTime.setEditable(true);
 		simpleGui.add(new JLabel("Username"));
 		simpleGui.add(username);
@@ -232,6 +255,14 @@ public class Frame extends Canvas {
 		simpleGui.add(thetaCount);
 		simpleGui.add(zetaType);
 		simpleGui.add(zetaCount);
+		simpleGui.add(ablockerField);
+		simpleGui.add(ablockerCount);
+		simpleGui.add(bblockerField);
+		simpleGui.add(bblockerCount);
+		simpleGui.add(sblockerField);
+		simpleGui.add(sblockerCount);
+		simpleGui.add(gblockerField);
+		simpleGui.add(gblockerCount);
 		simpleGui.setLayout(new GridLayout(0,2));
 		
 		gui.add(simpleGui);
@@ -610,6 +641,46 @@ public class Frame extends Canvas {
 
 	public void setSigmaPuCount(JTextField sigmaPuCount) {
 		this.sigmaPuCount = sigmaPuCount;
+	}
+
+
+	public JTextField getAblockerCount() {
+		return ablockerCount;
+	}
+
+
+	public void setAblockerCount(JTextField ablockerCount) {
+		this.ablockerCount = ablockerCount;
+	}
+
+
+	public JTextField getBblockerCount() {
+		return bblockerCount;
+	}
+
+
+	public void setBblockerCount(JTextField bblockerCount) {
+		this.bblockerCount = bblockerCount;
+	}
+
+
+	public JTextField getSblockerCount() {
+		return sblockerCount;
+	}
+
+
+	public void setSblockerCount(JTextField sblockerCount) {
+		this.sblockerCount = sblockerCount;
+	}
+
+
+	public JTextField getGblockerCount() {
+		return gblockerCount;
+	}
+
+
+	public void setGblockerCount(JTextField gblockerCount) {
+		this.gblockerCount = gblockerCount;
 	}
 	
 }

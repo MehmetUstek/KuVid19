@@ -20,6 +20,8 @@ import domain.molecule.Molecule;
 import domain.molecule.MoleculeFactory;
 import domain.powerup.Powerup;
 import domain.powerup.PowerupFactory;
+import domain.reactionBlocker.BlockerFactory;
+import domain.reactionBlocker.ReactionBlocker;
 import domain.shooter.AtomShooter;
 import ui.molecule.UIMolecule;
 
@@ -123,11 +125,15 @@ public class BuildMode extends Canvas implements Runnable {
 
 	public BuildMode() {
 		Atom atom = new Atom("alpha");
-		atom.setDiameter(100);
+		atom.setDiameter(1);
+		atom.setX(10);
+		atom.setY(10);
 		controller.addObject(atom);
 		controller.addObject(new AtomShooter("shooter"));
 		UIAtom uiatom = new UIAtom("alpha");
 		uiatom.setDiameter(1);
+		uiatom.setX(10);
+		uiatom.setY(10);
 		renderer.addObject(uiatom);
 		renderer.addObject(new UIShooter("shooter",1,1));
 		
@@ -260,6 +266,10 @@ public class BuildMode extends Canvas implements Runnable {
 		String s6 = window.getBetaPuCount().getText();
 		String s7 = window.getSigmaPuCount().getText();
 		String s8 = window.getGammaPuCount().getText();
+		String s9 = window.getAblockerCount().getText();
+		String s10 = window.getBblockerCount().getText();
+		String s11 = window.getSblockerCount().getText();
+		String s12 = window.getGblockerCount().getText();
 		
 		ArrayList<String> nameList = new ArrayList<String>();
 		nameList.add("AlphaMolecule");
@@ -468,6 +478,123 @@ public class BuildMode extends Canvas implements Runnable {
 			renderer.objects.add(uiPu);
 			list.add(pu);
 		}
+		for (int i=0;i<Integer.parseInt(s9);i++) {
+			ReactionBlocker blocker = BlockerFactory.getBlocker("alpha");
+			blocker.setHeight(diameter);
+			blocker.setWidth(diameter);
+			blocker.setRotationAngle(0);
+			double x= random.nextInt( WIDTH-(int) blocker.getWidth())-50;
+			System.out.println(blocker.getWidth());
+			double y= random.nextInt(HEIGHT)-HEIGHT;
+			Rectangle2D rect = new Rectangle2D.Double(x,y,blocker.getWidth(),blocker.getHeight());
+			
+			for (Rectangle2D rectangle: positionList) {
+				if(rectangle.intersects(rect) || rect.intersects(rectangle)) {
+					x= random.nextInt( WIDTH-(int) blocker.getWidth());
+					y= random.nextInt(HEIGHT/8);
+					rect.setRect(x, y, blocker.getWidth(), blocker.getHeight());
+				}
+			}
+			positionList.add(rect);
+			blocker.setWidth(diameter*4);
+			blocker.setHeight(diameter*4);
+			blocker.setX(x);
+			blocker.setY(y);
+			controller.addObject(blocker);
+			UIReactionBlocker blockerUi = UIBlockerFactory.getBlocker("alpha");
+			blockerUi.setWidth(blocker.getWidth());
+			blockerUi.setHeight(blocker.getHeight());
+			renderer.objects.add(blockerUi);
+			list.add(blocker);
+		}
+		for (int i=0;i<Integer.parseInt(s10);i++) {
+			ReactionBlocker blocker = BlockerFactory.getBlocker("beta");
+			blocker.setHeight(diameter);
+			blocker.setWidth(diameter);
+			blocker.setRotationAngle(0);
+			double x= random.nextInt( WIDTH-(int) blocker.getWidth())-50;
+			System.out.println(blocker.getWidth());
+			double y= random.nextInt(HEIGHT)-HEIGHT;
+			Rectangle2D rect = new Rectangle2D.Double(x,y,blocker.getWidth(),blocker.getHeight());
+			
+			for (Rectangle2D rectangle: positionList) {
+				if(rectangle.intersects(rect) || rect.intersects(rectangle)) {
+					x= random.nextInt( WIDTH-(int) blocker.getWidth());
+					y= random.nextInt(HEIGHT/8);
+					rect.setRect(x, y, blocker.getWidth(), blocker.getHeight());
+				}
+			}
+			positionList.add(rect);
+			blocker.setWidth(diameter*4);
+			blocker.setHeight(diameter*4);
+			blocker.setX(x);
+			blocker.setY(y);
+			controller.addObject(blocker);
+			UIReactionBlocker blockerUi = UIBlockerFactory.getBlocker("beta");
+			blockerUi.setWidth(blocker.getWidth());
+			blockerUi.setHeight(blocker.getHeight());
+			renderer.objects.add(blockerUi);
+			list.add(blocker);
+		}
+		for (int i=0;i<Integer.parseInt(s11);i++) {
+			ReactionBlocker blocker = BlockerFactory.getBlocker("sigma");
+			blocker.setHeight(diameter);
+			blocker.setWidth(diameter);
+			blocker.setRotationAngle(0);
+			double x= random.nextInt( WIDTH-(int) blocker.getWidth())-50;
+			System.out.println(blocker.getWidth());
+			double y= random.nextInt(HEIGHT)-HEIGHT;
+			Rectangle2D rect = new Rectangle2D.Double(x,y,blocker.getWidth(),blocker.getHeight());
+			
+			for (Rectangle2D rectangle: positionList) {
+				if(rectangle.intersects(rect) || rect.intersects(rectangle)) {
+					x= random.nextInt( WIDTH-(int) blocker.getWidth());
+					y= random.nextInt(HEIGHT/8);
+					rect.setRect(x, y, blocker.getWidth(), blocker.getHeight());
+				}
+			}
+			positionList.add(rect);
+			blocker.setWidth(diameter*4);
+			blocker.setHeight(diameter*4);
+			blocker.setX(x);
+			blocker.setY(y);
+			controller.addObject(blocker);
+			UIReactionBlocker blockerUi = UIBlockerFactory.getBlocker("sigma");
+			blockerUi.setWidth(blocker.getWidth());
+			blockerUi.setHeight(blocker.getHeight());
+			renderer.objects.add(blockerUi);
+			list.add(blocker);
+		}
+		for (int i=0;i<Integer.parseInt(s12);i++) {
+			ReactionBlocker blocker = BlockerFactory.getBlocker("gamma");
+			blocker.setHeight(diameter);
+			blocker.setWidth(diameter);
+			blocker.setRotationAngle(0);
+			double x= random.nextInt( WIDTH-(int) blocker.getWidth())-50;
+			System.out.println(blocker.getWidth());
+			double y= random.nextInt(HEIGHT)-HEIGHT;
+			Rectangle2D rect = new Rectangle2D.Double(x,y,blocker.getWidth(),blocker.getHeight());
+			
+			for (Rectangle2D rectangle: positionList) {
+				if(rectangle.intersects(rect) || rect.intersects(rectangle)) {
+					x= random.nextInt( WIDTH-(int) blocker.getWidth());
+					y= random.nextInt(HEIGHT/8);
+					rect.setRect(x, y, blocker.getWidth(), blocker.getHeight());
+				}
+			}
+			positionList.add(rect);
+			blocker.setWidth(diameter*4);
+			blocker.setHeight(diameter*4);
+			blocker.setX(x);
+			blocker.setY(y);
+			controller.addObject(blocker);
+			UIReactionBlocker blockerUi = UIBlockerFactory.getBlocker("gamma");
+			blockerUi.setWidth(blocker.getWidth());
+			blockerUi.setHeight(blocker.getHeight());
+			renderer.objects.add(blockerUi);
+			list.add(blocker);
+		}
+
 		moleculesAdded=true;
 	}
 	
