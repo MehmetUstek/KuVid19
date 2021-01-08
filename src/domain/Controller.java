@@ -13,6 +13,7 @@ import domain.atom.AtomFactory;
 import domain.blender.Blender;
 import domain.molecule.Molecule;
 import domain.powerup.Powerup;
+import domain.reactionBlocker.ReactionBlocker;
 import domain.shield.*;
 import domain.shooter.AtomShooter;
 import ui.Frame;
@@ -20,6 +21,7 @@ import ui.KuVid;
 import ui.UIAtom;
 import ui.UIGameObject;
 import ui.UIPowerup;
+import ui.UIReactionBlocker;
 import ui.Renderer;
 import ui.StatisticsWindow;
 import ui.UIShooter;
@@ -307,7 +309,7 @@ public class Controller {
 		tempobject = tempobject1;
 		Rectangle2D r= new Rectangle2D.Double(x,y,tempobject1.getDiameter(),tempobject1.getDiameter());
 		// Collision with alpha molecule and alpha atom.
-		for (int j = 0; j < objects.size(); j++) {
+		for (int j = 2; j < objects.size(); j++) {
 			if(objects.size()==0) {
 				break;
 			}
@@ -323,7 +325,7 @@ public class Controller {
 				UIMolecule molecule = (UIMolecule) renderer.objects.get(j);
 				double a = collisionObject1.getX();
 				double b = collisionObject1.getY();
-				Rectangle2D r1= new Rectangle2D.Double(a,b,collisionObject1.getHeight(),collisionObject1.getWidth());
+				Rectangle2D r1= new Rectangle2D.Double(a,b,collisionObject1.getWidth(),collisionObject1.getHeight());
 				if(intersects(r,r1)) {
 					System.out.println("Collision");
 					objects.remove(collisionObject);
@@ -378,8 +380,8 @@ public class Controller {
     	}
 		
 		tempobject = tempobject1;
-		Rectangle2D r= new Rectangle2D.Double(x,y,tempobject1.getDiameter(),tempobject1.getDiameter());
-		for (int j = 0; j < objects.size(); j++) {
+		Rectangle2D r= new Rectangle2D.Double(x,y,tempobject1.getWidth(),tempobject1.getHeight());
+		for (int j = 2; j < objects.size(); j++) {
 			if(objects.size()==0) {
 				break;
 			}
@@ -388,35 +390,27 @@ public class Controller {
 			renderer.objects.get(j).setY((int) collisionObject.getY());
 			
 			//Powerup and Reaction Blocker collision
-			if ((collisionObject.getId()== ID.AlphaBlocker && tempobject.getType()=="+alpha") ||
-					(collisionObject.getId()== ID.BetaBlocker && tempobject.getType()=="+beta") ||
-					(collisionObject.getId()== ID.SigmaBlocker && tempobject.getType()=="+sigma") ||
-					(collisionObject.getId()== ID.GammaBlocker && tempobject.getType()=="+gamma")
+			if ((collisionObject.getType().equals("alpha") && tempobject.getType()=="+alpha") ||
+					(collisionObject.getType().equals("beta") && tempobject.getType()=="+beta") ||
+					(collisionObject.getType().equals("sigma") && tempobject.getType()=="+sigma") ||
+					(collisionObject.getType().equals("gamma") && tempobject.getType()=="+gamma")
 					) {
-				Molecule collisionObject1 = (Molecule) collisionObject;
-				UIMolecule molecule = (UIMolecule) renderer.objects.get(j);
+				ReactionBlocker collisionObject1 = (ReactionBlocker) collisionObject;
+				UIReactionBlocker blocker = (UIReactionBlocker) renderer.objects.get(j);
 				double a = collisionObject1.getX();
 				double b = collisionObject1.getY();
-				Rectangle2D r1= new Rectangle2D.Double(a,b,collisionObject1.getHeight(),collisionObject1.getWidth());
+				Rectangle2D r1= new Rectangle2D.Double(a,b,collisionObject1.getWidth(),collisionObject1.getHeight());
 				if(intersects(r,r1)) {
 					System.out.println("Collision");
 					objects.remove(collisionObject);
-					
-//					tempobject.setX(objects.get(1).getX());
-//					tempobject.setY(objects.get(1).getY());
-//					objects.remove(tempobject);
-					
-					// TODO Add when blocker is completed.
 					if(timerTask !=null) {
 						timerTask.cancel();
 					}
-					renderer.removeObject(molecule);
-//					uicontroller.removeObject(atom);
-					
+					renderer.removeObject(blocker);
 					tempobject.setX(objects.get(1).getX());
 					tempobject.setY(objects.get(1).getY());
+					tempobject.setRotationAngle(getShooter().getRotationAngle());
 					((Powerup) tempobject).setShooted(false);
-//					uicontroller.addObject(atom);
 				}
 			}
 			}
