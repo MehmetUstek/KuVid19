@@ -40,7 +40,7 @@ public class Controller {
 	public static double WIDTH =  Toolkit.getDefaultToolkit().getScreenSize().getWidth()-200,
 			HEIGHT =  Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	Renderer renderer;
-	private int time, lives = 3, initialMoleculeCount;
+	private int time, lives = 3, initialMoleculeCount,health=100;
 	private double score= 0;
 	private int alphaCount=100,betaCount=100,sigmaCount=100,gammaCount=100;
 	private int alphaPUCount=20,betaPUCount=20,sigmaPUCount=20,gammaPUCount=20;
@@ -109,7 +109,7 @@ public class Controller {
 		statsWindow.getBetaPULabel().setText(Integer.toString(betaPUCount));
 		statsWindow.getSigmaPULabel().setText(Integer.toString(sigmaPUCount));
 		statsWindow.getGammaPULabel().setText(Integer.toString(gammaPUCount));
-		
+		statsWindow.getHealth().setText(Integer.toString(health));
 		//Shields
 		statsWindow.getEta().setText(Integer.toString(etaCount));
 		statsWindow.getLota().setText(Integer.toString(lotaCount));
@@ -126,7 +126,7 @@ public class Controller {
 			second += "0";
 		}
 		statsWindow.getTime().setText(minute+":"+second);
-		if(time==0 && !frame.isBuildMode()) {
+		if(health<=0 ||(time==0 && !frame.isBuildMode())) {
 			System.out.println("Time is Up! Game Over");
 			objects= new ArrayList<>();
 			renderer.objects= new ArrayList<>();
@@ -206,9 +206,14 @@ public class Controller {
 					if(!frame.isBuildMode()) {
 						tempobject.setSpeed(speed);
 					}
-					if(tempobject.getY()> HEIGHT) {
+					if(tempobject.getY()> HEIGHT- tempobject.getHeight()) {
+						double distance= getShooter().getX()-tempobject.getX();
+						if(distance <= tempobject.getWidth()) {
+							health -= WIDTH/ Math.abs(distance);
+						}
 						objects.remove(i);
 						renderer.objects.remove(i);
+						
 					}
 					
 					

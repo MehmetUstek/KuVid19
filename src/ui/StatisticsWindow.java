@@ -1,6 +1,8 @@
 package ui;
 
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -54,6 +56,7 @@ public class StatisticsWindow extends JPanel{
 	ImageIcon gammaPU = new ImageIcon(gammaP);
 	
 	
+	
 	JLabel alphaLabel = new JLabel("1");
 	JLabel betaLabel = new JLabel("1");
 	JLabel sigmaLabel = new JLabel("1");
@@ -67,6 +70,8 @@ public class StatisticsWindow extends JPanel{
 	JLabel score= new JLabel();
 	JLabel timeShape = new JLabel("Time");
 	JLabel time = new JLabel("0");
+	JLabel healthField = new JLabel("Health");
+	JLabel health = new JLabel("100");
 	//Shields
 	JButton etaLabel = new JButton("Eta");
 	JLabel eta= new JLabel("0");
@@ -76,6 +81,7 @@ public class StatisticsWindow extends JPanel{
 	JLabel theta= new JLabel("0");
 	JButton zetaLabel = new JButton("Zeta");
 	JLabel zeta= new JLabel("0");
+	
 	
 	public StatisticsWindow() {
 		statisticAlpha.setIcon(icona);
@@ -102,11 +108,27 @@ public class StatisticsWindow extends JPanel{
 		lota.setFont(myFont);
 		theta.setFont(myFont);
 		zeta.setFont(myFont);
+		healthField.setFont(secondFont);
+		health.setFont(myFont);
+		Image image = alphaPU.getImage();
+		image= image.getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+		alphaPU = new ImageIcon(image);
+		image = betaPU.getImage();
+		image= image.getScaledInstance(80, 80, Image.SCALE_AREA_AVERAGING);
+		betaPU = new ImageIcon(image);
+		image = sigmaPU.getImage();
+		image= image.getScaledInstance(80, 80, Image.SCALE_AREA_AVERAGING);
+		sigmaPU = new ImageIcon(image);
+		image = gammaPU.getImage();
+		image= image.getScaledInstance(70, 70, Image.SCALE_AREA_AVERAGING);
+		gammaPU = new ImageIcon(image);
 		
 		add(scoreText);
 		add(score);
 		add(timeShape);
 		add(time);
+		add(healthField);
+		add(health);
 		
 		add(alphaLabel);
 		add(statisticAlpha);
@@ -431,6 +453,14 @@ public class StatisticsWindow extends JPanel{
 
 	public void setZeta(JLabel zeta) {
 		this.zeta = zeta;
+	}
+
+	public JLabel getHealth() {
+		return health;
+	}
+
+	public void setHealth(JLabel health) {
+		this.health = health;
 	}
 
 }
