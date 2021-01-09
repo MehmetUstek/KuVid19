@@ -1,10 +1,12 @@
-package domain;
+package Test_Mehmet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.After;
 import org.junit.jupiter.api.Test;
 
+import domain.Controller;
+import domain.Save;
 import domain.atom.Atom;
 import ui.Renderer;
 import ui.UIAtom;

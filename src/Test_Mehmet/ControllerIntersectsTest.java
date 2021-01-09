@@ -1,10 +1,12 @@
-package domain;
+package Test_Mehmet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.geom.Rectangle2D;
 
 import org.junit.jupiter.api.Test;
+
+import domain.Controller;
 
 class ControllerIntersectsTest {
 	/*

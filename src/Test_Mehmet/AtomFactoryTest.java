@@ -1,10 +1,12 @@
-package domain.atom;
+package Test_Mehmet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
 import domain.Controller;
+import domain.atom.Atom;
+import domain.atom.AtomFactory;
 
 class AtomFactoryTest {
 

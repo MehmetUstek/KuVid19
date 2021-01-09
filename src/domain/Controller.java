@@ -62,7 +62,7 @@ public class Controller {
 	double shooterY =HEIGHT - shooterHeight*2;
 	double atomX = shooterX+ diameter/2;
 	double atomY = shooterY -diameter*2;
-	double rotationConstant = 10;
+	public double rotationConstant = 10;
 	double atomSpeed=L/5;
 	double shooterMoveConstant = 15;
 	private boolean isPaused = false;
@@ -160,10 +160,7 @@ public class Controller {
 				}
 //			System.out.println(tempobject.getType());
 			if(tempobject.getType()!=null) {
-				if (i!=0 && (tempobject.getType().equals("+alpha") ||
-						tempobject.getType().equals("+beta") || 
-						tempobject.getType().equals("+sigma") ||
-						tempobject.getType().equals("+gamma"))) {
+				if (i!=0 && isPowerup(tempobject)) {
 					Powerup tempobject1=(Powerup) tempobject;
 					if(!frame.isBuildMode()) {
 						tempobject1.setSpeed(speed);
@@ -179,10 +176,7 @@ public class Controller {
 	//				uipowerup.setX(tempobject1.getX());
 	//				uipowerup.setY(tempobject1.getY());
 				}
-				if (i!=0 && (tempobject.getType().equals("AlphaMolecule") ||
-						tempobject.getType().equals("BetaMolecule") || 
-						tempobject.getType().equals("SigmaMolecule") ||
-						tempobject.getType().equals("GammaMolecule"))) {
+				if (i!=0 && isMolecule(tempobject)) {
 					if(!frame.isBuildMode()) {
 						tempobject.setSpeed(speed);
 					}
@@ -658,8 +652,30 @@ public class Controller {
 		 * @requires a valid GameObject.
 		 * @effects returns true if the specified gameobject is one of the instances of atom object.
 		 */
-		if(tempobject.getType()=="alpha"|| tempobject.getType()=="beta"|| tempobject.getType()=="sigma"||
-				tempobject.getType()=="gamma") {
+		if(tempobject.getType().equals("alpha")|| tempobject.getType().equals("beta")|| tempobject.getType().equals("sigma")||
+				tempobject.getType().equals("gamma")) {
+			return true;
+		}
+		return false;
+	}
+	public static boolean isPowerup(GameObject tempobject) {
+		/**
+		 * @requires a valid GameObject.
+		 * @effects returns true if the specified gameobject is one of the instances of powerup object.
+		 */
+		if(tempobject.getType().equals("+alpha")|| tempobject.getType().equals("+beta")|| tempobject.getType().equals("+sigma")||
+				tempobject.getType().equals("+gamma")) {
+			return true;
+		}
+		return false;
+	}
+	public static boolean isMolecule(GameObject tempobject) {
+		/**
+		 * @requires a valid GameObject.
+		 * @effects returns true if the specified gameobject is one of the instances of powerup object.
+		 */
+		if(tempobject.getType().equals("AlphaMolecule")|| tempobject.getType().equals("BetaMolecule")|| tempobject.getType().equals("SigmaMolecule")||
+				tempobject.getType().equals("GammaMolecule")) {
 			return true;
 		}
 		return false;

@@ -1,8 +1,10 @@
-package domain.atom;
+package Test_Mehmet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+
+import domain.atom.Atom;
 
 class AtomMoveTest {
 	/*
