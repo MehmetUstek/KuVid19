@@ -10,7 +10,7 @@ import domain.Controller;
 
 class ControllerIntersectsTest {
 	/*
-	 * Left and right corner and overlapping rectangles black-box testing.
+	 * Black-box: Left and right corner and overlapping rectangles black-box testing.
 	 * Glass-box testing: show there is correlation that whether the objects change places it will give the same result.
 	 */
 
@@ -62,7 +62,7 @@ class ControllerIntersectsTest {
 		b= new Rectangle2D.Double(100,100,20,20);
 		a=new Rectangle2D.Double(100,80,20,20);
 		//The previous test's a and b have switched positions
-		assertFalse(Controller.intersects(a,b)); //Glass-box up-down tangent rectangles.
+		assertFalse(Controller.intersects(a,b)); //Glass-box up-down tangent rectangles with switched positions of previous test.
 		
 	}
 

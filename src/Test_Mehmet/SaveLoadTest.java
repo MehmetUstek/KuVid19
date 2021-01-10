@@ -40,6 +40,9 @@ class SaveLoadTest {
 		// Test powerup count
 		assertTrue(controller.getAlphaPUCount()==20);//Black-box return the initial settings.
 		
+		// Test molecule count
+		assertTrue(controller.objects.get(2).getType().equals("AlphaMolecule"));//Black-box return the initial settings for molecules.
+		
 		//Test time
 		assertTrue(controller.getTime()==600);//Black-box return the initial settings.
 		
@@ -48,6 +51,24 @@ class SaveLoadTest {
 		
 		//Test username
 		assertTrue(controller.getUsername().equals("savetest"));//Black-box return the initial settings.
+		
+		//Test beta atom
+		assertTrue(controller.getBetaCount()==20);//Black-box return the initial settings for beta atom.
+
+		//Test sigma atom
+		assertTrue(controller.getSigmaCount()==20);//Black-box return the initial settings for sigma atom.
+
+		//Test gamma atom
+		assertTrue(controller.getGammaCount()==20);//Black-box return the initial settings for gamma atom.
+		
+		//Test lota shield count
+		assertTrue(controller.getLotaCount()==20);//Black-box return the initial settings for lota shield.
+		
+		//Test theta shield count
+		assertTrue(controller.getThetaCount()==20);//Black-box return the initial settings for theta shield.
+		
+		//Test zeta shield count
+		assertTrue(controller.getZetaCount()==20);//Black-box return the initial settings for zeta shield.
 	}
 	
 	
