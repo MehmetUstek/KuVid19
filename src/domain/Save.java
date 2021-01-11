@@ -37,7 +37,7 @@ public class Save implements ISaveLoad {
 	double objectMovementAngle=0,objectX=0,objectY=0, score=0;
 	int lengthL=0,remainingTime=0, alphaAtomCount=0, betaAtomCount=0,sigmaAtomCount=0,gammaAtomCount=0, 
 	alphaPUCount=0,betaPUCount=0,sigmaPUCount=0,gammaPUCount=0,
-	etaCount= 0, lotaCount= 0, thetaCount = 0, zetaCount =0;
+	etaCount= 0, lotaCount= 0, thetaCount = 0, zetaCount =0,health=100;
 	ArrayList<GameObject> list;
 	Controller controller;
 	boolean isShooted;
@@ -63,6 +63,7 @@ public class Save implements ISaveLoad {
 		this.sigmaPUCount= controller.getSigmaPUCount();
 		this.gammaPUCount= controller.getGammaPUCount();
 		this.lengthL= controller.getLengthL();
+		this.health= controller.getHealth();
 	}
 	public Save(String username,Controller controller) {
 		this.username= username;
@@ -83,6 +84,7 @@ public class Save implements ISaveLoad {
 		this.thetaCount= controller.getThetaCount();
 		this.zetaCount= controller.getZetaCount();
 		this.lengthL= controller.getLengthL();
+		this.health= controller.getHealth();
 	}
 	public void saveGame() {
 		/**
@@ -98,6 +100,7 @@ public class Save implements ISaveLoad {
 		obj.addProperty("username", username);
 		obj.addProperty("score", score);
 		obj.addProperty("speed", speed);
+		obj.addProperty("health", health);
 		//Remaining time as seconds.
 		obj.addProperty("remainingTime", remainingTime);
 		lengthL= controller.getLengthL();
@@ -213,6 +216,7 @@ public class Save implements ISaveLoad {
 			betaAtomCount= obj.get(0).getAsJsonObject().get("betaAtom").getAsInt();
 			sigmaAtomCount= obj.get(0).getAsJsonObject().get("sigmaAtom").getAsInt();
 			gammaAtomCount= obj.get(0).getAsJsonObject().get("gammaAtom").getAsInt();
+			health = obj.get(0).getAsJsonObject().get("health").getAsInt();
 //			lengthL= obj.get(0).getAsJsonObject().get("lengthL").getAsInt();
 			//Shields
 			etaCount= obj.get(0).getAsJsonObject().get("eta").getAsInt();
@@ -240,6 +244,8 @@ public class Save implements ISaveLoad {
 			//Time
 			controller.setTime(remainingTime);
 			controller.setSpeed(speed);
+			controller.setScore(score);
+			controller.setHealth(health);
 //			controller.setLengthL(lengthL);
 			
 			//Shooting Object load

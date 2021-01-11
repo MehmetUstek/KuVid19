@@ -69,9 +69,9 @@ public class UIPowerup extends UIGameObject implements ImageObserver{
 		Rectangle2D r= new Rectangle2D.Double(x,y,getWidth(),getHeight());
         double cx= r.getCenterX();
         double cy= r.getCenterY();
-        at.setToIdentity();
-		at.translate(cx,cy);
-		g.drawImage(image,at, new Canvas());
+//        at.setToIdentity();
+//		at.translate(cx,cy);
+		g.drawImage(image, (int) cx,(int) cy, new Canvas());
 		
 	}
 	public String getPUType() {
@@ -82,9 +82,6 @@ public class UIPowerup extends UIGameObject implements ImageObserver{
 		this.puType = atomType;
 	}
 	
-	public void paintComponent(Graphics2D g) {
-		render(g);
-	}
 
 	@Override
 	public boolean imageUpdate(Image arg0, int arg1, int arg2, int arg3, int arg4, int arg5) {

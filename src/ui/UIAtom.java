@@ -5,12 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 
@@ -31,7 +26,7 @@ public class UIAtom extends UIGameObject implements ImageObserver{
 	ImageIcon icon;
 	Image image;
 	double width,height;
-	AffineTransform at = new AffineTransform();
+//	AffineTransform at = new AffineTransform();
 	public UIAtom(String atomType) {
 		// TODO Auto-generated constructor stub
 		super();
@@ -94,11 +89,11 @@ public class UIAtom extends UIGameObject implements ImageObserver{
 		Rectangle2D r= new Rectangle2D.Double(x,y,getWidth(),getHeight());
         double cx= r.getCenterX();
         double cy= r.getCenterY();
-        at.setToIdentity();
-		at.translate(cx,cy);
+//        at.setToIdentity();
+//		at.translate(cx,cy);
 //		Rectangle2D r= new Rectangle2D.Double(x,y,getDiameter(),getDiameter());
 //		g.drawImage(image,(int) x,(int) y, new Canvas());
-		g.drawImage(image,at,new Canvas());
+		g.drawImage(image,(int) cx,(int) cy,new Canvas());
 		
 		
 	}
@@ -110,10 +105,6 @@ public class UIAtom extends UIGameObject implements ImageObserver{
 		this.atomType = atomType;
 	}
 	
-	public void paintComponent(Graphics2D g) {
-//		super.paintComponent(g);
-		render(g);
-	}
 
 	@Override
 	public boolean imageUpdate(Image arg0, int arg1, int arg2, int arg3, int arg4, int arg5) {

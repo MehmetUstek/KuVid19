@@ -204,15 +204,15 @@ public class BuildMode extends Canvas implements Runnable {
 		 */
 		if(window.getbGroup().getSelection().getActionCommand().equals("easy")) {
 			System.out.println("Object will fall in 1 second span");
-			controller.setSpeed(10);
+			controller.setSpeed(20);
 		}
 		else if(window.getbGroup().getSelection().getActionCommand().equals("medium")) {
 			System.out.println("Object will fall in 2/3 second span");
-			controller.setSpeed(15);
+			controller.setSpeed(30);
 		}
 		else {
 			System.out.println("Object will fall in 1/2 second span");
-			controller.setSpeed(20);
+			controller.setSpeed(40);
 		}
 		
 	}

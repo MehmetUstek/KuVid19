@@ -19,7 +19,7 @@ public class UIReactionBlocker extends UIGameObject implements ImageObserver{
 	ImageIcon icon;
 	Image image;
 	double width,height;
-	AffineTransform at = new AffineTransform();
+//	AffineTransform at = new AffineTransform();
 	
 	public UIReactionBlocker(String blockerType) {
 		// TODO Auto-generated constructor stub
@@ -72,9 +72,9 @@ public class UIReactionBlocker extends UIGameObject implements ImageObserver{
 		Rectangle2D r= new Rectangle2D.Double(x,y,getWidth(),getHeight());
         double cx= r.getCenterX();
         double cy= r.getCenterY();
-        at.setToIdentity();
-		at.translate(cx,cy);
-		g.drawImage(image,at, new Canvas());
+//        at.setToIdentity();
+//		at.translate(cx,cy);
+        g.drawImage(image, (int) cx,(int) cy, new Canvas());
 		
 	}
 	public String getBlockerType() {
@@ -85,10 +85,6 @@ public class UIReactionBlocker extends UIGameObject implements ImageObserver{
 		this.blockerType = blockerType;
 	}
 	
-	public void paintComponent(Graphics2D g) {
-		super.paintComponent(g);
-		g.drawImage(image,(int)x,(int)y, (ImageObserver) this);
-	}
 
 	@Override
 	public boolean imageUpdate(Image arg0, int arg1, int arg2, int arg3, int arg4, int arg5) {

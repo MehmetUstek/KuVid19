@@ -1,22 +1,20 @@
 package ui.molecule;
 
 import java.awt.Canvas;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public class GammaMoleculeUI extends UIMolecule{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Image img;
-	AffineTransform at = new AffineTransform();
+//	AffineTransform at = new AffineTransform();
 	
 	public GammaMoleculeUI(){
 		super();
@@ -36,12 +34,9 @@ public class GammaMoleculeUI extends UIMolecule{
 		image= image.getScaledInstance((int)getWidth(), (int)getHeight(), Image.SCALE_SMOOTH);
 		icon = new ImageIcon(image);
 		image = icon.getImage();
-		Rectangle2D r= new Rectangle2D.Double(x,y,getWidth(),getHeight());
-        double cx= r.getCenterX();
-        double cy= r.getCenterY();
-        at.setToIdentity();
-		at.translate(x,y);
-		g.drawImage(img, at, new Canvas());
+//        at.setToIdentity();
+//		at.translate(x,y);
+		g.drawImage(img, (int) x,(int) y, new Canvas());
 	}
 }
 

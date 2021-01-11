@@ -2,8 +2,6 @@ package ui;
 
 import java.util.Random;
 
-import domain.reactionBlocker.ReactionBlocker;
-
 public class UIBlockerFactory {
 	static Random random = new Random();
 	private static UIReactionBlocker blocker;

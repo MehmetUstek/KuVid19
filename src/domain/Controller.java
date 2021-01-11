@@ -3,7 +3,6 @@ package domain;
 import java.awt.Toolkit;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -50,10 +49,6 @@ public class Controller {
 	
 	public static int L= (int) HEIGHT/10;
 	public int LengthL;
-//	private static final double ALPHA_STABILITY= 0.85;
-//	private static final double BETA_STABILITY= 0.9;
-//	private static final double SIGMA_STABILITY= 0.8;
-//	private static final double GAMMA_STABILITY= 0.7;
 	double shooterHeight = L;
 	double diameter= L/5;
 	double puWidth = L/2;
@@ -124,10 +119,12 @@ public class Controller {
 		String second= Integer.toString(timeAsSecond%60);
 		if(timeAsSecond%60 ==0) {
 			second += "0";
+		}else if(timeAsSecond %60 < 10) {
+			second = "0"+ second;
 		}
 		statsWindow.getTime().setText(minute+":"+second);
 		if(health<=0 ||(time==0 && !frame.isBuildMode())) {
-			System.out.println("Time is Up! Game Over");
+			System.out.println("Game Over");
 			objects= new ArrayList<>();
 			renderer.objects= new ArrayList<>();
 			renderer.setGameOver(true);
@@ -152,6 +149,7 @@ public class Controller {
 				int x = (int) tempobject.getX();
 				int y = (int) tempobject.getY();
 				double rotation = tempobject.getRotationAngle();
+				tempobject1.setSpeed(speed);
 				shooter.setX(x);
 				shooter.setY(y);
 				shooter.setRotationAngle(rotation);
@@ -162,7 +160,7 @@ public class Controller {
 				if (i!=0 && isPowerup(tempobject)) {
 					Powerup tempobject1=(Powerup) tempobject;
 					if(!frame.isBuildMode()) {
-						tempobject1.setSpeed(speed);
+						tempobject1.setSpeed(speed/3);
 					}
 					tempobject1.setWidth(puWidth);
 					tempobject1.setHeight(puWidth);
@@ -177,7 +175,7 @@ public class Controller {
 				}
 				if (i!=0 && isMolecule(tempobject)) {
 					if(!frame.isBuildMode()) {
-						tempobject.setSpeed(speed);
+						tempobject.setSpeed(speed/3);
 					}
 //					tempobject.setWidth(puWidth);
 //					tempobject.setHeight(puWidth);
@@ -199,16 +197,22 @@ public class Controller {
 						tempobject.getType().equals("sigma") ||
 						tempobject.getType().equals("gamma"))) {
 					if(!frame.isBuildMode()) {
-						tempobject.setSpeed(speed);
+						tempobject.setSpeed(speed/3);
 					}
-					if(tempobject.getY()> HEIGHT- tempobject.getHeight()) {
+					if(tempobject.getY()> HEIGHT- tempobject.getHeight()*2) {
 						double distance= getShooter().getX()-tempobject.getX();
-						if(distance <= tempobject.getWidth()) {
+						if(distance <= tempobject.getWidth()*2) {
 							health -= WIDTH/ Math.abs(distance);
 						}
 						objects.remove(i);
 						renderer.objects.remove(i);
 						
+					}
+					if(objects.size()==2) {
+						System.out.println("Time is Up! Game Over");
+						objects= new ArrayList<>();
+						renderer.objects= new ArrayList<>();
+						renderer.setGameOver(true);
 					}
 					
 					
@@ -225,18 +229,6 @@ public class Controller {
 	}
 	public void setFrame(Frame frame) {
 		this.frame = frame;
-	}
-	public LinkedList<Molecule> getMolecules() {
-		LinkedList<Molecule> allMolecules = new LinkedList<Molecule>();
-//		for (int i = 0; i < objects.size(); i++) {
-//			GameObject tempobject = (GameObject) objects.get(i);
-//			if (tempobject.getId() == ID.AlphaMolecule || tempobject.getId() == ID.BetaMolecule
-//					|| tempobject.getId() == ID.SigmaMolecule || tempobject.getId() == ID.GammaMolecule) {
-//
-//				allMolecules.add((Molecule) tempobject);
-//			}
-//		}
-		return allMolecules;
 	}
 	public int getInitialMoleculeCount() {
 		return initialMoleculeCount;
@@ -289,6 +281,7 @@ public class Controller {
 //		UIAtom atom = (UIAtom) renderer.objects.get(0);
 		double x = tempobject1.getX();
 		double y =  tempobject1.getY();
+		tempobject1.setSpeed(speed);
 //		double x1= x + tempobject1.getDiameter();
 //		double y1= y+ tempobject1.getDiameter();
 		if(!tempobject1.isShooted()) {
@@ -309,7 +302,7 @@ public class Controller {
 		tempobject = tempobject1;
 		Rectangle2D r= new Rectangle2D.Double(x,y,tempobject1.getDiameter(),tempobject1.getDiameter());
 		// Collision with alpha molecule and alpha atom.
-		for (int j = 2; j <= objects.size()-1; j++) {
+		for (int j = 2; j < objects.size(); j++) {
 			if(objects.size()==2) {
 				break;
 			}
@@ -1119,6 +1112,14 @@ public class Controller {
 
 	public void setShooterX(double shooterX) {
 		this.shooterX = shooterX;
+	}
+
+	public int getHealth() {
+		return health;
+	}
+
+	public void setHealth(int health) {
+		this.health = health;
 	}
 	
 }

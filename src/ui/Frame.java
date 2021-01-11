@@ -179,13 +179,13 @@ public class Frame extends Canvas {
 		gammaAtomCount.setEditable(true);
 		gammaAtomCount.setText("20");
 		alphaMoleculeCount.setEditable(true);
-		alphaMoleculeCount.setText("20");
+		alphaMoleculeCount.setText("5");
 		betaMoleculeCount.setEditable(true);
-		betaMoleculeCount.setText("20");
+		betaMoleculeCount.setText("5");
 		sigmaMoleculeCount.setEditable(true);
-		sigmaMoleculeCount.setText("20");
+		sigmaMoleculeCount.setText("5");
 		gammaMoleculeCount.setEditable(true);
-		gammaMoleculeCount.setText("20");
+		gammaMoleculeCount.setText("5");
 		
 		//Shields
 		etaCount.setEditable(true);
@@ -278,7 +278,7 @@ public class Frame extends Canvas {
 		bGroup.add(easyBox);
 		bGroup.add(mediumBox);
 		bGroup.add(hardBox);
-		bGroup.setSelected(easyBox.getModel(), true);
+		bGroup.setSelected(mediumBox.getModel(), true);
 		hardnessGui.setLayout(new GridLayout(0,1));
 		hardnessGui.setBounds(WIDTH- gui.getWidth() - 700, HEIGHT - 100 , 100, 100);
 		frame.add(hardnessGui);
