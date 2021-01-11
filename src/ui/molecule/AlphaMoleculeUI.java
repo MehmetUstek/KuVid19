@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
@@ -39,9 +40,15 @@ public class AlphaMoleculeUI extends UIMolecule implements ImageObserver{
 		
 		ImageIcon icon = new ImageIcon("src/assets/molecules/alpha-1.png");
 		img = icon.getImage();
-		
-		at.setToIdentity();
-		at.translate(x, y);
-		g.drawImage(img, at, this);
+		image= icon.getImage();
+		image= image.getScaledInstance((int)getWidth(), (int)getHeight(), Image.SCALE_SMOOTH);
+		icon = new ImageIcon(image);
+		image = icon.getImage();
+		Rectangle2D r= new Rectangle2D.Double(x,y,getWidth(),getHeight());
+        double cx= r.getCenterX();
+        double cy= r.getCenterY();
+        at.setToIdentity();
+		at.translate(x,y);
+		g.drawImage(img, at, new Canvas());
 	}
 }

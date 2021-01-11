@@ -1,8 +1,5 @@
 package domain.molecule;
 
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-
 import domain.ID;
 import domain.atom.Atom;
 import ui.KuVid;
@@ -12,8 +9,11 @@ public class BetaMolecule extends Molecule{
 	
 	
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static boolean hasReached = false;
-	private boolean rotationFlag = true;
 
 	public BetaMolecule(){
 		this.setId(ID.BetaMolecule);
@@ -47,7 +47,7 @@ public class BetaMolecule extends Molecule{
 
 	@Override
 	public void update() {
-		move(getSpeed()/50);
+		move(getSpeed()/40);
 	}
 	
 	@Override
@@ -57,29 +57,31 @@ public class BetaMolecule extends Molecule{
 
 	@Override
 	public void move(double speed) {
+		if(this.getY() >= KuVid.HEIGHT / 4) {
+			hasReached = true;
+		}
 		if(!hasReached) {
 			this.setY(this.getY() + speed);
-			
-		} else if(hasReached) {
-			if(rotationFlag) {
-				//rotate it 45 degree
-				double locX = this.getX() / 2;
-				double locY = this.getY() / 2;
-				AffineTransform at = AffineTransform.getRotateInstance(45, locX, locY);
-				AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-				this.setY(this.getY() + speed);
-				
-			}else if(!rotationFlag) {
-				//rotate it -45 degree
-				double locX = this.getX() / 2;
-				double locY = this.getY() / 2;
-				AffineTransform at = AffineTransform.getRotateInstance(-45, locX, locY);
-				AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-				this.setY(this.getY() + speed);
+		}else {
+			int a = rand.nextInt(100);
+
+			if (a > 95) {
+				super.i = rand.nextInt(2);
+				if (i == 0)
+					this.setX(this.getX() - speed);
+				else
+					this.setX(this.getX() + speed);
 			}
+			else {
+				if(i == 0) 
+					this.setX(this.getX() - speed);
+				else
+					this.setX(this.getX() + speed);	
+			}
+			this.setY(this.getY() + speed);
 		}
-		
 	}
+
 
 	@Override
 	public void move(double x, double y, double velX, double velY) {

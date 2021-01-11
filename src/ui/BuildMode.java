@@ -291,10 +291,14 @@ public class BuildMode extends Canvas implements Runnable {
 				}
 			}
 			positionList.add(rect);
+			molecule.setWidth(diameter*2);
+			molecule.setHeight(diameter*2);
 			molecule.setX(x);
 			molecule.setY(y);
 			controller.addObject(molecule);
 			UIMolecule uimolecule = UIMoleculeFactory.getMolecule("AlphaMolecule");
+			uimolecule.setWidth(molecule.getWidth());
+			uimolecule.setHeight(molecule.getHeight());
 			renderer.objects.add(uimolecule);
 			list.add(molecule);
 			
@@ -313,10 +317,14 @@ public class BuildMode extends Canvas implements Runnable {
 				}
 			}
 			positionList.add(rect);
+			molecule.setWidth(diameter*2);
+			molecule.setHeight(diameter*2);
 			molecule.setX(x);
 			molecule.setY(y);
 			controller.addObject(molecule);
 			UIMolecule uimolecule = UIMoleculeFactory.getMolecule("BetaMolecule");
+			uimolecule.setWidth(molecule.getWidth());
+			uimolecule.setHeight(molecule.getHeight());
 			renderer.objects.add(uimolecule);
 			list.add(molecule);
 		}
@@ -334,10 +342,14 @@ public class BuildMode extends Canvas implements Runnable {
 				}
 			}
 			positionList.add(rect);
+			molecule.setWidth(diameter*2);
+			molecule.setHeight(diameter*2);
 			molecule.setX(x);
 			molecule.setY(y);
 			controller.addObject(molecule);
 			UIMolecule uimolecule = UIMoleculeFactory.getMolecule("SigmaMolecule");
+			uimolecule.setWidth(molecule.getWidth());
+			uimolecule.setHeight(molecule.getHeight());
 			renderer.objects.add(uimolecule);
 			list.add(molecule);
 		}
@@ -355,10 +367,14 @@ public class BuildMode extends Canvas implements Runnable {
 				}
 			}
 			positionList.add(rect);
+			molecule.setWidth(diameter*2);
+			molecule.setHeight(diameter*2);
 			molecule.setX(x);
 			molecule.setY(y);
 			controller.addObject(molecule);
 			UIMolecule uimolecule = UIMoleculeFactory.getMolecule("GammaMolecule");
+			uimolecule.setWidth(molecule.getWidth());
+			uimolecule.setHeight(molecule.getHeight());
 			renderer.objects.add(uimolecule);
 			list.add(molecule);
 		}

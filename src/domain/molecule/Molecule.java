@@ -1,11 +1,19 @@
 package domain.molecule;
 
+import java.util.Random;
+
 import domain.GameObject;
 import domain.atom.Atom;
 
 
 public abstract class Molecule extends GameObject implements MovementStrategy{
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	Random rand = new Random();
+	int i = 0;
+
 	@Override
 	public void move(double speed) {
 		// TODO Auto-generated method stub

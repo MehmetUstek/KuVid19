@@ -1,12 +1,5 @@
 package domain.molecule;
 
-import java.awt.Point;
-import java.awt.Shape;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import domain.ID;
 import domain.atom.Atom;
 import ui.KuVid;
@@ -14,8 +7,11 @@ import ui.KuVid;
 
 public class GammaMolecule extends Molecule{
 	
-	public static boolean hasReachedGamma = false;
-	private boolean rotationFlag = true;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private boolean hasReached = false;
 
 	public GammaMolecule(){
 		this.setId(ID.GammaMolecule);
@@ -47,7 +43,7 @@ public class GammaMolecule extends Molecule{
 	}
 	@Override
 	public void update() {
-		move(getSpeed()/50);
+		move(getSpeed()/40);
 		
 	}
 	
@@ -58,29 +54,32 @@ public class GammaMolecule extends Molecule{
 
 	@Override
 	public void move(double speed) {
-		if(!hasReachedGamma) {
+		if(this.getY() >= KuVid.HEIGHT / 2) {
+			hasReached = true;
+		}
+		if(!hasReached) {
 			this.setY(this.getY() + speed);
-			
-		} else if(hasReachedGamma) {
-			if(rotationFlag) {
-				//rotate it 45 degree
-				double locX = this.getX() / 2;
-				double locY = this.getY() / 2;
-				AffineTransform at = AffineTransform.getRotateInstance(45, locX, locY);
-				AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-				this.setY(this.getY() + speed);
-				
-			}else if(!rotationFlag) {
-				//rotate it -45 degree
-				double locX = this.getX() / 2;
-				double locY = this.getY() / 2;
-				AffineTransform at = AffineTransform.getRotateInstance(-45, locX, locY);
-				AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-				this.setY(this.getY() + speed);
+		}else {
+			int a = rand.nextInt(100);
+
+			if (a > 95) {
+				super.i = rand.nextInt(2);
+				if (i == 0)
+					this.setX(this.getX() - speed);
+				else
+					this.setX(this.getX() + speed);
 			}
+			else {
+				if(i == 0) 
+					this.setX(this.getX() - speed);
+				else
+					this.setX(this.getX() + speed);	
+			}
+			this.setY(this.getY() + speed);
 		}
 		
 	}
+
 
 	@Override
 	public void move(double x, double y, double velX, double velY) {

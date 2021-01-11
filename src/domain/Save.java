@@ -281,11 +281,14 @@ public class Save implements ISaveLoad {
 					GameObject molecule = MoleculeFactory.getMolecule(obj.get(i).getAsJsonObject().get("type").getAsString());
 					molecule.setX(obj.get(i).getAsJsonObject().get("x").getAsDouble());
 					molecule.setY(obj.get(i).getAsJsonObject().get("y").getAsDouble());
+					molecule.setWidth(diameter*2);
+					molecule.setHeight(diameter*2);
 					controller.objects.add(molecule);
 					
 					//TODO Change UIMolecule with UIMoleculeFactory
 					UIMolecule uimolecule = UIMoleculeFactory.getMolecule(obj.get(i).getAsJsonObject().get("type").getAsString());
-					
+					uimolecule.setWidth(molecule.getWidth());
+					uimolecule.setHeight(molecule.getHeight());
 					uimolecule.setX(molecule.getX());
 					uimolecule.setY(molecule.getY());
 					controller.getRenderer().objects.add(uimolecule);

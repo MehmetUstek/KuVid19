@@ -132,8 +132,7 @@ public class Controller {
 			renderer.objects= new ArrayList<>();
 			renderer.setGameOver(true);
 		}
-		
-		for (int i = 0; i < objects.size(); i++) {
+		for (int i = 0; i <= objects.size()-1; i++) {
 			GameObject tempobject = (GameObject) objects.get(i);
 			renderer.objects.get(i).setX((int) tempobject.getX());
 			renderer.objects.get(i).setY((int) tempobject.getY());
@@ -180,6 +179,8 @@ public class Controller {
 					if(!frame.isBuildMode()) {
 						tempobject.setSpeed(speed);
 					}
+//					tempobject.setWidth(puWidth);
+//					tempobject.setHeight(puWidth);
 					if(tempobject.getY()> HEIGHT) {
 						objects.remove(i);
 						renderer.objects.remove(i);
@@ -308,8 +309,8 @@ public class Controller {
 		tempobject = tempobject1;
 		Rectangle2D r= new Rectangle2D.Double(x,y,tempobject1.getDiameter(),tempobject1.getDiameter());
 		// Collision with alpha molecule and alpha atom.
-		for (int j = 2; j < objects.size(); j++) {
-			if(objects.size()==0) {
+		for (int j = 2; j <= objects.size()-1; j++) {
+			if(objects.size()==2) {
 				break;
 			}
 			GameObject collisionObject = (GameObject) objects.get(j);
@@ -548,16 +549,6 @@ public class Controller {
 		}
 
 		System.out.println("BLENDED");
-
-		System.out.println("Number of Alpha atoms: " + KuVid.alphaList.size());
-		System.out.println("Number of Beta atoms: " + KuVid.betaList.size());
-		System.out.println("Number of Sigma atoms: " + KuVid.sigmaList.size());
-		System.out.println("Number of Gamma atoms: " + KuVid.gammaList.size());
-		
-		System.out.println("Number of Alpha atoms: " + alphaCount);
-		System.out.println("Number of Beta atoms: " + betaCount);
-		System.out.println("Number of Sigma atoms: " + sigmaCount);
-		System.out.println("Number of Gamma atoms: " + gammaCount);
 		
 	
 
@@ -688,7 +679,7 @@ public class Controller {
 		 * such as username, the gameobject counts, types and positions etc.
 		 */
 		
-		GameObject shootingObject= getShootingObject();
+//		GameObject shootingObject= getShootingObject();
 		save= new SaveLoadAdapter(new Save(this));
 		save.saveGame();
 	}

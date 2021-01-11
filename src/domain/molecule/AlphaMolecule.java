@@ -1,20 +1,17 @@
 package domain.molecule;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 
+import java.util.Random;
 import domain.ID;
 import domain.atom.Atom;
-import ui.KuVid;
 
 public class AlphaMolecule extends Molecule{
 	
-	
-
-	private boolean rotationFlag = true;
-	private final double rightRotation = 45;
-	private final double leftRotation = -45;
-	
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	Random rand = new Random();
+	int i = 0;
 	public AlphaMolecule(){
 		this.setId(ID.AlphaMolecule);
 		this.setWidth((int) (Molecule.L/4));
@@ -39,7 +36,7 @@ public class AlphaMolecule extends Molecule{
 
 	@Override
 	public void update() {
-		move(getSpeed()/50);
+		move(getSpeed()/40);
 	}
 	
 	@Override
@@ -49,26 +46,24 @@ public class AlphaMolecule extends Molecule{
 
 	@Override
 	public void move(double speed) {
-		if(rotationFlag) {
-			//rotate it 45 degree
-			double locX = this.getX() / 2;
-			double locY = this.getY() / 2;
-			AffineTransform at = AffineTransform.getRotateInstance(45, locX, locY);
-			AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-			this.setY(this.getY() + speed);
-			
-		}else if(!rotationFlag) {
-			//rotate it -45 degree
-			double locX = this.getX() / 2;
-			double locY = this.getY() / 2;
-			AffineTransform at = AffineTransform.getRotateInstance(-45, locX, locY);
-			AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-			this.setY(this.getY() + speed);
+		int a = rand.nextInt(100);
+
+		if (a > 95) {
+			i = rand.nextInt(2);
+			if (i == 0)
+				this.setX(this.getX() - speed);
+			else
+				this.setX(this.getX() + speed);
 		}
-		
-		
-		
+		else {
+			if(i == 0) 
+				this.setX(this.getX() - speed);
+			else
+				this.setX(this.getX() + speed);	
+		}
+		this.setY(this.getY() + speed);
 	}
+
 
 	@Override
 	public void move(double x, double y, double velX, double velY) {

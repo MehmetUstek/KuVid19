@@ -165,13 +165,13 @@ public class KuVid extends Canvas implements Runnable {
 			this.addKeyListener(new KeyListener() {
 				public void keyPressed(KeyEvent e) {
 					
-					if(e.getKeyCode() != KeyEvent.VK_B 
-							&& e.getKeyCode() != KeyEvent.VK_1 
-							&& e.getKeyCode() != KeyEvent.VK_2 
-							&& e.getKeyCode() != KeyEvent.VK_3 
-							&& e.getKeyCode() != KeyEvent.VK_4) {
-						controller.blenderObject(false, 0);
-					}
+//					if(e.getKeyCode() != KeyEvent.VK_B 
+//							&& e.getKeyCode() != KeyEvent.VK_1 
+//							&& e.getKeyCode() != KeyEvent.VK_2 
+//							&& e.getKeyCode() != KeyEvent.VK_3 
+//							&& e.getKeyCode() != KeyEvent.VK_4) {
+//						controller.blenderObject(false, 0);
+//					}
 
 
 

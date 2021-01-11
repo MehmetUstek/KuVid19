@@ -45,7 +45,7 @@ public class SigmaMolecule extends Molecule{
 	}
 	@Override
 	public void update() {
-		move(getSpeed()/50);
+		move(getSpeed()/40);
 		
 	}
 	
