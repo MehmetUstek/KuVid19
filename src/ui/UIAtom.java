@@ -3,7 +3,6 @@ package ui;
 import java.awt.Canvas;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
 import javax.swing.ImageIcon;

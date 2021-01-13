@@ -31,7 +31,9 @@ public class Renderer {
 		 */
 		for (int i = 0; i < objects.size(); i++) {
 			UIGameObject temp = (UIGameObject) objects.get(i);
-			temp.render(g);
+			if(temp.getY()+temp.getHeight()/2>0) {
+				temp.render(g);
+			}
 		}
 		g.setColor(Color.black);
 		g.setFont(new Font("TimesRoman",Font.PLAIN,22));

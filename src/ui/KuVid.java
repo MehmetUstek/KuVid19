@@ -132,35 +132,6 @@ public class KuVid extends Canvas implements Runnable {
 			renderer.addObject(shooterui);
 			controller.addObject(shooter);
 			
-			blender.setX(blenderX);
-			blender.setY(blenderY);
-			
-//			renderer.addObject(blenderui);
-//			controller.addObject(blender);
-			
-			// Molecule settings
-//			alphaMol.setX(200);
-//			alphaMol.setY(0);
-//			betaMol.setX(300);
-//			betaMol.setY(0);
-//			sigmaMol.setX(400);
-//			sigmaMol.setY(0);
-//			gammaMol.setX(500);
-//			gammaMol.setY(0);
-			
-//			renderer.addObject(alphaUI);
-//			controller.addObject(alphaMol);
-//			renderer.addObject(betaUI);
-//			controller.addObject(betaMol);
-//			renderer.addObject(sigmaUI);
-//			controller.addObject(sigmaMol);
-//			renderer.addObject(gammaUI);
-//			controller.addObject(gammaMol);
-			
-//			alphaMol.move(atomSpeed);
-//			betaMol.move(atomSpeed);
-//			sigmaMol.move(atomSpeed);
-//			gammaMol.move(atomSpeed);
 			
 			this.addKeyListener(new KeyListener() {
 				public void keyPressed(KeyEvent e) {
@@ -182,15 +153,8 @@ public class KuVid extends Canvas implements Runnable {
 						break;
 					case  KeyEvent.VK_L:
 						System.out.println("LOADED");
-//						window.dispose();
 						controller.loadGame();
-//						L= controller.getLengthL();
-//						diameter= L/10;
-//						shooterHeight=L;
-//						System.out.println("diametereasd"+diameter);
-//						System.out.println("heghe"+HEIGHT);
 						resumeGame();
-						//TODO these resume and pauses will change.
 						
 						break;
 					case  KeyEvent.VK_S:

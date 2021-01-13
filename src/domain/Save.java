@@ -250,27 +250,9 @@ public class Save implements ISaveLoad {
 			
 			//Shooting Object load
 			if(currentShootingObject.equals("alpha") || currentShootingObject.equals("beta") || currentShootingObject.equals("sigma") || currentShootingObject.equals("gamma")) {
-	//			shootingObject= new Atom(currentShootingObject);
-	//			uiobject = new UIAtom(shootingObject.getType());
-	////			uiobject.setHeight(diameter);
-	////			uiobject.setWidth(diameter);
-	//			((UIAtom)uiobject).setDiameter(diameter);
-	//			shootingObject.setHeight(diameter);
-	//			shootingObject.setWidth(diameter);
-	//			shootingObject.setSpeed(atomSpeed);
-	//			shootingObject.setRotationAngle(objectMovementAngle);
-				
-				//TODO Setting shootingObject does not work precisely.
 				Atom atom1= AtomFactory.getAtom((Atom) shootingObject,currentShootingObject);
 				((UIAtom) uiobject).setAtomType(atom1.getType());
 			}else if(currentShootingObject.equals("+alpha") || currentShootingObject.equals("+beta") || currentShootingObject.equals("+sigma") || currentShootingObject.equals("+gamma")) {
-	
-	//			shootingObject= new Powerup(currentShootingObject);
-	//			uiobject = new UIPowerup(currentShootingObject);
-	//			uiobject.setHeight(diameter*2);
-	//			uiobject.setWidth(diameter*2);
-	//			shootingObject.setHeight(diameter*2);
-	//			shootingObject.setWidth(diameter*2);
 				Powerup pu1= PowerupFactory.getPU((Powerup) shootingObject,currentShootingObject);
 				((UIPowerup) uiobject).setPUType(pu1.getType());
 			}
@@ -287,8 +269,8 @@ public class Save implements ISaveLoad {
 					GameObject molecule = MoleculeFactory.getMolecule(obj.get(i).getAsJsonObject().get("type").getAsString());
 					molecule.setX(obj.get(i).getAsJsonObject().get("x").getAsDouble());
 					molecule.setY(obj.get(i).getAsJsonObject().get("y").getAsDouble());
-					molecule.setWidth(diameter*2);
-					molecule.setHeight(diameter*2);
+					molecule.setWidth(diameter*3);
+					molecule.setHeight(diameter*3);
 					controller.objects.add(molecule);
 					
 					//TODO Change UIMolecule with UIMoleculeFactory

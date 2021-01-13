@@ -12,7 +12,6 @@ public class SigmaMoleculeUI extends UIMolecule{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	Image img;
 //	AffineTransform at = new AffineTransform();
 	
 	public SigmaMoleculeUI(){
@@ -22,21 +21,20 @@ public class SigmaMoleculeUI extends UIMolecule{
 	
 	public void paintComponent(Graphics2D g) {
 		super.paintComponent(g);
-		g.drawImage(img, (int)x,(int)y, (ImageObserver) this);
+		g.drawImage(image, (int)x,(int)y, (ImageObserver) this);
 	}
 
 	@Override
 	public void render(Graphics2D g){
 		
 		ImageIcon icon = new ImageIcon("src/assets/molecules/sigma-.png");
-		img = icon.getImage();
 		image= icon.getImage();
 		image= image.getScaledInstance((int)getWidth(), (int)getHeight(), Image.SCALE_SMOOTH);
 		icon = new ImageIcon(image);
 		image = icon.getImage();
 //        at.setToIdentity();
 //		at.translate(x,y);
-		g.drawImage(img, (int) x,(int) y, new Canvas());
+		g.drawImage(image, (int) x,(int) y, new Canvas());
 	}
 }
 
