@@ -39,9 +39,12 @@ public class UpdateAtomTask extends TimerTask {
 		 * @modifies the shooting object's positions, angles.
 		 * @effects update the position and angle of a shooted object regarding its speed, place in the game's legal positions etc.
 		 */
+    	if(!atom.isShooted()) {
+    		this.cancel();
+    	}
     	if(atom.getY()> d.getHeight()+atom.getHeight()/2) {
-    		atom.setX(x);
-    		atom.setY(y);
+//    		atom.setX(x);
+//    		atom.setY(y);
     		atom.setShooted(false);
     		
     		this.cancel();

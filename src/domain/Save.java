@@ -34,7 +34,7 @@ public class Save implements ISaveLoad {
 	 * OVERVIEW: This class is saver and loader class which uses JSON file to save and load the game.
 	 */
 	String username="",currentShootingObject="";
-	double objectMovementAngle=0,objectX=0,objectY=0, score=0;
+	double objectMovementAngle=0,objectX=0,objectY=0, score=100;
 	int lengthL=0,remainingTime=0, alphaAtomCount=0, betaAtomCount=0,sigmaAtomCount=0,gammaAtomCount=0, 
 	alphaPUCount=0,betaPUCount=0,sigmaPUCount=0,gammaPUCount=0,
 	etaCount= 0, lotaCount= 0, thetaCount = 0, zetaCount =0,health=100;
@@ -65,27 +65,27 @@ public class Save implements ISaveLoad {
 		this.lengthL= controller.getLengthL();
 		this.health= controller.getHealth();
 	}
-	public Save(String username,Controller controller) {
-		this.username= username;
-		this.controller= controller;
-	}
-	public Save(String username,Controller controller, ArrayList<GameObject> list,int remainingTime) {
-		this.controller= controller;
-		this.username= username;
-		this.list= list;
-		this.speed= controller.getSpeed();
-		this.remainingTime= remainingTime;
-		this.alphaAtomCount=controller.getAlphaCount();
-		this.betaAtomCount= controller.getBetaCount();
-		this.sigmaAtomCount= controller.getSigmaCount();
-		this.gammaAtomCount= controller.getGammaCount();
-		this.etaCount= controller.getEtaCount();
-		this.lotaCount= controller.getLotaCount();
-		this.thetaCount= controller.getThetaCount();
-		this.zetaCount= controller.getZetaCount();
-		this.lengthL= controller.getLengthL();
-		this.health= controller.getHealth();
-	}
+//	public Save(String username,Controller controller) {
+//		this.username= username;
+//		this.controller= controller;
+//	}
+//	public Save(String username,Controller controller, ArrayList<GameObject> list) {
+//		this.controller= controller;
+//		this.username= username;
+//		this.list= list;
+//		this.speed= controller.getSpeed();
+//		this.remainingTime= controller.getTime();
+//		this.alphaAtomCount=controller.getAlphaCount();
+//		this.betaAtomCount= controller.getBetaCount();
+//		this.sigmaAtomCount= controller.getSigmaCount();
+//		this.gammaAtomCount= controller.getGammaCount();
+//		this.etaCount= controller.getEtaCount();
+//		this.lotaCount= controller.getLotaCount();
+//		this.thetaCount= controller.getThetaCount();
+//		this.zetaCount= controller.getZetaCount();
+//		this.lengthL= controller.getLengthL();
+//		this.health= controller.getHealth();
+//	}
 	public void saveGame() {
 		/**
 		 * @requires the game's must-save objects which are username, score, time, shooting object's position, angle etc.
@@ -210,7 +210,7 @@ public class Save implements ISaveLoad {
 			obj= gson.fromJson(reader, JsonArray.class);
 //			System.out.println(obj);
 			username= obj.get(0).getAsJsonObject().get("username").getAsString();
-			score= obj.get(0).getAsJsonObject().get("score").getAsInt();
+			score= obj.get(0).getAsJsonObject().get("score").getAsDouble();
 			speed= obj.get(0).getAsJsonObject().get("speed").getAsDouble();
 			alphaAtomCount= obj.get(0).getAsJsonObject().get("alphaAtom").getAsInt();
 			betaAtomCount= obj.get(0).getAsJsonObject().get("betaAtom").getAsInt();
@@ -253,8 +253,8 @@ public class Save implements ISaveLoad {
 				Atom atom1= AtomFactory.getAtom((Atom) shootingObject,currentShootingObject);
 				((UIAtom) uiobject).setAtomType(atom1.getType());
 			}else if(currentShootingObject.equals("+alpha") || currentShootingObject.equals("+beta") || currentShootingObject.equals("+sigma") || currentShootingObject.equals("+gamma")) {
-				Powerup pu1= PowerupFactory.getPU((Powerup) shootingObject,currentShootingObject);
-				((UIPowerup) uiobject).setPUType(pu1.getType());
+				controller.switchToPowerup(currentShootingObject);
+//				Powerup pu1= PowerupFactory.getPU((Powerup) controller.getShootingObject(),currentShootingObject);
 			}
 			controller.getShootingObject().setShooted(isShooted);
 			controller.getShootingObject().setX(objectX);

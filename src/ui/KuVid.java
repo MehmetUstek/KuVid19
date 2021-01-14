@@ -159,8 +159,9 @@ public class KuVid extends Canvas implements Runnable {
 						break;
 					case  KeyEvent.VK_S:
 						System.out.println("SAVED");
-						controller.saveGame();
 						pauseGame();
+						controller.saveGame();
+						
 						break;
 					case  KeyEvent.VK_LEFT:
 						controller.moveShooter(shooter, shootingObject, "left");
@@ -475,11 +476,6 @@ public class KuVid extends Canvas implements Runnable {
 		 */
 		if(isPaused) {
 			start();
-//			timerTask.run();
-//			atom.setRotationAngle(shooterRotationAngle);
-//			timerTask = new UpdateAtomTask(shootingObject,Toolkit.getDefaultToolkit().getScreenSize(),shooter);
-//			setTimer(new Timer(true));
-//			timer.scheduleAtFixedRate(timerTask, 0, 100);
 			controller.resumeGame(shooter, shootingObject);
 			isPaused= false;
 		}

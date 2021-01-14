@@ -158,7 +158,8 @@ public class BuildMode extends Canvas implements Runnable {
 				getDifficulty(controller);
 				addAtoms(controller);
 				setUsername();
-				SaveLoadAdapter save= new SaveLoadAdapter(new Save(username,controller,list,getTime()));
+				getTime();
+				SaveLoadAdapter save= new SaveLoadAdapter(new Save(controller));
 //				System.out.println(list);
 				save.saveGame();
 				System.out.println(username);
@@ -173,6 +174,7 @@ public class BuildMode extends Canvas implements Runnable {
 	}
 	public void setUsername() {
 		this.username= window.getUsername().getText();
+		controller.setUsername(username);
 	}
 	public void addShields(Controller controller) {
 		/**
@@ -190,9 +192,9 @@ public class BuildMode extends Canvas implements Runnable {
 		controller.setThetaCount(Integer.parseInt(s3));
 		controller.setZetaCount(Integer.parseInt(s4));
 	}
-	public int getTime() {
+	public void getTime() {
 		String s1= window.getGameTime().getText();
-		return Integer.parseInt(s1);
+		controller.setTime(Integer.parseInt(s1));
 	}
 	public void getDifficulty(Controller controller) {
 		/**

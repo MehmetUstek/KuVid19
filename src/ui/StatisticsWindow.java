@@ -43,7 +43,7 @@ public class StatisticsWindow extends JPanel{
 	String sigmaP= "src/assets/powerups/+sigma-b.png";
 	String gammaP= "src/assets/powerups/+gamma-b.png";
 	
-	
+	String mixer ="src/assets/mixer.png";
 	
 	ImageIcon icona = new ImageIcon(alpha);
 	ImageIcon iconb = new ImageIcon(beta);
@@ -55,7 +55,7 @@ public class StatisticsWindow extends JPanel{
 	ImageIcon sigmaPU = new ImageIcon(sigmaP);
 	ImageIcon gammaPU = new ImageIcon(gammaP);
 	
-	
+	ImageIcon blender= new ImageIcon(mixer);
 	
 	JLabel alphaLabel = new JLabel("1");
 	JLabel betaLabel = new JLabel("1");
@@ -72,6 +72,7 @@ public class StatisticsWindow extends JPanel{
 	JLabel time = new JLabel("0");
 	JLabel healthField = new JLabel("Health");
 	JLabel health = new JLabel("100");
+	JLabel mixerLabel= new JLabel();
 	//Shields
 	JButton etaLabel = new JButton("Eta");
 	JLabel eta= new JLabel("0");
@@ -123,13 +124,18 @@ public class StatisticsWindow extends JPanel{
 		image= image.getScaledInstance(70, 70, Image.SCALE_AREA_AVERAGING);
 		gammaPU = new ImageIcon(image);
 		
+		image = blender.getImage();
+		image= image.getScaledInstance(60, 60, Image.SCALE_AREA_AVERAGING);
+		blender = new ImageIcon(image);
+		mixerLabel.setIcon(blender);
 		add(scoreText);
 		add(score);
 		add(timeShape);
 		add(time);
 		add(healthField);
 		add(health);
-		
+		add(mixerLabel);
+		add(new JLabel());
 		add(alphaLabel);
 		add(statisticAlpha);
 		add(betaLabel);

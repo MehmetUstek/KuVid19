@@ -153,7 +153,9 @@ public class Controller {
 				shooter.setX(x);
 				shooter.setY(y);
 				shooter.setRotationAngle(rotation);
-				shooterCollision(tempobject1);
+				if(!frame.isBuildMode()) {
+					shooterCollision(tempobject1);
+				}
 				}
 //			System.out.println(tempobject.getType());
 			if(tempobject.getType()!=null) {
@@ -281,7 +283,6 @@ public class Controller {
 //		UIAtom atom = (UIAtom) renderer.objects.get(0);
 		double x = tempobject1.getX();
 		double y =  tempobject1.getY();
-		tempobject1.setSpeed(speed);
 //		double x1= x + tempobject1.getDiameter();
 //		double y1= y+ tempobject1.getDiameter();
 		if(!tempobject1.isShooted()) {
@@ -299,7 +300,7 @@ public class Controller {
 	    	}
 			
 			tempobject = tempobject1;
-			Rectangle2D r= new Rectangle2D.Double(x,y,tempobject1.getDiameter(),tempobject1.getDiameter());
+			Rectangle2D r= new Rectangle2D.Double(tempobject.getX(),tempobject.getY(),tempobject1.getWidth(),tempobject1.getHeight());
 			// Collision with alpha molecule and alpha atom.
 			for (int j = 2; j < objects.size(); j++) {
 				if(objects.size()==2) {
@@ -308,10 +309,10 @@ public class Controller {
 				GameObject collisionObject = (GameObject) objects.get(j);
 				renderer.objects.get(j).setX((int) collisionObject.getX());
 				renderer.objects.get(j).setY((int) collisionObject.getY());
-				if ((collisionObject.getId()== ID.AlphaMolecule && tempobject.getType().equals("alpha")) ||
-						(collisionObject.getId()== ID.BetaMolecule && tempobject.getType().equals("beta")) ||
-						(collisionObject.getId()== ID.SigmaMolecule && tempobject.getType().equals("sigma")) ||
-						(collisionObject.getId()== ID.GammaMolecule && tempobject.getType().equals("gamma"))
+				if ((collisionObject.getType().equals("AlphaMolecule") && tempobject.getType().equals("alpha")) ||
+						(collisionObject.getType().equals("BetaMolecule") && tempobject.getType().equals("beta")) ||
+						(collisionObject.getType().equals("SigmaMolecule") && tempobject.getType().equals("sigma")) ||
+						(collisionObject.getType().equals("GammaMolecule") && tempobject.getType().equals("gamma"))
 						) {
 					Molecule collisionObject1 = (Molecule) collisionObject;
 					UIMolecule molecule = (UIMolecule) renderer.objects.get(j);
@@ -361,7 +362,6 @@ public class Controller {
 			
 		}
 		else {
-			//TODO There is problem after atom lands.
 			if(tempobject1.getY()> Toolkit.getDefaultToolkit().getScreenSize().getHeight()+ tempobject1.getWidth()/2) {
 	//    		tempobject1.setX(x);
 	//    		tempobject1.setY(y);
@@ -683,7 +683,7 @@ public class Controller {
 		if(!isLoaded) {
 			isLoaded= true;
 			if(save==null) {
-				save = new SaveLoadAdapter(new Save(username,this));
+				save = new SaveLoadAdapter(new Save(this));
 				System.out.println("new save");
 			}
 			save.loadGame();
