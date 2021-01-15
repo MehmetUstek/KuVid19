@@ -121,7 +121,7 @@ public class KuVid extends Canvas implements Runnable {
 			
 			
 			// Shooter Settings.
-			shooter.setWidth(shooterHeight /4 );
+			shooter.setWidth(shooterHeight /2);
 			shooter.setHeight(shooterHeight);
 			shooter.setX(shooterX);
 			shooter.setY(shooterY);

@@ -293,13 +293,13 @@ public class BuildMode extends Canvas implements Runnable {
 		ArrayList<Rectangle2D> positionList = new ArrayList<Rectangle2D>();
 		for (int i=0;i<Integer.parseInt(s1);i++) {
 			Molecule molecule = MoleculeFactory.getMolecule("AlphaMolecule");
-			double x= random.nextInt( WIDTH-(int) molecule.getWidth())-50;
+			double x= random.nextInt( WIDTH-150-(int) molecule.getWidth())-50;
 			double y= random.nextInt(HEIGHT)-HEIGHT;
 			Rectangle2D rect = new Rectangle2D.Double(x,y,molecule.getWidth(),molecule.getHeight());
 			
 			for (Rectangle2D rectangle: positionList) {
 				if(rectangle.intersects(rect) || rect.intersects(rectangle)) {
-					x= random.nextInt( WIDTH-(int) molecule.getWidth());
+					x= random.nextInt( WIDTH-150-(int) molecule.getWidth());
 					y= random.nextInt(HEIGHT/8);
 					rect.setRect(x, y, molecule.getWidth(), molecule.getHeight());
 				}
@@ -319,13 +319,13 @@ public class BuildMode extends Canvas implements Runnable {
 		}
 		for (int i=0;i<Integer.parseInt(s2);i++) {
 			Molecule molecule = MoleculeFactory.getMolecule("BetaMolecule");
-			double x= random.nextInt( WIDTH-(int) molecule.getWidth())-50;
+			double x= random.nextInt( WIDTH-150-(int) molecule.getWidth())-50;
 			double y= random.nextInt(HEIGHT)-HEIGHT;
 			Rectangle2D rect = new Rectangle2D.Double(x,y,molecule.getWidth(),molecule.getHeight());
 			
 			for (Rectangle2D rectangle: positionList) {
 				if(rectangle.intersects(rect) || rect.intersects(rectangle)) {
-					x= random.nextInt( WIDTH-(int) molecule.getWidth());
+					x= random.nextInt( WIDTH-150-(int) molecule.getWidth());
 					y= random.nextInt(HEIGHT/8);
 					rect.setRect(x, y, molecule.getWidth(), molecule.getHeight());
 				}
@@ -344,13 +344,13 @@ public class BuildMode extends Canvas implements Runnable {
 		}
 		for (int i=0;i<Integer.parseInt(s3);i++) {
 			Molecule molecule = MoleculeFactory.getMolecule("SigmaMolecule");
-			double x= random.nextInt( WIDTH-(int) molecule.getWidth())-50;
+			double x= random.nextInt( WIDTH-150-(int) molecule.getWidth())-50;
 			double y= random.nextInt(HEIGHT)-HEIGHT;
 			Rectangle2D rect = new Rectangle2D.Double(x,y,molecule.getWidth(),molecule.getHeight());
 			
 			for (Rectangle2D rectangle: positionList) {
 				if(rectangle.intersects(rect) || rect.intersects(rectangle)) {
-					x= random.nextInt( WIDTH-(int) molecule.getWidth());
+					x= random.nextInt( WIDTH-150-(int) molecule.getWidth());
 					y= random.nextInt(HEIGHT/8);
 					rect.setRect(x, y, molecule.getWidth(), molecule.getHeight());
 				}
@@ -369,13 +369,13 @@ public class BuildMode extends Canvas implements Runnable {
 		}
 		for (int i=0;i<Integer.parseInt(s4);i++) {
 			Molecule molecule = MoleculeFactory.getMolecule("GammaMolecule");
-			double x= random.nextInt( WIDTH-(int) molecule.getWidth())-50;
+			double x= random.nextInt( WIDTH-150-(int) molecule.getWidth())-50;
 			double y= random.nextInt(HEIGHT)-HEIGHT;
 			Rectangle2D rect = new Rectangle2D.Double(x,y,molecule.getWidth(),molecule.getHeight());
 			
 			for (Rectangle2D rectangle: positionList) {
 				if(rectangle.intersects(rect) || rect.intersects(rectangle)) {
-					x= random.nextInt( WIDTH-(int) molecule.getWidth());
+					x= random.nextInt( WIDTH-150-(int) molecule.getWidth());
 					y= random.nextInt(HEIGHT/8);
 					rect.setRect(x, y, molecule.getWidth(), molecule.getHeight());
 				}
@@ -397,14 +397,14 @@ public class BuildMode extends Canvas implements Runnable {
 			pu.setHeight(diameter*2);
 			pu.setWidth(diameter*2);
 			pu.setRotationAngle(0);
-			double x= random.nextInt( WIDTH-(int) pu.getWidth())-50;
+			double x= random.nextInt( WIDTH-150-(int) pu.getWidth())-50;
 //			System.out.println(pu.getWidth());
 			double y= random.nextInt(HEIGHT)-HEIGHT-200;
 			Rectangle2D rect = new Rectangle2D.Double(x,y,pu.getWidth(),pu.getHeight());
 			
 			for (Rectangle2D rectangle: positionList) {
 				if(rectangle.intersects(rect) || rect.intersects(rectangle)) {
-					x= random.nextInt( WIDTH-(int) pu.getWidth());
+					x= random.nextInt( WIDTH-150-(int) pu.getWidth());
 					y= random.nextInt(HEIGHT/8);
 					rect.setRect(x, y, pu.getWidth(), pu.getHeight());
 				}
@@ -426,14 +426,14 @@ public class BuildMode extends Canvas implements Runnable {
 			pu.setHeight(diameter*2);
 			pu.setWidth(diameter*2);
 			pu.setRotationAngle(0);
-			double x= random.nextInt( WIDTH-(int) pu.getWidth())-50;
+			double x= random.nextInt( WIDTH-150-(int) pu.getWidth())-50;
 //			System.out.println(pu.getWidth());
 			double y= random.nextInt(HEIGHT)-HEIGHT-200;
 			Rectangle2D rect = new Rectangle2D.Double(x,y,pu.getWidth(),pu.getHeight());
 			
 			for (Rectangle2D rectangle: positionList) {
 				if(rectangle.intersects(rect) || rect.intersects(rectangle)) {
-					x= random.nextInt( WIDTH-(int) pu.getWidth());
+					x= random.nextInt( WIDTH-150-(int) pu.getWidth());
 					y= random.nextInt(HEIGHT/8);
 					rect.setRect(x, y, pu.getWidth(), pu.getHeight());
 				}
@@ -455,14 +455,14 @@ public class BuildMode extends Canvas implements Runnable {
 			pu.setHeight(diameter*2);
 			pu.setWidth(diameter*2);
 			pu.setRotationAngle(0);
-			double x= random.nextInt( WIDTH-(int) pu.getWidth())-50;
+			double x= random.nextInt( WIDTH-150-(int) pu.getWidth())-50;
 //			System.out.println(pu.getWidth());
 			double y= random.nextInt(HEIGHT)-HEIGHT-200;
 			Rectangle2D rect = new Rectangle2D.Double(x,y,pu.getWidth(),pu.getHeight());
 			
 			for (Rectangle2D rectangle: positionList) {
 				if(rectangle.intersects(rect) || rect.intersects(rectangle)) {
-					x= random.nextInt( WIDTH-(int) pu.getWidth());
+					x= random.nextInt( WIDTH-150-(int) pu.getWidth());
 					y= random.nextInt(HEIGHT/8);
 					rect.setRect(x, y, pu.getWidth(), pu.getHeight());
 				}
@@ -484,14 +484,14 @@ public class BuildMode extends Canvas implements Runnable {
 			pu.setHeight(diameter*2);
 			pu.setWidth(diameter*2);
 			pu.setRotationAngle(0);
-			double x= random.nextInt( WIDTH-(int) pu.getWidth())-50;
+			double x= random.nextInt( WIDTH-150-(int) pu.getWidth())-50;
 //			System.out.println(pu.getWidth());
 			double y= random.nextInt(HEIGHT)-HEIGHT-200;
 			Rectangle2D rect = new Rectangle2D.Double(x,y,pu.getWidth(),pu.getHeight());
 			
 			for (Rectangle2D rectangle: positionList) {
 				if(rectangle.intersects(rect) || rect.intersects(rectangle)) {
-					x= random.nextInt( WIDTH-(int) pu.getWidth());
+					x= random.nextInt( WIDTH-150-(int) pu.getWidth());
 					y= random.nextInt(HEIGHT/8);
 					rect.setRect(x, y, pu.getWidth(), pu.getHeight());
 				}
@@ -513,14 +513,14 @@ public class BuildMode extends Canvas implements Runnable {
 			blocker.setHeight(diameter);
 			blocker.setWidth(diameter);
 			blocker.setRotationAngle(0);
-			double x= random.nextInt( WIDTH-(int) blocker.getWidth())-50;
+			double x= random.nextInt( WIDTH-150-(int) blocker.getWidth())-50;
 			System.out.println(blocker.getWidth());
 			double y= random.nextInt(HEIGHT)-HEIGHT;
 			Rectangle2D rect = new Rectangle2D.Double(x,y,blocker.getWidth(),blocker.getHeight());
 			
 			for (Rectangle2D rectangle: positionList) {
 				if(rectangle.intersects(rect) || rect.intersects(rectangle)) {
-					x= random.nextInt( WIDTH-(int) blocker.getWidth());
+					x= random.nextInt( WIDTH-150-(int) blocker.getWidth());
 					y= random.nextInt(HEIGHT/8);
 					rect.setRect(x, y, blocker.getWidth(), blocker.getHeight());
 				}
@@ -542,14 +542,14 @@ public class BuildMode extends Canvas implements Runnable {
 			blocker.setHeight(diameter);
 			blocker.setWidth(diameter);
 			blocker.setRotationAngle(0);
-			double x= random.nextInt( WIDTH-(int) blocker.getWidth())-50;
+			double x= random.nextInt( WIDTH-150-(int) blocker.getWidth())-50;
 			System.out.println(blocker.getWidth());
 			double y= random.nextInt(HEIGHT)-HEIGHT;
 			Rectangle2D rect = new Rectangle2D.Double(x,y,blocker.getWidth(),blocker.getHeight());
 			
 			for (Rectangle2D rectangle: positionList) {
 				if(rectangle.intersects(rect) || rect.intersects(rectangle)) {
-					x= random.nextInt( WIDTH-(int) blocker.getWidth());
+					x= random.nextInt( WIDTH-150-(int) blocker.getWidth());
 					y= random.nextInt(HEIGHT/8);
 					rect.setRect(x, y, blocker.getWidth(), blocker.getHeight());
 				}
@@ -571,14 +571,14 @@ public class BuildMode extends Canvas implements Runnable {
 			blocker.setHeight(diameter);
 			blocker.setWidth(diameter);
 			blocker.setRotationAngle(0);
-			double x= random.nextInt( WIDTH-(int) blocker.getWidth())-50;
+			double x= random.nextInt( WIDTH-150-(int) blocker.getWidth())-50;
 			System.out.println(blocker.getWidth());
 			double y= random.nextInt(HEIGHT)-HEIGHT;
 			Rectangle2D rect = new Rectangle2D.Double(x,y,blocker.getWidth(),blocker.getHeight());
 			
 			for (Rectangle2D rectangle: positionList) {
 				if(rectangle.intersects(rect) || rect.intersects(rectangle)) {
-					x= random.nextInt( WIDTH-(int) blocker.getWidth());
+					x= random.nextInt( WIDTH-150-(int) blocker.getWidth());
 					y= random.nextInt(HEIGHT/8);
 					rect.setRect(x, y, blocker.getWidth(), blocker.getHeight());
 				}
@@ -600,14 +600,14 @@ public class BuildMode extends Canvas implements Runnable {
 			blocker.setHeight(diameter);
 			blocker.setWidth(diameter);
 			blocker.setRotationAngle(0);
-			double x= random.nextInt( WIDTH-(int) blocker.getWidth())-50;
+			double x= random.nextInt( WIDTH-150-(int) blocker.getWidth())-50;
 			System.out.println(blocker.getWidth());
 			double y= random.nextInt(HEIGHT)-HEIGHT;
 			Rectangle2D rect = new Rectangle2D.Double(x,y,blocker.getWidth(),blocker.getHeight());
 			
 			for (Rectangle2D rectangle: positionList) {
 				if(rectangle.intersects(rect) || rect.intersects(rectangle)) {
-					x= random.nextInt( WIDTH-(int) blocker.getWidth());
+					x= random.nextInt( WIDTH-150-(int) blocker.getWidth());
 					y= random.nextInt(HEIGHT/8);
 					rect.setRect(x, y, blocker.getWidth(), blocker.getHeight());
 				}

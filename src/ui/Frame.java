@@ -128,8 +128,7 @@ public class Frame extends Canvas {
 		sidebar.setBackground(Color.white);
 		sidebar.setBounds(10, 10, 300, 40);
 		statsWindow = StatisticsWindow.getInstance();
-		statsWindow.setBounds(1750,10,150, 1000);
-		statsWindow.setLayout(new GridLayout(0,2));
+		
 		frame.add(sidebar);
 		frame.add(statsWindow);
 		
@@ -147,6 +146,8 @@ public class Frame extends Canvas {
 		frame.add(databaseChoice);
 		
 		frame.add(game);
+		statsWindow.setBounds((int) KuVid.WIDTH+10,10,150, (int) KuVid.HEIGHT*9/10);
+		statsWindow.setLayout(new GridLayout(0,2));
 		frame.setVisible(true);
 //		game.start();
 	}
@@ -300,7 +301,7 @@ public class Frame extends Canvas {
 		bGroup.add(hardBox);
 		bGroup.setSelected(mediumBox.getModel(), true);
 		hardnessGui.setLayout(new GridLayout(0,1));
-		hardnessGui.setBounds(WIDTH- gui.getWidth() - 700, HEIGHT - 100 , 100, 100);
+		hardnessGui.setBounds(WIDTH*2/10, HEIGHT/2 , 100, 100);
 		frame.add(hardnessGui);
 		
 		
@@ -314,10 +315,10 @@ public class Frame extends Canvas {
 		DBGroup.add(mongoDB);
 		DBGroup.setSelected(fileDB.getModel(), true);
 		databaseChoice.setLayout(new GridLayout(0,1));
-		databaseChoice.setBounds(WIDTH- gui.getWidth() - 1000, HEIGHT - 100 , 100, 100);
+		databaseChoice.setBounds(WIDTH*1/10, HEIGHT/2 , 100, 100);
 		frame.add(databaseChoice);
 		
-		gui.setBounds(WIDTH- gui.getWidth() - 370, HEIGHT - 400 , 350, 460);
+		gui.setBounds(WIDTH*4/10, HEIGHT/3, 350, 460);
 		
 		frame.add(gui);
 		frame.add(buildmode);

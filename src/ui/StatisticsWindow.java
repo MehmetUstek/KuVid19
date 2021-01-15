@@ -24,8 +24,7 @@ public class StatisticsWindow extends JPanel{
 	JButton statisticBeta = new JButton();
 	JButton statisticSigma = new JButton();
 	JButton statisticGamma = new JButton();
-	Font myFont = new Font("Times New Roman", Font.BOLD, 20);
-	Font secondFont = new Font("Times New Roman", Font.BOLD, 15);
+	
 	
 
 	String alpha= "src/assets/atoms/alpha.png";
@@ -85,10 +84,9 @@ public class StatisticsWindow extends JPanel{
 	
 	
 	public StatisticsWindow() {
-		statisticAlpha.setIcon(icona);
-		statisticBeta.setIcon(iconb);
-		statisticSigma.setIcon(icons);
-		statisticGamma.setIcon(icong);
+		int imagesize= (int) KuVid.HEIGHT/15;
+		Font myFont = new Font("Times New Roman", Font.BOLD, imagesize/4);
+		Font secondFont = new Font("Times New Roman", Font.BOLD, imagesize/5);
 		alphaLabel.setFont(myFont);
 		betaLabel.setFont(myFont);
 		sigmaLabel.setFont(myFont);
@@ -111,23 +109,46 @@ public class StatisticsWindow extends JPanel{
 		zeta.setFont(myFont);
 		healthField.setFont(secondFont);
 		health.setFont(myFont);
+		
 		Image image = alphaPU.getImage();
-		image= image.getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+		image= image.getScaledInstance(imagesize, imagesize, Image.SCALE_SMOOTH);
 		alphaPU = new ImageIcon(image);
 		image = betaPU.getImage();
-		image= image.getScaledInstance(80, 80, Image.SCALE_AREA_AVERAGING);
+		image= image.getScaledInstance(imagesize, imagesize, Image.SCALE_SMOOTH);
 		betaPU = new ImageIcon(image);
 		image = sigmaPU.getImage();
-		image= image.getScaledInstance(80, 80, Image.SCALE_AREA_AVERAGING);
+		image= image.getScaledInstance(imagesize, imagesize, Image.SCALE_SMOOTH);
 		sigmaPU = new ImageIcon(image);
 		image = gammaPU.getImage();
-		image= image.getScaledInstance(70, 70, Image.SCALE_AREA_AVERAGING);
+		image= image.getScaledInstance(imagesize, imagesize, Image.SCALE_SMOOTH);
 		gammaPU = new ImageIcon(image);
 		
 		image = blender.getImage();
-		image= image.getScaledInstance(60, 60, Image.SCALE_AREA_AVERAGING);
+		image= image.getScaledInstance(imagesize-10, imagesize-10, Image.SCALE_SMOOTH);
 		blender = new ImageIcon(image);
 		mixerLabel.setIcon(blender);
+		
+		image = icona.getImage();
+		image= image.getScaledInstance(imagesize/2, imagesize/2, Image.SCALE_SMOOTH);
+		icona = new ImageIcon(image);
+		
+		image = iconb.getImage();
+		image= image.getScaledInstance(imagesize/2, imagesize/2, Image.SCALE_SMOOTH);
+		iconb = new ImageIcon(image);
+		
+		image = icons.getImage();
+		image= image.getScaledInstance(imagesize/2, imagesize/2, Image.SCALE_SMOOTH);
+		icons = new ImageIcon(image);
+		
+		image = icong.getImage();
+		image= image.getScaledInstance(imagesize/2, imagesize/2, Image.SCALE_SMOOTH);
+		icong = new ImageIcon(image);
+		
+		statisticAlpha.setIcon(icona);
+		statisticBeta.setIcon(iconb);
+		statisticSigma.setIcon(icons);
+		statisticGamma.setIcon(icong);
+		
 		add(scoreText);
 		add(score);
 		add(timeShape);
