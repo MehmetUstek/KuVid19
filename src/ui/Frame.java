@@ -105,6 +105,12 @@ public class Frame extends Canvas {
 	JRadioButton hardBox= new JRadioButton("Hard");
 	ButtonGroup bGroup = new ButtonGroup();
 	
+	private JPanel databaseChoice= new JPanel(new FlowLayout());
+	JLabel database= new JLabel("Database:");
+	JRadioButton fileDB= new JRadioButton("File");
+	JRadioButton mongoDB= new JRadioButton("Database");
+	ButtonGroup DBGroup = new ButtonGroup();
+	
 	public Frame(Dimension d, String title, KuVid game) {
 		frame = new JFrame(title);
 		isBuildMode= false;
@@ -126,6 +132,20 @@ public class Frame extends Canvas {
 		statsWindow.setLayout(new GridLayout(0,2));
 		frame.add(sidebar);
 		frame.add(statsWindow);
+		
+		//Database Choice
+		fileDB.setActionCommand("fileDB");
+		mongoDB.setActionCommand("mongoDB");
+		databaseChoice.add(database);
+		databaseChoice.add(fileDB);
+		databaseChoice.add(mongoDB);
+		DBGroup.add(fileDB);
+		DBGroup.add(mongoDB);
+		DBGroup.setSelected(fileDB.getModel(), true);
+		databaseChoice.setLayout(new GridLayout(0,3));
+		databaseChoice.setBounds(10, 60, 300, 20);
+		frame.add(databaseChoice);
+		
 		frame.add(game);
 		frame.setVisible(true);
 //		game.start();
@@ -283,6 +303,19 @@ public class Frame extends Canvas {
 		hardnessGui.setBounds(WIDTH- gui.getWidth() - 700, HEIGHT - 100 , 100, 100);
 		frame.add(hardnessGui);
 		
+		
+		//Database Choice
+		fileDB.setActionCommand("fileDB");
+		mongoDB.setActionCommand("mongoDB");
+		databaseChoice.add(database);
+		databaseChoice.add(fileDB);
+		databaseChoice.add(mongoDB);
+		DBGroup.add(fileDB);
+		DBGroup.add(mongoDB);
+		DBGroup.setSelected(fileDB.getModel(), true);
+		databaseChoice.setLayout(new GridLayout(0,1));
+		databaseChoice.setBounds(WIDTH- gui.getWidth() - 1000, HEIGHT - 100 , 100, 100);
+		frame.add(databaseChoice);
 		
 		gui.setBounds(WIDTH- gui.getWidth() - 370, HEIGHT - 400 , 350, 460);
 		
@@ -681,6 +714,16 @@ public class Frame extends Canvas {
 
 	public void setGblockerCount(JTextField gblockerCount) {
 		this.gblockerCount = gblockerCount;
+	}
+
+
+	public ButtonGroup getDBGroup() {
+		return DBGroup;
+	}
+
+
+	public void setDBGroup(ButtonGroup dBGroup) {
+		DBGroup = dBGroup;
 	}
 	
 }

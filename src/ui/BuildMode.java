@@ -160,10 +160,8 @@ public class BuildMode extends Canvas implements Runnable {
 				addAtoms(controller);
 				setUsername();
 				getTime();
-				//TODO controller.saveGame();
-				SaveLoadAdapter save= new SaveLoadAdapter(new SaveDatabase(controller));
-//				System.out.println(list);
-				save.saveGame();
+				getDatabaseChoice(controller);
+				controller.saveGame();
 				
 				System.out.println(username);
 				
@@ -198,6 +196,17 @@ public class BuildMode extends Canvas implements Runnable {
 	public void getTime() {
 		String s1= window.getGameTime().getText();
 		controller.setTime(Integer.parseInt(s1));
+	}
+	public void getDatabaseChoice(Controller controller) {
+		if(window.getDBGroup().getSelection().getActionCommand().equals("fileDB")) {
+			System.out.println("The game will be saved into file");
+			controller.setDBChoice("file");
+		}
+		else if(window.getDBGroup().getSelection().getActionCommand().equals("mongoDB")) {
+			System.out.println("The game will be saved into mongo database");
+			controller.setDBChoice("database");
+		}
+		
 	}
 	public void getDifficulty(Controller controller) {
 		/**

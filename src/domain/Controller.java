@@ -69,6 +69,7 @@ public class Controller {
 	Random random = new Random();
 	StatisticsWindow statsWindow = StatisticsWindow.getInstance();
 	String username="mehmet";
+	String DBChoice= "file";
 	private static KuVid game;
 	
 	//Blender
@@ -671,7 +672,12 @@ public class Controller {
 		 */
 		
 //		GameObject shootingObject= getShootingObject();
-		save= new SaveLoadAdapter(new SaveDatabase(this));
+		if(getDBChoice().equals("file")) {
+			save= new SaveLoadAdapter(new Save(this));
+		}
+		else if(getDBChoice().equals("database")) {
+			save= new SaveLoadAdapter(new SaveDatabase(this));
+		}
 		save.saveGame();
 	}
 	public void loadGame() {
@@ -680,10 +686,16 @@ public class Controller {
 		 * @effects load the game from the specified Adapter and load interface classes.
 		 * If the specified object is shooted when saved, start the timerTask for that object.
 		 */
+		getDatabaseChoice();
 		if(!isLoaded) {
 			isLoaded= true;
 			if(save==null) {
-				save = new SaveLoadAdapter(new SaveDatabase(this));
+				if(getDBChoice().equals("file")) {
+					save = new SaveLoadAdapter(new Save(this));
+				}
+				else if(getDBChoice().equals("database")) {
+					save= new SaveLoadAdapter(new SaveDatabase(this));
+				}
 				System.out.println("new save");
 			}
 			save.loadGame();
@@ -1118,6 +1130,25 @@ public class Controller {
 
 	public void setHealth(int health) {
 		this.health = health;
+	}
+
+	public String getDBChoice() {
+		return DBChoice;
+	}
+
+	public void setDBChoice(String dBChoice) {
+		DBChoice = dBChoice;
+	}
+	public void getDatabaseChoice() {
+		if(frame.getDBGroup().getSelection().getActionCommand().equals("fileDB")) {
+			System.out.println("The game will be saved into file");
+			this.setDBChoice("file");
+		}
+		else if(frame.getDBGroup().getSelection().getActionCommand().equals("mongoDB")) {
+			System.out.println("The game will be saved into mongo database");
+			this.setDBChoice("database");
+		}
+		
 	}
 	
 }
