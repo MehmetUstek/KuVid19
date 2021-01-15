@@ -671,7 +671,7 @@ public class Controller {
 		 */
 		
 //		GameObject shootingObject= getShootingObject();
-		save= new SaveLoadAdapter(new Save(this));
+		save= new SaveLoadAdapter(new SaveDatabase(this));
 		save.saveGame();
 	}
 	public void loadGame() {
@@ -683,7 +683,7 @@ public class Controller {
 		if(!isLoaded) {
 			isLoaded= true;
 			if(save==null) {
-				save = new SaveLoadAdapter(new Save(this));
+				save = new SaveLoadAdapter(new SaveDatabase(this));
 				System.out.println("new save");
 			}
 			save.loadGame();

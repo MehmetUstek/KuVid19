@@ -14,6 +14,7 @@ import java.util.Random;
 import domain.Controller;
 import domain.GameObject;
 import domain.Save;
+import domain.SaveDatabase;
 import domain.SaveLoadAdapter;
 import domain.atom.Atom;
 import domain.molecule.Molecule;
@@ -159,9 +160,11 @@ public class BuildMode extends Canvas implements Runnable {
 				addAtoms(controller);
 				setUsername();
 				getTime();
-				SaveLoadAdapter save= new SaveLoadAdapter(new Save(controller));
+				//TODO controller.saveGame();
+				SaveLoadAdapter save= new SaveLoadAdapter(new SaveDatabase(controller));
 //				System.out.println(list);
 				save.saveGame();
+				
 				System.out.println(username);
 				
 			}
