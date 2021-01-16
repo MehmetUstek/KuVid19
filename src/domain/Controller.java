@@ -201,14 +201,17 @@ public class Controller {
 						tempobject.getType().equals("gamma"))) {
 					if(!frame.isBuildMode()) {
 						tempobject.setSpeed(speed/3);
+						blockerRadiusCollision((ReactionBlocker) tempobject,1);
 					}
 					if(tempobject.getY()> HEIGHT- tempobject.getHeight()*3) {
 						double distance= getShooter().getX()-tempobject.getX();
-						if(distance <= tempobject.getWidth()*2) {
+						if(Math.abs(distance) <= tempobject.getWidth()*2) {
 							health -= WIDTH/ Math.abs(distance);
 						}
+						blockerRadiusCollision((ReactionBlocker) tempobject,2);
 						objects.remove(i);
 						renderer.objects.remove(i);
+						
 						
 					}
 					if(objects.size()==2) {
@@ -411,6 +414,24 @@ public class Controller {
 						((Powerup) tempobject).setShooted(false);
 					}
 					}
+			}
+		}
+	}
+	private void blockerRadiusCollision(ReactionBlocker blocker, int radiusConstant) {
+		double x= blocker.getX();
+		double y= blocker.getY();
+		for (int j = 2; j < objects.size(); j++) {
+			if(objects.size()==0) {
+				break;
+			}
+			GameObject collisionObject = (GameObject) objects.get(j);
+			if(!isAtom(collisionObject)) {
+				Rectangle2D r= new Rectangle2D.Double(x,y,blocker.getWidth()*radiusConstant,blocker.getHeight()*radiusConstant);
+				Rectangle2D rect= new Rectangle2D.Double(collisionObject.getX(),collisionObject.getY(),collisionObject.getWidth(),collisionObject.getHeight());
+				if(intersects(r,rect)) {
+					objects.remove(j);
+					renderer.objects.remove(j);
+				}
 			}
 		}
 	}

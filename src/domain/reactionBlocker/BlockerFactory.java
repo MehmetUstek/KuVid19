@@ -13,22 +13,33 @@ public class BlockerFactory {
 		int i = random.nextInt(4);
 		switch(i) {
 		case 0:
-			blocker= new ReactionBlocker("alpha");
+			blocker= new AlphaBlocker("alpha");
 			break;
 		case 1:
-			blocker= new ReactionBlocker("beta");
+			blocker= new BetaBlocker("beta");
 			break;
 		case 2:
-			blocker= new ReactionBlocker("sigma");
+			blocker= new SigmaBlocker("sigma");
 			break;
 		case 3:
-			blocker= new ReactionBlocker("gamma");
+			blocker= new GammaBlocker("gamma");
 			break;
 		}
 		return blocker;
 	}
 	public static ReactionBlocker getBlocker(String type) {
-		blocker = new ReactionBlocker(type);
+		if(type.equals("alpha")) {
+			blocker = new AlphaBlocker(type);
+		}
+		else if(type.equals("beta")) {
+			blocker = new BetaBlocker(type);
+		}
+		else if(type.equals("sigma")) {
+			blocker = new SigmaBlocker(type);
+		}
+		else if(type.equals("gamma")) {
+			blocker = new GammaBlocker(type);
+		}
 		return blocker;
 	}	
 }
