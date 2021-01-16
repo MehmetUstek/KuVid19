@@ -420,12 +420,32 @@ public class Controller {
 	private void blockerRadiusCollision(ReactionBlocker blocker, int radiusConstant) {
 		double x= blocker.getX();
 		double y= blocker.getY();
-		for (int j = 2; j < objects.size(); j++) {
+		for (int j = 0; j < objects.size(); j++) {
 			if(objects.size()==0) {
 				break;
 			}
+			
 			GameObject collisionObject = (GameObject) objects.get(j);
-			if(!isAtom(collisionObject)) {
+			if(j==0 && ((blocker.getType().equals("alpha") && collisionObject.getType().equals("alpha")) ||
+					(blocker.getType().equals("beta") && collisionObject.getType().equals("beta")) ||
+					(blocker.getType().equals("sigma") && collisionObject.getType().equals("sigma")) ||
+					(blocker.getType().equals("gamma") && collisionObject.getType().equals("gamma"))
+					)) {
+				Rectangle2D r= new Rectangle2D.Double(x,y,blocker.getWidth()*radiusConstant,blocker.getHeight()*radiusConstant);
+				Rectangle2D rect= new Rectangle2D.Double(collisionObject.getX(),collisionObject.getY(),collisionObject.getWidth(),collisionObject.getHeight());
+				if(intersects(r,rect)) {
+					if(timerTask !=null) {
+						timerTask.cancel();
+					}
+					((Atom) collisionObject).setShooted(false);
+					
+				}
+			}
+			else if((blocker.getType().equals("alpha") && collisionObject.getType()=="AlphaMolecule") ||
+					(blocker.getType().equals("beta") && collisionObject.getType()=="BetaMolecule") ||
+					(blocker.getType().equals("sigma") && collisionObject.getType()=="SigmaMolecule") ||
+					(blocker.getType().equals("gamma") && collisionObject.getType()=="GammaMolecule")
+					)  {
 				Rectangle2D r= new Rectangle2D.Double(x,y,blocker.getWidth()*radiusConstant,blocker.getHeight()*radiusConstant);
 				Rectangle2D rect= new Rectangle2D.Double(collisionObject.getX(),collisionObject.getY(),collisionObject.getWidth(),collisionObject.getHeight());
 				if(intersects(r,rect)) {
