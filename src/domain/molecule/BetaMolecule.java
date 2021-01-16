@@ -1,6 +1,5 @@
 package domain.molecule;
 
-import domain.ID;
 import domain.atom.Atom;
 import ui.KuVid;
 
@@ -16,7 +15,6 @@ public class BetaMolecule extends Molecule{
 	public static boolean hasReached = false;
 
 	public BetaMolecule(){
-		this.setId(ID.BetaMolecule);
 		this.setWidth((int) (Molecule.L/4));
 		this.setHeight((int) (Molecule.L/4));
 	}
@@ -50,10 +48,6 @@ public class BetaMolecule extends Molecule{
 		move(getSpeed()/40);
 	}
 	
-	@Override
-	public String toString() {
-		return "BetaMolecule [width=" + width + ", height=" + height + ", x=" + x + ", y=" + y + ", id=" + id + "]";
-	}
 
 	@Override
 	public void move(double speed) {

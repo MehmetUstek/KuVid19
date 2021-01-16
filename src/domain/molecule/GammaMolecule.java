@@ -1,6 +1,5 @@
 package domain.molecule;
 
-import domain.ID;
 import domain.atom.Atom;
 import ui.KuVid;
 
@@ -14,7 +13,6 @@ public class GammaMolecule extends Molecule{
 	private boolean hasReached = false;
 
 	public GammaMolecule(){
-		this.setId(ID.GammaMolecule);
 		this.setWidth((int) (Molecule.L/4));
 		this.setHeight((int) (Molecule.L/4));
 	}
@@ -47,10 +45,6 @@ public class GammaMolecule extends Molecule{
 		
 	}
 	
-	@Override
-	public String toString() {
-		return "GammaMolecule [width=" + width + ", height=" + height + ", x=" + x + ", y=" + y + ", id=" + id + "]";
-	}
 
 	@Override
 	public void move(double speed) {

@@ -1,7 +1,6 @@
 package domain.molecule;
 
 import java.util.Random;
-import domain.ID;
 import domain.atom.Atom;
 
 public class AlphaMolecule extends Molecule{
@@ -13,7 +12,6 @@ public class AlphaMolecule extends Molecule{
 	Random rand = new Random();
 	int i = 0;
 	public AlphaMolecule(){
-		this.setId(ID.AlphaMolecule);
 		this.setWidth((int) (Molecule.L/4));
 		this.setHeight((int) (Molecule.L/4));
 	}
@@ -39,11 +37,6 @@ public class AlphaMolecule extends Molecule{
 		move(getSpeed()/40);
 	}
 	
-	@Override
-	public String toString() {
-		return "AlphaMolecule [width=" + width + ", height=" + height + ", x=" + x + ", y=" + y + ", id=" + id + "]";
-	}
-
 	@Override
 	public void move(double speed) {
 		int a = rand.nextInt(100);

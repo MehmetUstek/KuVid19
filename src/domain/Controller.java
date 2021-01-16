@@ -85,8 +85,6 @@ public class Controller {
 		this.frame = frame;
 	}
 	
-	// Set the shooted object to be 0th in list.
-	
 	public void update() {
 		/**
 		 * @requires an initialized game objects list. The list can be empty but it has to be initialized before.
@@ -94,9 +92,6 @@ public class Controller {
 		 * @effects for every object which is added to the game objects list, update that object's position in the game,
 		 * check whether any collision happens, if so take corresponding action. If the timer hits 0, end the game.
 		 */
-		//if you comment out this, shooter will not catch powerup
-//		L= LengthL;
-//		System.out.println(diameter);
 		statsWindow.getAlphaLabel().setText(Integer.toString(alphaCount));
 		statsWindow.getBetaLabel().setText(Integer.toString(betaCount));
 		statsWindow.getSigmaLabel().setText(Integer.toString(sigmaCount));
@@ -134,7 +129,6 @@ public class Controller {
 			GameObject tempobject = (GameObject) objects.get(i);
 			renderer.objects.get(i).setX((int) tempobject.getX());
 			renderer.objects.get(i).setY((int) tempobject.getY());
-//			if(tempobject.getType()== "alpha" || tempobject.getType()== "beta" ...
 			if (i==0) {
 				if(tempobject.getType().equals("alpha")|| tempobject.getType().equals("beta")|| tempobject.getType().equals("sigma")||
 						tempobject.getType().equals("gamma")) {
@@ -143,7 +137,6 @@ public class Controller {
 					setPowerupPositionsAndCheckCollision(tempobject);
 				}
 				}
-//			if (tempobject.getType() == "shooter") {
 			if (i==1) {
 				AtomShooter tempobject1= (AtomShooter) tempobject;
 				UIShooter shooter = (UIShooter) renderer.objects.get(i);
@@ -158,30 +151,22 @@ public class Controller {
 					shooterCollision(tempobject1);
 				}
 				}
-//			System.out.println(tempobject.getType());
 			if(tempobject.getType()!=null) {
 				if (i!=0 && isPowerup(tempobject)) {
 					Powerup tempobject1=(Powerup) tempobject;
 					if(!frame.isBuildMode()) {
 						tempobject1.setSpeed(speed/3);
 					}
-//					tempobject1.setWidth(puWidth);
-//					tempobject1.setHeight(puWidth);
 					tempobject1.fallInStraightLine(tempobject1.getX(), tempobject1.getY());
 					if(tempobject1.getY()> HEIGHT) {
 						objects.remove(i);
 						renderer.objects.remove(i);
 					}
-	//				UIPowerup uipowerup = (UIPowerup) renderer.objects.get(i);
-	//				uipowerup.setX(tempobject1.getX());
-	//				uipowerup.setY(tempobject1.getY());
 				}
 				if (i!=0 && isMolecule(tempobject)) {
 					if(!frame.isBuildMode()) {
 						tempobject.setSpeed(speed/3);
 					}
-//					tempobject.setWidth(puWidth);
-//					tempobject.setHeight(puWidth);
 					if(tempobject.getY()> HEIGHT) {
 						objects.remove(i);
 						renderer.objects.remove(i);
@@ -284,14 +269,10 @@ public class Controller {
 		 * 			If a collision does not happen, then it will update the atom's position.
 		 */
 		Atom tempobject1 = (Atom) tempobject;
-//		UIAtom atom = (UIAtom) renderer.objects.get(0);
 		double x = tempobject1.getX();
 		double y =  tempobject1.getY();
-//		double x1= x + tempobject1.getDiameter();
-//		double y1= y+ tempobject1.getDiameter();
 		if(!tempobject1.isShooted()) {
 			double rotation = objects.get(1).getRotationAngle();
-//			rotation=rotation*rotationConstant;
 			double x2 = -objects.get(1).getHeight()*Math.sin(Math.toRadians(rotation));
 			double y2 = objects.get(1).getHeight()*Math.cos(Math.toRadians(rotation));
 			x=objects.get(1).getX()-x2+tempobject1.getDiameter()/3;
@@ -300,12 +281,6 @@ public class Controller {
 			tempobject.setY(y);
 		}
 		else {
-			if(tempobject1.getY()> Toolkit.getDefaultToolkit().getScreenSize().getHeight()+ tempobject1.getWidth()/2) {
-	//    		tempobject1.setX(x);
-	//    		tempobject1.setY(y);
-	//    		tempobject1.setShooted(false);
-	//    		atomFalled=true;
-	    	}
 			
 			tempobject = tempobject1;
 			Rectangle2D r= new Rectangle2D.Double(tempobject.getX(),tempobject.getY(),tempobject1.getWidth(),tempobject1.getHeight());
@@ -330,20 +305,15 @@ public class Controller {
 					if(intersects(r,r1)) {
 						System.out.println("Collision");
 						objects.remove(collisionObject);
-	//					tempobject.setX(objects.get(1).getX());
-	//					tempobject.setY(objects.get(1).getY());
-	//					objects.remove(tempobject);
 						if(timerTask !=null) {
 							timerTask.cancel();
 						}
 						renderer.removeObject(molecule);
-	//					uicontroller.removeObject(atom);
 						tempobject.setX(objects.get(1).getX());
 						tempobject.setY(objects.get(1).getY());
 						tempobject.setRotationAngle(getShooter().getRotationAngle());
 						((Atom) tempobject).setShooted(false);
 						score += ((Atom)tempobject).getEfficiency();
-	//					uicontroller.addObject(atom);
 					}
 				}
 				}
@@ -360,8 +330,6 @@ public class Controller {
 		Powerup tempobject1 = (Powerup) tempobject;
 		double x = tempobject1.getX();
 		double y =  tempobject1.getY();
-//		double x1= x + tempobject1.getDiameter();
-//		double y1= y+ tempobject1.getDiameter();
 		if(!tempobject1.isShooted()) {
 			double rotation =objects.get(1).getRotationAngle();
 			double x2 = -objects.get(1).getHeight()*Math.sin(Math.toRadians(rotation));
@@ -373,12 +341,6 @@ public class Controller {
 			
 		}
 		else {
-			if(tempobject1.getY()> Toolkit.getDefaultToolkit().getScreenSize().getHeight()+ tempobject1.getWidth()/2) {
-	//    		tempobject1.setX(x);
-	//    		tempobject1.setY(y);
-	//    		tempobject1.setShooted(false);
-	//    		atomFalled=true;
-	    	}
 			
 			tempobject = tempobject1;
 			Rectangle2D r= new Rectangle2D.Double(x,y,tempobject1.getWidth(),tempobject1.getHeight());
@@ -470,17 +432,13 @@ public class Controller {
 			System.out.println("Shoot");
 			shooterRotationAngle = shooter.getRotationAngle();
 			shootingObject.setRotationAngle(shooterRotationAngle);
-//			System.out.println(shootingObject.getRotationAngle());
 			timerTask = new UpdateAtomTask(shootingObject,Toolkit.getDefaultToolkit().getScreenSize(),shooter);
 			timer = new Timer(true);
 	        timer.scheduleAtFixedRate(timerTask, 0, 40);
 	        updateObjectScore(shootingObject.getType());
-//	        if(atom.getX()> WIDTH-atom.getDiameter()*2 && atom.getY()> HEIGHT-atom.getDiameter()*2) {
-//	    		timer.cancel();
-//	    	}
-//	        atomX = shooter.getX();
-//	        shootingObject.setX(atomX);
-	        System.out.println(Thread.currentThread().getName()+" TimerTask started");
+	        atomX = shooter.getX();
+	        shootingObject.setX(atomX);
+
 			
 		}
 		else {
@@ -503,10 +461,6 @@ public class Controller {
 				shooterX -=shooterMoveConstant;
 				
 			shooter.setX(shooterX);
-//			if(!shootingObject.isShooted()) {
-//				atomX = shooterX+shootingObject.getWidth();
-//				shootingObject.setX(atomX);
-//			}
 		}
 		else if(direction=="right") {
 			System.out.println("Move Shooter right");
@@ -514,11 +468,7 @@ public class Controller {
 				shooterX +=shooterMoveConstant;
 			}
 			shooter.setX(shooterX);
-//			if(!shootingObject.isShooted()) {
-//				atomX = shooterX+shootingObject.getWidth();
-//				shootingObject.setX(atomX);
 				
-//			}
 		}
 	}
 	
@@ -655,7 +605,6 @@ public class Controller {
 					((UIAtom) uiShootingObject).setAtomType(atom1.getType());
 				}
 				else {
-					// If there is no other atom. TODO Check this code later
 					atom = AtomFactory.getAtom(atom,temp);
 					System.out.println("temp:"+temp);
 					System.out.println(shootingObject.getType());
@@ -750,7 +699,7 @@ public class Controller {
 			if(getShootingObject().isShooted()) {
 				TimerTask timerTask = new UpdateAtomTask(getShootingObject(),Toolkit.getDefaultToolkit().getScreenSize(),(AtomShooter) getShooter());
 				setTimer(new Timer(true));
-				timer.scheduleAtFixedRate(timerTask, 0, 100);
+				timer.scheduleAtFixedRate(timerTask, 0, 40);
 				setPaused(false);
 			}
 		}
@@ -904,7 +853,6 @@ public class Controller {
 		 * @effects if the AtomShooter catches a powerup, increase the quantity of powerups and remove the powerup object from
 		 * the frame. 
 		 */
-//		UIShooter uishooter = (UIShooter) renderer.objects.get(1);
 		int x = (int) shooter.getX();
 		int y = (int) shooter.getY();
 		Rectangle2D r= new Rectangle2D.Double(x,y,shooter.getWidth(),shooter.getHeight());
@@ -1188,7 +1136,10 @@ public class Controller {
 		DBChoice = dBChoice;
 	}
 	public void getDatabaseChoice() {
-		if(frame.getDBGroup().getSelection().getActionCommand().equals("fileDB")) {
+		if(frame==null) {
+			this.setDBChoice("file");
+		}
+		else if(frame.getDBGroup().getSelection().getActionCommand().equals("fileDB")) {
 			System.out.println("The game will be saved into file");
 			this.setDBChoice("file");
 		}
@@ -1196,6 +1147,7 @@ public class Controller {
 			System.out.println("The game will be saved into mongo database");
 			this.setDBChoice("database");
 		}
+		
 		
 	}
 	

@@ -74,29 +74,10 @@ public class KuVid extends Canvas implements Runnable {
 	boolean keyB;
 	int atomRank;
 	int targetAtomRank;
-	double blenderX = WIDTH - shooterHeight*2+50;
-	double blenderY = HEIGHT - 4* shooterHeight;
-	
-	
-	//Molecule prototype
-//		Molecule alphaMol = new AlphaMolecule();
-//		Molecule betaMol = new BetaMolecule();
-//		Molecule sigmaMol = new SigmaMolecule();
-//		Molecule gammaMol = new GammaMolecule();
-//		
-//		UIMolecule alphaUI = new AlphaMoleculeUI();
-//		UIMolecule betaUI = new BetaMoleculeUI();
-//		UIMolecule sigmaUI = new SigmaMoleculeUI();
-//		UIMolecule gammaUI = new GammaMoleculeUI();
-	
-	
-
 	public static ArrayList<Atom> alphaList= new ArrayList<Atom>();
 	public static ArrayList<Atom> betaList= new ArrayList<Atom>();
 	public static ArrayList<Atom> sigmaList= new ArrayList<Atom>();
 	public static ArrayList<Atom> gammaList= new ArrayList<Atom>();
-
-	
 
 	public KuVid() {
 		/**
@@ -144,15 +125,6 @@ public class KuVid extends Canvas implements Runnable {
 			this.addKeyListener(new KeyListener() {
 				public void keyPressed(KeyEvent e) {
 					
-//					if(e.getKeyCode() != KeyEvent.VK_B 
-//							&& e.getKeyCode() != KeyEvent.VK_1 
-//							&& e.getKeyCode() != KeyEvent.VK_2 
-//							&& e.getKeyCode() != KeyEvent.VK_3 
-//							&& e.getKeyCode() != KeyEvent.VK_4) {
-//						controller.blenderObject(false, 0);
-//					}
-
-
 
 					switch (e.getKeyCode()) {
 					case KeyEvent.VK_UP:
@@ -267,13 +239,10 @@ public class KuVid extends Canvas implements Runnable {
 					default:
 						break;
 					}
-//					update();
-//					
 				}
 
 				@Override
 				public void keyReleased(KeyEvent arg0) {
-					// TODO Auto-generated method stub
 					
 				}
 
@@ -288,7 +257,6 @@ public class KuVid extends Canvas implements Runnable {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					// TODO Auto-generated method stub
 					username= window.getUsername().getText();
 					controller.setUsername(username);
 					showMessageDialog(null, "Logged in succesfully! Now you can load the game with L key!");
@@ -300,7 +268,6 @@ public class KuVid extends Canvas implements Runnable {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					// TODO Auto-generated method stub
 					controller.shieldClicked("eta");
 					
 				}
@@ -310,7 +277,6 @@ public class KuVid extends Canvas implements Runnable {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					// TODO Auto-generated method stub
 					controller.shieldClicked("lota");
 				}
 				
@@ -319,7 +285,6 @@ public class KuVid extends Canvas implements Runnable {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					// TODO Auto-generated method stub
 					controller.shieldClicked("theta");
 				}
 				
@@ -328,7 +293,6 @@ public class KuVid extends Canvas implements Runnable {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					// TODO Auto-generated method stub
 					controller.shieldClicked("zeta");
 				}
 				
@@ -355,7 +319,6 @@ public class KuVid extends Canvas implements Runnable {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					// TODO Auto-generated method stub
 					controller.switchToPowerup("+sigma");
 				}
 				
@@ -364,7 +327,6 @@ public class KuVid extends Canvas implements Runnable {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					// TODO Auto-generated method stub
 					controller.switchToPowerup("+gamma");
 				}
 				
@@ -408,7 +370,6 @@ public class KuVid extends Canvas implements Runnable {
 		double ns = 1000000000 / amountOfTicks;
 		double delta = 0;
 		long timer = System.currentTimeMillis();
-//		int frames = 0;
 		while (running) {
 			
 			long now = System.nanoTime();
@@ -420,13 +381,8 @@ public class KuVid extends Canvas implements Runnable {
 			}
 			if (running)
 				render();
-//			frames++;
-
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-//				System.out.println("FPS: " + frames);
-//				frames = 0;
-				//TODO If we want to continue game when time is up, we need to change this.
 				if(controller.getTime()==0) {
 					stop();
 				}
@@ -490,9 +446,6 @@ public class KuVid extends Canvas implements Runnable {
 	public GameObject getShootingObject() {
 		return controller.objects.get(0);
 	}
-//	public GameObject setShootingObject(GameObject obj) {
-//		obj.setType(type);
-//	}
 	public UIGameObject getUIShootingObject() {
 		return renderer.objects.get(0);
 	}
@@ -524,8 +477,6 @@ public class KuVid extends Canvas implements Runnable {
 			thread.stop();
 //			timerTask.cancel();
 			isPaused = true;
-
-//			timer.cancel();
 		}
 		controller.pauseGame();
 	}

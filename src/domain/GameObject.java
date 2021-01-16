@@ -12,7 +12,6 @@ public abstract class GameObject implements Serializable {
 	protected double x, y, velX, velY, rotationAngle,width,height;
 	
 
-	protected ID id;
 	String type;
 	double speed;
 	boolean isShooted;
@@ -68,13 +67,6 @@ public abstract class GameObject implements Serializable {
 
 	public void setType(String type) {
 		this.type = type;
-	}
-	public ID getId() {
-		return id;
-	}
-
-	public void setId(ID id) {
-		this.id = id;
 	}
 
 	public double getVelX() {

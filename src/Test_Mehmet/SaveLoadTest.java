@@ -2,7 +2,6 @@ package Test_Mehmet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.After;
 import org.junit.jupiter.api.Test;
 
 import domain.Controller;
@@ -47,7 +46,7 @@ class SaveLoadTest {
 		assertTrue(controller.getTime()==600);//Black-box return the initial settings.
 		
 		//Test difficulty / speed of the game TODO
-		assertTrue(controller.getSpeed()==10);//Black-box return the initial settings.
+		assertTrue(controller.getSpeed()==30);//Black-box return the initial settings.
 		
 		//Test username
 		assertTrue(controller.getUsername().equals("savetest"));//Black-box return the initial settings.

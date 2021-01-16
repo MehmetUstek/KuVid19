@@ -29,8 +29,6 @@ public class UpdateAtomTask extends TimerTask {
     	 width= d.getWidth()-200;
     	 velX= atom.getSpeed() * Math.sin(Math.toRadians(atom.getRotationAngle()));
     	 velY= atom.getSpeed() * Math.cos(Math.toRadians(180-atom.getRotationAngle()));
-//    	 x = shooter.getX()+ atom.getWidth()/2;
-//    	 y = shooter.getY() -atom.getHeight()*2;
     }
     @Override
     public void run() {
@@ -43,8 +41,6 @@ public class UpdateAtomTask extends TimerTask {
     		this.cancel();
     	}
     	if(atom.getY()> d.getHeight()+atom.getHeight()/2) {
-//    		atom.setX(x);
-//    		atom.setY(y);
     		atom.setShooted(false);
     		
     		this.cancel();

@@ -1,17 +1,16 @@
 package domain.molecule;
 
-import java.awt.Point;
-import java.awt.Shape;
-
-import domain.ID;
 import domain.atom.Atom;
-import ui.KuVid;
 
 
 public class SigmaMolecule extends Molecule{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public SigmaMolecule(){
-		this.setId(ID.SigmaMolecule);
 		this.setWidth((int) (Molecule.L/4));
 		this.setHeight((int) (Molecule.L/4));
 	}
@@ -49,11 +48,6 @@ public class SigmaMolecule extends Molecule{
 		
 	}
 	
-	@Override
-	public String toString() {
-		return "SigmaMolecule [width=" + width + ", height=" + height + ", x=" + x + ", y=" + y + ", id=" + id + "]";
-	}
-
 	@Override
 	public void move(double speed) {
 		this.setY(this.getY() + speed);

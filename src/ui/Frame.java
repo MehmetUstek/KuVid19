@@ -149,7 +149,6 @@ public class Frame extends Canvas {
 		statsWindow.setBounds((int) KuVid.WIDTH+10,10,150, (int) KuVid.HEIGHT*9/10);
 		statsWindow.setLayout(new GridLayout(0,2));
 		frame.setVisible(true);
-//		game.start();
 	}
 	
 	

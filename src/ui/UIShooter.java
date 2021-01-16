@@ -5,12 +5,11 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import javax.swing.ImageIcon;
 
 
 
-public class UIShooter extends UIGameObject implements ImageObserver{
+public class UIShooter extends UIGameObject {
 	
 	/**
 	 * 
@@ -68,11 +67,6 @@ public class UIShooter extends UIGameObject implements ImageObserver{
 		this.type = type;
 	}
 	
-	@Override
-	public boolean imageUpdate(Image arg0, int arg1, int arg2, int arg3, int arg4, int arg5) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 	public double getRotationAngle() {
 		return rotationAngle;
 	}

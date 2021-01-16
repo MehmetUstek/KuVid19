@@ -3,6 +3,10 @@ package domain.shooter;
 import domain.GameObject;
 
 public class AtomShooter extends GameObject{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String type;
 	double rotationAngle;
 	double speed;
