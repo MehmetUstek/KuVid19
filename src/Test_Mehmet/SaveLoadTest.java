@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.jupiter.api.Test;
 
 import domain.Controller;
-import domain.Save;
+import domain.SaveFile;
 import domain.atom.Atom;
 import ui.Renderer;
 import ui.UIAtom;
@@ -18,7 +18,7 @@ class SaveLoadTest {
 	 */
 	Renderer renderer= new Renderer();
 	Controller controller = new Controller(renderer, null);
-	Save save= new Save(controller);
+	SaveFile save= new SaveFile(controller);
 	@Test
 	void mustBeTrue() {
 		// I will use savetest.txt file for this test classes.

@@ -287,10 +287,10 @@ public class Controller {
 //		double x1= x + tempobject1.getDiameter();
 //		double y1= y+ tempobject1.getDiameter();
 		if(!tempobject1.isShooted()) {
-//			double rotation = Math.toRadians( objects.get(1).getRotationAngle());
+			double rotation = objects.get(1).getRotationAngle();
 //			rotation=rotation*rotationConstant;
-			double x2 = -objects.get(1).getHeight()*Math.sin(Math.toRadians(tempobject1.getRotationAngle()));
-			double y2 = objects.get(1).getHeight()*Math.cos(Math.toRadians(tempobject1.getRotationAngle()));
+			double x2 = -objects.get(1).getHeight()*Math.sin(Math.toRadians(rotation));
+			double y2 = objects.get(1).getHeight()*Math.cos(Math.toRadians(rotation));
 			x=objects.get(1).getX()-x2+tempobject1.getDiameter()/3;
 			y=objects.get(1).getY()-y2+objects.get(1).getHeight()-tempobject1.getHeight()+tempobject1.getDiameter()*2/3;
 			tempobject.setX(x);
@@ -437,8 +437,8 @@ public class Controller {
 //	        if(atom.getX()> WIDTH-atom.getDiameter()*2 && atom.getY()> HEIGHT-atom.getDiameter()*2) {
 //	    		timer.cancel();
 //	    	}
-	        atomX = shooter.getX();
-	        shootingObject.setX(atomX);
+//	        atomX = shooter.getX();
+//	        shootingObject.setX(atomX);
 	        System.out.println(Thread.currentThread().getName()+" TimerTask started");
 			
 		}
@@ -680,7 +680,7 @@ public class Controller {
 		
 //		GameObject shootingObject= getShootingObject();
 		if(getDBChoice().equals("file")) {
-			save= new SaveLoadAdapter(new Save(this));
+			save= new SaveLoadAdapter(new SaveFile(this));
 		}
 		else if(getDBChoice().equals("database")) {
 			save= new SaveLoadAdapter(new SaveDatabase(this));
@@ -698,7 +698,7 @@ public class Controller {
 			isLoaded= true;
 			if(save==null) {
 				if(getDBChoice().equals("file")) {
-					save = new SaveLoadAdapter(new Save(this));
+					save = new SaveLoadAdapter(new SaveFile(this));
 				}
 				else if(getDBChoice().equals("database")) {
 					save= new SaveLoadAdapter(new SaveDatabase(this));

@@ -29,7 +29,7 @@ import ui.molecule.UIMolecule;
  * @author MehmetUstek
  *
  */
-public class Save implements ISaveLoad {
+public class SaveFile implements ISaveLoad {
 	/**
 	 * OVERVIEW: This class is saver and loader class which uses JSON file to save and load the game.
 	 */
@@ -41,10 +41,10 @@ public class Save implements ISaveLoad {
 	ArrayList<GameObject> list;
 	Controller controller;
 	boolean isShooted;
-	Save instance;
+	SaveFile instance;
 	double speed;
 	double diameter= Controller.L/4;
-	public Save(Controller controller) {
+	public SaveFile(Controller controller) {
 		this.controller= controller;
 		this.username=controller.getUsername();
 		this.score=controller.getScore();

@@ -36,7 +36,7 @@ public class SaveDatabase implements ISaveLoad{
 	ArrayList<GameObject> list;
 	Controller controller;
 	boolean isShooted;
-	Save instance;
+	SaveFile instance;
 	double speed;
 	double diameter= Controller.L/4;
 	MongoCollection<Document> collection;
