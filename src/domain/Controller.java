@@ -202,7 +202,7 @@ public class Controller {
 					if(!frame.isBuildMode()) {
 						tempobject.setSpeed(speed/3);
 					}
-					if(tempobject.getY()> HEIGHT- tempobject.getHeight()*2) {
+					if(tempobject.getY()> HEIGHT- tempobject.getHeight()*3) {
 						double distance= getShooter().getX()-tempobject.getX();
 						if(distance <= tempobject.getWidth()*2) {
 							health -= WIDTH/ Math.abs(distance);
@@ -287,8 +287,12 @@ public class Controller {
 //		double x1= x + tempobject1.getDiameter();
 //		double y1= y+ tempobject1.getDiameter();
 		if(!tempobject1.isShooted()) {
-			x=objects.get(1).getX()-tempobject1.getDiameter()*2/3;
-			y=objects.get(1).getY()-tempobject1.getHeight();
+//			double rotation = Math.toRadians( objects.get(1).getRotationAngle());
+//			rotation=rotation*rotationConstant;
+			double x2 = -objects.get(1).getHeight()*Math.sin(Math.toRadians(tempobject1.getRotationAngle()));
+			double y2 = objects.get(1).getHeight()*Math.cos(Math.toRadians(tempobject1.getRotationAngle()));
+			x=objects.get(1).getX()-x2+tempobject1.getDiameter()/3;
+			y=objects.get(1).getY()-y2+objects.get(1).getHeight()-tempobject1.getHeight()+tempobject1.getDiameter()*2/3;
 			tempobject.setX(x);
 			tempobject.setY(y);
 		}
@@ -356,8 +360,11 @@ public class Controller {
 //		double x1= x + tempobject1.getDiameter();
 //		double y1= y+ tempobject1.getDiameter();
 		if(!tempobject1.isShooted()) {
-			x=objects.get(1).getX()-tempobject1.getWidth();
-			y=objects.get(1).getY()-tempobject1.getHeight()*2;
+			double rotation =objects.get(1).getRotationAngle();
+			double x2 = -objects.get(1).getHeight()*Math.sin(Math.toRadians(rotation));
+			double y2 = objects.get(1).getHeight()*Math.cos(Math.toRadians(rotation));
+			x=objects.get(1).getX()-x2-tempobject1.getWidth()/2;
+			y=objects.get(1).getY()-y2-tempobject1.getHeight()*3/2+objects.get(1).getHeight();
 			tempobject.setX(x);
 			tempobject.setY(y);
 			

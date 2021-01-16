@@ -66,12 +66,12 @@ public class UIPowerup extends UIGameObject implements ImageObserver{
 		image= image.getScaledInstance((int)getWidth(), (int)getHeight(), Image.SCALE_SMOOTH);
 		icon = new ImageIcon(image);
 		image = icon.getImage();
-		Rectangle2D r= new Rectangle2D.Double(x,y,getWidth(),getHeight());
-        double cx= r.getCenterX();
-        double cy= r.getCenterY();
+//		Rectangle2D r= new Rectangle2D.Double(x,y,getWidth(),getHeight());
+//        double cx= r.getCenterX();
+//        double cy= r.getCenterY();
 //        at.setToIdentity();
 //		at.translate(cx,cy);
-		g.drawImage(image, (int) cx,(int) cy, new Canvas());
+		g.drawImage(image, (int) x,(int) y, new Canvas());
 		
 	}
 	public String getPUType() {

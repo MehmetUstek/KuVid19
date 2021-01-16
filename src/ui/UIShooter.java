@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Canvas;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
@@ -26,19 +27,17 @@ public class UIShooter extends UIGameObject implements ImageObserver{
 
 
 
-	public UIShooter(String type,double width, double height) {
+	public UIShooter(String type) {
 		// TODO Auto-generated constructor stub
 		super();
 		this.type=type;
-		this.width=width;
-		this.height=height;
+		this.width=getWidth();
+		this.height=getHeight();
 	}
 
 
 
-	public double getHeight() {
-		return height;
-	}
+	
 
 
 
@@ -48,11 +47,16 @@ public class UIShooter extends UIGameObject implements ImageObserver{
 		ImageIcon icon = new ImageIcon(file);
 		image = icon.getImage();
 		at.setToIdentity();
+		icon= new ImageIcon(image);
+		image= icon.getImage();
+		image= image.getScaledInstance((int)getWidth(), (int)getHeight(), Image.SCALE_SMOOTH);
+		icon = new ImageIcon(image);
+		image = icon.getImage();
 		double rotation = Math.toRadians(getRotationAngle());
-		at.rotate(rotation,x,y+getHeight());
+		at.rotate(rotation,x,y + icon.getIconHeight());
 		at.translate(x, y);
 		
-		g.drawImage(image, at, null);
+		g.drawImage(image, at, new Canvas());
 		
 	}
 
@@ -77,5 +81,33 @@ public class UIShooter extends UIGameObject implements ImageObserver{
 
 	public void setRotationAngle(double rotationAngle) {
 		this.rotationAngle = rotationAngle;
+	}
+	
+	public double getHeight() {
+		return super.getHeight();
+	}
+
+
+
+	@Override
+	public double getWidth() {
+		// TODO Auto-generated method stub
+		return super.getWidth();
+	}
+
+
+
+	@Override
+	public void setWidth(double width) {
+		// TODO Auto-generated method stub
+		super.setWidth(width);
+	}
+
+
+
+	@Override
+	public void setHeight(double height) {
+		// TODO Auto-generated method stub
+		super.setHeight(height);
 	}
 }

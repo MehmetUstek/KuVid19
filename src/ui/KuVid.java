@@ -11,13 +11,17 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
+import javax.swing.Timer;
+
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+
 import domain.Controller;
 import domain.GameObject;
 import domain.atom.Atom;
 import domain.blender.Blender;
 import domain.shooter.AtomShooter;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  * @author MehmetUstek
@@ -41,16 +45,15 @@ public class KuVid extends Canvas implements Runnable {
 	double shooterHeight = L;
 	double diameter= L/10;
 	double speed= L;
-	double shooterX= WIDTH/2;
-	double shooterY =HEIGHT - shooterHeight*2;
-	double atomX = shooterX + diameter/2;
-	double atomY = shooterY/2 - diameter*2;
+	double shooterX;
+	double shooterY;
+	double atomX;
+	double atomY;
 	private boolean isPaused = false;
 	
 //	private boolean atomShooted=false;
 	Random random = new Random();
 	Timer timer;
-	TimerTask timerTask;
 	double shooterRotationAngle=0;
 	double rotationConstant = 10;
 	double atomSpeed=L/5;
@@ -63,7 +66,7 @@ public class KuVid extends Canvas implements Runnable {
 	
 	//Shooter
 	AtomShooter shooter = new AtomShooter("shooter");
-	UIShooter shooterui = new UIShooter("shooter",diameter*2,diameter/2);
+	UIShooter shooterui = new UIShooter("shooter");
 	
 	//Blender
 	Blender blender = new Blender();
@@ -110,8 +113,7 @@ public class KuVid extends Canvas implements Runnable {
 			
 			// Atom settings.
 			shootingObject.setDiameter(20);
-			shootingObject.setX(atomX);
-			shootingObject.setY(atomY);
+			
 			shootingObject.setSpeed(atomSpeed);
 			shootingObject.setRotationAngle(shooterRotationAngle);
 			atomui.setDiameter(20);
@@ -121,14 +123,20 @@ public class KuVid extends Canvas implements Runnable {
 			
 			
 			// Shooter Settings.
-			shooter.setWidth(shooterHeight /2);
-			shooter.setHeight(shooterHeight);
+			shooter.setWidth(shooterHeight *7/16);
+			shooter.setHeight(shooterHeight*7/4);
+			shooterX= WIDTH/2;
+			shooterY =HEIGHT - shooter.getHeight()*11.5/10;
 			shooter.setX(shooterX);
 			shooter.setY(shooterY);
 			shooter.setRotationAngle(shooterRotationAngle);
-			shooterui.setWidth(shooterHeight /2 );
-			shooterui.setHeight(shooterHeight);
+			shooterui.setWidth(shooterHeight *7/16 );
+			shooterui.setHeight(shooterHeight*7/4);
 			
+			atomX = shooterX + diameter/2;
+			atomY = shooterY/2 - diameter*2;
+			shootingObject.setX(atomX);
+			shootingObject.setY(atomY);
 			renderer.addObject(shooterui);
 			controller.addObject(shooter);
 			
@@ -194,15 +202,65 @@ public class KuVid extends Canvas implements Runnable {
 						break;
 					case  KeyEvent.VK_1:
 						controller.blenderObject(controller.keyB, 1);
+						if(controller.keyB==false) {
+							JOptionPane optionPane = new JOptionPane("Successful!",JOptionPane.INFORMATION_MESSAGE);
+							JDialog dialog = optionPane.createDialog("Blender");
+							dialog.setModal(false);
+							dialog.setVisible(true); // to visible the dialog
+							new Timer(1000, new ActionListener() {
+			                    @Override
+			                    public void actionPerformed(ActionEvent e) {
+			                        dialog.setVisible(false);
+			                    }
+			                }).start();
+						}
 						break;
 					case  KeyEvent.VK_2:
 						controller.blenderObject(controller.keyB, 2);
+						if(controller.keyB==false) {
+							JOptionPane optionPane = new JOptionPane("Successful!",JOptionPane.INFORMATION_MESSAGE);
+							JDialog dialog = optionPane.createDialog("Blender");
+							dialog.setModal(false);
+							dialog.setVisible(true); // to visible the dialog
+							new Timer(1000, new ActionListener() {
+			                    @Override
+			                    public void actionPerformed(ActionEvent e) {
+			                        dialog.setVisible(false);
+			                    }
+			                }).start();
+						}
 						break;
 					case  KeyEvent.VK_3:
+						
 						controller.blenderObject(controller.keyB, 3);
+						if(controller.keyB==false) {
+							JOptionPane optionPane = new JOptionPane("Successful!",JOptionPane.INFORMATION_MESSAGE);
+							JDialog dialog = optionPane.createDialog("Blender");
+							dialog.setModal(false);
+							dialog.setVisible(true); // to visible the dialog
+							new Timer(1000, new ActionListener() {
+			                    @Override
+			                    public void actionPerformed(ActionEvent e) {
+			                        dialog.setVisible(false);
+			                    }
+			                }).start();
+						}
+						
 						break;
 					case  KeyEvent.VK_4:
 						controller.blenderObject(controller.keyB, 4);
+						if(controller.keyB==false) {
+							JOptionPane optionPane = new JOptionPane("Successful!",JOptionPane.INFORMATION_MESSAGE);
+							JDialog dialog = optionPane.createDialog("Blender");
+							dialog.setModal(false);
+							dialog.setVisible(true); // to visible the dialog
+							new Timer(1000, new ActionListener() {
+			                    @Override
+			                    public void actionPerformed(ActionEvent e) {
+			                        dialog.setVisible(false);
+			                    }
+			                }).start();
+						}
 						break;
 
 						
@@ -233,6 +291,7 @@ public class KuVid extends Canvas implements Runnable {
 					// TODO Auto-generated method stub
 					username= window.getUsername().getText();
 					controller.setUsername(username);
+					showMessageDialog(null, "Logged in succesfully! Now you can load the game with L key!");
 				}
 				
 			});
@@ -243,6 +302,7 @@ public class KuVid extends Canvas implements Runnable {
 				public void actionPerformed(ActionEvent arg0) {
 					// TODO Auto-generated method stub
 					controller.shieldClicked("eta");
+					
 				}
 				
 			});

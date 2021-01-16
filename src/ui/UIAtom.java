@@ -31,8 +31,8 @@ public class UIAtom extends UIGameObject implements ImageObserver{
 		super();
 		this.atomType=atomType;
 		this.diameter= getDiameter();
-		this.width=diameter;
-		this.height=diameter;
+		this.width=diameter*2;
+		this.height=diameter*2;
 	}
 
 	
@@ -85,14 +85,14 @@ public class UIAtom extends UIGameObject implements ImageObserver{
 		image= image.getScaledInstance((int)getWidth(), (int)getHeight(), Image.SCALE_SMOOTH);
 		icon = new ImageIcon(image);
 		image = icon.getImage();
-		Rectangle2D r= new Rectangle2D.Double(x,y,getWidth(),getHeight());
-        double cx= r.getCenterX();
-        double cy= r.getCenterY();
+//		Rectangle2D r= new Rectangle2D.Double(x,y,getWidth(),getHeight());
+//        double cx= r.getCenterX();
+//        double cy= r.getCenterY();
 //        at.setToIdentity();
 //		at.translate(cx,cy);
 //		Rectangle2D r= new Rectangle2D.Double(x,y,getDiameter(),getDiameter());
 //		g.drawImage(image,(int) x,(int) y, new Canvas());
-		g.drawImage(image,(int) cx,(int) cy,new Canvas());
+		g.drawImage(image,(int) x,(int) y,new Canvas());
 		
 		
 	}

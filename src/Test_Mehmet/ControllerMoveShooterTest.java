@@ -20,7 +20,7 @@ class ControllerMoveShooterTest {
 		renderer.addObject(new UIAtom("alpha"));
 		controller.addObject(new Atom("alpha"));
 		controller.addObject(new AtomShooter(""));
-		renderer.addObject(new UIShooter(null, 10, 10));
+		renderer.addObject(new UIShooter(null));
 		controller.moveShooter((AtomShooter) controller.getShooter(), controller.getShootingObject(), "right");
 		
 		//Set shooter's position (x) to 10.

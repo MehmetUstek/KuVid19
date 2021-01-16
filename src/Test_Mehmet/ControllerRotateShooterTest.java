@@ -23,7 +23,7 @@ class ControllerRotateShooterTest {
 		renderer.addObject(new UIAtom("alpha"));
 		controller.addObject(new Atom("alpha"));
 		controller.addObject(new AtomShooter(""));
-		renderer.addObject(new UIShooter(null, 10, 10));
+		renderer.addObject(new UIShooter(null));
 		
 		//Black-box rotate shooter right.
 		controller.rotateShooter((AtomShooter) controller.getShooter(), controller.getShootingObject(), "right");

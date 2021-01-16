@@ -10,12 +10,9 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.Random;
-
+import static javax.swing.JOptionPane.showMessageDialog;
 import domain.Controller;
 import domain.GameObject;
-import domain.Save;
-import domain.SaveDatabase;
-import domain.SaveLoadAdapter;
 import domain.atom.Atom;
 import domain.molecule.Molecule;
 import domain.molecule.MoleculeFactory;
@@ -136,7 +133,7 @@ public class BuildMode extends Canvas implements Runnable {
 		uiatom.setX(10);
 		uiatom.setY(10);
 		renderer.addObject(uiatom);
-		renderer.addObject(new UIShooter("shooter",1,1));
+		renderer.addObject(new UIShooter("shooter"));
 		
 		
 		window.getQuitButton().addActionListener(new ActionListener() {
@@ -164,6 +161,7 @@ public class BuildMode extends Canvas implements Runnable {
 				controller.saveGame();
 				
 				System.out.println(username);
+				showMessageDialog(null,"Builded Successfully. You can quit build mode and play game now!");
 				
 			}
 		});
