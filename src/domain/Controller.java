@@ -42,7 +42,7 @@ public class Controller {
 	private int time, lives = 3, initialMoleculeCount,health=100;
 	private double score= 0;
 	private int alphaCount=100,betaCount=100,sigmaCount=100,gammaCount=100;
-	private int alphaPUCount=20,betaPUCount=20,sigmaPUCount=20,gammaPUCount=20;
+	private int alphaPUCount=2,betaPUCount=2,sigmaPUCount=2,gammaPUCount=2;
 	private int etaCount=20,lotaCount=20,thetaCount=20,zetaCount=20;
 	public ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	Frame frame;
